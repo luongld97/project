@@ -43,7 +43,7 @@
 						</a>
 						<ul class="children collapse ${(currentTab == 'author'|| currentTab == 'singer') ? 'in' : '' }" id="sub-item-1">
 								<li><a ${currentTab == 'singer' ? 'class="active"' : '' }  href="#"><span>&nbsp;&nbsp;&nbsp;</span>Singer</a></li>
-								<li><a ${currentTab == 'author' ? 'class="active"' : '' } href="#"><span>&nbsp;&nbsp;&nbsp;</span>Author</a></li>
+								<li><a ${currentTab == 'author' ? 'class="active"' : '' } href="<c:url value="/admin/author.html"/>"><span>&nbsp;&nbsp;&nbsp;</span>Author</a></li>
 						</ul>
 					</li>
 					<li>

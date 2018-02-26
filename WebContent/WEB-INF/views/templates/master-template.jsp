@@ -20,8 +20,9 @@
 	<tiles:insertAttribute name="top-second-bar" />
 	<tiles:insertAttribute name="content" />
 	<tiles:insertAttribute name="footer" />
-	<script
-		src="${pageContext.request.contextPath }/assets/js/bootstrap.min.js"
-		type="text/javascript" async></script>
+	
 </body>
+<script src="${pageContext.request.contextPath }/assets/js/jquery-3.2.1.min.js"></script>
+	<script src="${pageContext.request.contextPath }/assets/js/jquery.js" type="text/javascript"></script>
+	<script src="${pageContext.request.contextPath }/assets/js/bootstrap.min.js" type="text/javascript"></script>
 </html>

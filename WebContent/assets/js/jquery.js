@@ -17,3 +17,9 @@ $(document).ready(function(){
 		bgRegister.addClass("bg-is-selected");
 	});
 });
+
+$(document).ready(function(){
+	$("#dropdown-logged").click(function(){
+		$("#open-toggle").toggle();
+	});
+});

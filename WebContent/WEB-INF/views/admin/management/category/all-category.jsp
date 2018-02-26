@@ -21,7 +21,7 @@
 				<tr>
 					<th>ID</th>
 					<th>Content</th>
-					<th></th>
+					<th>Option</th>
 				</tr>
 			</thead>
 
