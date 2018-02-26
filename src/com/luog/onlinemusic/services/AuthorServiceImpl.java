@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.luog.onlinemusic.dao.AuthorDAO;
 import com.luog.onlinemusic.entity.commons.Author;
+import com.luog.onlinemusic.entity.rest.AuthorEntity;
 
 @Transactional
 @Service("authorService")
@@ -40,6 +41,11 @@ public class AuthorServiceImpl implements AuthorService {
 	@Override
 	public boolean delete(Author author) {
 		return authorDAO.delete(author);
+	}
+
+	@Override
+	public List<AuthorEntity> getSongAuthor(Author author) {
+		return authorDAO.getSongAuthor(author);
 	}
 
 }

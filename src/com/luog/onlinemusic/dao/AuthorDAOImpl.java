@@ -8,10 +8,14 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.luog.onlinemusic.entity.commons.Author;
+import com.luog.onlinemusic.entity.commons.PlayList;
+import com.luog.onlinemusic.entity.rest.AuthorEntity;
+import com.luog.onlinemusic.entity.rest.PlayListEntity;
 
 @Repository("authorDAO")
 public class AuthorDAOImpl implements AuthorDAO {
@@ -134,5 +138,34 @@ public class AuthorDAOImpl implements AuthorDAO {
 		}
 		return result;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<AuthorEntity> getSongAuthor(Author author) {
+		List<AuthorEntity> authorEntities = null;
+		Session session = null;
+		Transaction transaction = null;
+		Query query = null;
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			query = session.createQuery("SELECT a.id as authorId, a.name as authorName, so.id as songId, "
+								+ "so.name as songName, so.lyric as songLyric, so.link as songLink "
+								+ "FROM Author a, Song so, AuthorDetail ad "
+								+ "WHERE ad.author = a AND ad.song = so AND a = :author").setParameter("author", author)
+						.setResultTransformer(Transformers.aliasToBean(AuthorEntity.class));
+			authorEntities = query.list();
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			authorEntities = new ArrayList<>();
+			if (transaction != null)
+				transaction.rollback();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return authorEntities;
+	}
+
 
 }

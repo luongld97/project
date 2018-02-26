@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.luog.onlinemusic.entity.commons.Author;
-import com.luog.onlinemusic.entity.commons.Author;
+import com.luog.onlinemusic.entity.rest.AuthorEntity;
 import com.luog.onlinemusic.services.AuthorService;
 
 @RestController
@@ -102,7 +102,18 @@ public class AuthorRestController {
 		}
 	}
 	
-	
+	@RequestMapping(value ="getsongauthor/{authorId}", 
+			method = RequestMethod.GET, 
+			produces = MimeTypeUtils.APPLICATION_JSON_VALUE, 
+			headers  = "Accept=application/json")
+	public ResponseEntity<List<AuthorEntity>> getSongAuthor(@PathVariable("authorId") int authorId){
+		try {
+			return new ResponseEntity<List<AuthorEntity>>(authorService.getSongAuthor(authorService.find(authorId)), HttpStatus.OK);
+			
+		} catch (Exception e) {
+			return new  ResponseEntity<List<AuthorEntity>>(HttpStatus.BAD_REQUEST);
+		}
+	}
 	
 
 }
