@@ -27,6 +27,9 @@ public class AdminCategoryManagementController {
 	@Autowired
 	private CategoryService categoryService;
 
+	@Autowired
+	private CategoryValidator categoryValidator;
+	
 	@RequestMapping(value = { "", "allcategory", "index" }, method = RequestMethod.GET)
 	public String allCategory(ModelMap modelMap, HttpServletRequest request) {
 		List<Category> categories = categoryService.findAll();
@@ -50,7 +53,6 @@ public class AdminCategoryManagementController {
 	@RequestMapping(value = { "addcategory" }, method = RequestMethod.POST)
 	public String addCategoryAction(@ModelAttribute("category") @Valid Category temp, BindingResult bindingResult,
 			ModelMap modelMap) {
-		CategoryValidator categoryValidator = new CategoryValidator();
 		categoryValidator.validate(temp, bindingResult);
 		if (bindingResult.hasErrors()) {
 			return "admin.category.addcategory";
@@ -70,7 +72,6 @@ public class AdminCategoryManagementController {
 	@RequestMapping(value = { "updatecategory" }, method = RequestMethod.POST)
 	public String updateCategoryAction(@ModelAttribute("category") @Valid Category temp, BindingResult bindingResult,
 			ModelMap modelMap) {
-		CategoryValidator categoryValidator = new CategoryValidator();
 		categoryValidator.validate(temp, bindingResult);
 		if (bindingResult.hasErrors()) {
 			return "admin.category.updatecategory";
