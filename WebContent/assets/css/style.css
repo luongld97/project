@@ -1,0 +1,716 @@
+/******************************************************************
+For All
+******************************************************************/
+a {
+	text-decoration: none !important;
+}
+
+.mb-0 {
+	margin-bottom: 0px !important;
+}
+
+.mb-1 {
+	margin-bottom: 0px !important;
+}
+
+.mb-1 {
+	margin-bottom: 10px !important;
+}
+
+.mb-2 {
+	margin-bottom: 20px !important;
+}
+
+.mb-3 {
+	margin-bottom: 30px !important;
+}
+
+.mb-10 {
+	margin-bottom: 100px !important;
+}
+
+.mt-1 {
+	margin-top: 10px !important;
+}
+
+.mt-2 {
+	margin-top: 20px !important;
+}
+
+.mt-3 {
+	margin-top: 30px !important;
+}
+
+.ml-4 {
+	margin-left: 40px !important;
+}
+
+.mr-2 {
+	margin-right: 20px !important;
+}
+
+.ml-4 {
+	margin-left: 40px !important;
+}
+
+.mr-2 {
+	margin-right: 20px !important;
+}
+
+.float-right {
+	float: right !important;
+}
+
+.float-left {
+	float: left !important;
+}
+
+.sm-alert {
+	padding: 4px 10px 4px 10px;
+	margin-bottom: 15px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+
+.pl-0 {
+	padding-left: 0px !important;
+}
+
+.pr-0 {
+	padding-right: 0px !important;
+}
+
+h3 {
+	margin: 10px 0px 10px 0px !important;
+}
+
+.full-width {
+	width: 100%;
+}
+
+.custom-file {
+	position: relative;
+	width: 100%;
+}
+
+.custom-file-input {
+	position: relative;
+	width: 100%;
+	margin: 0;
+	opacity: 0;
+}
+
+.custom-file-label {
+	position: absolute;
+	right: 0;
+	left: 0;
+	padding: 6px;
+	color: #495057;
+	background-color: #fff;
+	border: 1px solid #ced4da;
+	border-radius: 0 4px 4px 0;
+}
+
+/*************************************
+Header
+*************************************/
+.top-first-bar {
+	background-color: black;
+}
+
+.search-control {
+	margin-top: 11px;
+}
+
+.login {
+	font-size: 18px;
+	margin-top: 16px;
+	text-align: right;
+}
+
+.login a {
+	color: red;
+}
+
+.login a:hover {
+	color: purple;
+}
+
+.top-second-bar {
+	background-color: lightgray;
+}
+
+.navbar-item {
+	padding: 10px 0px 10px 0px;
+	margin-right: 25px;
+	float: left;
+}
+
+.navbar-item a {
+	color: black;
+	font-size: 16px;
+}
+
+.navbar-item a:hover {
+	color: purple;
+}
+
+.navbar-item a:active {
+	color: red;
+}
+
+.plr0 {
+	padding: 0 !important;
+}
+/**************************************
+Body
+**************************************/
+.body-web {
+	background-color: #f2f2f2;
+}
+
+.bg-web {
+	background-color: #fff;
+}
+
+.image-view {
+	width: 100%;
+}
+
+/************************
+Body Left
+************************/
+.body-left {
+	padding: 0 !important;
+	margin: 15px 0px 15px 0px;
+}
+
+.list-item {
+	list-style-type: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+.item {
+	position: relative;
+	border-style: solid;
+	border-color: blue;
+	border-radius: 5px 10px;
+	border-width: 1px;
+	height: 80px;
+	margin-bottom: 5px;
+}
+
+.label-rank-top {
+	position: absolute;
+	top: 5px;
+	left: 0;
+	margin: 0 20px 0 20px;
+	color: darkgoldenrod;
+	font-size: 50px;
+}
+
+.label-status {
+	position: absolute;
+	top: 0;
+	left: 50px;
+	margin: 0 20px 0 20px;
+	color: black;
+	font-size: 50px;
+}
+
+.info-song {
+	position: absolute;
+	top: 15px;
+	left: 100px;
+	margin: 0 20px 0 20px;
+}
+
+.song-name {
+	color: red;
+	font-size: 18px;
+}
+
+.song-name:hover {
+	color: purple;
+}
+
+.singer-name {
+	color: gray;
+	font-size: 14px;
+}
+
+.singer-name:hover {
+	color: blue;
+}
+
+.singer-name2 {
+	color: blue;
+	font-size: 18px;
+}
+
+.singer-name2:hover {
+	color: goldenrod;
+}
+
+.time-top {
+	color: purple;
+}
+
+.tool-song {
+	position: absolute;
+	top: 22px;
+	right: 110px;
+	margin: 0 20px 0 20px;
+}
+
+.number-listen {
+	position: absolute;
+	top: 23px;
+	right: 0;
+	margin: 0 20px 0 20px;
+	text-align: center;
+	font-size: 25px;
+}
+
+.title-list-index {
+	color: purple;
+}
+/***********************
+Body Right
+***********************/
+.body-right {
+	padding: 0 !important;
+	margin: 15px 0 0px 0px;
+}
+
+.item-right h4 {
+	display: inline;
+}
+
+.title-chart {
+	position: relative;
+}
+
+.play-all-btn {
+	color: gray;
+	position: absolute;
+	top: -7px;
+	right: 25%;
+	font-size: 25px;
+}
+
+.play-all-btn:hover {
+	color: orange;
+}
+
+.text-view-more {
+	position: absolute;
+	top: 0px;
+	right: 0;
+	color: blue;
+}
+
+.text-view-more:hover {
+	color: orange;
+}
+
+.item-right {
+	margin: 10px 0 10px 0;
+}
+
+.item-chart {
+	position: relative;
+	border-style: solid;
+	border-color: darkgray;
+	border-radius: 4px;
+	border-width: 1px;
+	height: 60px;
+	margin-bottom: 5px;
+}
+
+.label-rank-chart {
+	position: absolute;
+	top: 10px;
+	left: 0;
+	margin: 0 20px 0 20px;
+	color: blue;
+	font-size: 30px;
+}
+
+.label-img {
+	position: absolute;
+	top: 5px;
+	left: -14px;
+	margin: 0 20px 0 20px;
+	color: blue;
+	font-size: 30px;
+	width: 50px;
+}
+
+.info-chart {
+	position: absolute;
+	top: 8px;
+	left: 40px;
+	margin: 0 20px 0 20px;
+}
+
+.song-name-chart {
+	color: darkgreen;
+	font-size: 14px;
+}
+
+.song-name-chart:hover {
+	color: purple;
+}
+
+.singer-name-chart {
+	color: gray;
+	font-size: 12px;
+}
+
+.singer-name-chart:hover {
+	color: blue;
+}
+
+.tool-chart {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+}
+
+/****************************************
+Footer
+****************************************/
+.footer {
+	background: #222428;
+	text-align: center;
+	color: #fff;
+	font-size: 20px;
+	padding: 20px 0 20px 0;
+}
+
+/************************************************************************
+Play HTML
+************************************************************************/
+.margin-top-20 {
+	margin-top: 20px;
+}
+
+.play-song {
+	width: 100%;
+	height: auto;
+}
+
+.btn-tool {
+	position: relative;
+}
+
+.listen-time {
+	font-size: 25px;
+	position: absolute;
+	top: 1px;
+	right: 0;
+}
+
+.listen-time img {
+	position: absolute;
+	top: 9px;
+	right: 130px;
+}
+
+.info-play-song {
+	margin-top: 10px;
+}
+
+.avatar {
+	height: 80px;
+	border-radius: 50%;
+}
+
+.text-command {
+	width: 100%;
+	height: 80px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: black;
+	border-radius: 4px;
+}
+
+/*************************************************************************
+Login Register
+*************************************************************************/
+.image-view-login {
+	margin-top: 100px;
+	text-align: center;
+}
+
+.pd-login {
+	padding: 0 0 0 15px !important;
+}
+
+.pd-register {
+	padding: 0 15px 0 0 !important;
+}
+
+.bg-login {
+	background-color: lightgreen;
+	padding: 10px;
+	border-radius: 5px 0 0 5px;
+	border-color: green;
+	border-style: solid;
+	border-width: 3px 1.5px 3px 3px;
+	cursor: pointer;
+	color: black;
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.bg-register {
+	background-color: lightgreen;
+	padding: 10px;
+	border-radius: 0 5px 5px 0;
+	border-color: green;
+	border-style: solid;
+	border-width: 3px 3px 3px 1.5px;
+	cursor: pointer;
+	color: black;
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.bg-is-selected {
+	background-color: lightgreen !important;
+	text-shadow: 0 0 3px cyan, 0 0 5px blue;
+}
+
+.background-login-page {
+	background-image: url('../images/background-login-page.png');
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center center;
+	background-color: white;
+	background-size: cover;
+}
+
+.bg-form {
+	padding: 20px;
+	border-radius: 5px;
+	border-style: solid;
+	border-color: green;
+	border-width: 1.5px;
+	background-color: #f2f2f2;
+	margin-bottom: 150px;
+}
+
+/**************************************************************************************
+Play list
+**************************************************************************************/
+
+/*******************************
+Left
+*******************************/
+.ul-playlist b, .a-playlist b {
+	color: black;
+	font-size: 18px;
+	cursor: pointer;
+	padding: 5px 10px 5px 10px;
+}
+
+.ul-playlist b:hover, .a-playlist b:hover, .ul-playlist li a:hover {
+	color: blue !important;
+	text-shadow: 0 0 3px red;
+}
+
+.pl-selected {
+	color: red !important;
+	font-weight: bold;
+}
+
+.ul-playlist li {
+	margin-top: 5px;
+	padding: 3px;
+}
+
+.ul-playlist li a {
+	color: grey;
+	font-size: 16px;
+	padding: 5px 10px 5px 10px;
+}
+
+/*******************************
+Right
+*******************************/
+.pl-title-top {
+	color: purple;
+}
+
+.pl-new-playlist span {
+	margin-right: 10px;
+	margin-left: 10px;
+}
+
+.pl-new-playlist {
+	font-size: 20px;
+	color: blue;
+}
+
+.pl-new-playlist:hover {
+	color: orange;
+}
+
+.pl-new-playlist:active {
+	color: red;
+}
+
+.pl-my-playlist {
+	height: 100px;
+	position: relative;
+}
+
+.pl-avatar-img {
+	width: 100px;
+}
+
+.pl-info {
+	position: absolute;
+	top: 15px;
+	left: 130px;
+}
+
+.playlist-name a {
+	font-weight: bold;
+	font-size: 18px;
+	color: black;
+}
+
+.playlist-name a:hover {
+	color: orange;
+}
+
+.playlist-name a:active {
+	color: red;
+}
+
+.playlist-create-time, .playlist-listen-time, .number-song {
+	color: gray;
+}
+
+.pl-number-song {
+	position: absolute;
+	top: 40px;
+	left: 350px;
+}
+
+.pl-tool {
+	position: absolute;
+	top: 32px;
+	right: 0px;
+}
+
+.playlist-btn {
+	color: gray;
+	font-size: 30px;
+	background: none;
+	border-style: none;
+	margin-left: 20px;
+}
+
+.playlist-btn-sm {
+	color: gray;
+	font-size: 15px;
+	background: none;
+	border-style: none;
+	margin-left: 20px;
+}
+
+.playlist-btn:hover, .playlist-btn-sm:hover {
+	color: orange !important;
+	cursor: pointer;
+}
+
+.playlist-btn:active, .playlist-btn-sm:active {
+	color: red !important;
+}
+
+.playlist-btn:visited, .playlist-btn-sm:visited {
+	color: gray;
+}
+
+.pl-playlist-item {
+	background: #f2f2f2;
+	height: 40px;
+	padding: 10px 20px 10px 10px;
+	font-size: 15px;
+	border-style: solid;
+	border-width: 0px 1px 1px 1px;
+	border-color: gray;
+}
+
+.lyric-f2 {
+	border-width: 0px 0.5px 0.5px 0.5px;
+	border-color: rgb(185, 222, 250);
+}
+
+.lyric-f2 {
+	background: #f2f2f2;
+	padding: 15px;
+	border-radius: 4px;
+}
+
+.pl-playlist-item-boder-top {
+	border-width: 1px;
+}
+
+.play-this-song {
+	cursor: pointer;
+}
+
+.pl-playlist-sing, .play-this-song {
+	color: gray;
+}
+
+.play-this-song:hover, .pl-playlist-sing:hover {
+	color: blue;
+}
+
+.play-this-song:active, .pl-playlist-sing:active {
+	color: purple;
+}
+
+.play-this-song:visited, .pl-playlist-sing:visited {
+	
+}
+
+.pl-playlist-item-boder-top {
+	border-width: 1px;
+}
+
+.play-this-song {
+	cursor: pointer;
+}
+
+.pl-playlist-sing, .play-this-song {
+	color: gray;
+}
+
+.play-this-song:hover, .pl-playlist-sing:hover {
+	color: blue;
+}
+
+.play-this-song:active, .pl-playlist-sing:active {
+	color: purple;
+}
+
+.play-this-song:visited, .pl-playlist-sing:visited {
+	color: gray;
+}
+
+.playing-song {
+	color: blue;
+	background: lightgray;
+}
+
+.playing-song .playing-song-text-color {
+	color: #30A5FF;
+}

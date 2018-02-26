@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+	<definition name="authentication.template"
+		template="/WEB-INF/views/admin/templates/authentication-template.jsp" />
+	<definition name="authentication.login" extends="authentication.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/authentication/login.jsp" />
+	</definition>
+
+	<definition name="authentication.accessdenied" extends="authentication.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/authentication/403.jsp" />
+	</definition>
+
+	<definition name="admin.master.template"
+		template="/WEB-INF/views/admin/templates/master-template-admin.jsp">
+		<put-attribute name="nav-bar"
+			value="/WEB-INF/views/admin/templates/nav-bar.jsp" />
+		<put-attribute name="side-bar"
+			value="/WEB-INF/views/admin/templates/side-bar.jsp" />
+	</definition>
+
+	<definition name="admin.home.index" extends="admin.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/home/index.jsp" />
+	</definition>
+
+	<definition name="admin.management.account" extends="admin.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/management/account/account.jsp" />
+	</definition>
+	<!-- Song management area -->
+	<definition name="admin.song.index" extends="admin.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/management/song/index.jsp" />
+	</definition>
+
+	<definition name="admin.song.allsong" extends="admin.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/management/song/all-song.jsp" />
+	</definition>
+	<definition name="admin.song.addsong" extends="admin.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/management/song/add-song.jsp" />
+	</definition>
+	
+	<definition name="admin.song.updatesong" extends="admin.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/management/song/update-song.jsp" />
+	</definition>
+
+	<!-- End song management area -->
+
+	<definition name="admin.management.song.add" extends="admin.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/management/song/add.jsp" />
+	</definition>
+	
+	<!-- Begin category management area -->
+	
+	<definition name="admin.category.allcategory" extends="admin.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/management/category/all-category.jsp" />
+	</definition>
+	
+	
+	<definition name="admin.category.addcategory" extends="admin.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/management/category/add-category.jsp" />
+	</definition>
+	
+	<definition name="admin.category.updatecategory" extends="admin.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/management/category/update-category.jsp" />
+	</definition>
+	
+	<!-- End category management area -->
+	
+	
+	<!-- Begin author management area -->
+	
+	<definition name="admin.author.allauthor" extends="admin.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/management/author/all-author.jsp" />
+	</definition>
+	
+	
+	<definition name="admin.author.addauthor" extends="admin.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/management/author/add-author.jsp" />
+	</definition>
+	
+	<definition name="admin.author.updateauthor" extends="admin.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/management/author/update-author.jsp" />
+	</definition>
+	
+	<!-- End author management area -->
+	
+	<!-- Begin singer management area -->
+	
+	<definition name="admin.singer.allsinger" extends="admin.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/management/singer/all-singer.jsp" />
+	</definition>
+	
+	
+	<definition name="admin.singer.addsinger" extends="admin.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/management/singer/add-singer.jsp" />
+	</definition>
+	
+	<definition name="admin.singer.updatesinger" extends="admin.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/management/singer/update-singer.jsp" />
+	</definition>
+	
+	<!-- End singer management area -->
+	
+</tiles-definitions>

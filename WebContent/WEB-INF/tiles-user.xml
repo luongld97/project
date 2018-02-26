@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+	<definition name="user.master.template"
+		template="/WEB-INF/views/templates/master-template.jsp">
+		<put-attribute name="top-first-bar"
+			value="/WEB-INF/views/templates/top-first-bar.jsp" />
+		<put-attribute name="top-second-bar"
+			value="/WEB-INF/views/templates/top-second-bar.jsp" />
+		<put-attribute name="footer"
+			value="/WEB-INF/views/templates/footer.jsp" />
+	</definition>
+	<definition name="home.index" extends="user.master.template">
+		<put-attribute name="content" value="/WEB-INF/views/home/index.jsp" />
+	</definition>
+	<definition name="song.play" extends="user.master.template">
+		<put-attribute name="content" value="/WEB-INF/views/song/play-song.jsp" />
+	</definition>
+	<definition name="list.song.play" extends="user.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/song/play-list-song.jsp" />
+	</definition>
+	<definition name="user.login" template="/WEB-INF/views/account/login_register.jsp"></definition>
+	<definition name="user.register" template="/WEB-INF/views/account/login_register.jsp"></definition>
+	<definition name="user.playlist" extends="user.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/account/play-list.jsp" />
+	</definition>
+</tiles-definitions>

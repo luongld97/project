@@ -1,0 +1,50 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+	<beans:bean id="passwordEncoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+		<beans:constructor-arg name="strength" value="12" />
+	</beans:bean>
+
+	<http auto-config="true" use-expressions="true">
+		<intercept-url pattern="/admin/**" access="hasAnyRole('admin', 'super_admin')" />
+		<access-denied-handler error-page="/authentication/403.html" />
+		<form-login login-page="/authentication/login.html"
+			default-target-url="/admin/home.html" 
+			login-processing-url="/authentication/logging.html"
+			always-use-default-target="false" 
+			authentication-failure-url="/authentication/login.html?error"
+			username-parameter="username" 
+			password-parameter="password" />
+		<logout logout-success-url="/authentication/login.html?logout"
+			delete-cookies="true" />
+	</http>
+	
+	<!-- <http auto-config="true" use-expressions="true">
+		<intercept-url pattern="/" access="hasRole('user')" />
+		<access-denied-handler error-page="/authentication/403.html" />
+		<form-login login-page="/authentication/login.html"
+			default-target-url="/admin/home.html" 
+			login-processing-url="/authentication/logging"
+			always-use-default-target="false" 
+			authentication-failure-url="/authentication/login.html?error"
+			username-parameter="username" 
+			password-parameter="password" />
+		<logout logout-success-url="/authentication/login.html?logout"
+			delete-cookies="true" />
+	</http> -->
+
+	<authentication-manager>
+		<authentication-provider>
+			<jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query="SELECT username, password, status FROM account WHERE username = ?"
+				authorities-by-username-query="SELECT a.username, r.name FROM account a, role r WHERE a.role_id = r.id AND a.username = ?" />
+			<password-encoder ref="passwordEncoder" />
+		</authentication-provider>
+	</authentication-manager>
+</beans:beans>
