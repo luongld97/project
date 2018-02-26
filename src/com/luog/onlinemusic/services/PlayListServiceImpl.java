@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.luog.onlinemusic.dao.PlayListDAO;
 import com.luog.onlinemusic.entity.commons.Account;
 import com.luog.onlinemusic.entity.commons.PlayList;
+import com.luog.onlinemusic.entity.rest.PlayListEntity;
 
 @Transactional
 @Service("playListService")
@@ -49,6 +50,11 @@ public class PlayListServiceImpl implements PlayListService{
 	@Override
 	public List<PlayList> getUserPlayList(Account account) {
 		return playListDAO.getUserPlayList(account);
+	}
+
+	@Override
+	public List<PlayListEntity> getSongPlayList(PlayList playList) {
+		return playListDAO.getSongPlayList(playList);
 	}
 	
 	

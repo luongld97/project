@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.luog.onlinemusic.entity.commons.Account;
 import com.luog.onlinemusic.entity.commons.PlayList;
+import com.luog.onlinemusic.entity.rest.PlayListEntity;
 
 public interface PlayListDAO {
 	
@@ -18,4 +19,6 @@ public interface PlayListDAO {
 	public boolean delete(PlayList playList);
 	
 	public List<PlayList> getUserPlayList(Account account);
+	
+	public List<PlayListEntity> getSongPlayList(PlayList playList);
 }

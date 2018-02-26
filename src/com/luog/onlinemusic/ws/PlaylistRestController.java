@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.luog.onlinemusic.entity.commons.PlayList;
+import com.luog.onlinemusic.entity.rest.PlayListEntity;
 import com.luog.onlinemusic.services.PlayListService;
 
 @RestController
@@ -101,7 +102,18 @@ public class PlaylistRestController {
 		}
 	}
 	
-	
+	@RequestMapping(value ="getsongplaylist/{playListId}", 
+			method = RequestMethod.GET, 
+			produces = MimeTypeUtils.APPLICATION_JSON_VALUE, 
+			headers  = "Accept=application/json")
+	public ResponseEntity<List<PlayListEntity>> getSongPlayList(@PathVariable("playListId") int playListId){
+		try {
+			return new ResponseEntity<List<PlayListEntity>>(playlistService.getSongPlayList(playlistService.find(playListId)), HttpStatus.OK);
+			
+		} catch (Exception e) {
+			return new  ResponseEntity<List<PlayListEntity>>(HttpStatus.BAD_REQUEST);
+		}
+	}
 	
 
 }
