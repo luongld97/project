@@ -3,6 +3,7 @@ package com.luog.onlinemusic.dao;
 import java.util.List;
 
 import com.luog.onlinemusic.entity.commons.Album;
+import com.luog.onlinemusic.entity.commons.Song;
 import com.luog.onlinemusic.entity.rest.AlbumContainSong;
 import com.luog.onlinemusic.entity.rest.AlbumOfSinger;
 
@@ -26,4 +27,5 @@ public interface AlbumDAO {
 	public AlbumContainSong findSongByAlbum(int albumId);
 	
 	public List<AlbumContainSong> findSongByAlbums(int albumId);
+	
 }

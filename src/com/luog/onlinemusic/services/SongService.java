@@ -59,4 +59,9 @@ public interface SongService {
 
 	
 	public List<Song> randomSong(int limit);
+	
+	/**
+	 * @author luog
+	 */
+	List<SongEntity> findSongEntities(String keyWord);
 }

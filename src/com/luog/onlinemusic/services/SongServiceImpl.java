@@ -252,4 +252,15 @@ public class SongServiceImpl implements SongService {
 		return songDAO.randomSong(limit);
 	}
 
+	/**
+	 * @author luog
+	 */
+	@Override
+	public List<SongEntity> findSongEntities(String keyWord) {
+		return songDAO.findSongEntities(keyWord);
+	}
+	
+	
+	
+
 }

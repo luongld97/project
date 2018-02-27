@@ -2,7 +2,6 @@ package com.luog.onlinemusic.entity.rest;
 
 import java.io.Serializable;
 
-@SuppressWarnings("serial")
 public class SongInfo implements Serializable{
 	private int songId;
 	private String songName;

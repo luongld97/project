@@ -29,6 +29,9 @@ public class AdminAuthorManagementController {
 
 	@Autowired
 	private AuthorService authorService;
+	
+	@Autowired
+	private AuthorValidator authorValidator;
 
 	@RequestMapping(value = { "", "allauthor", "index" }, method = RequestMethod.GET)
 	public String allCategory(ModelMap modelMap, HttpServletRequest request) {
@@ -53,7 +56,6 @@ public class AdminAuthorManagementController {
 	@RequestMapping(value = { "addauthor" }, method = RequestMethod.POST)
 	public String addCategoryAction(@ModelAttribute("author") @Valid Author temp, BindingResult bindingResult,
 			ModelMap modelMap) {
-		AuthorValidator authorValidator = new AuthorValidator();
 		authorValidator.validate(temp, bindingResult);
 		if (bindingResult.hasErrors()) {
 			return "admin.author.addauthor";
@@ -69,11 +71,10 @@ public class AdminAuthorManagementController {
 		modelMap.put("author", currentAuthor);
 		return "admin.author.updateauthor";
 	}
-	
+
 	@RequestMapping(value = { "updateauthor" }, method = RequestMethod.POST)
 	public String updateCategoryAction(@ModelAttribute("category") @Valid Author temp, BindingResult bindingResult,
 			ModelMap modelMap) {
-		AuthorValidator authorValidator = new AuthorValidator();
 		authorValidator.validate(temp, bindingResult);
 		if (bindingResult.hasErrors()) {
 			return "admin.author.updateauthor";
