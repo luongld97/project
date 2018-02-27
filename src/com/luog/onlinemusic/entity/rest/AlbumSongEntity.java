@@ -3,14 +3,13 @@ package com.luog.onlinemusic.entity.rest;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-public class SongInfo implements Serializable{
+public class AlbumSongEntity implements Serializable{
 	private int id;
 	private String name;
-	private int singerId;
-	private String singerName;
-	private String singerPhoto;
+	private int songId;
+	private String songName;
 	private String link;
-	private int albumId;
+	private String singerName;
 	private String lyric;
 	private boolean isVideo;
 	public int getId() {
@@ -25,23 +24,17 @@ public class SongInfo implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getSingerId() {
-		return singerId;
+	public int getSongId() {
+		return songId;
 	}
-	public void setSingerId(int singerId) {
-		this.singerId = singerId;
+	public void setSongId(int songId) {
+		this.songId = songId;
 	}
-	public String getSingerName() {
-		return singerName;
+	public String getSongName() {
+		return songName;
 	}
-	public void setSingerName(String singerName) {
-		this.singerName = singerName;
-	}
-	public String getSingerPhoto() {
-		return singerPhoto;
-	}
-	public void setSingerPhoto(String singerPhoto) {
-		this.singerPhoto = singerPhoto;
+	public void setSongName(String songName) {
+		this.songName = songName;
 	}
 	public String getLink() {
 		return link;
@@ -49,11 +42,11 @@ public class SongInfo implements Serializable{
 	public void setLink(String link) {
 		this.link = link;
 	}
-	public int getAlbumId() {
-		return albumId;
+	public String getSingerName() {
+		return singerName;
 	}
-	public void setAlbumId(int albumId) {
-		this.albumId = albumId;
+	public void setSingerName(String singerName) {
+		this.singerName = singerName;
 	}
 	public String getLyric() {
 		return lyric;
@@ -67,7 +60,7 @@ public class SongInfo implements Serializable{
 	public void setVideo(boolean isVideo) {
 		this.isVideo = isVideo;
 	}
-	public SongInfo() {
+	public AlbumSongEntity() {
 		super();
 	}
 	

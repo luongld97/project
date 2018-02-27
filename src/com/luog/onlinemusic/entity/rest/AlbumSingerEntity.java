@@ -3,16 +3,12 @@ package com.luog.onlinemusic.entity.rest;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-public class SongInfo implements Serializable{
+public class AlbumSingerEntity implements Serializable{
 	private int id;
 	private String name;
 	private int singerId;
 	private String singerName;
 	private String singerPhoto;
-	private String link;
-	private int albumId;
-	private String lyric;
-	private boolean isVideo;
 	public int getId() {
 		return id;
 	}
@@ -43,31 +39,15 @@ public class SongInfo implements Serializable{
 	public void setSingerPhoto(String singerPhoto) {
 		this.singerPhoto = singerPhoto;
 	}
-	public String getLink() {
-		return link;
+	public AlbumSingerEntity(int id, String name, int singerId, String singerName, String singerPhoto) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.singerId = singerId;
+		this.singerName = singerName;
+		this.singerPhoto = singerPhoto;
 	}
-	public void setLink(String link) {
-		this.link = link;
-	}
-	public int getAlbumId() {
-		return albumId;
-	}
-	public void setAlbumId(int albumId) {
-		this.albumId = albumId;
-	}
-	public String getLyric() {
-		return lyric;
-	}
-	public void setLyric(String lyric) {
-		this.lyric = lyric;
-	}
-	public boolean isVideo() {
-		return isVideo;
-	}
-	public void setVideo(boolean isVideo) {
-		this.isVideo = isVideo;
-	}
-	public SongInfo() {
+	public AlbumSingerEntity() {
 		super();
 	}
 	

@@ -17,11 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.luog.onlinemusic.entity.commons.Author;
-import com.luog.onlinemusic.entity.commons.Category;
 import com.luog.onlinemusic.services.AuthorService;
-import com.luog.onlinemusic.services.CategoryService;
 import com.luog.onlinemusic.validators.AuthorValidator;
-import com.luog.onlinemusic.validators.CategoryValidator;
 
 @Controller
 @RequestMapping("admin/author**")
