@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.hibernate.Query;
@@ -148,11 +149,18 @@ public class SongDAOImpl implements SongDAO {
 		try {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
+<<<<<<< HEAD
 			query = session
 					.createQuery("SELECT si.id as singerId, si.name as singerName, si.photo as singerPhoto, "
 							+ "so.id as id, so.name as name, " + "so.link as link, "
 							+ "so.lyric as lyric, " + "so.video as isVideo " + "FROM Singer si, Song so, SongDetail sd "
 							+ "WHERE sd.singer = si AND sd.song = so " + "ORDER BY so.id DESC")
+=======
+			query = session.createQuery("SELECT si.id as singerId, si.name as singerName, si.photo as singerPhoto, "
+					+ "so.id as songId, so.name as songName, " + "so.link as linkSong, " + "so.lyric as lyricSong, "
+					+ "so.video as songVideo " + "FROM Singer si, Song so, SongDetail sd "
+					+ "WHERE sd.singer = si AND sd.song = so " + "ORDER BY so.id DESC")
+>>>>>>> 0ac980d397050dc23b1886dd78f07affb304164d
 					.setResultTransformer(Transformers.aliasToBean(SongInfo.class));
 			songInfos = query.list();
 			transaction.commit();
@@ -316,5 +324,43 @@ public class SongDAOImpl implements SongDAO {
 		hql += ") ORDER BY rand()";
 		return conditions.size() > 0 ? hql : "FROM Song ORDER BY rand()";
 	}
+<<<<<<< HEAD
 	
+=======
+
+	/**
+	 * @author luog
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<SongEntity> findSongEntities(String keyWord) {
+
+		List<SongEntity> songEntities = null;
+		Session session = null;
+		Transaction transaction = null;
+		String hql = "SELECT s.id as id, " + "s.name as name, " + "s.link as link, " + "s.listen as listen, "
+				+ "s.show as show, " + "s.status as status, " + "s.video as video, " + "s.videoPhoto as videoPhoto, "
+				+ "str(s.uploadedTime) as uploadedTime, " + "s.uploadedBy as uploadedBy " + "FROM Song s "
+				+ "WHERE replace(s.name, ' ', '-') like :name";
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			Query query = session.createQuery(hql);
+			query.setParameter("name", "%" + keyWord + "%");
+			query.setResultTransformer(Transformers.aliasToBean(SongEntity.class));
+			songEntities = query.list();
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			songEntities = new ArrayList<>();
+			if (transaction != null)
+				transaction.rollback();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return songEntities;
+	}
+
+>>>>>>> 0ac980d397050dc23b1886dd78f07affb304164d
 }
