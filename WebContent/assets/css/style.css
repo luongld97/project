@@ -128,6 +128,11 @@ Header
 	text-align: right;
 }
 
+.user-logged {
+	cursor: pointer;
+	color: red;
+}
+
 .login a {
 	color: red;
 }

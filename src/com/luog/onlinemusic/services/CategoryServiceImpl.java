@@ -19,14 +19,9 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public boolean isExist(String name) {
-		if (categoryDAO != null) {
-			System.out.println("Not null");
-			return categoryDAO.isExist(name);
-		}
-		System.out.println("null");
-		return true;
+		return categoryDAO.isExist(name);
 	}
-	
+
 	@Override
 	public List<Category> findAll() {
 		return categoryDAO.findAll();

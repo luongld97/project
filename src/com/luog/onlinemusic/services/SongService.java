@@ -1,7 +1,6 @@
 package com.luog.onlinemusic.services;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import com.luog.onlinemusic.entity.admin.AdminSong;
@@ -59,4 +58,9 @@ public interface SongService {
 
 	
 	public List<Song> randomSong(int limit);
+	
+	/**
+	 * @author luog
+	 */
+	List<SongEntity> findSongEntities(String keyWord);
 }

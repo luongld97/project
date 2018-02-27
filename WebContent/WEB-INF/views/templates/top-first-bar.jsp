@@ -7,7 +7,7 @@
 		<div class="row">
 			<div class="col-md-3 plr0">
 				<div class="logo">
-					<a href="<c:url value="/"/>"> <img
+					<a href=""> <img
 						src="${pageContext.request.contextPath }/assets/images/logo.png">
 					</a>
 				</div>
@@ -30,7 +30,19 @@
 					</div>
 				</c:if>
 				<c:if test="${sessionScope.currentAccount != null }">
-					<h1 style="color:red">${sessionScope.currentAccount.username }</h1>
+					<div class="login">
+							<div id="dropdown-logged" class="dropdown">
+								<span class="user-logged">${sessionScope.currentAccount.username }
+									<span class="caret"></span>
+								</span>
+								<ul id="open-toggle" class="dropdown-menu dropdown-menu-right">
+									<li><a href="#">Nhạc cá nhân</a></li>
+									<li class="divider"></li>
+									<li><a href="#">Thông tin</a></li>
+									<li><a href="">Đăng xuất</a></li>
+								</ul>
+							</div>
+						</div>
 				</c:if>
 			</div>
 		</div>

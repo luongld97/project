@@ -22,12 +22,8 @@ public class CategoryValidator implements Validator {
 	@Override
 	public void validate(Object object, Errors errors) {
 		Category category = (Category) object;
-		if (categoryDAO != null) {
-			if (categoryDAO.isExist(category.getName()))
-				errors.rejectValue("name", "category.exist");
-		} else {
-			System.out.println("CategoryDAO is not autowired");
-		}
+		if (categoryDAO.isExist(category.getName()))
+			errors.rejectValue("name", "category.exist");
 
 	}
 
