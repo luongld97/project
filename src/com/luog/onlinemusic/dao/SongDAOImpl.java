@@ -331,11 +331,13 @@ public class SongDAOImpl implements SongDAO {
 				+ "s.show as show, " + "s.status as status, " + "s.video as video, " + "s.videoPhoto as videoPhoto, "
 				+ "str(s.uploadedTime) as uploadedTime, " + "s.uploadedBy as uploadedBy " + "FROM Song s "
 				+ "WHERE replace(s.name, ' ', '-') like :name";
+		
 		try {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
 			Query query = session.createQuery(hql);
-			query.setParameter("name", "%" + keyWord + "%");
+			query.setParameter("name", "%" + keyWord.replace(" ", "-") + "%");
+			System.out.println(keyWord.replace(" ", "-"));
 			query.setResultTransformer(Transformers.aliasToBean(SongEntity.class));
 			songEntities = query.list();
 			transaction.commit();

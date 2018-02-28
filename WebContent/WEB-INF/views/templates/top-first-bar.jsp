@@ -15,7 +15,7 @@
 			<div class="col-md-6">
 				<div class="input-group search-control">
 					<input type="text" class="form-control"
-						placeholder="Nhập nội dung tìm kiếm"> <span
+						placeholder="Nhập nội dung tìm kiếm" id="search-box"> <span
 						class="input-group-btn">
 						<button type="submit" class="btn btn-default">
 							<span class="glyphicon glyphicon-search"></span>

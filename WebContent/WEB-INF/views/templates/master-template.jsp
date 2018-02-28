@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <title>${title }</title>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath }/assets/css/bootstrap.min.css" />
@@ -11,18 +12,27 @@
 	href="${pageContext.request.contextPath }/assets/css/style.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath }/assets/css/plyr.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath }/assets/css/jquery-ui.min.css" />
 <script
 	src="${pageContext.request.contextPath }/assets/js/jquery-3.2.1.min.js"
 	type="text/javascript"></script>
+	
 </head>
 <body>
 	<tiles:insertAttribute name="top-first-bar" />
 	<tiles:insertAttribute name="top-second-bar" />
 	<tiles:insertAttribute name="content" />
 	<tiles:insertAttribute name="footer" />
-	
 </body>
-<script src="${pageContext.request.contextPath }/assets/js/jquery-3.2.1.min.js"></script>
-	<script src="${pageContext.request.contextPath }/assets/js/jquery.js" type="text/javascript"></script>
-	<script src="${pageContext.request.contextPath }/assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+<script
+	src="${pageContext.request.contextPath }/assets/js/bootstrap.min.js"
+	type="text/javascript"></script>
+<script
+	src="${pageContext.request.contextPath }/assets/js/jquery-ui.min.js"
+	type="text/javascript"></script>
+<script
+	src="${pageContext.request.contextPath }/assets/js/autocomplete.js"
+	type="text/javascript"></script>	
 </html>
