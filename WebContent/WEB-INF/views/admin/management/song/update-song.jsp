@@ -116,7 +116,7 @@
 		<div class="panel-footer">
 			<div class="text-right">
 				<input type="submit" name="addsong" class="btn btn-primary" name="save"
-					value="&nbsp;ADD SONG&nbsp;">
+					value="&nbsp;UPDATE SONG&nbsp;">
 			</div>
 		</div>
 	</div>

@@ -2,7 +2,6 @@ package com.luog.onlinemusic.services;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -18,7 +17,6 @@ import com.luog.onlinemusic.dao.SongDetailDAO;
 import com.luog.onlinemusic.dao.CategoryDetailDAO;
 import com.luog.onlinemusic.dao.SongDAO;
 import com.luog.onlinemusic.entity.admin.AdminSong;
-import com.luog.onlinemusic.entity.commons.Author;
 import com.luog.onlinemusic.entity.commons.AuthorDetail;
 import com.luog.onlinemusic.entity.commons.CategoryDetail;
 import com.luog.onlinemusic.entity.commons.Song;

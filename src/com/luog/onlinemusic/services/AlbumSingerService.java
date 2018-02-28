@@ -1,11 +1,11 @@
-package com.luog.onlinemusic.dao;
+package com.luog.onlinemusic.services;
 
 import java.util.List;
 
 import com.luog.onlinemusic.entity.commons.AlbumSinger;
 import com.luog.onlinemusic.entity.rest.AlbumSingerEntity;
 
-public interface AlbumSingerDAO {
+public interface AlbumSingerService {
 
 	public List<AlbumSinger> findAll();
 
@@ -18,5 +18,4 @@ public interface AlbumSingerDAO {
 	public boolean delete(AlbumSinger albumSinger);
 
 	public List<AlbumSingerEntity> findAlbumSinger();
-
 }

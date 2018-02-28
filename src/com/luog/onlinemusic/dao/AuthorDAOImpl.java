@@ -13,9 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.luog.onlinemusic.entity.commons.Author;
-import com.luog.onlinemusic.entity.commons.PlayList;
 import com.luog.onlinemusic.entity.rest.AuthorEntity;
-import com.luog.onlinemusic.entity.rest.PlayListEntity;
 
 @Repository("authorDAO")
 public class AuthorDAOImpl implements AuthorDAO {

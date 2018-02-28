@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.luog.onlinemusic.entity.commons.Album;
-import com.luog.onlinemusic.entity.rest.AlbumContainSong;
-import com.luog.onlinemusic.entity.rest.AlbumOfSinger;
-import com.luog.onlinemusic.entity.rest.SongInfo;
+import com.luog.onlinemusic.entity.rest.AlbumSongEntity;
+import com.luog.onlinemusic.entity.rest.AlbumSingerEntity;
 import com.luog.onlinemusic.services.AlbumService;
+import com.luog.onlinemusic.services.AlbumSingerService;
+import com.luog.onlinemusic.services.AlbumSongService;
 
 @RestController
 @RequestMapping("album")
@@ -24,6 +25,12 @@ public class AlbumRestController {
 	
 	@Autowired
 	private AlbumService albumService;
+	
+	@Autowired
+	private AlbumSongService albumSongService;
+	
+	@Autowired
+	private AlbumSingerService albumSingerService;
 	
 	/**
 	 * find all of Album
@@ -108,38 +115,38 @@ public class AlbumRestController {
 			method = RequestMethod.GET, 
 			produces = MimeTypeUtils.APPLICATION_JSON_VALUE, 
 			headers  = "Accept=application/json")
-	public ResponseEntity<List<AlbumOfSinger>> findAlbumSinger(){
+	public ResponseEntity<List<AlbumSingerEntity>> findAlbumSinger(){
 		try {
-			return new  ResponseEntity<List<AlbumOfSinger>>(albumService.findAlbumSinger(), HttpStatus.OK);
+			return new  ResponseEntity<List<AlbumSingerEntity>>(albumSingerService.findAlbumSinger(), HttpStatus.OK);
 		} catch (Exception e) {
-			return new  ResponseEntity<List<AlbumOfSinger>>(HttpStatus.BAD_REQUEST);
+			return new  ResponseEntity<List<AlbumSingerEntity>>(HttpStatus.BAD_REQUEST);
 		}
 	}
 	
-	@RequestMapping(value ="findalbumcontainsong",
+	@RequestMapping(value ="findalbumsong",
 			method = RequestMethod.GET, 
 			produces = MimeTypeUtils.APPLICATION_JSON_VALUE, 
 			headers  = "Accept=application/json")
-	public ResponseEntity<List<AlbumContainSong>> findAlbumContainSong(){
+	public ResponseEntity<List<AlbumSongEntity>> findAlbumContainSong(){
 		try {
-			return new  ResponseEntity<List<AlbumContainSong>>(albumService.findAlbumContainSong(), HttpStatus.OK);
+			return new  ResponseEntity<List<AlbumSongEntity>>(albumSongService.findAlbumSong(), HttpStatus.OK);
 		} catch (Exception e) {
-			return new  ResponseEntity<List<AlbumContainSong>>(HttpStatus.BAD_REQUEST);
+			return new  ResponseEntity<List<AlbumSongEntity>>(HttpStatus.BAD_REQUEST);
 		}
 	}
 	
 	
-	@RequestMapping(value ="findsongbyalbums/{albumId}", 
+	@RequestMapping(value ="getsongbyalbum/{albumId}", 
 			method = RequestMethod.GET, 
 			produces = MimeTypeUtils.APPLICATION_JSON_VALUE, 
 			headers  = "Accept=application/json")
-	public ResponseEntity<List<AlbumContainSong>> findSongByAlbum(@PathVariable("albumId") int albumId){
+	public ResponseEntity<List<AlbumSongEntity>> findSongByAlbum(@PathVariable("albumId") int albumId){
 		try {
 			
-			return new ResponseEntity<List<AlbumContainSong>>(albumService.findSongByAlbums(albumId), HttpStatus.OK);
+			return new ResponseEntity<List<AlbumSongEntity>>(albumSongService.getSongByAlbum(albumService.find(albumId)), HttpStatus.OK);
 			
 		} catch (Exception e) {
-			return new  ResponseEntity<List<AlbumContainSong>>(HttpStatus.BAD_REQUEST);
+			return new  ResponseEntity<List<AlbumSongEntity>>(HttpStatus.BAD_REQUEST);
 		}
 	}
 	
