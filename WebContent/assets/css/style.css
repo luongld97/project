@@ -719,3 +719,7 @@ Right
 .playing-song .playing-song-text-color {
 	color: #30A5FF;
 }
+
+.easy-autocomplete-container ul {
+	top: 36px !important;
+}

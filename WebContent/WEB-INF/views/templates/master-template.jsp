@@ -13,7 +13,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath }/assets/css/plyr.css" />
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath }/assets/css/jquery-ui.min.css" />
+	href="${pageContext.request.contextPath }/assets/css/easy-autocomplete.min.css" />
 <script
 	src="${pageContext.request.contextPath }/assets/js/jquery-3.2.1.min.js"
 	type="text/javascript"></script>
@@ -30,7 +30,7 @@
 	src="${pageContext.request.contextPath }/assets/js/bootstrap.min.js"
 	type="text/javascript"></script>
 <script
-	src="${pageContext.request.contextPath }/assets/js/jquery-ui.min.js"
+	src="${pageContext.request.contextPath }/assets/js/jquery.easy-autocomplete.min.js"
 	type="text/javascript"></script>
 <script
 	src="${pageContext.request.contextPath }/assets/js/autocomplete.js"
