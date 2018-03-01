@@ -125,45 +125,25 @@
 									alt="">
 							</div>
 							<div class="col-md-10">
-								<textarea class="text-command" placeholder="Say something...!"></textarea>
+								<textarea id="comment-box" username="${sessionScope.currentAccount.username }" class="text-command" placeholder="Say something...!"></textarea>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-12">
-								<button class="btn btn-primary float-right">OK</button>
+								<button class="btn btn-primary float-right" id="post-button">POST</button>
 							</div>
 						</div>
 					</div>
 					<!-- End Nhap binh luan -->
 					<!-- Xem binh luan -->
 					<div class="margin-top-20">
-						<ul class="list-item">
-							<li class="mb-3">
-								<div class="row">
-									<div class="col-md-2">
-										<img
-											src="${pageContext.request.contextPath }/assets/images/imgcasi.png"
-											alt="" class="avatar">
-									</div>
-									<div class="col-md-10">
-										<div class="top-read">
-											<b>Tân Óc Chó</b> <i class="float-right">00:00:00
-												01/01/2018</i>
-										</div>
-										<div class="text-justify">Đây là bình luận của tôi, đây
-											là bình luận của tôi, đây là bình luận của tôi, đây là bình
-											luận của tôi, đây là bình luận của tôi, đây là bình luận của
-											tôi, đây là bình luận của tôi, đây là bình luận của tôi, đây
-											là bình luận của tôi, đây là bình luận của tôi, đây là bình
-											luận của tôi.</div>
-									</div>
-								</div>
-							</li>
+						<ul class="list-item" id="comment-area">
+							<!-- comment will append here -->
 						</ul>
 					</div>
 					<!-- End Xem binh luan -->
-					<div class="">
-						<button class="btn btn-primary full-width">Xem thêm</button>
+					<div>
+						<button class="btn btn-primary full-width" id="show-more-button">Show more</button>
 					</div>
 				</div>
 				<!-- End Binh luan -->

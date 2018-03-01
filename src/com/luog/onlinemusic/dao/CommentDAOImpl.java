@@ -157,8 +157,10 @@ public class CommentDAOImpl implements CommentDAO{
 			transaction = session.beginTransaction();
 			query = session.createQuery("SELECT c.id as id, "
 					+ "c.account.username as username, "
+					+ "str(c.created) as created, "
 					+ "c.song.id as songId, "
-					+ "c.content as content "
+					+ "c.content as content ,"
+					+ "c.account.photo as userPhoto "
 					+ "FROM Comment c "
 					+ "WHERE c.song = :song");
 			query.setParameter("song", song);
@@ -198,8 +200,10 @@ public class CommentDAOImpl implements CommentDAO{
 			transaction = session.beginTransaction();
 			query = session.createQuery("SELECT c.id as id, "
 					+ "c.account.username as username, "
+					+ "str(c.created) as created, "
 					+ "c.song.id as songId, "
-					+ "c.content as content "
+					+ "c.content as content, "
+					+ "c.account.photo as userPhoto "
 					+ "FROM Comment c "
 					+ "WHERE c.account = :account");
 			query.setParameter("account", account);
