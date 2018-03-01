@@ -28,7 +28,7 @@
 	<!-- End Home area -->
 
 	<!-- Singer area -->
-	<definition name="artist.singer.header" template="/WEB-INF/views/artist/singer/index.jsp">
+	<definition name="artist.singer.header" template="/WEB-INF/views/artist/singer/index.jsp"/>
 	
 	<definition name="artist.singer.index" extends="user.master.template">
 		<put-attribute name="content"
