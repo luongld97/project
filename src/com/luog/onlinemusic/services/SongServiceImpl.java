@@ -257,6 +257,11 @@ public class SongServiceImpl implements SongService {
 	public List<SongEntity> findSongEntities(String keyWord) {
 		return songDAO.findSongEntities(keyWord);
 	}
+
+	@Override
+	public List<SongInfo> findMVSongInfo() {
+		return songDAO.findMVSongInfo();
+	}
 	
 	
 	

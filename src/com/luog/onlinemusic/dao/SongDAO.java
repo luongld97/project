@@ -20,6 +20,8 @@ public interface SongDAO {
 	public boolean delete(Song song);
 
 	public List<SongInfo> findSongInfo();
+	
+	public List<SongInfo> findMVSongInfo();
 
 	public SongEntity getSongEntity(int id);
 
