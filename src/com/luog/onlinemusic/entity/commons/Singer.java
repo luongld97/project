@@ -32,12 +32,8 @@ public class Singer implements java.io.Serializable {
 	private Integer id;
 	private String name;
 	private String nickName;
-	
-	@JsonIgnore
 	private Date dateOfBirth;
 	private String gender;
-	
-	@JsonIgnore
 	private String description;
 	private String photo;
 	
