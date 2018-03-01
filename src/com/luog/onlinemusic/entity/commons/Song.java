@@ -30,6 +30,7 @@ public class Song implements java.io.Serializable {
 	private boolean isShow;
 	private boolean status;
 	private boolean isVideo;
+	private String videoLink;
 	private String videoPhoto;
 	private Date uploadedTime;
 	private String uploadedBy;
@@ -44,7 +45,7 @@ public class Song implements java.io.Serializable {
 	public Song() {
 	}
 
-	public Song(String name, String link, String lyric, boolean isShow, boolean status, boolean isVideo,
+	public Song(String name, String link, String lyric, boolean isShow, boolean status, boolean isVideo, String videoLink,
 			String videoPhoto, Date uploadedTime, String uploadedBy) {
 		this.name = name;
 		this.link = link;
@@ -52,12 +53,13 @@ public class Song implements java.io.Serializable {
 		this.isShow = isShow;
 		this.status = status;
 		this.isVideo = isVideo;
+		this.videoLink = videoLink;
 		this.videoPhoto = videoPhoto;
 		this.uploadedTime = uploadedTime;
 		this.uploadedBy = uploadedBy;
 	}
 
-	public Song(String name, String link, String lyric, Integer listen, boolean isShow, boolean status, boolean isVideo,
+	public Song(String name, String link, String lyric, Integer listen, boolean isShow, boolean status, boolean isVideo,String videoLink,
 			String videoPhoto, Date uploadedTime, String uploadedBy, List<AuthorDetail> authorDetails, List<Chart> charts,
 			List<Comment> comments, List<AlbumSong> albumSongs, List<PlayListDetail> playListDetails,
 			List<SongDetail> songDetails, List<CategoryDetail> categoryDetails) {
@@ -68,6 +70,7 @@ public class Song implements java.io.Serializable {
 		this.isShow = isShow;
 		this.status = status;
 		this.isVideo = isVideo;
+		this.videoLink = videoLink;
 		this.videoPhoto = videoPhoto;
 		this.uploadedTime = uploadedTime;
 		this.uploadedBy = uploadedBy;
@@ -153,6 +156,15 @@ public class Song implements java.io.Serializable {
 
 	public void setVideo(boolean isVideo) {
 		this.isVideo = isVideo;
+	}
+	
+	@Column(name = "video_link", nullable = true)
+	public String getVideoLink() {
+		return this.videoLink;
+	}
+
+	public void setVideo(String videoLink) {
+		this.videoLink = videoLink;
 	}
 
 	@Column(name = "video_photo", nullable = true, length = 250)
