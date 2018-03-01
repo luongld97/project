@@ -38,7 +38,7 @@ public class ArtistController {
 			Singer currentSinger = singerService.find(id);
 			if (currentSinger != null) {
 				modelMap.put("singer", currentSinger);
-				modelMap.put("topSongs", songService.getTopSongs(currentSinger, 7));
+				modelMap.put("topSongs", songService.getTopSongs(currentSinger, 5));
 				tileName = "artist.singer.index";
 			}
 		}
@@ -55,7 +55,7 @@ public class ArtistController {
 			Singer currentSinger = singerService.find(id);
 			if (currentSinger != null) {
 				modelMap.put("singer", currentSinger);
-				modelMap.put("songs", songService.getTopSongs(currentSinger, 7));
+				modelMap.put("songs", songService.getTopSongs(currentSinger, 5));
 				tileName = "list.song.play";
 			}
 		}
@@ -76,8 +76,9 @@ public class ArtistController {
 				PagedListHolder<Song> pagedListHolder = new PagedListHolder<>(songs);
 				int page = ServletRequestUtils.getIntParameter(request, "page", 0);
 				pagedListHolder.setPage(page);
-				pagedListHolder.setPageSize(10);
+				pagedListHolder.setPageSize(12);
 				modelMap.put("songs", pagedListHolder);
+				modelMap.put("singer", currentSinger);
 				tileName = "artist.singer.song";
 			}
 		}

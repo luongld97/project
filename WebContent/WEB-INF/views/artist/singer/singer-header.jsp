@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!-- Start Info Background -->
@@ -44,7 +43,7 @@
 			<c:url var="singerSong" value="/artist/singer/song.html">
 				<c:param name="id" value="${singer.id }" />
 			</c:url>
-			<a href="${singerSong }">">All Song</a>
+			<a href="${singerSong }">All Song</a>
 		</div>
 		<div class="navbar-item">
 			<c:url var="singerAlbum" value="/artist/singer/album.html">
