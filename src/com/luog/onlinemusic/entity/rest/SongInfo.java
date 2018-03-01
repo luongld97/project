@@ -12,6 +12,14 @@ public class SongInfo implements Serializable{
 	private int albumId;
 	private String lyric;
 	private boolean isVideo;
+	private String videoLink;
+	
+	public String getVideoLink() {
+		return videoLink;
+	}
+	public void setVideoLink(String videoLink) {
+		this.videoLink = videoLink;
+	}
 	public int getId() {
 		return id;
 	}
@@ -68,6 +76,21 @@ public class SongInfo implements Serializable{
 	}
 	public SongInfo() {
 		super();
+	}
+	
+	public SongInfo(int id, String name, int singerId, String singerName, String singerPhoto, String link, int albumId,
+			String lyric, boolean isVideo, String videoLink) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.singerId = singerId;
+		this.singerName = singerName;
+		this.singerPhoto = singerPhoto;
+		this.link = link;
+		this.albumId = albumId;
+		this.lyric = lyric;
+		this.isVideo = isVideo;
+		this.videoLink = videoLink;
 	}
 	
 }

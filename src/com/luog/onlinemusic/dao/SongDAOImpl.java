@@ -178,7 +178,7 @@ public class SongDAOImpl implements SongDAO {
 			transaction = session.beginTransaction();
 			query = session.createQuery("SELECT si.id as singerId, si.name as singerName, si.photo as singerPhoto, "
 					+ "so.id as id, so.name as name, " + "so.link as link, " + "so.lyric as lyric, "
-					+ "so.video as isVideo " + "FROM Singer si, Song so, SongDetail sd "
+					+ "so.video as isVideo , so.videoLink as videoLink " + "FROM Singer si, Song so, SongDetail sd "
 					+ "WHERE sd.singer = si AND sd.song = so AND so.video = true " + "ORDER BY so.id DESC")
 					.setResultTransformer(Transformers.aliasToBean(SongInfo.class));
 			songInfos = query.list();

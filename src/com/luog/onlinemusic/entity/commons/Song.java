@@ -163,7 +163,7 @@ public class Song implements java.io.Serializable {
 		return this.videoLink;
 	}
 
-	public void setVideo(String videoLink) {
+	public void setVideoLink(String videoLink) {
 		this.videoLink = videoLink;
 	}
 
