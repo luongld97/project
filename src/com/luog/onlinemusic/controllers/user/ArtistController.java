@@ -28,6 +28,8 @@ public class ArtistController {
 	@Autowired
 	private SongService songService;
 
+	private final int LIST_SONG_LIMIT = 5;
+	
 	/**
 	 * @author luog
 	 */
@@ -38,7 +40,7 @@ public class ArtistController {
 			Singer currentSinger = singerService.find(id);
 			if (currentSinger != null) {
 				modelMap.put("singer", currentSinger);
-				modelMap.put("topSongs", songService.getTopSongs(currentSinger, 5));
+				modelMap.put("topSongs", songService.getTopSongs(currentSinger, LIST_SONG_LIMIT));
 				tileName = "artist.singer.index";
 			}
 		}
@@ -55,7 +57,7 @@ public class ArtistController {
 			Singer currentSinger = singerService.find(id);
 			if (currentSinger != null) {
 				modelMap.put("singer", currentSinger);
-				modelMap.put("songs", songService.getTopSongs(currentSinger, 5));
+				modelMap.put("songs", songService.getTopSongs(currentSinger, LIST_SONG_LIMIT));
 				tileName = "list.song.play";
 			}
 		}

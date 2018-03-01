@@ -20,13 +20,13 @@
 							<c:forEach var="song" items="${songs }" varStatus="i">
 								<li>
 									<div class="pl-playlist-item">
-										<div class="col-md-5 play-this-song">
+										<div class="col-md-8 play-this-song">
 											<input type="hidden" value="${song.id }" name="id" /> <input
 												type="hidden" value="${song.link }" name="link" /> <span
 												class="playing-song-text-color">${i.index + 1}</span> <span
 												class="ml-4 playing-song-text-color">${song.name }</span>
 										</div>
-										<div class="float-right">
+										<div class="float-right col-md-4">
 											<a class="playlist-btn-sm" href="" title="Xem MV"><span
 												class="glyphicon glyphicon-film"></span></a> <a
 												class="playlist-btn-sm" href="" title="Tải về"><span

@@ -14,7 +14,7 @@
 						<h3 class="title-list-index">${singer.name.toUpperCase() }' S SONG</h3>
 					</a>
 					&nbsp;
-					<c:url var="playTopSongs" value="/artist/play-list.html">
+					<c:url var="playTopSongs" value="/artist/singer/play-list.html">
 						<c:param name="id" value="${singer.id }"/>
 					</c:url>
 					<a class="artic-play-all-btn" href="${playTopSongs }" title="Phát tất cả">
