@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -49,11 +49,13 @@
 									<input type="checkbox"> Lưu mật khẩu
 								</label>
 							</div>
-							<div class="sm-alert alert-danger">
-								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-								Account invalid
-							</div>
-							${error }
+							<c:if test="${error != null }"> 
+								<div class="sm-alert alert-danger">
+									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+									${error }
+								</div>
+							</c:if>
+							
 							<div class="form-group">
 								<button type="submit" class="btn btn-success form-control">Đăng nhập</button>
 							</div>

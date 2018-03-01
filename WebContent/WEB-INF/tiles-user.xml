@@ -26,13 +26,33 @@
 			value="/WEB-INF/views/song/play-list-song.jsp" />
 	</definition>
 	<!-- End Home area -->
-	
+
 	<!-- Singer area -->
-	<definition name="artist.singer.index" extends="user.master.template">
-		<put-attribute name="content" value="/WEB-INF/views/artist/singer/index.jsp" />
-	</definition>
-	<!-- End Singer area -->
+	<definition name="artist.singer.header" template="/WEB-INF/views/artist/singer/index.jsp">
 	
+	<definition name="artist.singer.index" extends="user.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/artist/singer/index.jsp" />
+	</definition>
+	<definition name="artist.singer.song" extends="user.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/artist/singer/song.jsp" />
+	</definition>
+	<definition name="artist.singer.album" extends="user.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/artist/singer/album.jsp" />
+	</definition>
+	<definition name="artist.singer.video" extends="user.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/artist/singer/video.jsp" />
+	</definition>
+	<definition name="artist.singer.story" extends="user.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/artist/singer/story.jsp" />
+	</definition>
+
+	<!-- End Singer area -->
+
 	<definition name="user.login" template="/WEB-INF/views/account/login_register.jsp"></definition>
 	<definition name="user.register" template="/WEB-INF/views/account/login_register.jsp"></definition>
 	<definition name="user.playlist" extends="user.master.template">

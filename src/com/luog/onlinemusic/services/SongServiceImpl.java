@@ -239,14 +239,6 @@ public class SongServiceImpl implements SongService {
 	 * @author luog
 	 */
 	@Override
-	public Set<Song> randomSong(int limit, List<Object> conditions) {
-		return songDAO.randomSong(limit, conditions);
-	}
-
-	/**
-	 * @author luog
-	 */
-	@Override
 	public List<Song> randomSong(int limit) {
 		return songDAO.randomSong(limit);
 	}

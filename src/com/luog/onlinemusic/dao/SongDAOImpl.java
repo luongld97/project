@@ -2,9 +2,7 @@ package com.luog.onlinemusic.dao;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -206,45 +204,6 @@ public class SongDAOImpl implements SongDAO {
 		return songEntity;
 	}
 
-	/**
-	 * @author luog
-	 */
-	@SuppressWarnings("unchecked")
-	public Set<Song> randomSong(int limit, List<Object> conditions) {
-		Set<Song> songs = null;
-		Session session = null;
-		Transaction transaction = null;
-		String hql = createHQLString(conditions);
-		try {
-			session = sessionFactory.openSession();
-			transaction = session.beginTransaction();
-			Query query = session.createQuery(hql);
-			for (Object object : conditions) {
-				String objectClass = object.getClass().getSimpleName();
-				String className = "";
-				if (objectClass.startsWith("Author"))
-					className = "Author";
-				if (objectClass.startsWith("Category"))
-					className = "Category";
-				if (objectClass.startsWith("Singer"))
-					className = "Singer";
-				query.setParameter(className.toLowerCase(), object);
-			}
-			query.setMaxResults(limit);
-			songs = new HashSet<Song>(query.list());
-			transaction.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			songs = new HashSet<>();
-			if (transaction != null)
-				transaction.rollback();
-		} finally {
-			session.flush();
-			session.close();
-		}
-		return songs;
-	}
-
 	@Override
 	public List<Song> randomSong(int limit) {
 		List<Song> songs = null;
@@ -270,59 +229,6 @@ public class SongDAOImpl implements SongDAO {
 			session.close();
 		}
 		return songs;
-	}
-
-	/**
-	 * @author luog
-	 */
-	public String createHQLString(List<Object> conditions) {
-		String hql = "SELECT song from Song song";
-		List<String> classNames = new ArrayList<>();
-		for (Object object : conditions) {
-			String className = object.getClass().getSimpleName();
-			if (className.startsWith("Author"))
-				classNames.add("Author");
-			if (className.startsWith("Category"))
-				classNames.add("Category");
-			if (className.startsWith("Singer"))
-				classNames.add("Singer");
-		}
-
-		for (String className : classNames) {
-			hql += ", " + className + " " + className.toLowerCase();
-			if (className.equals("Author"))
-				hql += ", AuthorDetail authorDetail";
-			if (className.equals("Singer"))
-				hql += ", SongDetail songDetail";
-			if (className.equals("Category"))
-				hql += ", CategoryDetail categoryDetail";
-		}
-		hql += " WHERE ";
-		for (String className : classNames) {
-			String classVar = "";
-			if (className.equals("Author"))
-				classVar = "authorDetail";
-			if (className.equals("Category"))
-				classVar = "categoryDetail";
-			if (className.equals("Singer"))
-				classVar = "songDetail";
-			hql += classVar + ".song = song AND ";
-		}
-		hql += "(";
-		for (String className : classNames) {
-			String classVar = "";
-			if (className.equals("Author"))
-				classVar = "authorDetail";
-			if (className.equals("Category"))
-				classVar = "categoryDetail";
-			if (className.equals("Singer"))
-				classVar = "songDetail";
-			hql += classVar + "." + className.toLowerCase() + " = :" + className.toLowerCase();
-			if (classNames.indexOf(className) < classNames.size() - 1)
-				hql += " OR ";
-		}
-		hql += ") ORDER BY rand()";
-		return conditions.size() > 0 ? hql : "FROM Song ORDER BY rand()";
 	}
 
 	/**
@@ -396,7 +302,6 @@ public class SongDAOImpl implements SongDAO {
 		}
 		return songs;
 	}
-	
-	
+
 
 }

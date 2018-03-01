@@ -1,7 +1,6 @@
 package com.luog.onlinemusic.dao;
 
 import java.util.List;
-import java.util.Set;
 
 import com.luog.onlinemusic.entity.commons.Singer;
 import com.luog.onlinemusic.entity.commons.Song;
@@ -22,8 +21,6 @@ public interface SongDAO {
 	public List<SongInfo> findSongInfo();
 
 	public SongEntity getSongEntity(int id);
-
-	public Set<Song> randomSong(int limit, List<Object> conditions);
 
 	public List<Song> randomSong(int limit);
 	

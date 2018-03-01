@@ -50,20 +50,16 @@ public interface SongService {
 	 */
 
 	public SongEntity getSongEntity(int id);
-	
+
 	/**
 	 * @author luog
 	 */
-
-	public Set<Song> randomSong(int limit, List<Object> conditions);
-
-	
 	public List<Song> randomSong(int limit);
-	
+
 	/**
 	 * @author luog
 	 */
 	List<SongEntity> findSongEntities(String keyWord);
-	
+
 	public List<Song> getTopSongs(Singer singer, Integer limit);
 }
