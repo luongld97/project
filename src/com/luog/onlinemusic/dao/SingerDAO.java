@@ -3,6 +3,7 @@ package com.luog.onlinemusic.dao;
 import java.util.List;
 
 import com.luog.onlinemusic.entity.commons.Singer;
+import com.luog.onlinemusic.entity.commons.Song;
 import com.luog.onlinemusic.entity.rest.SingerEntity;
 
 public interface SingerDAO {
@@ -18,5 +19,6 @@ public interface SingerDAO {
 	public boolean delete(Singer singer);
 	
 	public List<SingerEntity> findSingerEntities (String keyWord);
+	
 	
 }

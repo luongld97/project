@@ -14,6 +14,7 @@ import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.luog.onlinemusic.entity.commons.Singer;
 import com.luog.onlinemusic.entity.commons.Song;
 import com.luog.onlinemusic.entity.rest.SongEntity;
 import com.luog.onlinemusic.entity.rest.SongInfo;
@@ -271,6 +272,9 @@ public class SongDAOImpl implements SongDAO {
 		return songs;
 	}
 
+	/**
+	 * @author luog
+	 */
 	public String createHQLString(List<Object> conditions) {
 		String hql = "SELECT song from Song song";
 		List<String> classNames = new ArrayList<>();
@@ -356,5 +360,43 @@ public class SongDAOImpl implements SongDAO {
 		}
 		return songEntities;
 	}
+
+	/**
+	 * @author luog
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Song> getTopSongs(Singer singer, Integer limit) {
+		List<Song> songs = null;
+		Session session = null;
+		Transaction transaction = null;
+		Query query = null;
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			query = session.createQuery("SELECT so "
+					+ "FROM Song so, "
+					+ "SongDetail sd "
+					+ "WHERE sd.song = so "
+					+ "AND sd.singer = :singer "
+					+ "ORDER BY so.listen DESC");
+			query.setParameter("singer", singer);
+			if (limit != null)
+				query.setMaxResults(limit);
+			songs = query.list();
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			songs = new ArrayList<>();
+			if (transaction != null)
+				transaction.rollback();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return songs;
+	}
+	
+	
 
 }
