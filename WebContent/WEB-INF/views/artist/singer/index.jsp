@@ -22,24 +22,26 @@
 					</a>
 					<ul class="list-item">
 						<c:forEach var="song" items="${topSongs }">
-							<c:url var="linkSong" value="/song/play.html" >
+							<c:url var="songLink" value="/song/play.html" >
 								<c:param name="id" value="${song.id }"/>
 							</c:url>
 							<li>
 								<div class="artics-listsong-item artics-listsong-item-boder-top">
 									<div class="row">
 										<div class="col-md-9">
-											<a href="${linkSong }" class="linksong">${song.name } - 
-												<span>
-													<c:forEach items="${song.songDetails }" var="songDetail"
-														varStatus="i">
-														${songDetail.singer.name }
-														<c:if test="${i.index < song.songDetails.size() - 1 }">
-															,&nbsp;
-														</c:if>
-													</c:forEach>
-												</span>
-											</a>
+											<a href="${songLink }" class="linksong">${song.name }</a> - 
+											<span>
+												<c:forEach items="${song.songDetails }" var="songDetail"
+													varStatus="i">
+													<c:url var="singerLink" value="/artist/singer/info.html">
+														<c:param name="id" value="${songDetail.singer.id }" />
+													</c:url>
+													<a href="${singerLink }">${songDetail.singer.name }</a>
+													<c:if test="${i.index < song.songDetails.size() - 1 }">
+														,&nbsp;
+													</c:if>
+												</c:forEach>
+											</span>
 										</div>
 										<div class="col-md-3">
 											<div class="float-right">
