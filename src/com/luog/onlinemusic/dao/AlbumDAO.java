@@ -3,7 +3,6 @@ package com.luog.onlinemusic.dao;
 import java.util.List;
 
 import com.luog.onlinemusic.entity.commons.Album;
-import com.luog.onlinemusic.entity.commons.Song;
 
 public interface AlbumDAO {
 

@@ -30,7 +30,10 @@
 									<a href="${listenLink }"><b class="song-name">${song.name }</b></a><br>
 									<i> <c:forEach items="${song.songDetails }"
 											var="songDetail" varStatus="i">
-											<a class="singer-name" href="">${songDetail.singer.name }</a>
+											<c:url var="singerLink" value="/artist/singer/info.html">
+												<c:param name="id" value="${songDetail.singer.id }" />
+											</c:url>
+											<a class="singer-name" href="${singerLink }">${songDetail.singer.name }</a>
 											<c:if test="${i.index < song.songDetails.size() - 1 }">			
 												,&nbsp;
 											</c:if>

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.luog.onlinemusic.entity.commons.Album;
+import com.luog.onlinemusic.entity.commons.AlbumSinger;
 import com.luog.onlinemusic.entity.rest.AlbumSongEntity;
 import com.luog.onlinemusic.entity.rest.AlbumSingerEntity;
 import com.luog.onlinemusic.services.AlbumService;
@@ -115,11 +116,13 @@ public class AlbumRestController {
 			method = RequestMethod.GET, 
 			produces = MimeTypeUtils.APPLICATION_JSON_VALUE, 
 			headers  = "Accept=application/json")
-	public ResponseEntity<List<AlbumSingerEntity>> findAlbumSinger(){
+	public ResponseEntity<List<AlbumSinger>> findAlbumSinger(){
 		try {
-			return new  ResponseEntity<List<AlbumSingerEntity>>(albumSingerService.findAlbumSinger(), HttpStatus.OK);
+			List<AlbumSinger> albumsingers = albumSingerService.findAll();
+			System.out.println(albumsingers.get(0));
+			return new  ResponseEntity<List<AlbumSinger>>(albumsingers, HttpStatus.OK);
 		} catch (Exception e) {
-			return new  ResponseEntity<List<AlbumSingerEntity>>(HttpStatus.BAD_REQUEST);
+			return new  ResponseEntity<List<AlbumSinger>>(HttpStatus.BAD_REQUEST);
 		}
 	}
 	

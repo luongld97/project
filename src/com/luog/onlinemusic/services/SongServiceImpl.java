@@ -19,6 +19,7 @@ import com.luog.onlinemusic.dao.SongDAO;
 import com.luog.onlinemusic.entity.admin.AdminSong;
 import com.luog.onlinemusic.entity.commons.AuthorDetail;
 import com.luog.onlinemusic.entity.commons.CategoryDetail;
+import com.luog.onlinemusic.entity.commons.Singer;
 import com.luog.onlinemusic.entity.commons.Song;
 import com.luog.onlinemusic.entity.commons.SongDetail;
 import com.luog.onlinemusic.entity.rest.SongEntity;
@@ -238,14 +239,6 @@ public class SongServiceImpl implements SongService {
 	 * @author luog
 	 */
 	@Override
-	public Set<Song> randomSong(int limit, List<Object> conditions) {
-		return songDAO.randomSong(limit, conditions);
-	}
-	
-	/**
-	 * @author luog
-	 */
-	@Override
 	public List<Song> randomSong(int limit) {
 		return songDAO.randomSong(limit);
 	}
@@ -257,8 +250,20 @@ public class SongServiceImpl implements SongService {
 	public List<SongEntity> findSongEntities(String keyWord) {
 		return songDAO.findSongEntities(keyWord);
 	}
+
+	@Override
+	public List<SongInfo> findMVSongInfo() {
+		return songDAO.findMVSongInfo();
+	}
 	
 	
 	
+	/**
+	 * @author luog
+	 */
+	@Override
+	public List<Song> getTopSongs(Singer singer, Integer limit) {
+		return songDAO.getTopSongs(singer, limit);
+	}
 
 }

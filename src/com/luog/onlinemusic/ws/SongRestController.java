@@ -61,6 +61,15 @@ public class SongRestController {
 			return new ResponseEntity<List<SongInfo>>(HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	@RequestMapping(value = "findmvsonginfo", method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE, headers = "Accept=application/json")
+	public ResponseEntity<List<SongInfo>> findMVSongInfo() {
+		try {
+			return new ResponseEntity<List<SongInfo>>(songService.findMVSongInfo(), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<List<SongInfo>>(HttpStatus.BAD_REQUEST);
+		}
+	}
 
 	/**
 	 * find id song
