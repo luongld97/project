@@ -116,13 +116,13 @@ public class AlbumRestController {
 			method = RequestMethod.GET, 
 			produces = MimeTypeUtils.APPLICATION_JSON_VALUE, 
 			headers  = "Accept=application/json")
-	public ResponseEntity<List<AlbumSinger>> findAlbumSinger(){
+	public ResponseEntity<List<AlbumSingerEntity>> findAlbumSinger(){
 		try {
-			List<AlbumSinger> albumsingers = albumSingerService.findAll();
+			List<AlbumSingerEntity> albumsingers = albumSingerService.findAlbumSinger();
 			System.out.println(albumsingers.get(0));
-			return new  ResponseEntity<List<AlbumSinger>>(albumsingers, HttpStatus.OK);
+			return new  ResponseEntity<List<AlbumSingerEntity>>(albumsingers, HttpStatus.OK);
 		} catch (Exception e) {
-			return new  ResponseEntity<List<AlbumSinger>>(HttpStatus.BAD_REQUEST);
+			return new  ResponseEntity<List<AlbumSingerEntity>>(HttpStatus.BAD_REQUEST);
 		}
 	}
 	
@@ -130,7 +130,7 @@ public class AlbumRestController {
 			method = RequestMethod.GET, 
 			produces = MimeTypeUtils.APPLICATION_JSON_VALUE, 
 			headers  = "Accept=application/json")
-	public ResponseEntity<List<AlbumSongEntity>> findAlbumContainSong(){
+	public ResponseEntity<List<AlbumSongEntity>> findAlbumSong(){
 		try {
 			return new  ResponseEntity<List<AlbumSongEntity>>(albumSongService.findAlbumSong(), HttpStatus.OK);
 		} catch (Exception e) {
