@@ -28,7 +28,7 @@
 					<th class="text-center"><b>Video</b></th>
 					<th class="text-center"><b>Uploaded</b></th>
 					<th class="text-center"><b>Uploaded by</b></th>
-					<th><b>Options</b></th>
+					<th class="text-center" width="8%"><b>Options</b></th>
 				</tr>
 			</thead>
 			<c:if test="${songs.pageList.size() > 0 }">
@@ -38,7 +38,7 @@
 							<td>${song.id }</td>
 							<td>${song.name }</td>
 							<td>${song.link }</td>
-							<td>${song.lyric }</td>
+							<td><div style="max-height: 100px; overflow: auto;">${song.lyric }</div></td>
 							<td>${song.listen }</td>
 							<td>${song.show }</td>
 							<td>${song.video }</td>
@@ -47,7 +47,7 @@
 							<c:url var="updateLink" value="song/updatesong.html">
 								<c:param name="id" value="${song.id }"/>
 							</c:url>
-							<td><a href="${updateLink }" >Update</a> | <a href="" >Hide</a></td>
+							<td><a href="${updateLink }" >Edit</a> &nbsp; <a href="" >Hide</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

@@ -160,6 +160,6 @@
 	</body>
 	
 	<script src="${pageContext.request.contextPath }/assets/js/jquery-3.2.1.min.js"></script>
-	<script src="${pageContext.request.contextPath }/assets/js/jquery.js" type="text/javascript"></script>
+	<script src="${pageContext.request.contextPath }/assets/js/pages/login-register.js" type="text/javascript"></script>
 	<script src="${pageContext.request.contextPath }/assets/js/bootstrap.min.js" type="text/javascript"></script>
 </html>

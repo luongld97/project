@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
+
+import java.util.Date;
+
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,14 +25,16 @@ public class Comment implements java.io.Serializable {
 	private Account account;
 	private Song song;
 	private String content;
+	private Date created;
 
 	public Comment() {
 	}
 
-	public Comment(Account account, Song song, String content) {
+	public Comment(Account account, Song song, String content, Date created) {
 		this.account = account;
 		this.song = song;
 		this.content = content;
+		this.created = created;
 	}
 
 	@Id
@@ -67,6 +72,15 @@ public class Comment implements java.io.Serializable {
 	@Column(name = "content", nullable = false, length = 65535)
 	public String getContent() {
 		return this.content;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+	
+	@Column(name = "created", nullable = false)
+	public Date getCreated() {
+		return this.created;
 	}
 
 	public void setContent(String content) {

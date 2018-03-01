@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.luog.onlinemusic.dao.CommentDAO;
+import com.luog.onlinemusic.entity.commons.Account;
 import com.luog.onlinemusic.entity.commons.Comment;
+import com.luog.onlinemusic.entity.commons.Song;
+import com.luog.onlinemusic.entity.rest.CommentEntity;
 
 @Transactional
 @Service("commentService")
@@ -41,5 +44,17 @@ public class CommentServiceImpl implements CommentService{
 	public boolean delete(Comment comment) {
 		return commentDAO.delete(comment);
 	}
+
+	@Override
+	public List<CommentEntity> getComments(Song song) {
+		return commentDAO.getComments(song);
+	}
+
+	@Override
+	public List<CommentEntity> getComments(Account account) {
+		return commentDAO.getComments(account);
+	}
+	
+	
 
 }

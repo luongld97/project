@@ -9,7 +9,7 @@
 					<a href="index.html"><span class="glyphicon glyphicon-home"></span></a>
 				</div>
 				<div class="navbar-item">
-					<a href="playlist.html">Nhạc cá nhân</a>
+					<a href="${pageContext.request.contextPath }/account/playlist.html?username=${sessionScope.currentAccount.username }">Nhạc cá nhân</a>
 				</div>
 				<div class="navbar-item">
 					<a href="">Bảng xếp hạng</a>

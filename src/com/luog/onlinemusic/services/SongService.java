@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.luog.onlinemusic.entity.admin.AdminSong;
+import com.luog.onlinemusic.entity.commons.Singer;
 import com.luog.onlinemusic.entity.commons.Song;
 import com.luog.onlinemusic.entity.rest.SongEntity;
 import com.luog.onlinemusic.entity.rest.SongInfo;
@@ -65,4 +66,6 @@ public interface SongService {
 	 * @author luog
 	 */
 	List<SongEntity> findSongEntities(String keyWord);
+	
+	public List<Song> getTopSongs(Singer singer, Integer limit);
 }
