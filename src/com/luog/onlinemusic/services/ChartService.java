@@ -8,7 +8,7 @@ import com.luog.onlinemusic.entity.commons.Song;
 
 public interface ChartService {
 	public List<Chart> findAll();
-
+	
 	public Chart find(int id);
 
 	public boolean create(Chart chart);

@@ -39,6 +39,8 @@ public interface SongService {
 	public boolean delete(Song song);
 
 	public List<SongInfo> findSongInfo();
+	
+	public List<SongInfo> findMVSongInfo();
 
 	/**
 	 * @author luog

@@ -23,7 +23,7 @@ public class ChartServiceImpl implements ChartService {
 	public List<Chart> findAll() {
 		return chartDAO.findAll();
 	}
-
+	
 	@Override
 	public Chart find(int id) {
 		return chartDAO.find(id);
