@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
 <!--Start Body Web-->
 <div class="body-web">
@@ -24,8 +25,7 @@
 						<img
 							src="${pageContext.request.contextPath }/assets/images/chude.png"
 							alt="" class="image-view">
-						<audio 
-							baseUrl="${pageContext.request.contextPath }"
+						<audio baseUrl="${pageContext.request.contextPath }"
 							songId="${song.id }">
 							<source src="${song.link }" />
 						</audio>
@@ -115,23 +115,22 @@
 				<!-- End Album -->
 				<!-- Binh luan -->
 				<div class="col-md-12 body-left">
-					<h3>BÌNH LUẬN</h3>
+					<h3>COMMENTS</h3>
 					<!-- Nhap binh luan -->
 					<div class="margin-top-20">
 						<div class="row">
 							<div class="col-md-2">
 								<img class="avatar"
-									src="${pageContext.request.contextPath }/assets/images/imgcasi.png"
+									src="${pageContext.request.contextPath }/assets/images/${currentAccount.photo }"
 									alt="">
 							</div>
 							<div class="col-md-10">
-								<textarea class="text-command"
-									placeholder=" Nhập bình luận ở đây"></textarea>
+								<textarea class="text-command" placeholder="Say something...!"></textarea>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-12">
-								<button class="btn btn-primary float-right">Bình luận</button>
+								<button class="btn btn-primary float-right">OK</button>
 							</div>
 						</div>
 					</div>
@@ -186,24 +185,26 @@
 								</div>
 								<div class="info-chart">
 									<c:url var="suggestedSongLink" value="play.html">
-										<c:param name="id" value="${suggestedSong.id }"/>
+										<c:param name="id" value="${suggestedSong.id }" />
 									</c:url>
 									<a href="${suggestedSongLink }"><b class="song-name-chart">${suggestedSong.name }</b></a><br>
-									<a href="${suggestedSongLink }">
-										<i class="singer-name-chart">
-											<c:forEach items="${suggestedSong.songDetails }" var="songDetail" varStatus="i">
+									<a href="${suggestedSongLink }"> <i
+										class="singer-name-chart"> <c:forEach
+												items="${suggestedSong.songDetails }" var="songDetail"
+												varStatus="i">
 												${songDetail.singer.name }
-												<c:if test="${i.index < suggestedSong.songDetails.size() - 1 }">
+												<c:if
+													test="${i.index < suggestedSong.songDetails.size() - 1 }">
 													,&nbsp;
 												</c:if>
 											</c:forEach>
-										</i>
+									</i>
 									</a>
 								</div>
 								<div class="tool-chart">
-									<a class="playlist-btn-sm" href="${suggestedSongLink }" title="Nghe"><span
-										class="glyphicon glyphicon-play"></span></a> <a
-										class="playlist-btn-sm" href="" title="Thêm vào"><span
+									<a class="playlist-btn-sm" href="${suggestedSongLink }"
+										title="Nghe"><span class="glyphicon glyphicon-play"></span></a>
+									<a class="playlist-btn-sm" href="" title="Thêm vào"><span
 										class="glyphicon glyphicon-plus"></span></a> <a
 										class="playlist-btn-sm" href="" title="Chia sẻ"><span
 										class="glyphicon glyphicon-share"></span></a>
@@ -220,6 +221,7 @@
 <!--End Body Web-->
 
 <script src="${pageContext.request.contextPath }/assets/js/plyr.js"></script>
+<script src="${pageContext.request.contextPath }/assets/js/comment.js"></script>
 <script src="${pageContext.request.contextPath }/assets/js/counter.js"></script>
 <script
 	src="${pageContext.request.contextPath }/assets/js/pages/play-song.js"></script>

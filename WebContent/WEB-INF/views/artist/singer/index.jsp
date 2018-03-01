@@ -56,9 +56,16 @@
 			<!-- Body Left -->
 			<div class="col-md-9">
 				<div class="col-md-12 body-left">
-					<a href=""><h3 class="title-list-index">${singer.name.toUpperCase() }'
-							S SONG</h3></a> <a class="artic-play-all-btn" href="" title="Phát tất cả"><span
-						class="glyphicon glyphicon-play-circle"></span></a>
+					<a href="">
+						<h3 class="title-list-index">${singer.name.toUpperCase() }' S SONG</h3>
+					</a>
+					&nbsp;
+					<c:url var="playTopSongs" value="/artist/play-list.html">
+						<c:param name="id" value="${singer.id }"/>
+					</c:url>
+					<a class="artic-play-all-btn" href="${playTopSongs }" title="Phát tất cả">
+						<span	class="glyphicon glyphicon-play-circle" />
+					</a>
 					<ul class="list-item">
 						<c:forEach var="song" items="${topSongs }">
 							<c:url var="linkSong" value="/song/play.html" >
