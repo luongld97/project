@@ -158,7 +158,7 @@ public class Song implements java.io.Serializable {
 		this.isVideo = isVideo;
 	}
 	
-	@Column(name = "video_link", nullable = true)
+	@Column(name = "video_link", nullable = true, length = 250)
 	public String getVideoLink() {
 		return this.videoLink;
 	}
