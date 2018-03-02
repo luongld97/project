@@ -11,11 +11,13 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.luog.onlinemusic.entity.commons.Chart;
 import com.luog.onlinemusic.entity.commons.Song;
+import com.luog.onlinemusic.entity.rest.ChartEntity;
 
 @Repository("chartDAO")
 public class ChartDAOImpl implements ChartDAO {
@@ -195,5 +197,35 @@ public class ChartDAOImpl implements ChartDAO {
 			session.close();
 		}
 		return charts;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ChartEntity> getTopSongs() {
+		List<ChartEntity> chartEntities = null;
+		Session session = null;
+		Transaction transaction = null;
+		Query query = null;
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			query = session.createQuery("SELECT so.id as songId, so.name as songName, so.link as link, so.lyric as lyric, "
+							+ "ch.listen as listen, DATE_FORMAT(ch.date,'%Y-%m-%d') as date, "
+							+ "si.name as singerName, si.photo as singerPhoto "
+							+ "FROM Chart ch, Song so, Singer si, SongDetail sd "
+							+ "WHERE ch.song = so AND sd.song = so AND sd.singer = si "
+							+ "ORDER BY ch.listen DESC").setResultTransformer(Transformers.aliasToBean(ChartEntity.class));
+			chartEntities = query.list();
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			chartEntities = new ArrayList<>();
+			if (transaction != null)
+				transaction.rollback();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return chartEntities;
 	}
 }

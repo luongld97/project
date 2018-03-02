@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.luog.onlinemusic.entity.commons.Chart;
 import com.luog.onlinemusic.entity.commons.Song;
+import com.luog.onlinemusic.entity.rest.ChartEntity;
 
 public interface ChartDAO {
 	public List<Chart> findAll();
@@ -16,6 +17,8 @@ public interface ChartDAO {
 	public boolean update(Chart chart);
 
 	public boolean delete(Chart chart);
+	
+	public List<ChartEntity> getTopSongs();
 	
 	public Chart findChart(Song song, Date currentDate);
 	

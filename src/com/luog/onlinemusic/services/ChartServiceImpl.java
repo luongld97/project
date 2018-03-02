@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.luog.onlinemusic.dao.ChartDAO;
 import com.luog.onlinemusic.entity.commons.Chart;
 import com.luog.onlinemusic.entity.commons.Song;
+import com.luog.onlinemusic.entity.rest.ChartEntity;
 
 @Transactional
 @Service("chartService")
@@ -66,6 +67,11 @@ public class ChartServiceImpl implements ChartService {
 			result = false;
 		}
 		return result;
+	}
+
+	@Override
+	public List<ChartEntity> getTopSongs() {
+		return chartDAO.getTopSongs();
 	}
 
 }
