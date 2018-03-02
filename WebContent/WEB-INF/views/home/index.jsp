@@ -121,9 +121,7 @@
 				<div class="col-md-12 body-right">
 					<div class="item-right title-chart">
 						<h4 class="title-list-index">BXH THÁNG BÀI HÁT</h4>
-						<c:url var="playListLink" value="/song/playlist.html">
-							<c:param name="id" value="-1" />
-						</c:url>
+						<c:url var="playListLink" value="/song/playlist.html" />
 						<a class="play-all-btn" href="${playListLink }" title="Phát tất cả"><span
 							class="glyphicon glyphicon-play-circle"></span></a> <a
 							class="text-view-more" href="#">Xem thêm</a>
