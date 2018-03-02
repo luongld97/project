@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -24,6 +25,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Category implements java.io.Serializable {
 
 	private Integer id;
+	
+	@JsonIgnore
 	private Category category;
 	private String name;
 	private Set<CategoryDetail> categoryDetails = new HashSet<CategoryDetail>(0);
@@ -75,6 +78,7 @@ public class Category implements java.io.Serializable {
 		this.name = name;
 	}
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
 	public Set<CategoryDetail> getCategoryDetails() {
 		return this.categoryDetails;
@@ -84,6 +88,7 @@ public class Category implements java.io.Serializable {
 		this.categoryDetails = categoryDetails;
 	}
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
 	public Set<Category> getCategories() {
 		return this.categories;

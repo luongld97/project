@@ -12,6 +12,7 @@ import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.luog.onlinemusic.entity.commons.Category;
 import com.luog.onlinemusic.entity.commons.Singer;
 import com.luog.onlinemusic.entity.commons.Song;
 import com.luog.onlinemusic.entity.rest.SongEntity;
@@ -180,6 +181,35 @@ public class SongDAOImpl implements SongDAO {
 					+ "so.id as id, so.name as name, " + "so.link as link, " + "so.lyric as lyric, "
 					+ "so.video as isVideo , so.videoLink as videoLink " + "FROM Singer si, Song so, SongDetail sd "
 					+ "WHERE sd.singer = si AND sd.song = so AND so.video = true " + "ORDER BY so.id DESC")
+					.setResultTransformer(Transformers.aliasToBean(SongInfo.class));
+			songInfos = query.list();
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			songInfos = new ArrayList<>();
+			if (transaction != null)
+				transaction.rollback();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return songInfos;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<SongInfo> findSongInCategory(Category category) {
+		List<SongInfo> songInfos = null;
+		Session session = null;
+		Transaction transaction = null;
+		Query query = null;
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			query = session.createQuery("SELECT si.id as singerId, si.name as singerName, si.photo as singerPhoto, "
+					+ "so.id as id, so.name as name, " + "so.link as link, " + "so.lyric as lyric, "
+					+ "so.video as isVideo , so.videoLink as videoLink " + "FROM Singer si, Song so, SongDetail sd, "
+							+ "CategoryDetail cd "
+					+ "WHERE sd.singer = si AND sd.song = so AND cd.song = so AND cd.category =:category " + "ORDER BY so.id ASC").setParameter("category", category)
 					.setResultTransformer(Transformers.aliasToBean(SongInfo.class));
 			songInfos = query.list();
 			transaction.commit();

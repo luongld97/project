@@ -18,6 +18,7 @@ import com.luog.onlinemusic.dao.CategoryDetailDAO;
 import com.luog.onlinemusic.dao.SongDAO;
 import com.luog.onlinemusic.entity.admin.AdminSong;
 import com.luog.onlinemusic.entity.commons.AuthorDetail;
+import com.luog.onlinemusic.entity.commons.Category;
 import com.luog.onlinemusic.entity.commons.CategoryDetail;
 import com.luog.onlinemusic.entity.commons.Singer;
 import com.luog.onlinemusic.entity.commons.Song;
@@ -264,6 +265,11 @@ public class SongServiceImpl implements SongService {
 	@Override
 	public List<Song> getTopSongs(Singer singer, Integer limit) {
 		return songDAO.getTopSongs(singer, limit);
+	}
+
+	@Override
+	public List<SongInfo> findSongInCategory(Category category) {
+		return songDAO.findSongInCategory(category);
 	}
 
 }
