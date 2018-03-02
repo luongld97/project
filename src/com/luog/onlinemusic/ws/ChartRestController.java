@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.luog.onlinemusic.entity.commons.Chart;
+import com.luog.onlinemusic.entity.rest.AlbumSingerEntity;
+import com.luog.onlinemusic.entity.rest.AlbumSongEntity;
+import com.luog.onlinemusic.entity.rest.ChartEntity;
 import com.luog.onlinemusic.services.ChartService;
 
 @RestController
@@ -101,4 +104,17 @@ public class ChartRestController {
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	@RequestMapping(value ="gettopsongs",
+			method = RequestMethod.GET, 
+			produces = MimeTypeUtils.APPLICATION_JSON_VALUE, 
+			headers  = "Accept=application/json")
+	public ResponseEntity<List<ChartEntity>> getTopSongs(){
+		try {
+			return new  ResponseEntity<List<ChartEntity>>(chartService.getTopSongs(), HttpStatus.OK);
+		} catch (Exception e) {
+			return new  ResponseEntity<List<ChartEntity>>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
 }

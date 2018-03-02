@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.luog.onlinemusic.entity.commons.Chart;
 import com.luog.onlinemusic.entity.commons.Song;
+import com.luog.onlinemusic.entity.rest.ChartEntity;
 
 public interface ChartService {
 	public List<Chart> findAll();
@@ -16,6 +17,8 @@ public interface ChartService {
 	public boolean update(Chart chart);
 	
 	public boolean delete(Chart chart);
+	
+	public List<ChartEntity> getTopSongs();
 	
 	/**
 	 * @author luog
