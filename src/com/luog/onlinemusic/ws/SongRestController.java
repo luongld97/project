@@ -18,6 +18,7 @@ import com.luog.onlinemusic.entity.commons.Chart;
 import com.luog.onlinemusic.entity.commons.Song;
 import com.luog.onlinemusic.entity.rest.SongEntity;
 import com.luog.onlinemusic.entity.rest.SongInfo;
+import com.luog.onlinemusic.services.CategoryService;
 import com.luog.onlinemusic.services.ChartService;
 import com.luog.onlinemusic.services.SongService;
 
@@ -30,6 +31,9 @@ public class SongRestController {
 
 	@Autowired
 	private ChartService chartService;
+	
+	@Autowired
+	private CategoryService categoryService;
 
 	/**
 	 * find all of song
@@ -57,6 +61,15 @@ public class SongRestController {
 	public ResponseEntity<List<SongInfo>> findSongInfo() {
 		try {
 			return new ResponseEntity<List<SongInfo>>(songService.findSongInfo(), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<List<SongInfo>>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@RequestMapping(value = "findsongincategory/{categoryId}", method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE, headers = "Accept=application/json")
+	public ResponseEntity<List<SongInfo>> findSongInCategory(@PathVariable("categoryId") int categoryId) {
+		try {
+			return new ResponseEntity<List<SongInfo>>(songService.findSongInCategory(categoryService.find(categoryId)), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<List<SongInfo>>(HttpStatus.BAD_REQUEST);
 		}

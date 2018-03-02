@@ -2,6 +2,7 @@ package com.luog.onlinemusic.dao;
 
 import java.util.List;
 
+import com.luog.onlinemusic.entity.commons.Category;
 import com.luog.onlinemusic.entity.commons.Singer;
 import com.luog.onlinemusic.entity.commons.Song;
 import com.luog.onlinemusic.entity.rest.SongEntity;
@@ -21,6 +22,8 @@ public interface SongDAO {
 	public List<SongInfo> findSongInfo();
 	
 	public List<SongInfo> findMVSongInfo();
+	
+	public List<SongInfo> findSongInCategory(Category category);
 
 	public SongEntity getSongEntity(int id);
 
