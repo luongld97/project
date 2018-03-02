@@ -108,18 +108,25 @@ public class AccountController {
 	 * @author luog
 	 */
 	@RequestMapping(value = { "/playlist" }, method = RequestMethod.GET)
-	public String getPlayList(@RequestParam("username") String username, HttpServletRequest request,
-			HttpSession httpSession, ModelMap modelMap) {
-		Account currentAccount = (Account) httpSession.getAttribute("currentAccount");
-		List<PlayList> playLists = null;
-		playLists = currentAccount != null ? playListService.getUserPlayList(currentAccount) : new ArrayList<>();
-		PagedListHolder<PlayList> pagedListHolder = new PagedListHolder<>(playLists);
-		int page = ServletRequestUtils.getIntParameter(request, "page", 0);
-		pagedListHolder.setPage(page);
-		pagedListHolder.setPageSize(10);
-		modelMap.put("playLists", pagedListHolder);
-		modelMap.put("currentPage", page);
-		return "user.playlist";
+	public String getPlayList(@RequestParam(value = "username", required = false) String username,
+			HttpServletRequest request, HttpSession httpSession, ModelMap modelMap) {
+		if (username != null) {
+			Account currentAccount = accountService.find(username);
+			if (currentAccount != null) {
+				List<PlayList> playLists = null;
+				playLists = currentAccount != null ? playListService.getUserPlayList(currentAccount)
+						: new ArrayList<>();
+				PagedListHolder<PlayList> pagedListHolder = new PagedListHolder<>(playLists);
+				int page = ServletRequestUtils.getIntParameter(request, "page", 0);
+				pagedListHolder.setPage(page);
+				pagedListHolder.setPageSize(10);
+				modelMap.put("playLists", pagedListHolder);
+				modelMap.put("currentPage", page);
+				modelMap.put("account", currentAccount);
+				return "user.playlist";
+			}
+		}
+		return "redirect:/account/login.html";
 	}
 
 }

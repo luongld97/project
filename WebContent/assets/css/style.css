@@ -126,6 +126,7 @@ Header
 	font-size: 18px;
 	margin-top: 16px;
 	text-align: right;
+
 }
 
 .user-logged {
@@ -133,12 +134,12 @@ Header
 	color: red;
 }
 
-.login a {
-	color: red;
+.login a, .login b {
+	color: #fff;
 }
 
 .login a:hover {
-	color: purple;
+	color: yellow;
 }
 
 .top-second-bar {
