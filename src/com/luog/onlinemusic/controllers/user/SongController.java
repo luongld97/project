@@ -42,9 +42,9 @@ public class SongController {
 	}
 
 	@RequestMapping(value = "playlist", method = RequestMethod.GET)
-	public String playListSong(@RequestParam("id") int id, ModelMap modelMap) {
+	public String playListSong(@RequestParam(value = "id", required = false) Integer id, ModelMap modelMap) {
 		List<Song> songs = new ArrayList<>();
-		if (id == -1) {
+		if (id == null) {
 			List<Chart> charts = chartService.getChartsByMonth(new Date(), 20);
 			for (Chart chart : charts)
 				songs.add(chart.getSong());

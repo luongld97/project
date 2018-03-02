@@ -27,16 +27,29 @@
 												class="ml-4 playing-song-text-color">${song.name }</span>
 										</div>
 										<div class="float-right col-md-4">
-											<a class="playlist-btn-sm" href="" title="Xem MV"><span
-												class="glyphicon glyphicon-film"></span></a> <a
-												class="playlist-btn-sm" href="" title="Tải về"><span
-												class="glyphicon glyphicon-download-alt"></span></a> <a
-												class="playlist-btn-sm" href="" title="Thêm vào"><span
-												class="glyphicon glyphicon-plus"></span></a> <a
-												class="playlist-btn-sm" href="" title="Chia sẻ"><span
-												class="glyphicon glyphicon-share"></span></a> <a
-												class="playlist-btn-sm" href="" title="Nghe riêng"><span
-												class="glyphicon glyphicon-arrow-right"></span></a>
+												<c:if test="${song.video }">
+													<c:url var="videoLink" value="">
+														<c:param name="id" value="${song.id }"/>
+													</c:url>
+													<a class="playlist-btn-sm" href="${videoLink }" title="Xem MV">
+														<span 	class="glyphicon glyphicon-film" />
+													</a>
+												</c:if>
+											 	<a class="playlist-btn-sm" href="" title="Tải về">
+											 		<span	class="glyphicon glyphicon-download-alt" />
+												</a> 
+												<span class="playlist-btn-sm" href="" title="Thêm vào">
+													<span	class="glyphicon glyphicon-plus" />
+												</span>
+												<a class="playlist-btn-sm" href="" title="Chia sẻ">
+													<span class="glyphicon glyphicon-share" />
+												</a>
+												<c:url var="songLink" value="/song/play.html">
+													<c:param name="id" value="${song.id }"/>
+												</c:url>
+												<a class="playlist-btn-sm" href="${songLink }" target="_blank" title="Nghe riêng">
+													<span class="glyphicon glyphicon-arrow-right" />
+												</a>
 										</div>
 									</div>
 								</li>

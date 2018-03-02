@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.luog.onlinemusic.entity.commons.Album;
+import com.luog.onlinemusic.entity.commons.Singer;
 
 @Repository("albumDAO")
 public class AlbumDAOImpl implements AlbumDAO {
@@ -127,5 +129,41 @@ public class AlbumDAOImpl implements AlbumDAO {
 		}
 		return result;
 	}
+
+	/**
+	 * @author luog
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Album> getAlbums(Singer singer) {
+		List<Album> albums = null;
+		Session session = null;
+		Transaction transaction = null;
+		Query query = null;
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			query = session.createQuery("SELECT al "
+					+ "FROM "
+					+ "Album al, "
+					+ "AlbumSinger asg "
+					+ "WHERE "
+					+ "asg.album = al "
+					+ "AND "
+					+ "asg.singer = :singer");
+			query.setParameter("singer", singer);
+			albums = query.list();
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			albums = new ArrayList<>();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return albums;
+	}
+	
+	
 
 }

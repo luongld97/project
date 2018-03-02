@@ -3,6 +3,7 @@ package com.luog.onlinemusic.dao;
 import java.util.List;
 
 import com.luog.onlinemusic.entity.commons.Album;
+import com.luog.onlinemusic.entity.commons.Singer;
 
 public interface AlbumDAO {
 
@@ -16,5 +17,7 @@ public interface AlbumDAO {
 	public boolean update(Album album);
 	
 	public boolean delete(Album album);
+	
+	public List<Album> getAlbums(Singer singer);
 	
 }

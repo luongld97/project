@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.luog.onlinemusic.dao.AlbumDAO;
 import com.luog.onlinemusic.entity.commons.Album;
+import com.luog.onlinemusic.entity.commons.Singer;
 
 @Transactional
 @Service("albumService")
@@ -41,5 +42,15 @@ public class AlbumServiceImpl implements AlbumService {
 	public boolean delete(Album album) {
 		return albumDAO.delete(album);
 	}
+
+	/**
+	 * @author luog
+	 */
+	@Override
+	public List<Album> getAlbums(Singer singer) {
+		return albumDAO.getAlbums(singer);
+	}
+	
+	
 
 }

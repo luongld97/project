@@ -58,7 +58,7 @@
 			<a href="${singerVideo }">Video</a>
 		</div>
 		<div class="navbar-item">
-			<c:url var="singerStory" value="/artist/singer/video.html">
+			<c:url var="singerStory" value="/artist/singer/story.html">
 				<c:param name="id" value="${singer.id }" />
 			</c:url>
 			<a href="${singerStory }">Story</a>
