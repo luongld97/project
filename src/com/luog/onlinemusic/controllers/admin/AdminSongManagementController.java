@@ -127,7 +127,7 @@ public class AdminSongManagementController implements ServletContextAware {
 			return songService.update(temp) ? "redirect:../song.html"
 					: initForm("admin.song.updatesong", modelMap, temp);
 		}
-		return "admin.song.updatesong";
+		return initForm("admin.song.updatesong", modelMap, temp);
 	}
 
 	/**

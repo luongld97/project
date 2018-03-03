@@ -2,7 +2,6 @@ package com.luog.onlinemusic.helpers;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.luog.onlinemusic.entity.commons.Song;
@@ -10,26 +9,6 @@ import com.luog.onlinemusic.entity.rest.SongEntity;
 
 public class SongHelper {
 
-	/**
-	 * @author luog
-	 */
-	public static Song toSong(SongEntity temp) {
-		Song song = new Song();
-		song.setName(temp.getName());
-		song.setLink(temp.getLink());
-		song.setLyric(temp.getLyric());
-		song.setListen(0);
-		song.setShow(temp.isShow());
-		song.setStatus(temp.isStatus());
-		song.setVideo(temp.isVideo());
-		song.setVideoLink(temp.getVideoLink());
-		song.setVideoPhoto(temp.getVideoPhoto());
-		song.setUploadedTime(new Date());
-		song.setUploadedBy(temp.getUploadedBy());
-		
-		return song;
-	}
-	
 	/**
 	 * @author luog
 	 */

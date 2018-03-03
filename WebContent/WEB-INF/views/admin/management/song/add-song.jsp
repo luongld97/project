@@ -50,7 +50,8 @@
 					<div class="form-group">
 						<div class="input-group">
 							<div class="input-group-btn">
-								<button type="submit" name="addsinger" class="btn btn-primary" style="height: 41px;">
+								<button type="submit" name="addsinger" class="btn btn-primary"
+									style="height: 41px;">
 									<span class="glyphicon glyphicon-plus" />
 								</button>
 							</div>
@@ -65,7 +66,8 @@
 							cssStyle="display:block;" />
 						<div class="input-group">
 							<div class="input-group-btn">
-								<button type="submit" name="addauthor" class="btn btn-primary" style="height: 41px;">
+								<button type="submit" name="addauthor" class="btn btn-primary"
+									style="height: 41px;">
 									<span class="glyphicon glyphicon-plus" />
 								</button>
 							</div>
@@ -80,7 +82,8 @@
 							cssStyle="display:block;" />
 						<div class="input-group">
 							<div class="input-group-btn">
-								<button type="submit" name="addcategory" class="btn btn-primary" style="height: 41px;">
+								<button type="submit" name="addcategory" class="btn btn-primary"
+									style="height: 41px;">
 									<span class="glyphicon glyphicon-plus" />
 								</button>
 							</div>
@@ -92,34 +95,45 @@
 						</div>
 					</div>
 					<div class="checkbox">
-						<label> <s:checkbox path="show" /> <span>show in
-								home page?</span>
-						</label>
-					</div>
-					<div class="checkbox">
 						<label> <s:checkbox path="video" id="is-video" /> <span
 							id="is-video-content">${song.video ? 'this is a video.' : 'this is not a video.' }</span>
 						</label>
 					</div>
 					<div id="video-photo"
 						class="form-group ${(fileTypeError != null || song.video) ? '' : 'hidden' }">
+						<s:errors path="videoLink" cssClass="alert alert-danger"
+							cssStyle="display:block;" />
+						<div class="input-group">
+							<div class="input-group-addon">
+								<span class="input-group-text"><span
+									class="glyphicon glyphicon-link" aria-hidden="true"></span></span>
+							</div>
+							<s:input cssClass="form-control" placeholder="Enter video link!"
+								path="videoLink" />
+						</div>
 						<div
 							class="alert alert-danger ${fileTypeError != null ? '' : 'hidden' }"
 							style="display: block;">${fileTypeError }</div>
 						<label>Select photo for this video.</label> <input type="file"
 							name="photo" accept="image/*" />
 					</div>
+					<div class="checkbox">
+						<label> <s:checkbox path="show" /> <span>show in
+								home page?</span>
+						</label>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="panel-footer">
 			<div class="text-right">
-				<input type="submit" name="addsong" class="btn btn-primary" name="save"
-					value="&nbsp;ADD SONG&nbsp;">
+				<input type="submit" name="addsong" class="btn btn-primary"
+					name="save" value="&nbsp;ADD SONG&nbsp;">
 			</div>
 		</div>
 	</div>
 </s:form>
 <script
 	src="${pageContext.request.contextPath }/assets/admin/js/chosen.jquery.min.js"></script>
-<script src="${pageContext.request.contextPath }/assets/admin/js/pages/add-song.js"></script>
+<script
+	src="${pageContext.request.contextPath }/assets/admin/js/pages/add-song.js"></script>

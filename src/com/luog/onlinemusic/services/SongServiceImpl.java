@@ -1,5 +1,7 @@
 package com.luog.onlinemusic.services;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -74,7 +76,18 @@ public class SongServiceImpl implements SongService {
 	public boolean create(SongEntity temp) {
 		boolean result = false;
 		try {
-			Song song = SongHelper.toSong(temp);
+			Song song = new Song();
+			song.setName(temp.getName());
+			song.setLink(temp.getLink());
+			song.setLyric(temp.getLyric());
+			song.setListen(0);
+			song.setShow(temp.isShow());
+			song.setStatus(true);
+			song.setVideo(temp.isVideo());
+			song.setVideoLink(temp.getVideoLink());
+			song.setVideoPhoto(temp.getVideoPhoto());
+			song.setUploadedTime(new Date());
+			song.setUploadedBy(temp.getUploadedBy());
 			result = songDAO.create(song);
 			if (result) 
 				result = toSongRelationship(temp, song);
@@ -92,11 +105,19 @@ public class SongServiceImpl implements SongService {
 	public boolean update(SongEntity temp) {
 		boolean result = false;
 		try {
-			Song song = songDAO.find(temp.getId());
-			result = songDAO.update(song);
+			Song currentSong = songDAO.find(temp.getId());
+			currentSong.setName(temp.getName());
+			currentSong.setLink(temp.getLink());
+			currentSong.setLyric(temp.getLyric());
+			currentSong.setShow(temp.isShow());
+			currentSong.setStatus(temp.isStatus());
+			currentSong.setVideo(temp.isVideo());
+			currentSong.setVideoLink(temp.getVideoLink());
+			currentSong.setVideoPhoto(temp.getVideoPhoto());
+			result = songDAO.update(currentSong);
 			if (result) {
-				result = removeSongRelationship(song);
-				result = toSongRelationship(temp, song);
+				result = removeSongRelationship(currentSong);
+				result = toSongRelationship(temp, currentSong);
 				
 			}
 		} catch (Exception e) {
@@ -192,7 +213,6 @@ public class SongServiceImpl implements SongService {
 	public List<SongInfo> findSongInCategory(Category category) {
 		return songDAO.findSongInCategory(category);
 	}
-<<<<<<< HEAD
 	
 	/**
 	 * @author luog
@@ -233,12 +253,11 @@ public class SongServiceImpl implements SongService {
 			result = authorDetailDAO.delete(authorDetail);
 		return result;
 	}
-=======
-
 	@Override
 	public List<SongInfo> findSongBySinger(Singer singer) {
 		return songDAO.findSongBySinger(singer);
 	}
-
->>>>>>> refs/remotes/origin/master
+	
+	
+	
 }

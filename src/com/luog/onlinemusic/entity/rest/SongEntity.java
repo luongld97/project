@@ -2,6 +2,9 @@ package com.luog.onlinemusic.entity.rest;
 
 import java.util.List;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.URL;
+
 public class SongEntity implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -52,6 +55,7 @@ public class SongEntity implements java.io.Serializable {
 		this.id = id;
 	}
 
+	@NotEmpty
 	public String getName() {
 		return name;
 	}
@@ -60,6 +64,8 @@ public class SongEntity implements java.io.Serializable {
 		this.name = name;
 	}
 
+	@URL
+	@NotEmpty
 	public String getLink() {
 		return link;
 	}
@@ -116,6 +122,7 @@ public class SongEntity implements java.io.Serializable {
 		this.videoPhoto = videoPhoto;
 	}
 	
+	@URL
 	public String getVideoLink() {
 		return videoLink;
 	}
@@ -140,6 +147,7 @@ public class SongEntity implements java.io.Serializable {
 		this.uploadedBy = uploadedBy;
 	}
 
+	@NotEmpty
 	public List<Integer> getSingers() {
 		return singers;
 	}
@@ -148,6 +156,7 @@ public class SongEntity implements java.io.Serializable {
 		this.singers = singers;
 	}
 
+	@NotEmpty
 	public List<Integer> getAuthors() {
 		return authors;
 	}
@@ -156,6 +165,7 @@ public class SongEntity implements java.io.Serializable {
 		this.authors = authors;
 	}
 
+	@NotEmpty
 	public List<Integer> getCategories() {
 		return categories;
 	}

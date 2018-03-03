@@ -15,8 +15,11 @@ public class SongValidator implements Validator{
 	}
 
 	@Override
-	public void validate(Object arg0, Errors arg1) {
-		// TODO Auto-generated method stub
+	public void validate(Object object, Errors errors) {
+		SongEntity songEntity = (SongEntity) object;
+		if (songEntity.isVideo() && songEntity.getVideoLink().isEmpty())
+			errors.rejectValue("videoLink", "videoLink.required");
+			
 		
 	}
 
