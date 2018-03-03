@@ -230,6 +230,34 @@ public class SongDAOImpl implements SongDAO {
 		}
 		return songInfos;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<SongInfo> findSongBySinger(Singer singer) {
+		List<SongInfo> songInfos = null;
+		Session session = null;
+		Transaction transaction = null;
+		Query query = null;
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			query = session.createQuery("SELECT si.id as singerId, si.name as singerName, si.photo as singerPhoto, "
+					+ "so.id as id, so.name as name, " + "so.link as link, " + "so.lyric as lyric, "
+					+ "so.video as isVideo , so.videoLink as videoLink " + "FROM Singer si, Song so, SongDetail sd "
+					+ "WHERE sd.singer = si AND sd.song = so AND sd.singer =:singer " + "ORDER BY so.id ASC").setParameter("singer", singer)
+					.setResultTransformer(Transformers.aliasToBean(SongInfo.class));
+			songInfos = query.list();
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			songInfos = new ArrayList<>();
+			if (transaction != null)
+				transaction.rollback();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return songInfos;
+	}
 
 	
 	/**

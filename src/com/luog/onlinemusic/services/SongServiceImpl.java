@@ -192,6 +192,7 @@ public class SongServiceImpl implements SongService {
 	public List<SongInfo> findSongInCategory(Category category) {
 		return songDAO.findSongInCategory(category);
 	}
+<<<<<<< HEAD
 	
 	/**
 	 * @author luog
@@ -232,4 +233,12 @@ public class SongServiceImpl implements SongService {
 			result = authorDetailDAO.delete(authorDetail);
 		return result;
 	}
+=======
+
+	@Override
+	public List<SongInfo> findSongBySinger(Singer singer) {
+		return songDAO.findSongBySinger(singer);
+	}
+
+>>>>>>> refs/remotes/origin/master
 }

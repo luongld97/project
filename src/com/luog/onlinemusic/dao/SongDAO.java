@@ -23,6 +23,8 @@ public interface SongDAO {
 	
 	public List<SongInfo> findMVSongInfo();
 	
+	public List<SongInfo> findSongBySinger(Singer singer);
+	
 	public List<SongInfo> findSongInCategory(Category category);
 
 	public SongEntity getSongEntity(int id);
