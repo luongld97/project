@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.luog.onlinemusic.entity.admin.AdminSong;
 import com.luog.onlinemusic.entity.commons.Song;
+import com.luog.onlinemusic.helpers.ImageHelper;
 import com.luog.onlinemusic.helpers.SongHelper;
 import com.luog.onlinemusic.services.AuthorService;
 import com.luog.onlinemusic.services.CategoryService;
@@ -78,13 +79,14 @@ public class AdminSongManagementController implements ServletContextAware {
 		String result = "";
 		SongValidator songValidator = new SongValidator();
 		songValidator.validate(temp, bindingResult);
+		
 		if (bindingResult.hasErrors()) {
 			result = initAddSongPage(modelMap);
 		} else
 			try {
 				if (temp.isVideo()) {
-					if (validateImage(image))
-						temp.setVideoPhoto(saveImage(image));
+					if (ImageHelper.validateImage(image))
+						temp.setVideoPhoto(ImageHelper.saveImage(servletContext, image));
 					else {
 						modelMap.put("fileTypeError", "This file is not support!");
 						result = initAddSongPage(modelMap);
@@ -154,21 +156,7 @@ public class AdminSongManagementController implements ServletContextAware {
 	// return result;
 	// }
 
-	private String saveImage(MultipartFile image) {
-		try {
-			File file = new File(
-					servletContext.getRealPath("/") + "/assets/uploaded_images/" + image.getOriginalFilename());
-			FileUtils.writeByteArrayToFile(file, image.getBytes());
-			return image.getOriginalFilename();
-		} catch (IOException e) {
-			return null;
-		}
-	}
-
-	private boolean validateImage(MultipartFile image) {
-		return image.getContentType().equals("image/jpeg") || image.getContentType().equals("image/jpg")
-				|| image.getContentType().equals("image/gif") || image.getContentType().equals("image/png");
-	}
+	
 
 	private String initAddSongPage(ModelMap modelMap) {
 		modelMap.put("currentTab", "song");
