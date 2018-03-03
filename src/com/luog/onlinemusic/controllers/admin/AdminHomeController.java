@@ -1,5 +1,7 @@
 package com.luog.onlinemusic.controllers.admin;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,12 +21,12 @@ public class AdminHomeController {
 	private AccountService accountService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public String index(ModelMap modelMap) {
+	public String index(HttpSession session, ModelMap modelMap) {
 		Authentication auth = SecurityContextHolder.getContext()
 				.getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			UserDetails userDetail = (UserDetails) auth.getPrincipal();
-			modelMap.put("account", accountService.find(userDetail.getUsername()));
+			session.setAttribute("currentAccount", accountService.find(userDetail.getUsername()));
 		}
 		return "admin.home.index";
 	}

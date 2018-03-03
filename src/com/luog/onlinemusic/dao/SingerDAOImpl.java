@@ -12,6 +12,7 @@ import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.luog.onlinemusic.entity.commons.Category;
 import com.luog.onlinemusic.entity.commons.Singer;
 import com.luog.onlinemusic.entity.rest.SingerEntity;
 
@@ -159,7 +160,7 @@ public class SingerDAOImpl implements SingerDAO {
 					+ "s.photo as photo "
 					+ "FROM Singer s WHERE "
 					+ "replace(s.name, ' ', '-') like :name");
-			query.setParameter("name", "%" + keyWord.replace(" ", "-") + "%");
+			query.setParameter("name", "%" + keyWord + "%");
 			query.setResultTransformer(Transformers.aliasToBean(SingerEntity.class));
 			singerEntities = query.list();
 			transaction.commit();
@@ -173,6 +174,37 @@ public class SingerDAOImpl implements SingerDAO {
 			session.close();
 		}
 		return singerEntities;
+	}
+	
+	
+	/**
+	 * @author luog
+	 */
+	@Override
+	public boolean isExist(String name) {
+		boolean result = false;
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			
+			Query query = session.createQuery("FROM Singer "
+					+ "WHERE replace(name, ' ', '-') = :name");
+			query.setParameter("name", name.replace(" ", "-"));
+			Singer currentSinger = (Singer) query.uniqueResult();
+			result = currentSinger != null;
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = false;
+			if (transaction != null)
+				transaction.rollback();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return result;
 	}
 
 }

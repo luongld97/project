@@ -1,10 +1,12 @@
 package com.luog.onlinemusic.validators;
 
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import com.luog.onlinemusic.entity.admin.AdminSong;
 
+@Component
 public class SongValidator implements Validator{
 
 	@Override

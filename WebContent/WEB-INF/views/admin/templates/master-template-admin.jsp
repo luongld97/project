@@ -9,19 +9,22 @@
 <title>Lumino - Dashboard</title>
 <link
 	href="${pageContext.request.contextPath }/assets/admin/css/bootstrap.min.css"
-	rel="stylesheet">
+	rel="stylesheet" />
 <link
 	href="${pageContext.request.contextPath }/assets/admin/css/font-awesome.min.css"
-	rel="stylesheet">
+	rel="stylesheet" />
 <link
 	href="${pageContext.request.contextPath }/assets/admin/css/styles.css"
-	rel="stylesheet">
+	rel="stylesheet" />
 <link
 	href="${pageContext.request.contextPath }/assets/admin/css/chosen.min.css"
-	rel="stylesheet">
+	rel="stylesheet" />
 <link
 	href="${pageContext.request.contextPath }/assets/admin/css/chosen-bootstrap.css"
-	rel="stylesheet">
+	rel="stylesheet" />
+	<link
+	href="${pageContext.request.contextPath }/assets/admin/css/easy-autocomplete.min.css"
+	rel="stylesheet" />
 <script
 	src="${pageContext.request.contextPath }/assets/admin/js/jquery-3.2.1.min.js"></script>
 </head>
@@ -47,6 +50,8 @@
 </body>
 <script
 	src="${pageContext.request.contextPath }/assets/admin/js/bootstrap.min.js"></script>
+<script
+	src="${pageContext.request.contextPath }/assets/admin/js/jquery.easy-autocomplete.min.js"></script>
 <script
 	src="${pageContext.request.contextPath }/assets/admin/js/custom.js"></script>
 </html>

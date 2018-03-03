@@ -3,6 +3,7 @@ package com.luog.onlinemusic.services;
 import java.util.List;
 
 import com.luog.onlinemusic.entity.commons.Singer;
+import com.luog.onlinemusic.entity.rest.SingerEntity;
 
 public interface SingerService {
 	public List<Singer> findAll();
@@ -14,4 +15,6 @@ public interface SingerService {
 	public boolean update(Singer singer);
 	
 	public boolean delete(Singer singer);
+	
+	public List<SingerEntity> findSingerEntities (String keyWord);
 }

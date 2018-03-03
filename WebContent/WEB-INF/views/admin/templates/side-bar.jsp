@@ -8,7 +8,7 @@
 				alt="">
 		</div>
 		<div class="profile-usertitle">
-			<div class="profile-usertitle-name">${account.username }</div>
+			<div class="profile-usertitle-name">${sessionScope.currentAccount.username }</div>
 			<div class="profile-usertitle-status">
 				<span class="indicator label-success"></span>Online
 			</div>
@@ -43,8 +43,6 @@
 						</a>
 						<ul class="children collapse ${(currentTab == 'author'|| currentTab == 'singer') ? 'in' : '' }" id="sub-item-1">
 								<li><a ${currentTab == 'singer' ? 'class="active"' : '' }  href="<c:url value="/admin/singer.html" />"><span>&nbsp;&nbsp;&nbsp;</span>Singer</a></li>
-								<li><a ${currentTab == 'author' ? 'class="active"' : '' } href="#"><span>&nbsp;&nbsp;&nbsp;</span>Author</a></li>
-								<li><a ${currentTab == 'singer' ? 'class="active"' : '' }  href="#"><span>&nbsp;&nbsp;&nbsp;</span>Singer</a></li>
 								<li><a ${currentTab == 'author' ? 'class="active"' : '' } href="<c:url value="/admin/author.html"/>"><span>&nbsp;&nbsp;&nbsp;</span>Author</a></li>
 						</ul>
 					</li>

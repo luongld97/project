@@ -333,8 +333,7 @@ public class SongDAOImpl implements SongDAO {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
 			Query query = session.createQuery(hql);
-			query.setParameter("name", "%" + keyWord.replace(" ", "-") + "%");
-			System.out.println(keyWord.replace(" ", "-"));
+			query.setParameter("name", "%" + keyWord + "%");
 			query.setResultTransformer(Transformers.aliasToBean(SongEntity.class));
 			songEntities = query.list();
 			transaction.commit();

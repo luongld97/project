@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.luog.onlinemusic.dao.SingerDAO;
 import com.luog.onlinemusic.entity.commons.Singer;
+import com.luog.onlinemusic.entity.rest.SingerEntity;
 
 @Transactional
 @Service("singerService")
@@ -41,5 +42,11 @@ public class SingerServiceImpl implements SingerService {
 	public boolean delete(Singer singer) {
 		return singerDAO.delete(singer);
 	}
+
+	@Override
+	public List<SingerEntity> findSingerEntities(String keyWord) {
+		return singerDAO.findSingerEntities(keyWord);
+	}
+
 
 }

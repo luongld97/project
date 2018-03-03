@@ -70,7 +70,7 @@ public class SongServiceImpl implements SongService {
 		try {
 			Song song = new Song();
 
-			song.setUploadedBy("luongld");
+			song.setUploadedBy(temp.getUploadedBy());
 			song.setName(temp.getName());
 			song.setLink(temp.getLink());
 			song.setLyric(temp.getLyric());
@@ -81,9 +81,11 @@ public class SongServiceImpl implements SongService {
 			song.setVideoPhoto(temp.getVideoPhoto());
 			song.setListen(0);
 			result = songDAO.create(song);
-			result = createSongDetailForSong(song, temp.getSingers());
-			result = createCategoryDetailForSong(song, temp.getCategories());
-			result = createAuthorDetailForSong(song, temp.getAuthors());
+			if (result) {
+				result = createSongDetailForSong(song, temp.getSingers());
+				result = createCategoryDetailForSong(song, temp.getCategories());
+				result = createAuthorDetailForSong(song, temp.getAuthors());
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -101,7 +103,7 @@ public class SongServiceImpl implements SongService {
 		try {
 			Song currentSong = songDAO.find(temp.getId());
 
-			currentSong.setUploadedBy("luongld");
+			currentSong.setUploadedBy(temp.getUploadedBy());
 			currentSong.setName(temp.getName());
 			currentSong.setLink(temp.getLink());
 			currentSong.setLyric(temp.getLyric());
@@ -112,24 +114,26 @@ public class SongServiceImpl implements SongService {
 			currentSong.setVideoPhoto(temp.getVideoPhoto());
 			currentSong.setListen(0);
 			result = songDAO.update(currentSong);
-			List<Integer> singerIds = temp.getSingers();
-			List<Integer> authorIds = temp.getAuthors();
-			List<Integer> categoryIds = temp.getCategories();
-			for (SongDetail currentSongDetail : currentSong.getSongDetails()) {
-				if (singerIds.indexOf(currentSongDetail.getId()) == -1)
-					result = songDetailDAO.delete(currentSongDetail);
+			if (result) {
+				List<Integer> singerIds = temp.getSingers();
+				List<Integer> authorIds = temp.getAuthors();
+				List<Integer> categoryIds = temp.getCategories();
+				for (SongDetail currentSongDetail : currentSong.getSongDetails()) {
+					if (singerIds.indexOf(currentSongDetail.getId()) == -1)
+						result = songDetailDAO.delete(currentSongDetail);
+				}
+				for (AuthorDetail currentAuthorDetail : currentSong.getAuthorDetails()) {
+					if (authorIds.indexOf(currentAuthorDetail.getId()) == -1)
+						result = authorDetailDAO.delete(currentAuthorDetail);
+				}
+				for (CategoryDetail currentCategoryDetail : currentSong.getCategoryDetails()) {
+					if (categoryIds.indexOf(currentCategoryDetail.getId()) == -1)
+						result = categoryDetailDAO.delete(currentCategoryDetail);
+				}
+				result = createSongDetailForSong(currentSong, singerIds);
+				result = createCategoryDetailForSong(currentSong, categoryIds);
+				result = createAuthorDetailForSong(currentSong, authorIds);
 			}
-			for (AuthorDetail currentAuthorDetail : currentSong.getAuthorDetails()) {
-				if (authorIds.indexOf(currentAuthorDetail.getId()) == -1)
-					result = authorDetailDAO.delete(currentAuthorDetail);
-			}
-			for (CategoryDetail currentCategoryDetail : currentSong.getCategoryDetails()) {
-				if (categoryIds.indexOf(currentCategoryDetail.getId()) == -1)
-					result = categoryDetailDAO.delete(currentCategoryDetail);
-			}
-			result = createSongDetailForSong(currentSong, singerIds);
-			result = createCategoryDetailForSong(currentSong, categoryIds);
-			result = createAuthorDetailForSong(currentSong, authorIds);
 
 		} catch (Exception e) {
 			e.printStackTrace();
