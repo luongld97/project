@@ -76,7 +76,7 @@ public class AdminSingerManagementController implements ServletContextAware {
 			return singerService.create(temp) ? "redirect:../singer.html"
 					: initForm("admin.singer.addsinger", modelMap, temp);
 		}
-		return "admin.singer.addsinger";
+		return initForm("admin.singer.addsinger", modelMap, temp);
 	}
 
 	@RequestMapping(value = { "/updatesinger", "/update" }, method = RequestMethod.GET)
@@ -107,7 +107,7 @@ public class AdminSingerManagementController implements ServletContextAware {
 			return singerService.update(temp) ? "redirect:../singer.html"
 					: initForm("admin.singer.updatesinger", modelMap, temp);
 		}
-		return "admin.singer.updatesinger";
+		return initForm("admin.singer.updatesinger", modelMap, temp);
 	}
 
 	@Override

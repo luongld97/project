@@ -133,7 +133,12 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12">
-								<button class="btn btn-primary float-right" id="post-button">POST</button>
+								<c:if test="${sessionScope.currentAccount != null }">
+									<button class="btn btn-primary float-right" id="post-button">POST</button>
+								</c:if>
+								<c:if test="${sessionScope.currentAccount == null }">
+									<button class="btn btn-primary float-right">You should login first!</button>
+								</c:if>
 							</div>
 						</div>
 					</div>

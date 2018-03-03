@@ -8,7 +8,7 @@
 	<div class="panel-heading">
 		<div class="col-md-3">
 			<a href="${pageContext.request.contextPath }/admin/singer/addsinger.html"
-				class="btn btn-primary" style="height: 46px; line-height: 32px;"> NEW SONG </a>
+				class="btn btn-primary" style="height: 46px; line-height: 32px;"> NEW SINGER </a>
 		</div>
 		<div class="col-md-6">
 			<div class="form-group">

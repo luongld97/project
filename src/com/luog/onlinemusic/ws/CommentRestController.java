@@ -1,7 +1,8 @@
 package com.luog.onlinemusic.ws;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
@@ -41,11 +42,15 @@ public class CommentRestController {
 	 * @author luog
 	 */
 	@RequestMapping(value = "postcomment", method = RequestMethod.POST, produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Boolean> postComment(@RequestBody(required = false) CommentEntity commentEntity) {
+	public ResponseEntity<Boolean> postComment(HttpSession session, @RequestBody(required = false) CommentEntity commentEntity) {
 		try {
-			Comment comment = toComment(commentEntity);
-			boolean result = commentService.create(comment);
-			return new ResponseEntity<>(result, HttpStatus.OK);
+			Account currentAccount = (Account) session.getAttribute("currentAccount");
+			if (currentAccount != null) {
+				Comment comment = toComment(commentEntity);
+				boolean result = commentService.create(comment);
+				return new ResponseEntity<>(result, HttpStatus.OK);
+			}
+			throw new Exception();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

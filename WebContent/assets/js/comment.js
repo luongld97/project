@@ -62,3 +62,25 @@ function commentHTML(comment) {
 		+ '</li>';
 	return commentHTML;
 }
+
+function formatDate(date){
+	var dateTimeString = '';
+	var day = date.getDate();
+	day = day.toString().length == 1 ? '0' + day : day;
+	var month = date.getMonth() + 1;
+	month = month.toString().length == 1 ? '0' + month : month;
+	var hour = date.getHours();
+	hour = hour.toString().length == 1 ? '0' + hour : hour;
+	var minute = date.getMinutes();
+	minute = minute.toString().length == 1 ? '0' + minute : minute;
+	var second = date.getSeconds();
+	second = second.toString().length == 1 ? '0' + second : second;
+	dateTimeString += date.getFullYear()
+		+ '-' + month
+		+ '-' + day
+		+ ' ' + hour
+		+ ':' + minute
+		+ ':' + second
+	return dateTimeString;
+}
+

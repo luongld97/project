@@ -2,7 +2,7 @@
  * @author luog
  */
 
-var base_url, audioPlayer, lyricElm, listenElm, currentSong, audio, listLink, ids, listItem, player, increased, canPlay;
+var base_url, audioPlayer, lyricElm, listenElm, currentSong, audio, timeOut, listLink, ids, listItem, player, increased, canPlay, commentPage, commentArea, buttonShowMore, buttonPost, commentBox, username;
 
 $(document).ready(function() {
 	base_url = $('audio').attr('baseUrl');
@@ -17,12 +17,23 @@ $(document).ready(function() {
 	increased = false;
 	canPlay = false;
 
+	commentPage = 0;
+	commentArea = $('#comment-area');
+	buttonShowMore = $('#show-more-button');
+	buttonPost = $('#post-button');
+	commentBox = $('#comment-box');
+	username = commentBox.attr('username');
+
 	$('#list-song').css({
 		'height' : '150px',
 		'overflow' : 'auto'
 	})
 
 	play();
+	
+	buttonShowMore.click(btnShowMoreClicked);
+	buttonPost.click(btnPostClicked);
+	
 	audio.plyr.on('canplay', function() {
 		canPlay = true;
 		if (!increased) {
@@ -80,7 +91,9 @@ function nextSong() {
 	increased = false;
 	songId = $(ids[currentSong]).val();
 	setSongInfo(songId, listenElm, lyricElm);
-	clearTimeout(timeOut);
+	if (timeOut != null)
+		clearTimeout(timeOut);
+	getSongComments(base_url, songId, commentPage, showComments);
 }
 
 function play() {
@@ -94,6 +107,8 @@ function play() {
 	audioPlayer.on('ended', nextSong);
 	songId = $(ids[currentSong]).val();
 	setSongInfo(songId, listenElm, lyricElm);
+
+	getSongComments(base_url, songId, commentPage, showComments);
 }
 
 function listItemClicked(e, item) {
@@ -101,11 +116,41 @@ function listItemClicked(e, item) {
 	increased = false;
 	audio.src = item.find('input[name="link"]').val();
 	audio.play();
-	console.log(listItem.parent())
 	listItem.closest('li').removeClass('playing-song');
 	currentSong = listItem.index(item);
 	item.closest('li').addClass('playing-song');
 	songId = $(ids[currentSong]).val();
 	setSongInfo(songId, listenElm, lyricElm);
-	clearTimeout(timeOut);
+	if (timeOut != null)
+		clearTimeout(timeOut);
+	getSongComments(base_url, songId, commentPage, showComments);
+}
+
+function showComments(result) {
+	var comments = '';
+	if (typeof(result) == 'object') {
+		for (var i = 0; i < result.length; i++) {
+			comments += commentHTML(result[i]);
+		}
+		commentArea.html(comments);
+	} else {
+		commentPage = result;
+	}
+}
+
+function  btnShowMoreClicked() {
+	var song_id = $(ids[currentSong]).val();
+	commentPage ++;
+	getSongComments(base_url, song_id, commentPage, showComments);
+}
+
+function  btnPostClicked() {
+	var comment = {};
+	comment.username = username;
+	comment.content = commentBox.val();
+	var song_id = $(ids[currentSong]).val();
+	comment.songId = parseInt(song_id);
+	postComment(base_url, comment);
+	comment.created = formatDate(new Date());
+	commentArea.append(commentHTML(comment));
 }

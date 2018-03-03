@@ -93,7 +93,7 @@ public class AdminSongManagementController implements ServletContextAware {
 			temp.setUploadedBy(admin.getUsername());
 			return songService.create(temp) ? "redirect:../song.html" : initForm("admin.song.addsong", modelMap, temp);
 		}
-		return "admin.song.addsong";
+		return initForm("admin.song.addsong", modelMap, temp);
 	}
 
 	@RequestMapping(value = { "/updatesong", "/update" }, method = RequestMethod.GET)

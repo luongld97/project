@@ -124,7 +124,7 @@
 				<!-- End Album -->
 				<!-- Binh luan -->
 				<div class="col-md-12 body-left">
-					<h3>BÌNH LUẬN</h3>
+					<h3>COMMENTS</h3>
 					<!-- Nhap binh luan -->
 					<div class="margin-top-20">
 						<div class="row">
@@ -134,88 +134,31 @@
 									alt="">
 							</div>
 							<div class="col-md-10">
-								<textarea class="text-command"
+								<textarea id="comment-box" username="${sessionScope.currentAccount.username }" class="text-command"
 									placeholder=" Nhập bình luận ở đây"></textarea>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-12">
-								<button class="btn btn-primary float-right">Bình luận</button>
+								<c:if test="${sessionScope.currentAccount != null }">
+									<button class="btn btn-primary float-right" id="post-button">POST</button>
+								</c:if>
+								<c:if test="${sessionScope.currentAccount == null }">
+									<button class="btn btn-primary float-right">You should login first!</button>
+								</c:if>
 							</div>
 						</div>
 					</div>
 					<!-- End Nhap binh luan -->
 					<!-- Xem binh luan -->
 					<div class="margin-top-20">
-						<ul class="list-item">
-							<li class="mb-3">
-								<div class="row">
-									<div class="col-md-2">
-										<img
-											src="${pageContext.request.contextPath }/assets/images/imgcasi.png"
-											alt="" class="avatar">
-									</div>
-									<div class="col-md-10">
-										<div class="top-read">
-											<b>Tân Óc Chó</b> <i class="float-right">00:00:00
-												01/01/2018</i>
-										</div>
-										<div class="text-justify">Đây là bình luận của tôi, đây
-											là bình luận của tôi, đây là bình luận của tôi, đây là bình
-											luận của tôi, đây là bình luận của tôi, đây là bình luận của
-											tôi, đây là bình luận của tôi, đây là bình luận của tôi, đây
-											là bình luận của tôi, đây là bình luận của tôi, đây là bình
-											luận của tôi.</div>
-									</div>
-								</div>
-							</li>
-							<li class="mb-3">
-								<div class="row">
-									<div class="col-md-2">
-										<img
-											src="${pageContext.request.contextPath }/assets/images/imgcasi.png"
-											alt="" class="avatar">
-									</div>
-									<div class="col-md-10">
-										<div class="top-read">
-											<b>Giàu Ngu Người</b> <i class="float-right">00:00:00
-												01/01/2018</i>
-										</div>
-										<div class="text-justify">Đây là bình luận của tôi, đây
-											là bình luận của tôi, đây là bình luận của tôi, đây là bình
-											luận của tôi, đây là bình luận của tôi, đây là bình luận của
-											tôi, đây là bình luận của tôi, đây là bình luận của tôi, đây
-											là bình luận của tôi, đây là bình luận của tôi, đây là bình
-											luận của tôi.</div>
-									</div>
-								</div>
-							</li>
-							<li class="mb-3">
-								<div class="row">
-									<div class="col-md-2">
-										<img
-											src="${pageContext.request.contextPath }/assets/images/imgcasi.png"
-											alt="" class="avatar">
-									</div>
-									<div class="col-md-10">
-										<div class="top-read">
-											<b>Lương Ngáo Đá</b> <i class="float-right">00:00:00
-												01/01/2018</i>
-										</div>
-										<div class="text-justify">Đây là bình luận của tôi, đây
-											là bình luận của tôi, đây là bình luận của tôi, đây là bình
-											luận của tôi, đây là bình luận của tôi, đây là bình luận của
-											tôi, đây là bình luận của tôi, đây là bình luận của tôi, đây
-											là bình luận của tôi, đây là bình luận của tôi, đây là bình
-											luận của tôi.</div>
-									</div>
-								</div>
-							</li>
+						<ul id="comment-area" class="list-item">
+							<!-- comments will load here -->
 						</ul>
 					</div>
 					<!-- End Xem binh luan -->
 					<div class="">
-						<button class="btn btn-primary full-width">Xem thêm</button>
+						<button id="show-more-button" class="btn btn-primary full-width">Xem thêm</button>
 					</div>
 				</div>
 				<!-- End Binh luan -->
@@ -433,6 +376,7 @@
 </div>
 <!--End Body Web-->
 <script src="${pageContext.request.contextPath }/assets/js/plyr.js"></script>
+<script src="${pageContext.request.contextPath }/assets/js/comment.js"></script>
 <script src="${pageContext.request.contextPath }/assets/js/counter.js"></script>
 <script
 	src="${pageContext.request.contextPath }/assets/js/pages/play-list-song.js"></script>
