@@ -128,5 +128,6 @@ public class AccountController {
 		}
 		return "redirect:/account/login.html";
 	}
+	
 
 }

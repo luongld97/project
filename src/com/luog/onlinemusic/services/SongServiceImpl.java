@@ -272,4 +272,9 @@ public class SongServiceImpl implements SongService {
 		return songDAO.findSongInCategory(category);
 	}
 
+	@Override
+	public List<SongInfo> findSongBySinger(Singer singer) {
+		return songDAO.findSongBySinger(singer);
+	}
+
 }
