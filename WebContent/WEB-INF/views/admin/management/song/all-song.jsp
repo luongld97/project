@@ -13,10 +13,10 @@
 		<div class="col-md-6">
 			<div class="form-group">
 				<div class="input-group">
-					<input class="form-control" placeholder="Enter song name!" />
+					<input class="form-control" placeholder="Enter song name!" id="search-box" baseUrl="${pageContext.request.contextPath }"/>
 					<div class="input-group-addon">
 						<span class="input-group-text"><span
-							class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+							class="glyphicon glyphicon-search"></span></span>
 					</div>
 				</div>
 			</div>
@@ -76,4 +76,4 @@
 	</div>
 </div>
 <script
-	src="${pageContext.request.contextPath }/assets/admin/js/pages/song-management.js"></script>
+	src="${pageContext.request.contextPath }/assets/admin/js/pages/all-song.js"></script>

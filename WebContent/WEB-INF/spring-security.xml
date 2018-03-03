@@ -17,11 +17,12 @@
 		<form-login login-page="/authentication/login.html"
 			default-target-url="/admin/home.html" 
 			login-processing-url="/authentication/logging.html"
-			always-use-default-target="false" 
+			always-use-default-target="true" 
 			authentication-failure-url="/authentication/login.html?error"
 			username-parameter="username" 
 			password-parameter="password" />
 		<logout logout-success-url="/authentication/login.html?logout"
+			logout-url="/admin/logout.html"
 			delete-cookies="true" />
 	</http>
 	

@@ -160,7 +160,7 @@ public class SingerDAOImpl implements SingerDAO {
 					+ "s.photo as photo "
 					+ "FROM Singer s WHERE "
 					+ "replace(s.name, ' ', '-') like :name");
-			query.setParameter("name", "%" + keyWord.replace(" ", "-") + "%");
+			query.setParameter("name", "%" + keyWord + "%");
 			query.setResultTransformer(Transformers.aliasToBean(SingerEntity.class));
 			singerEntities = query.list();
 			transaction.commit();

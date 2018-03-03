@@ -1366,3 +1366,7 @@ p.back-link {
 	border: 1px solid #ced4da;
 	border-radius: 0 4px 4px 0;
 }
+
+.easy-autocomplete-container ul {
+	top: 46px !important;
+}

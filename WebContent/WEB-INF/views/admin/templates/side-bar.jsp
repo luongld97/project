@@ -8,7 +8,7 @@
 				alt="">
 		</div>
 		<div class="profile-usertitle">
-			<div class="profile-usertitle-name">${account.username }</div>
+			<div class="profile-usertitle-name">${sessionScope.currentAccount.username }</div>
 			<div class="profile-usertitle-status">
 				<span class="indicator label-success"></span>Online
 			</div>

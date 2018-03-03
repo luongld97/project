@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
 @Controller
 @RequestMapping("authentication")
 public class AuthenticationController {
@@ -53,8 +54,7 @@ public class AuthenticationController {
 	
 	@RequestMapping(value = "/logging", method = RequestMethod.GET)
 	public String logging() {
-		System.out.println("Cai dinh cong meo");
-		return "admin.home.index";
+		return "redirect:../admin/home.html";
 	}
 	
 }

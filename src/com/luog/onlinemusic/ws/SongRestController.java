@@ -185,7 +185,7 @@ public class SongRestController {
 	}
 
 	@RequestMapping(
-			value = "findsongs", 
+			value = "search", 
 			method = RequestMethod.GET, 
 			produces = MimeTypeUtils.APPLICATION_JSON_VALUE
 		)

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:url var="postLink" value="/admin/song/addsong.html" />
+<c:url var="postLink" value="/admin/song/updatesong.html" />
 <s:form action="${postLink }" method="post" commandName="song"
 	enctype="multipart/form-data">
 	<div class="panel panel-default">
