@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.luog.onlinemusic.editors.DateEditor;
 import com.luog.onlinemusic.entity.commons.Singer;
-import com.luog.onlinemusic.helpers.DateHelper;
 import com.luog.onlinemusic.helpers.ImageHelper;
 import com.luog.onlinemusic.services.SingerService;
 import com.luog.onlinemusic.validators.SingerValidator;
@@ -105,7 +105,7 @@ public class AdminSingerManagementController implements ServletContextAware {
 
 	@InitBinder
 	public void initBinder(WebDataBinder webDataBinder) {
-		webDataBinder.registerCustomEditor(Date.class, new DateHelper());
+		webDataBinder.registerCustomEditor(Date.class, new DateEditor());
 	}
 
 	@Override

@@ -60,6 +60,6 @@
 					</li>
 				</ul>
 			</li>
-			<li><a href="../authentication/logout.html"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+			<li><a href="<c:url value="/admin/logout.html"/>"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
 		</ul>
 </div>

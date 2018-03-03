@@ -1,9 +1,7 @@
 package com.luog.onlinemusic.services;
 
 import java.util.List;
-import java.util.Set;
 
-import com.luog.onlinemusic.entity.admin.AdminSong;
 import com.luog.onlinemusic.entity.commons.Category;
 import com.luog.onlinemusic.entity.commons.Singer;
 import com.luog.onlinemusic.entity.commons.Song;
@@ -12,31 +10,14 @@ import com.luog.onlinemusic.entity.rest.SongInfo;
 
 public interface SongService {
 
-	/**
-	 * @author luog
-	 */
 	public List<Song> findAll();
-
-	/**
-	 * @author luog
-	 */
+	
 	public Song find(int id);
 
-	public boolean create(AdminSong song);
-
-	/**
-	 * @author luog
-	 */
-	public boolean update(AdminSong song);
-
-	/**
-	 * @author luog
-	 */
-	public boolean delete(AdminSong song);
-
-	/**
-	 * @author luog
-	 */
+	public boolean create(Song song);
+	
+	public boolean update(Song song);
+	
 	public boolean delete(Song song);
 
 	public List<SongInfo> findSongInfo();
@@ -45,25 +26,12 @@ public interface SongService {
 	
 	public List<SongInfo> findSongInCategory(Category category);
 
-	/**
-	 * @author luog
-	 */
 	public boolean increaseSongListen(Song song);
-
-	/**
-	 * @author luog
-	 */
 
 	public SongEntity getSongEntity(int id);
 
-	/**
-	 * @author luog
-	 */
 	public List<Song> randomSong(int limit);
 
-	/**
-	 * @author luog
-	 */
 	List<SongEntity> findSongEntities(String keyWord);
 
 	public List<Song> getTopSongs(Singer singer, Integer limit);
