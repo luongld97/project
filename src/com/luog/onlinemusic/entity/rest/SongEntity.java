@@ -1,5 +1,7 @@
 package com.luog.onlinemusic.entity.rest;
 
+import java.util.List;
+
 public class SongEntity implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -14,12 +16,16 @@ public class SongEntity implements java.io.Serializable {
 	private String videoPhoto;
 	private String uploadedTime;
 	private String uploadedBy;
+	private List<Integer> singers;
+	private List<Integer> authors;
+	private List<Integer> categories;
 
 	public SongEntity() {
 	}
 
 	public SongEntity(Integer id, String name, String link, String lyric, int listen, boolean show, boolean status,
-			boolean video, String videoPhoto, String uploadedTime, String uploadedBy) {
+			boolean video, String videoPhoto, String uploadedTime, String uploadedBy, List<Integer> singers,
+			List<Integer> authors, List<Integer> categories) {
 		this.id = id;
 		this.name = name;
 		this.link = link;
@@ -31,6 +37,9 @@ public class SongEntity implements java.io.Serializable {
 		this.videoPhoto = videoPhoto;
 		this.uploadedTime = uploadedTime;
 		this.uploadedBy = uploadedBy;
+		this.singers = singers;
+		this.authors = authors;
+		this.categories = categories;
 	}
 
 	public Integer getId() {
@@ -119,6 +128,30 @@ public class SongEntity implements java.io.Serializable {
 
 	public void setUploadedBy(String uploadedBy) {
 		this.uploadedBy = uploadedBy;
+	}
+
+	public List<Integer> getSingers() {
+		return singers;
+	}
+
+	public void setSingers(List<Integer> singers) {
+		this.singers = singers;
+	}
+
+	public List<Integer> getAuthors() {
+		return authors;
+	}
+
+	public void setAuthors(List<Integer> authors) {
+		this.authors = authors;
+	}
+
+	public List<Integer> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<Integer> categories) {
+		this.categories = categories;
 	}
 
 }

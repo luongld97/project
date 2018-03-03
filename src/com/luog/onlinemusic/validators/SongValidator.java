@@ -4,14 +4,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import com.luog.onlinemusic.entity.admin.AdminSong;
+import com.luog.onlinemusic.entity.rest.SongEntity;
 
 @Component
 public class SongValidator implements Validator{
 
 	@Override
 	public boolean supports(Class<?> arg0) {
-		return AdminSong.class.equals(arg0);
+		return SongEntity.class.equals(arg0);
 	}
 
 	@Override

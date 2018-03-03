@@ -1,9 +1,10 @@
-package com.luog.onlinemusic.helpers;
+package com.luog.onlinemusic.editors;
 
 import java.beans.PropertyEditorSupport;
 import java.text.SimpleDateFormat;
 
-public class DateHelper extends PropertyEditorSupport{
+public class DateEditor extends PropertyEditorSupport{
+
 	@Override
 	public void setAsText(String dateString) throws IllegalArgumentException {
 		try {
