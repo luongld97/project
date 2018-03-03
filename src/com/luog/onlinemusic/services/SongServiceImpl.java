@@ -14,11 +14,15 @@ import com.luog.onlinemusic.dao.SingerDAO;
 import com.luog.onlinemusic.dao.SongDetailDAO;
 import com.luog.onlinemusic.dao.CategoryDetailDAO;
 import com.luog.onlinemusic.dao.SongDAO;
+import com.luog.onlinemusic.entity.commons.AuthorDetail;
 import com.luog.onlinemusic.entity.commons.Category;
+import com.luog.onlinemusic.entity.commons.CategoryDetail;
 import com.luog.onlinemusic.entity.commons.Singer;
 import com.luog.onlinemusic.entity.commons.Song;
+import com.luog.onlinemusic.entity.commons.SongDetail;
 import com.luog.onlinemusic.entity.rest.SongEntity;
 import com.luog.onlinemusic.entity.rest.SongInfo;
+import com.luog.onlinemusic.helpers.SongHelper;
 
 @Transactional
 @Service("songService")
@@ -45,33 +49,35 @@ public class SongServiceImpl implements SongService {
 	@Autowired
 	private AuthorDAO authorDAO;
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.luog.onlinemusic.services.SongService#findAll(java.lang.Boolean)
+	 * @param boolean status 
+	 * This method will return list song with status
+	 * @param null
+	 * This method will return all song
+	 */
 	@Override
-	public List<Song> findAll() {
-		return songDAO.findAll();
+	public List<Song> findAll(Boolean status) {
+		return songDAO.findAll(status);
 	}
 
 	@Override
 	public Song find(int id) {
 		return songDAO.find(id);
 	}
-	
+
+	/**
+	 * @author luog
+	 */
 	@Override
-	public boolean create(Song song) {
+	public boolean create(SongEntity temp) {
 		boolean result = false;
 		try {
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			result = false;
-		}
-		return result;
-	}
-	
-	@Override
-	public boolean update(Song song) {
-		boolean result = false;
-		try {
-			
+			Song song = SongHelper.toSong(temp);
+			result = songDAO.create(song);
+			if (result) 
+				result = toSongRelationship(temp, song);
 		} catch (Exception e) {
 			e.printStackTrace();
 			result = false;
@@ -79,6 +85,43 @@ public class SongServiceImpl implements SongService {
 		return result;
 	}
 
+	/**
+	 * @author luog
+	 */
+	@Override
+	public boolean update(SongEntity temp) {
+		boolean result = false;
+		try {
+			Song song = songDAO.find(temp.getId());
+			result = songDAO.update(song);
+			if (result) {
+				result = removeSongRelationship(song);
+				result = toSongRelationship(temp, song);
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = false;
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * @author luog
+	 */
+	@Override
+	public boolean changeStatus(Song song) {
+		boolean result = false;
+		try {
+			boolean currentStatus = song.isStatus();
+			song.setStatus(!currentStatus);
+			result = songDAO.update(song);
+		} catch (Exception e) {
+			result = false;
+		}
+		return result;
+	}
 
 	@Override
 	public boolean delete(Song song) {
@@ -149,5 +192,44 @@ public class SongServiceImpl implements SongService {
 	public List<SongInfo> findSongInCategory(Category category) {
 		return songDAO.findSongInCategory(category);
 	}
-
+	
+	/**
+	 * @author luog
+	 */
+	private boolean toSongRelationship(SongEntity songEntity, Song song) {
+		boolean result = false;
+		for (int singerId : songEntity.getSingers()) {
+			SongDetail songDetail = new SongDetail();
+			songDetail.setSong(song);
+			songDetail.setSinger(singerDAO.find(singerId));
+			result = songDetailDAO.create(songDetail);
+		}
+		for (int categoryId : songEntity.getCategories()) {
+			CategoryDetail categoryDetail = new CategoryDetail();
+			categoryDetail.setSong(song);
+			categoryDetail.setCategory(categoryDAO.find(categoryId));
+			result = categoryDetailDAO.create(categoryDetail);
+		}
+		for (int authorId : songEntity.getAuthors()) {
+			AuthorDetail authorDetail = new AuthorDetail();
+			authorDetail.setSong(song);
+			authorDetail.setAuthor(authorDAO.find(authorId));
+			result = authorDetailDAO.create(authorDetail);
+		}
+		return result;
+	}
+	
+	/**
+	 * @author luog
+	 */
+	private boolean removeSongRelationship(Song song) {
+		boolean result = false;
+		for (SongDetail songDetail : song.getSongDetails())
+			result = songDetailDAO.delete(songDetail);
+		for (CategoryDetail categoryDetail : song.getCategoryDetails())
+			result = categoryDetailDAO.delete(categoryDetail);
+		for (AuthorDetail authorDetail : song.getAuthorDetails())
+			result = authorDetailDAO.delete(authorDetail);
+		return result;
+	}
 }

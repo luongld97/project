@@ -25,7 +25,11 @@ public class SongDAOImpl implements SongDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Song> findAll() {
+	public List<Song> findAll(Boolean status) {
+		String hql = "FROM Song";
+		if (status != null) {
+			hql += " WHERE status = :status";
+		}
 		List<Song> songs = null;
 		Session session = null;
 		Transaction transaction = null;
@@ -33,7 +37,9 @@ public class SongDAOImpl implements SongDAO {
 		try {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
-			query = session.createQuery("FROM Song");
+			query = session.createQuery(hql);
+			if (status != null)
+				query.setParameter("status", status);
 			songs = query.list();
 			transaction.commit();
 		} catch (Exception e) {

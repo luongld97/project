@@ -138,6 +138,9 @@ public class ChartDAOImpl implements ChartDAO {
 		return result;
 	}
 
+	/**
+	 * @author luog
+	 */
 	@Override
 	public Chart findChart(Song song, Date currentDate) {
 		Chart chart = null;
@@ -149,7 +152,10 @@ public class ChartDAOImpl implements ChartDAO {
 			transaction = session.beginTransaction();
 			localDate = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 			Query query = session
-					.createQuery("FROM Chart WHERE song = :song AND month(date) = :month AND year(date) = :year");
+					.createQuery("FROM Chart WHERE song = :song "
+							+ "AND song.status = :status "
+							+ "AND month(date) = :month AND year(date) = :year");
+			query.setParameter("status", true);
 			query.setParameter("song", song);
 			query.setParameter("month", localDate.getMonthValue());
 			query.setParameter("year", localDate.getYear());
@@ -167,6 +173,9 @@ public class ChartDAOImpl implements ChartDAO {
 		return chart;
 	}
 
+	/**
+	 * @author luog
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Chart> getChartsByMonth(Date currentDate, Integer limit) {
@@ -180,7 +189,9 @@ public class ChartDAOImpl implements ChartDAO {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
 			query = session.createQuery(
-					"FROM Chart " + "WHERE month(date) = :month " + "AND year(date) = :year " + "ORDER BY listen DESC");
+					"FROM Chart " + "WHERE month(date) = :month " + "AND year(date) = :year "
+							+ "AND song.status = :status " + "ORDER BY listen DESC");
+			query.setParameter("status", true);
 			query.setParameter("month", localDate.getMonthValue());
 			query.setParameter("year", localDate.getYear());
 			if (limit != null)
@@ -199,6 +210,7 @@ public class ChartDAOImpl implements ChartDAO {
 		return charts;
 	}
 	
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ChartEntity> getTopSongs() {
@@ -213,8 +225,11 @@ public class ChartDAOImpl implements ChartDAO {
 							+ "ch.listen as listen, DATE_FORMAT(ch.date,'%Y-%m-%d') as date, "
 							+ "si.name as singerName, si.photo as singerPhoto "
 							+ "FROM Chart ch, Song so, Singer si, SongDetail sd "
-							+ "WHERE ch.song = so AND sd.song = so AND sd.singer = si "
+							+ "WHERE ch.song = so "
+							+ "AND so.status = :status "
+							+ "AND sd.song = so AND sd.singer = si "
 							+ "ORDER BY ch.listen DESC").setResultTransformer(Transformers.aliasToBean(ChartEntity.class));
+			query.setParameter("status", true);
 			chartEntities = query.list();
 			transaction.commit();
 		} catch (Exception e) {

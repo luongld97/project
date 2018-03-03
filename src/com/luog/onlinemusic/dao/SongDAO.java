@@ -9,7 +9,7 @@ import com.luog.onlinemusic.entity.rest.SongEntity;
 import com.luog.onlinemusic.entity.rest.SongInfo;
 
 public interface SongDAO {
-	public List<Song> findAll();
+	public List<Song> findAll(Boolean status);
 
 	public Song find(int id);
 

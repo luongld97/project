@@ -57,10 +57,24 @@
 							<td>${song.video }</td>
 							<td>${song.uploadedTime }</td>
 							<td>${song.uploadedBy }</td>
-							<c:url var="updateLink" value="song/updatesong.html">
+							<c:url var="updateLink" value="/admin/song/updatesong.html">
 								<c:param name="id" value="${song.id }" />
 							</c:url>
-							<td><a href="${updateLink }">Edit</a> &nbsp; <a href="">Hide</a></td>
+							<c:url var="statusLink" value="/admin/song/changestatus.html">
+								<c:param name="id" value="${song.id }" />
+							</c:url>
+							<td>
+									<a href="${updateLink }">Edit</a> 
+									&nbsp; 
+									<a href="${statusLink }">
+										<c:if test="${song.status }">
+											Hide
+										</c:if>
+										<c:if test="${!song.status }">
+											Show
+										</c:if>
+									</a>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>

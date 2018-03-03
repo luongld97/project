@@ -46,7 +46,7 @@ public class SongRestController {
 		)
 	public ResponseEntity<List<Song>> findAll() {
 		try {
-			return new ResponseEntity<List<Song>>(songService.findAll(), HttpStatus.OK);
+			return new ResponseEntity<List<Song>>(songService.findAll(true), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<List<Song>>(HttpStatus.BAD_REQUEST);
 		}

@@ -10,13 +10,15 @@ import com.luog.onlinemusic.entity.rest.SongInfo;
 
 public interface SongService {
 
-	public List<Song> findAll();
+	public List<Song> findAll(Boolean status);
 	
 	public Song find(int id);
 
-	public boolean create(Song song);
+	public boolean create(SongEntity temp);
 	
-	public boolean update(Song song);
+	public boolean update(SongEntity temp);
+	
+	public boolean changeStatus(Song song);
 	
 	public boolean delete(Song song);
 

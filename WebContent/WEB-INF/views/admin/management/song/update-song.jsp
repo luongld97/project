@@ -93,6 +93,13 @@
 						</div>
 					</div>
 					<div class="checkbox">
+						<label> <s:checkbox path="status" />
+							<span>
+								Enable.
+							</span>
+						</label>
+					</div>
+					<div class="checkbox">
 						<label> <s:checkbox path="show" /> <span>show in
 								home page?</span>
 						</label>

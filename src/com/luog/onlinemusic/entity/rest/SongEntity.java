@@ -14,6 +14,7 @@ public class SongEntity implements java.io.Serializable {
 	private boolean status;
 	private boolean video;
 	private String videoPhoto;
+	private String videoLink;
 	private String uploadedTime;
 	private String uploadedBy;
 	private List<Integer> singers;
@@ -24,7 +25,7 @@ public class SongEntity implements java.io.Serializable {
 	}
 
 	public SongEntity(Integer id, String name, String link, String lyric, int listen, boolean show, boolean status,
-			boolean video, String videoPhoto, String uploadedTime, String uploadedBy, List<Integer> singers,
+			boolean video, String videoPhoto, String videoLink, String uploadedTime, String uploadedBy, List<Integer> singers,
 			List<Integer> authors, List<Integer> categories) {
 		this.id = id;
 		this.name = name;
@@ -35,6 +36,7 @@ public class SongEntity implements java.io.Serializable {
 		this.status = status;
 		this.video = video;
 		this.videoPhoto = videoPhoto;
+		this.videoLink = videoLink;
 		this.uploadedTime = uploadedTime;
 		this.uploadedBy = uploadedBy;
 		this.singers = singers;
@@ -112,6 +114,14 @@ public class SongEntity implements java.io.Serializable {
 
 	public void setVideoPhoto(String videoPhoto) {
 		this.videoPhoto = videoPhoto;
+	}
+	
+	public String getVideoLink() {
+		return videoLink;
+	}
+
+	public void setVideoLink(String videoLink) {
+		this.videoLink = videoLink;
 	}
 
 	public String getUploadedTime() {
