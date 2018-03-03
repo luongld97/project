@@ -1,12 +1,12 @@
-var searchBox;
-var base_url;
+var searchBox, base_url, request_url, target_url;
 
 $(document).ready(function(){
 	searchBox = $('#search-box');
 	base_url = searchBox.attr('baseUrl');
-	
+	request_url = searchBox.attr('requestUrl');
+	target_url = searchBox.attr('targetUrl');
 	var options = {
-			url : base_url + '/api/song/search?keyword='
+			url : base_url + request_url +'?keyword='
 					+ searchBox.val().split(' ').join('-'),
 			getValue : 'name',
 			list : {
@@ -15,7 +15,7 @@ $(document).ready(function(){
 				},
 				onClickEvent : function() {
 					var item = searchBox.getSelectedItemData();
-					window.location = base_url + '/admin/song/updatesong.html?id=' + item.id;
+					window.location = base_url + target_url + '?id=' + item.id;
 				}
 			}
 		};

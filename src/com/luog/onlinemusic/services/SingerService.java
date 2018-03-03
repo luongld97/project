@@ -14,6 +14,10 @@ public interface SingerService {
 	
 	public boolean update(Singer singer);
 	
+	public boolean create(SingerEntity temp);
+	
+	public boolean update(SingerEntity temp);
+	
 	public boolean delete(Singer singer);
 	
 	public List<SingerEntity> findSingerEntities (String keyWord);

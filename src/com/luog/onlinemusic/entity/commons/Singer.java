@@ -46,14 +46,6 @@ public class Singer implements java.io.Serializable {
 	public Singer() {
 	}
 
-	public Singer(String name, String nickName, Date dateOfBirth, String gender, String description) {
-		this.name = name;
-		this.nickName = nickName;
-		this.dateOfBirth = dateOfBirth;
-		this.gender = gender;
-		this.description = description;
-	}
-
 	public Singer(String name, String nickName, Date dateOfBirth, String gender, String description, String photo,
 			Set<AlbumSinger> albumSingers, Set<SongDetail> songDetails) {
 		this.name = name;

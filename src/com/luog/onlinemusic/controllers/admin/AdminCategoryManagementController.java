@@ -63,10 +63,13 @@ public class AdminCategoryManagementController {
 	}
 
 	@RequestMapping(value = { "updatecategory" }, method = RequestMethod.GET)
-	public String updateCategoryForm(@RequestParam("id") int id, ModelMap modelMap) {
-		Category currentCategory = categoryService.find(id);
-		modelMap.put("category", currentCategory);
-		return "admin.category.updatecategory";
+	public String updateCategoryForm(@RequestParam(value = "id", required = false) Integer id, ModelMap modelMap) {
+		if (id != null) {
+			Category currentCategory = categoryService.find(id);
+			modelMap.put("category", currentCategory);
+			return "admin.category.updatecategory";
+		}
+		return "redirect:../category.html";
 	}
 	
 	@RequestMapping(value = { "updatecategory" }, method = RequestMethod.POST)

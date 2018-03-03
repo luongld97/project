@@ -1,4 +1,4 @@
-package com.luog.onlinemusic.editors;
+package com.luog.onlinemusic.helpers;
 
 import java.beans.PropertyEditorSupport;
 import java.text.SimpleDateFormat;

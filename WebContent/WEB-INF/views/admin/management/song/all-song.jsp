@@ -8,12 +8,16 @@
 	<div class="panel-heading">
 		<div class="col-md-3">
 			<a href="${pageContext.request.contextPath }/admin/song/addsong.html"
-				class="btn btn-primary" style="height: 46px; line-height: 32px;"> NEW SONG </a>
+				class="btn btn-primary" style="height: 46px; line-height: 32px;">
+				NEW SONG </a>
 		</div>
 		<div class="col-md-6">
 			<div class="form-group">
 				<div class="input-group">
-					<input class="form-control" placeholder="Enter song name!" id="search-box" baseUrl="${pageContext.request.contextPath }"/>
+					<input class="form-control" placeholder="Enter song name!"
+						id="search-box" baseUrl="${pageContext.request.contextPath }"
+						requestUrl="/api/song/search"
+						targetUrl="/admin/song/updatesong.html" />
 					<div class="input-group-addon">
 						<span class="input-group-text"><span
 							class="glyphicon glyphicon-search"></span></span>
@@ -63,18 +67,13 @@
 							<c:url var="statusLink" value="/admin/song/changestatus.html">
 								<c:param name="id" value="${song.id }" />
 							</c:url>
-							<td>
-									<a href="${updateLink }">Edit</a> 
-									&nbsp; 
-									<a href="${statusLink }">
-										<c:if test="${song.status }">
+							<td><a href="${updateLink }">Edit</a> &nbsp; <a
+								href="${statusLink }"> <c:if test="${song.status }">
 											Hide
-										</c:if>
-										<c:if test="${!song.status }">
+										</c:if> <c:if test="${!song.status }">
 											Show
 										</c:if>
-									</a>
-							</td>
+							</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -89,5 +88,3 @@
 		<tg:paging pagedListHolder="${songs}" pagedLink="${pagedLink}" />
 	</div>
 </div>
-<script
-	src="${pageContext.request.contextPath }/assets/admin/js/pages/all-song.js"></script>

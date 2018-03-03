@@ -24,7 +24,7 @@ import com.luog.onlinemusic.entity.commons.Account;
 import com.luog.onlinemusic.entity.commons.Song;
 import com.luog.onlinemusic.entity.rest.SongEntity;
 import com.luog.onlinemusic.helpers.ImageHelper;
-import com.luog.onlinemusic.helpers.SongHelper;
+import com.luog.onlinemusic.helpers.EntityHelper;
 import com.luog.onlinemusic.services.AuthorService;
 import com.luog.onlinemusic.services.CategoryService;
 import com.luog.onlinemusic.services.SingerService;
@@ -100,7 +100,7 @@ public class AdminSongManagementController implements ServletContextAware {
 	public String updateSongForm(@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "id", required = false) Integer id, ModelMap modelMap) {
 		if (id != null) {
-			SongEntity songEntity = SongHelper.toSongEntity(songService.find(id));
+			SongEntity songEntity = EntityHelper.toSongEntity(songService.find(id));
 			if (songEntity != null)
 				return initForm("admin.song.updatesong", modelMap, songEntity);
 		}

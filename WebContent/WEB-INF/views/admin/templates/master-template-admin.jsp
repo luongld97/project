@@ -52,6 +52,8 @@
 	src="${pageContext.request.contextPath }/assets/admin/js/bootstrap.min.js"></script>
 <script
 	src="${pageContext.request.contextPath }/assets/admin/js/jquery.easy-autocomplete.min.js"></script>
+	<script
+	src="${pageContext.request.contextPath }/assets/admin/js/autocomplete.js"></script>
 <script
 	src="${pageContext.request.contextPath }/assets/admin/js/custom.js"></script>
 </html>

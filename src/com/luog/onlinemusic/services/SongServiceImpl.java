@@ -24,7 +24,7 @@ import com.luog.onlinemusic.entity.commons.Song;
 import com.luog.onlinemusic.entity.commons.SongDetail;
 import com.luog.onlinemusic.entity.rest.SongEntity;
 import com.luog.onlinemusic.entity.rest.SongInfo;
-import com.luog.onlinemusic.helpers.SongHelper;
+import com.luog.onlinemusic.helpers.EntityHelper;
 
 @Transactional
 @Service("songService")
@@ -53,11 +53,12 @@ public class SongServiceImpl implements SongService {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see com.luog.onlinemusic.services.SongService#findAll(java.lang.Boolean)
-	 * @param boolean status 
-	 * This method will return list song with status
-	 * @param null
-	 * This method will return all song
+	 * 
+	 * @param boolean status This method will return list song with status
+	 * 
+	 * @param null This method will return all song
 	 */
 	@Override
 	public List<Song> findAll(Boolean status) {
@@ -89,7 +90,7 @@ public class SongServiceImpl implements SongService {
 			song.setUploadedTime(new Date());
 			song.setUploadedBy(temp.getUploadedBy());
 			result = songDAO.create(song);
-			if (result) 
+			if (result)
 				result = toSongRelationship(temp, song);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -106,28 +107,30 @@ public class SongServiceImpl implements SongService {
 		boolean result = false;
 		try {
 			Song currentSong = songDAO.find(temp.getId());
-			currentSong.setName(temp.getName());
-			currentSong.setLink(temp.getLink());
-			currentSong.setLyric(temp.getLyric());
-			currentSong.setShow(temp.isShow());
-			currentSong.setStatus(temp.isStatus());
-			currentSong.setVideo(temp.isVideo());
-			currentSong.setVideoLink(temp.getVideoLink());
-			currentSong.setVideoPhoto(temp.getVideoPhoto());
-			result = songDAO.update(currentSong);
-			if (result) {
-				result = removeSongRelationship(currentSong);
-				result = toSongRelationship(temp, currentSong);
-				
-			}
+			if (currentSong != null) {
+				currentSong.setName(temp.getName());
+				currentSong.setLink(temp.getLink());
+				currentSong.setLyric(temp.getLyric());
+				currentSong.setShow(temp.isShow());
+				currentSong.setStatus(temp.isStatus());
+				currentSong.setVideo(temp.isVideo());
+				currentSong.setVideoLink(temp.getVideoLink());
+				currentSong.setVideoPhoto(temp.getVideoPhoto());
+				result = songDAO.update(currentSong);
+				if (result) {
+					result = removeSongRelationship(currentSong);
+					result = toSongRelationship(temp, currentSong);
+
+				}
+			} else
+				result = false;
 		} catch (Exception e) {
 			e.printStackTrace();
 			result = false;
 		}
 		return result;
 	}
-	
-	
+
 	/**
 	 * @author luog
 	 */
@@ -213,7 +216,7 @@ public class SongServiceImpl implements SongService {
 	public List<SongInfo> findSongInCategory(Category category) {
 		return songDAO.findSongInCategory(category);
 	}
-	
+
 	/**
 	 * @author luog
 	 */
@@ -239,7 +242,7 @@ public class SongServiceImpl implements SongService {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * @author luog
 	 */
@@ -253,11 +256,10 @@ public class SongServiceImpl implements SongService {
 			result = authorDetailDAO.delete(authorDetail);
 		return result;
 	}
+
 	@Override
 	public List<SongInfo> findSongBySinger(Singer singer) {
 		return songDAO.findSongBySinger(singer);
 	}
-	
-	
-	
+
 }

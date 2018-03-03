@@ -1,4 +1,3 @@
-<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
@@ -45,7 +44,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="col-md-6">
 					<div class="form-group">
 						<s:errors path="dateOfBirth" cssClass="alert alert-danger"
@@ -54,11 +53,12 @@
 							<div class="input-group date" id="singer-dob">
 								<span class="input-group-addon"><span
 									class="glyphicon glyphicon-calendar"></span></span>
-									<%
+								<%
 										java.util.Date currentDate = new java.util.Date();
 										String dateString = new java.text.SimpleDateFormat("yyyy-MM-dd").format(currentDate);
-									%>
-								<s:input type="date" cssClass="form-control" path="dateOfBirth" min="1900-01-01" max="<%= dateString %>"/>
+								%>
+								<s:input type="date" cssClass="form-control" path="dateOfBirth"
+									min="1900-01-01" max="<%=dateString%>" />
 								<span class="input-group-addon">DOB</span>
 							</div>
 						</div>
@@ -71,7 +71,8 @@
 								<span class="input-group-text"><span
 									class="glyphicon glyphicon-heart" aria-hidden="true"></span></span>
 							</div>
-							<s:select cssClass="form-control" path="gender" cssStyle="height:46px">
+							<s:select cssClass="form-control" path="gender"
+								cssStyle="height:46px">
 								<s:option value="male">Male</s:option>
 								<s:option value="female">Female</s:option>
 								<s:option value="other">Other</s:option>
@@ -80,16 +81,17 @@
 					</div>
 					<div class="form-group">
 						<c:if test="${fileTypeError != null }">
-							<span class="alert alert-danger" style="display:block;">
-								${fileTypeError }
-							</span>
+							<span class="alert alert-danger" style="display: block;">
+								${fileTypeError } </span>
 						</c:if>
 						<div class="input-group">
 							<span class="input-group-addon"><span
 								class="glyphicon glyphicon-picture"></span></span>
 							<div class="custom-file">
-								<input name="singerPhoto"  type="file" accept="image/*" class="custom-file-input form-control"/>
-								<span class="custom-file-label" style="height:46px" >Choose avatar</span>
+								<input name="avatar" type="file" accept="image/*"
+									class="custom-file-input form-control" /> <span
+									class="custom-file-label" style="height: 46px">Choose
+									avatar</span>
 							</div>
 						</div>
 					</div>

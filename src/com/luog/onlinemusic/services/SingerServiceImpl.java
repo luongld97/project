@@ -1,5 +1,6 @@
 package com.luog.onlinemusic.services;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -36,6 +37,59 @@ public class SingerServiceImpl implements SingerService {
 	@Override
 	public boolean update(Singer singer) {
 		return singerDAO.update(singer);
+	}
+	
+	/**
+	 * @author luog
+	 */
+	@Override
+	public boolean create(SingerEntity temp) {
+		boolean result = false;
+		SimpleDateFormat simpleDateFormat = null;
+		try {
+			Singer singer = new Singer();
+			singer.setName(temp.getName());
+			singer.setNickName(temp.getNickName());
+			simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			singer.setDateOfBirth(
+					simpleDateFormat.parse(temp.getDateOfBirth())
+				);
+			singer.setGender(temp.getGender());
+			singer.setDescription(temp.getDescription());
+			singer.setPhoto(temp.getPhoto());
+			result = singerDAO.create(singer);
+		} catch (Exception e) {
+			result = false;
+		}
+		return result;
+	}
+	
+	/**
+	 * @author luog
+	 */
+	@Override
+	public boolean update(SingerEntity temp) {
+		boolean result = false;
+		SimpleDateFormat simpleDateFormat = null;
+		try {
+			Singer singer = singerDAO.find(temp.getId());
+			if (singer != null) {
+				singer.setName(temp.getName());
+				singer.setNickName(temp.getNickName());
+				simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				singer.setDateOfBirth(
+						simpleDateFormat.parse(temp.getDateOfBirth())
+					);
+				singer.setGender(temp.getGender());
+				singer.setDescription(temp.getDescription());
+				if (temp.getPhoto() != null)
+					singer.setPhoto(temp.getPhoto());
+				result = singerDAO.update(singer);
+			} else result = false;
+		} catch (Exception e) {
+			result = false;
+		}
+		return result;
 	}
 	
 	@Override

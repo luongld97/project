@@ -1,5 +1,7 @@
 package com.luog.onlinemusic.entity.rest;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class SingerEntity {
 
 	private Integer id;
@@ -33,6 +35,7 @@ public class SingerEntity {
 		this.id = id;
 	}
 
+	@NotEmpty
 	public String getName() {
 		return name;
 	}
@@ -49,6 +52,7 @@ public class SingerEntity {
 		this.nickName = nickName;
 	}
 
+	@NotEmpty
 	public String getDateOfBirth() {
 		return dateOfBirth;
 	}
@@ -60,7 +64,8 @@ public class SingerEntity {
 	public String getGender() {
 		return gender;
 	}
-
+	
+	@NotEmpty
 	public void setGender(String gender) {
 		this.gender = gender;
 	}

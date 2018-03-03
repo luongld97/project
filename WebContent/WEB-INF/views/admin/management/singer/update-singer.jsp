@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:url var="postLink" value="/admin/song/addsinger.html" />
+<c:url var="postLink" value="/admin/singer/updatesinger.html" />
 <s:form action="${postLink }" method="post" commandName="singer"
 	enctype="multipart/form-data">
 	<div class="panel panel-default">
@@ -51,11 +51,16 @@
 						<s:errors path="dateOfBirth" cssClass="alert alert-danger"
 							cssStyle="display: block;" />
 						<div class="form-group">
-							<div class="input-group date" id="datetimepicker1">
+							<div class="input-group date" id="singer-dob">
 								<span class="input-group-addon"><span
 									class="glyphicon glyphicon-calendar"></span></span>
-								<s:input type="date" cssClass="form-control" path="dateOfBirth" />
-								<span class="input-group-addon">Choose date of birth</span>
+								<%
+										java.util.Date currentDate = new java.util.Date();
+										String dateString = new java.text.SimpleDateFormat("yyyy-MM-dd").format(currentDate);
+								%>
+								<s:input type="date" cssClass="form-control" path="dateOfBirth"
+									min="1900-01-01" max="<%=dateString%>" />
+								<span class="input-group-addon">DOB</span>
 							</div>
 						</div>
 					</div>
@@ -69,9 +74,9 @@
 							</div>
 							<s:select cssClass="form-control" path="gender"
 								cssStyle="height:46px">
-								<s:option value="none">Choose gender...</s:option>
 								<s:option value="male">Male</s:option>
 								<s:option value="female">Female</s:option>
+								<s:option value="other">Other</s:option>
 							</s:select>
 						</div>
 					</div>
@@ -82,9 +87,9 @@
 							<span class="input-group-addon"><span
 								class="glyphicon glyphicon-picture"></span></span>
 							<div class="custom-file">
-								<s:input type="file" path="photo"
-									cssClass="custom-file-input form-control" />
-								<span class="custom-file-label" style="height: 46px">Choose
+								<input accept="image/*" type="file" name="avatar"
+									class="custom-file-input form-control" /> <span
+									class="custom-file-label" style="height: 46px">Choose
 									avatar</span>
 							</div>
 						</div>
@@ -100,15 +105,3 @@
 		</div>
 	</div>
 </s:form>
-
-<script
-	src="${pageContext.request.contextPath }/assets/admin/js/chosen.jquery.min.js"></script>
-<script
-	src="${pageContext.request.contextPath }/assets/admin/js/pages/add-song.js"></script>
-<script
-	src="${pageContext.request.contextPath }/assets/admin/js/jquery-ui.min.js"></script>
-<script type="text/javascript">
-	$(function() {
-		$('#datetimepicker1').datepicker();
-	});
-</script>
