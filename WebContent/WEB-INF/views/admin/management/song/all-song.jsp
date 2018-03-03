@@ -6,9 +6,22 @@
 <div id="form-add-song" class="col-md-8"></div>
 <div class="panel">
 	<div class="panel-heading">
-		<a href="${pageContext.request.contextPath }/admin/song/addsong.html" class="btn btn-primary">
-			NEW SONG
-		</a>
+		<div class="col-md-3">
+			<a href="${pageContext.request.contextPath }/admin/song/addsong.html"
+				class="btn btn-primary" style="height: 46px; line-height: 32px;"> NEW SONG </a>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				<div class="input-group">
+					<input class="form-control" placeholder="Enter song name!" />
+					<div class="input-group-addon">
+						<span class="input-group-text"><span
+							class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3"></div>
 	</div>
 	<div class="panel-body">
 		<jsp:useBean id="songs" scope="request"
@@ -45,9 +58,9 @@
 							<td>${song.uploadedTime }</td>
 							<td>${song.uploadedBy }</td>
 							<c:url var="updateLink" value="song/updatesong.html">
-								<c:param name="id" value="${song.id }"/>
+								<c:param name="id" value="${song.id }" />
 							</c:url>
-							<td><a href="${updateLink }" >Edit</a> &nbsp; <a href="" >Hide</a></td>
+							<td><a href="${updateLink }">Edit</a> &nbsp; <a href="">Hide</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

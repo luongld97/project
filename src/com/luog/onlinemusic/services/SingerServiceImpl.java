@@ -41,5 +41,6 @@ public class SingerServiceImpl implements SingerService {
 	public boolean delete(Singer singer) {
 		return singerDAO.delete(singer);
 	}
+	
 
 }

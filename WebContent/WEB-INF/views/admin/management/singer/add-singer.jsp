@@ -79,13 +79,16 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<s:errors path="photo" cssClass="alert alert-danger"
-							cssStyle="display: block;" />
+						<c:if test="${fileTypeError != null }">
+							<span class="alert alert-danger" style="display:block;">
+								${fileTypeError }
+							</span>
+						</c:if>
 						<div class="input-group">
 							<span class="input-group-addon"><span
 								class="glyphicon glyphicon-picture"></span></span>
 							<div class="custom-file">
-								<input name="photo"  type="file" class="custom-file-input form-control"/>
+								<input name="singerPhoto"  type="file" accept="image/*" class="custom-file-input form-control"/>
 								<span class="custom-file-label" style="height:46px" >Choose avatar</span>
 							</div>
 						</div>

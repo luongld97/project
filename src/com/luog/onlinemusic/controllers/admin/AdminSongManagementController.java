@@ -49,6 +49,9 @@ public class AdminSongManagementController implements ServletContextAware {
 
 	@Autowired
 	private CategoryService categoryService;
+	
+	@Autowired
+	private SongValidator songValidator;
 
 	@RequestMapping(value = { "", "allsong", "index" }, method = RequestMethod.GET)
 	public String allSongs(HttpServletRequest request, ModelMap modelMap) {
@@ -77,7 +80,6 @@ public class AdminSongManagementController implements ServletContextAware {
 	public String addSongAction(@ModelAttribute("song") @Valid AdminSong temp, BindingResult bindingResult,
 			@RequestParam(value = "photo", required = false) MultipartFile image, ModelMap modelMap) {
 		String result = "";
-		SongValidator songValidator = new SongValidator();
 		songValidator.validate(temp, bindingResult);
 		
 		if (bindingResult.hasErrors()) {

@@ -62,18 +62,18 @@ public class AdminSingerManagementController implements ServletContextAware {
 
 	@RequestMapping(value = { "addsinger", "create" }, method = RequestMethod.POST)
 	public String addsingerAction(@ModelAttribute("singer") @Valid Singer temp, BindingResult bindingResult,
-			@RequestParam(value = "photo", required = false) MultipartFile image, ModelMap modelMap) {
+			@RequestParam(value = "singerPhoto", required = false) MultipartFile image, ModelMap modelMap) {
 		singerValidator.validate(temp, bindingResult);
 		if (bindingResult.hasErrors()) {
 			return "admin.singer.addsinger";
 		} else {
-			if (image != null) {
+			if (!image.isEmpty()) {
 				if (ImageHelper.validateImage(image)) {
 					temp.setPhoto(ImageHelper.saveImage(servletContext, image));
 				} else {
 					modelMap.put("fileTypeError", "This file is not support!");
 					modelMap.put("currentTab", "singer");
-					modelMap.put("singer", new Singer());
+					modelMap.put("singer", temp);
 					return "admin.singer.addsinger";
 				}
 			} else {

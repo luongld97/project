@@ -26,6 +26,8 @@ public class SingerValidator implements Validator {
 		Singer singer = (Singer) object;
 		if (singer.getDateOfBirth() == null)
 			errors.rejectValue("dateOfBirth", "date.null");
+		if (singerDAO.isExist(singer.getName()))
+			errors.rejectValue("name", "singer.exist");
 	}
 
 }

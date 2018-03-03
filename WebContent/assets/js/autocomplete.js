@@ -19,7 +19,7 @@ $(document).ready(
 						var item = searchBox.getSelectedItemData();
 						if (item.link == null && item.lyric == null && item.listen == null
 								&& item.isVideo == null && item.isShow == null)
-							toUrl += '/artist/info.html?id=' + item.id;
+							toUrl += '/artist/singer/info.html?id=' + item.id;
 						if (item.nickName == null && item.dateOfBirth == null
 								&& item.gender == null)
 							toUrl += '/song/play.html?id=' + item.id;

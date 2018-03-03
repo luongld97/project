@@ -134,7 +134,11 @@ public class CategoryDAOImpl implements CategoryDAO {
 		}
 		return result;
 	}
-
+	
+	
+	/**
+	 * @author luog
+	 */
 	@Override
 	public boolean isExist(String name) {
 		boolean result = false;
@@ -145,8 +149,8 @@ public class CategoryDAOImpl implements CategoryDAO {
 			transaction = session.beginTransaction();
 			
 			Query query = session.createQuery("FROM Category "
-					+ "WHERE name = :name");
-			query.setParameter("name", name);
+					+ "WHERE replace(name, ' ', '-') = :name");
+			query.setParameter("name", name.replace(" ", "-"));
 			Category currentCategory = (Category) query.uniqueResult();
 			result = currentCategory != null;
 			transaction.commit();
