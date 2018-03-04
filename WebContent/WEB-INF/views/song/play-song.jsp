@@ -57,7 +57,8 @@
 						</p>
 					</div>
 					<div class="btn-tool">
-						<button class="btn btn-primary" title="Thêm vào">
+						<button id="btn-add-to" class="btn btn-primary"
+							href="#modalAddPlaylist" data-toggle="modal" title="Thêm vào">
 							<span class="glyphicon glyphicon-plus"></span> Thêm vào
 						</button>
 						<button class="btn btn-primary" title="Tải về">
@@ -121,26 +122,33 @@
 					<h3>COMMENTS</h3>
 					<!-- Nhap binh luan -->
 					<div class="margin-top-20">
-						<div class="row">
-							<div class="col-md-2">
-								<img class="avatar"
-									src="${pageContext.request.contextPath }/assets/images/${currentAccount.photo }"
-									alt="">
+						<c:if test="${sessionScope.currentAccount == null }">
+							<div class="row">
+								<div class="col-md-3 float-right">
+									<a class="btn btn-primary pull-right"
+									href="<c:url value="/account/login.html"/>">Login to comment!</a>
+								</div>
 							</div>
-							<div class="col-md-10">
-								<textarea id="comment-box" username="${sessionScope.currentAccount.username }" class="text-command" placeholder="Say something...!"></textarea>
+						</c:if>
+						<c:if test="${sessionScope.currentAccount != null }">
+							<div class="row">
+								<div class="col-md-2">
+									<img id="user-avatar" class="avatar"
+										src="${pageContext.request.contextPath }/assets/images/${currentAccount.photo }"
+										alt="">
+								</div>
+								<div class="col-md-10">
+									<textarea id="comment-box"
+										username="${sessionScope.currentAccount.username }"
+										class="text-command" placeholder="Say something...!"></textarea>
+								</div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<c:if test="${sessionScope.currentAccount != null }">
+							<div class="row">
+								<div class="col-md-12">
 									<button class="btn btn-primary float-right" id="post-button">POST</button>
-								</c:if>
-								<c:if test="${sessionScope.currentAccount == null }">
-									<button class="btn btn-primary float-right">You should login first!</button>
-								</c:if>
+								</div>
 							</div>
-						</div>
+						</c:if>
 					</div>
 					<!-- End Nhap binh luan -->
 					<!-- Xem binh luan -->
@@ -151,7 +159,8 @@
 					</div>
 					<!-- End Xem binh luan -->
 					<div>
-						<button class="btn btn-primary full-width" id="show-more-button">Show more</button>
+						<button class="btn btn-primary full-width" id="show-more-button">Show
+							more</button>
 					</div>
 				</div>
 				<!-- End Binh luan -->

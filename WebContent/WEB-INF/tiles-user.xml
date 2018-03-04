@@ -18,6 +18,7 @@
 	</definition>
 	<!-- End Home area -->
 	<!-- Song area -->
+
 	<definition name="song.play" extends="user.master.template">
 		<put-attribute name="content" value="/WEB-INF/views/song/play-song.jsp" />
 	</definition>
@@ -25,10 +26,11 @@
 		<put-attribute name="content"
 			value="/WEB-INF/views/song/play-list-song.jsp" />
 	</definition>
-	<!-- End Home area -->
+	<!-- End song area -->
 
 	<!-- Singer area -->
-	<definition name="artist.singer.header" template="/WEB-INF/views/artist/singer/singer-header.jsp" />
+	<definition name="artist.singer.header"
+		template="/WEB-INF/views/artist/singer/singer-header.jsp" />
 
 	<definition name="artist.singer.index" extends="user.master.template">
 		<put-attribute name="content"

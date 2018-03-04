@@ -1,7 +1,7 @@
 /**
  * @author luog
  */
-var song_id, base_url, canPlay, timeOut, increased, player, commentPage, commentArea, buttonShowMore, buttonPost, commentBox, username;
+var song_id, base_url, canPlay, timeOut, increased, player, commentPage, commentArea, buttonShowMore, buttonPost, commentBox, username, listComments;
 
 $(document).ready(function() {
 	song_id = $('audio').attr('songId');
@@ -14,6 +14,7 @@ $(document).ready(function() {
 	buttonPost = $('#post-button');
 	commentBox = $('#comment-box');
 	username = commentBox.attr('username');
+	listComments = [];
 	player = plyr.setup({
 		autoplay : 'true'
 	});
@@ -32,11 +33,11 @@ $(document).ready(function() {
 	});
 
 	player[0].on('ended', songEnded);
-	
+
 	buttonShowMore.click(btnShowMoreClicked);
 	buttonPost.click(btnPostClicked);
-	
-	getSongComments(base_url, song_id, commentPage, showComments);
+
+	getSongComments(base_url, song_id, commentPage, allComments);
 });
 
 function songCanPlay() {
@@ -52,29 +53,36 @@ function songEnded() {
 	increased = false;
 }
 
-function showComments(result) {
-	if (typeof(result) == 'object'){
-		for (var i = 0; i < result.length; i ++){
-			commentArea.append(commentHTML(result[i]))
-		}
-	} else {
-		commentPage = result;
+function allComments(comments) {
+	if (typeof (comments) == 'object') {
+		listComments = listComments.concat(comments);
+		showComments(listComments);
 	}
 }
 
-function  btnShowMoreClicked() {
-	commentPage ++;
-	getSongComments(base_url, song_id, commentPage, showComments);
+function showComments(result) {
+	var html = '';
+	for (var i = 0; i < result.length; i++) {
+		html += commentHTML(result[i]);
+	}
+	commentArea.html(html)
 }
 
-function  btnPostClicked() {
+function btnShowMoreClicked() {
+	commentPage++;
+	getSongComments(base_url, song_id, commentPage, allComments);
+}
+
+function btnPostClicked() {
 	var comment = {};
 	comment.username = username;
 	comment.content = commentBox.val();
 	comment.songId = parseInt(song_id);
 	postComment(base_url, comment);
 	comment.created = formatDate(new Date());
-	commentArea.append(commentHTML(comment));
+	comment.userPhoto = $('#user-avatar').attr('src').replace(
+			base_url + '/assets/images/', '');
+	listComments = [ comment ].concat(listComments);
+	showComments(listComments);
+	commentBox.val('');
 }
-
-

@@ -4,13 +4,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.luog.onlinemusic.entity.commons.Account;
 import com.luog.onlinemusic.entity.commons.Chart;
 import com.luog.onlinemusic.entity.commons.PlayList;
 import com.luog.onlinemusic.entity.commons.PlayListDetail;
@@ -32,7 +36,7 @@ public class SongController {
 	@Autowired
 	private ChartService chartService;
 
-	@RequestMapping(value = "play", method = RequestMethod.GET)
+	@RequestMapping(value = "/play", method = RequestMethod.GET)
 	public String playSong(@RequestParam("id") int songid, ModelMap modelMap) {
 		Song song = songService.find(songid);
 		List<Song> suggestedSongs = songService.randomSong(10);
@@ -41,7 +45,7 @@ public class SongController {
 		return "song.play";
 	}
 
-	@RequestMapping(value = "playlist", method = RequestMethod.GET)
+	@RequestMapping(value = "/playlist", method = RequestMethod.GET)
 	public String playListSong(@RequestParam(value = "id", required = false) Integer id, ModelMap modelMap) {
 		List<Song> songs = new ArrayList<>();
 		if (id == null) {
