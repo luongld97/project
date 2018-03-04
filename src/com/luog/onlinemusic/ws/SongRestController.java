@@ -15,11 +15,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.luog.onlinemusic.entity.commons.Chart;
+import com.luog.onlinemusic.entity.commons.PlayList;
+import com.luog.onlinemusic.entity.commons.PlayListDetail;
 import com.luog.onlinemusic.entity.commons.Song;
 import com.luog.onlinemusic.entity.rest.SongEntity;
 import com.luog.onlinemusic.entity.rest.SongInfo;
 import com.luog.onlinemusic.services.CategoryService;
 import com.luog.onlinemusic.services.ChartService;
+import com.luog.onlinemusic.services.PlayListDetailService;
+import com.luog.onlinemusic.services.PlayListService;
 import com.luog.onlinemusic.services.SingerService;
 import com.luog.onlinemusic.services.SongService;
 
@@ -32,22 +36,23 @@ public class SongRestController {
 
 	@Autowired
 	private ChartService chartService;
-	
+
 	@Autowired
 	private SingerService singerService;
-	
+
 	@Autowired
 	private CategoryService categoryService;
+
+	@Autowired
+	private PlayListService playListService;
+
+	@Autowired
+	private PlayListDetailService playListDetailService;
 
 	/**
 	 * find all of song
 	 */
-	@RequestMapping(
-			value = "findall", 
-			method = RequestMethod.GET, 
-			produces = MimeTypeUtils.APPLICATION_JSON_VALUE, 
-			headers = "Accept=application/json"
-		)
+	@RequestMapping(value = "findall", method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE, headers = "Accept=application/json")
 	public ResponseEntity<List<Song>> findAll() {
 		try {
 			return new ResponseEntity<List<Song>>(songService.findAll(true), HttpStatus.OK);
@@ -56,12 +61,7 @@ public class SongRestController {
 		}
 	}
 
-	@RequestMapping(
-			value = "findsonginfo", 
-			method = RequestMethod.GET, 
-			produces = MimeTypeUtils.APPLICATION_JSON_VALUE, 
-			headers = "Accept=application/json"
-		)
+	@RequestMapping(value = "findsonginfo", method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE, headers = "Accept=application/json")
 	public ResponseEntity<List<SongInfo>> findSongInfo() {
 		try {
 			return new ResponseEntity<List<SongInfo>>(songService.findSongInfo(), HttpStatus.OK);
@@ -69,25 +69,27 @@ public class SongRestController {
 			return new ResponseEntity<List<SongInfo>>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@RequestMapping(value = "findsongincategory/{categoryId}", method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE, headers = "Accept=application/json")
 	public ResponseEntity<List<SongInfo>> findSongInCategory(@PathVariable("categoryId") int categoryId) {
 		try {
-			return new ResponseEntity<List<SongInfo>>(songService.findSongInCategory(categoryService.find(categoryId)), HttpStatus.OK);
+			return new ResponseEntity<List<SongInfo>>(songService.findSongInCategory(categoryService.find(categoryId)),
+					HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<List<SongInfo>>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@RequestMapping(value = "findsongbysinger/{singerId}", method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE, headers = "Accept=application/json")
 	public ResponseEntity<List<SongInfo>> findSongBySinger(@PathVariable("singerId") int singerId) {
 		try {
-			return new ResponseEntity<List<SongInfo>>(songService.findSongBySinger(singerService.find(singerId)), HttpStatus.OK);
+			return new ResponseEntity<List<SongInfo>>(songService.findSongBySinger(singerService.find(singerId)),
+					HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<List<SongInfo>>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@RequestMapping(value = "findmvsonginfo", method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE, headers = "Accept=application/json")
 	public ResponseEntity<List<SongInfo>> findMVSongInfo() {
 		try {
@@ -100,12 +102,7 @@ public class SongRestController {
 	/**
 	 * find id song
 	 */
-	@RequestMapping(
-			value = "find/{id}", 
-			method = RequestMethod.GET, 
-			produces = MimeTypeUtils.APPLICATION_JSON_VALUE, 
-			headers = "Accept=application/json"
-		)
+	@RequestMapping(value = "find/{id}", method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE, headers = "Accept=application/json")
 	public ResponseEntity<Song> find(@PathVariable("id") int id) {
 		try {
 
@@ -142,10 +139,7 @@ public class SongRestController {
 	 * delete song
 	 */
 
-	@RequestMapping(
-			value = "delete/{id}", 
-			method = RequestMethod.DELETE
-		)
+	@RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable("id") int id) {
 		try {
 			// songService.delete(songService.find(id));
@@ -155,10 +149,10 @@ public class SongRestController {
 		}
 	}
 
-	@RequestMapping(
-			value = "changelisten", 
-			method = RequestMethod.POST
-		)
+	/**
+	 * @author luog
+	 */
+	@RequestMapping(value = "changelisten", method = RequestMethod.POST)
 	public ResponseEntity<Boolean> changeListen(@RequestBody String id) {
 
 		boolean result = false;
@@ -182,11 +176,10 @@ public class SongRestController {
 		}
 	}
 
-	@RequestMapping(
-			value = "getsong", 
-			method = RequestMethod.POST, 
-			produces = MimeTypeUtils.APPLICATION_JSON_VALUE
-		)
+	/**
+	 * @author luog
+	 */
+	@RequestMapping(value = "getsong", method = RequestMethod.POST, produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
 	public ResponseEntity<SongEntity> getSong(@RequestBody int id) {
 		try {
 			SongEntity songEntity = songService.getSongEntity(id);
@@ -197,11 +190,10 @@ public class SongRestController {
 		}
 	}
 
-	@RequestMapping(
-			value = "search", 
-			method = RequestMethod.GET, 
-			produces = MimeTypeUtils.APPLICATION_JSON_VALUE
-		)
+	/**
+	 * @author luog
+	 */
+	@RequestMapping(value = "search", method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<SongEntity>> findSongs(@RequestParam("keyword") String keyWord) {
 		List<SongEntity> songEntities = null;
 		try {
@@ -210,6 +202,39 @@ public class SongRestController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<List<SongEntity>>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	/**
+	 * @author luog
+	 */
+	@RequestMapping(value = "/tolist", method = RequestMethod.POST)
+	public ResponseEntity<Boolean> toPlayList(@RequestParam(value = "id", required = false) Integer id,
+			@RequestBody String[] playListIds) {
+		boolean result = false;
+		try {
+			if (playListIds != null && id != null) {
+				Song currentSong = songService.find(id);
+				if (currentSong != null) {
+					int length = playListIds.length;
+					for (int i = 0; i < length; i++) {
+						int playListId = Integer.parseInt(playListIds[i]);
+						PlayList currentPlayList = playListService.find(playListId);
+						if (currentPlayList != null) {
+							PlayListDetail playListDetail = new PlayListDetail();
+							playListDetail.setPlayList(currentPlayList);
+							playListDetail.setSong(currentSong);
+							result = playListDetailService.create(playListDetail);
+						}
+					}
+				}
+			} else {
+				throw new Exception();
+			}
+			return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST);
 		}
 	}
 

@@ -56,6 +56,14 @@ public class PlayListServiceImpl implements PlayListService{
 	public List<PlayListEntity> getSongPlayList(PlayList playList) {
 		return playListDAO.getSongPlayList(playList);
 	}
+
+	/**
+	 * @author luog
+	 */
+	@Override
+	public boolean isExist(String name) {
+		return playListDAO.isExist(name);
+	}
 	
 	
 

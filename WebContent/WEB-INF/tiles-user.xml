@@ -26,6 +26,7 @@
 		<put-attribute name="content"
 			value="/WEB-INF/views/song/play-list-song.jsp" />
 	</definition>
+	<definition name="song.to.play.list" template="/WEB-INF/views/song/add-to-play-list.jsp" />
 	<!-- End song area -->
 
 	<!-- Singer area -->

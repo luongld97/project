@@ -21,4 +21,6 @@ public interface PlayListDAO {
 	public List<PlayList> getUserPlayList(Account account);
 	
 	public List<PlayListEntity> getSongPlayList(PlayList playList);
+	
+	public boolean isExist(String name);
 }

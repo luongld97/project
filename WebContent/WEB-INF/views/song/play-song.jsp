@@ -58,8 +58,8 @@
 					</div>
 					<div class="btn-tool">
 						<button id="btn-add-to" class="btn btn-primary"
-							href="#modalAddPlaylist" data-toggle="modal" title="Thêm vào">
-							<span class="glyphicon glyphicon-plus"></span> Thêm vào
+							href="#modalAddPlaylist" title="Add to..." data-toggle="modal">
+							<span class="glyphicon glyphicon-plus"></span> Add to...
 						</button>
 						<button class="btn btn-primary" title="Tải về">
 							<span class="glyphicon glyphicon-download-alt"></span> Tải về
@@ -126,7 +126,8 @@
 							<div class="row">
 								<div class="col-md-3 float-right">
 									<a class="btn btn-primary pull-right"
-									href="<c:url value="/account/login.html"/>">Login to comment!</a>
+										href="<c:url value="/account/login.html"/>">Login to
+										comment!</a>
 								</div>
 							</div>
 						</c:if>
@@ -215,6 +216,12 @@
 		<!-- End Body Right -->
 	</div>
 </div>
+<!-- Form Add To Playlist -->
+<div class="modal fade" id="modalAddPlaylist" tabindex="-1"
+	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+</div>
+<!-- End Form -->
 <!--End Body Web-->
 
 <script src="${pageContext.request.contextPath }/assets/js/plyr.js"></script>
@@ -222,3 +229,18 @@
 <script src="${pageContext.request.contextPath }/assets/js/counter.js"></script>
 <script
 	src="${pageContext.request.contextPath }/assets/js/pages/play-song.js"></script>
+	
+<script>
+	$(document).ready(function(){
+		$('#btn-add-to').click(function(){
+			$.ajax({
+				method: 'get',
+				url: '${pageContext.request.contextPath}/song/tolist.html',
+				contentType: 'text/html',
+				success: function(res){
+					$('#modalAddPlaylist').html(res);
+				}
+			});
+		});
+	})
+</script>

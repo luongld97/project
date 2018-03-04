@@ -21,4 +21,6 @@ public interface PlayListService {
 	public List<PlayList> getUserPlayList(Account account);
 	
 	public List<PlayListEntity> getSongPlayList(PlayList playList);
+	
+	public boolean isExist(String name);
 }

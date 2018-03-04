@@ -14,10 +14,16 @@
 	href="${pageContext.request.contextPath }/assets/css/plyr.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath }/assets/css/easy-autocomplete.min.css" />
+<link
+	href="${pageContext.request.contextPath }/assets/css/chosen.min.css"
+	rel="stylesheet" />
+<link
+	href="${pageContext.request.contextPath }/assets/css/chosen-bootstrap.css"
+	rel="stylesheet" />
 <script
 	src="${pageContext.request.contextPath }/assets/js/jquery-3.2.1.min.js"
 	type="text/javascript"></script>
-	
+
 </head>
 <body>
 	<tiles:insertAttribute name="top-first-bar" />
@@ -34,5 +40,5 @@
 	type="text/javascript"></script>
 <script
 	src="${pageContext.request.contextPath }/assets/js/autocomplete.js"
-	type="text/javascript"></script>	
+	type="text/javascript"></script>
 </html>

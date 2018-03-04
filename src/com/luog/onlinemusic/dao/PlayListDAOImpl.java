@@ -147,8 +147,7 @@ public class PlayListDAOImpl implements PlayListDAO {
 		try {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
-			Query query = session.createQuery("FROM PlayList "
-					+ "WHERE account = :account");
+			Query query = session.createQuery("FROM PlayList " + "WHERE account = :account");
 			query.setParameter("account", account);
 			playLists = query.list();
 			transaction.commit();
@@ -163,7 +162,7 @@ public class PlayListDAOImpl implements PlayListDAO {
 		}
 		return playLists;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<PlayListEntity> getSongPlayList(PlayList playList) {
 		List<PlayListEntity> playListEntities = null;
@@ -173,11 +172,13 @@ public class PlayListDAOImpl implements PlayListDAO {
 		try {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
-			query = session.createQuery("SELECT pl.id as playListId, pl.name as playListName, so.id as songId, "
-										+ "so.name as songName, so.lyric as songLyric, so.link as songLink "
-										+ "FROM PlayList pl, Song so, PlayListDetail pld "
-										+ "WHERE pld.playList = pl AND pld.song = so AND pl = :playList").setParameter("playList", playList)
-						.setResultTransformer(Transformers.aliasToBean(PlayListEntity.class));
+			query = session
+					.createQuery("SELECT pl.id as playListId, pl.name as playListName, so.id as songId, "
+							+ "so.name as songName, so.lyric as songLyric, so.link as songLink "
+							+ "FROM PlayList pl, Song so, PlayListDetail pld "
+							+ "WHERE pld.playList = pl AND pld.song = so AND pl = :playList")
+					.setParameter("playList", playList)
+					.setResultTransformer(Transformers.aliasToBean(PlayListEntity.class));
 			playListEntities = query.list();
 			transaction.commit();
 		} catch (Exception e) {
@@ -190,6 +191,35 @@ public class PlayListDAOImpl implements PlayListDAO {
 			session.close();
 		}
 		return playListEntities;
+	}
+
+	/**
+	 * @author luog
+	 */
+	@Override
+	public boolean isExist(String name) {
+		boolean result = false;
+		Session session = null;
+		Transaction transaction = null;
+		Query query = null;
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			query = session.createQuery("FROM PlayList "
+					+ "WHERE replace(name, ' ', '-') = :name");
+			query.setParameter("name", name.replace(" ", "-"));
+			result = (PlayList) query.uniqueResult() != null;
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = false;
+			if (transaction != null)
+				transaction.rollback();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return result;
 	}
 
 }
