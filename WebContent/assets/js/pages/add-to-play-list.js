@@ -14,8 +14,9 @@ function btnSaveClicked() {
 		contentType : 'application/json',
 		data : JSON.stringify(dropbox.val()),
 		success : function(res) {
-			$('#modalAddPlaylist').html('');
-			console.log(res)
+			var modalAdd = $('#modalAddPlaylist');
+			modalAdd.html('');
+			modalAdd.modal('hide').data('modal', null);
 		},
 		error : error
 	})
