@@ -213,7 +213,7 @@ public class ChartDAOImpl implements ChartDAO {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ChartEntity> getTopSongs() {
+	public List<ChartEntity> getTopSongs(boolean isVideo, Integer limit) {
 		List<ChartEntity> chartEntities = null;
 		Session session = null;
 		Transaction transaction = null;
@@ -228,8 +228,14 @@ public class ChartDAOImpl implements ChartDAO {
 							+ "WHERE ch.song = so "
 							+ "AND so.status = :status "
 							+ "AND sd.song = so AND sd.singer = si "
-							+ "ORDER BY ch.listen DESC").setResultTransformer(Transformers.aliasToBean(ChartEntity.class));
+							+ "AND ch.video = :video"
+							+ "ORDER BY ch.listen DESC");
+			query.setResultTransformer(Transformers.aliasToBean(ChartEntity.class));
 			query.setParameter("status", true);
+			query.setParameter("video", isVideo);
+			if(limit != null) 
+				query.setMaxResults(limit);
+			
 			chartEntities = query.list();
 			transaction.commit();
 		} catch (Exception e) {
@@ -243,4 +249,5 @@ public class ChartDAOImpl implements ChartDAO {
 		}
 		return chartEntities;
 	}
+	
 }

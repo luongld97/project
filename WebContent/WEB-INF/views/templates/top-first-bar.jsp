@@ -41,7 +41,7 @@
 							<ul class="dropdown-menu dropdown-menu-right">
 								<li><a href="myplaylist.html">Music</a></li>
 								<li class="divider"></li>
-								<li><a href="${pageContext.request.contextPath }/account/accountinfo.hmtl">User info</a></li>
+								<li><a href="${pageContext.request.contextPath }/account/accountinfo.html">User info</a></li>
 								<li><a href="<c:url value="/account/logout.html"/>">logout</a></li>
 							</ul>
 						</div>

@@ -18,7 +18,7 @@ public interface ChartDAO {
 
 	public boolean delete(Chart chart);
 	
-	public List<ChartEntity> getTopSongs();
+	public List<ChartEntity> getTopSongs(boolean isVideo, Integer limit);
 	
 	public Chart findChart(Song song, Date currentDate);
 	

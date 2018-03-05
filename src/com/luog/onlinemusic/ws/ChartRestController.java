@@ -109,9 +109,9 @@ public class ChartRestController {
 			method = RequestMethod.GET, 
 			produces = MimeTypeUtils.APPLICATION_JSON_VALUE, 
 			headers  = "Accept=application/json")
-	public ResponseEntity<List<ChartEntity>> getTopSongs(){
+	public ResponseEntity<List<ChartEntity>> getTopSongs(@PathVariable("video") boolean isVideo,@PathVariable("limit") Integer limit){
 		try {
-			return new  ResponseEntity<List<ChartEntity>>(chartService.getTopSongs(), HttpStatus.OK);
+			return new  ResponseEntity<List<ChartEntity>>(chartService.getTopSongs(isVideo, limit), HttpStatus.OK);
 		} catch (Exception e) {
 			return new  ResponseEntity<List<ChartEntity>>(HttpStatus.BAD_REQUEST);
 		}
