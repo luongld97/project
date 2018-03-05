@@ -57,18 +57,13 @@
 						</p>
 					</div>
 					<div class="btn-tool">
-						<button id="btn-add-to" class="btn btn-primary"
-							href="#modalAddPlaylist" title="Add to..." data-toggle="modal">
-							<span class="glyphicon glyphicon-plus"></span> Add to...
-						</button>
+						<a id="btn-add-to" class="btn btn-primary"
+							href="#modalAddPlaylist" title="Add to..." data-toggle="modal"
+							onclick="addToClick('${song.id}');"> <span
+							class="glyphicon glyphicon-plus"></span> Add to...
+						</a>
 						<button class="btn btn-primary" title="Tải về">
 							<span class="glyphicon glyphicon-download-alt"></span> Tải về
-						</button>
-						<button class="btn btn-primary" title="Phản hồi">
-							<span class="glyphicon glyphicon-comment"></span> Phản hồi
-						</button>
-						<button class="btn btn-primary" title="Chia sẻ">
-							<span class="glyphicon glyphicon-share"></span> Chia sẻ
 						</button>
 						<div class="listen-time float-right">
 							<span> <span class="glyphicon glyphicon-headphones" />
@@ -170,46 +165,7 @@
 			<!-- Body Right -->
 			<div class="col-md-4">
 				<div class="col-md-12 body-right">
-					<div class="item-right">
-						<h4 class="title-list-index">GỢI Ý BÀI HÁT</h4>
-					</div>
-					<ul class="list-item">
-						<c:forEach items="${suggestedSongs }" var="suggestedSong">
-							<li class="item-chart">
-								<div class="label-img">
-									<img
-										src="${pageContext.request.contextPath }/assets/images/imgsong.png"
-										class="image-view thumbnail">
-								</div>
-								<div class="info-chart">
-									<c:url var="suggestedSongLink" value="play.html">
-										<c:param name="id" value="${suggestedSong.id }" />
-									</c:url>
-									<a href="${suggestedSongLink }"><b class="song-name-chart">${suggestedSong.name }</b></a><br>
-									<a href="${suggestedSongLink }"> <i
-										class="singer-name-chart"> <c:forEach
-												items="${suggestedSong.songDetails }" var="songDetail"
-												varStatus="i">
-												${songDetail.singer.name }
-												<c:if
-													test="${i.index < suggestedSong.songDetails.size() - 1 }">
-													,&nbsp;
-												</c:if>
-											</c:forEach>
-									</i>
-									</a>
-								</div>
-								<div class="tool-chart">
-									<a class="playlist-btn-sm" href="${suggestedSongLink }"
-										title="Nghe"><span class="glyphicon glyphicon-play"></span></a>
-									<a class="playlist-btn-sm" href="" title="Thêm vào"><span
-										class="glyphicon glyphicon-plus"></span></a> <a
-										class="playlist-btn-sm" href="" title="Chia sẻ"><span
-										class="glyphicon glyphicon-share"></span></a>
-								</div>
-							</li>
-						</c:forEach>
-					</ul>
+					
 				</div>
 			</div>
 		</div>
@@ -229,18 +185,20 @@
 <script src="${pageContext.request.contextPath }/assets/js/counter.js"></script>
 <script
 	src="${pageContext.request.contextPath }/assets/js/pages/play-song.js"></script>
-	
+
 <script>
-	$(document).ready(function(){
-		$('#btn-add-to').click(function(){
-			$.ajax({
-				method: 'get',
-				url: '${pageContext.request.contextPath}/song/tolist.html',
-				contentType: 'text/html',
-				success: function(res){
-					$('#modalAddPlaylist').html(res);
-				}
-			});
+	function addToClick(id) {
+		song_id = id;
+		$.ajax({
+			method : 'get',
+			url : '${pageContext.request.contextPath}/song/tolist.html',
+			contentType : 'text/html',
+			success : function(res) {
+				$('#modalAddPlaylist').html('');
+				$('#modalAddPlaylist').html(res);
+			}
 		});
-	})
+	}
+
+	
 </script>

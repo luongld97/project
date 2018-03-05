@@ -117,7 +117,7 @@ public class AccountController {
 			Account currentAccount = accountService.find(username);
 			if (currentAccount != null) {
 				List<PlayList> playLists = null;
-				playLists = currentAccount != null ? playListService.getUserPlayList(currentAccount)
+				playLists = currentAccount != null ? playListService.getPlayLists(currentAccount)
 						: new ArrayList<>();
 				PagedListHolder<PlayList> pagedListHolder = new PagedListHolder<>(playLists);
 				int page = ServletRequestUtils.getIntParameter(request, "page", 0);

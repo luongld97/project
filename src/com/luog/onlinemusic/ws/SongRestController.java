@@ -209,7 +209,7 @@ public class SongRestController {
 	 * @author luog
 	 */
 	@RequestMapping(value = "/tolist", method = RequestMethod.POST)
-	public ResponseEntity<Boolean> toPlayList(@RequestParam(value = "id", required = false) Integer id,
+	public ResponseEntity<String> toPlayList(@RequestParam(value = "id", required = false) Integer id,
 			@RequestBody String[] playListIds) {
 		boolean result = false;
 		try {
@@ -221,20 +221,26 @@ public class SongRestController {
 						int playListId = Integer.parseInt(playListIds[i]);
 						PlayList currentPlayList = playListService.find(playListId);
 						if (currentPlayList != null) {
-							PlayListDetail playListDetail = new PlayListDetail();
-							playListDetail.setPlayList(currentPlayList);
-							playListDetail.setSong(currentSong);
-							result = playListDetailService.create(playListDetail);
+							if (!playListService.contain(currentSong, currentPlayList)) {
+								PlayListDetail playListDetail = new PlayListDetail();
+								playListDetail.setPlayList(currentPlayList);
+								playListDetail.setSong(currentSong);
+								result = playListDetailService.create(playListDetail);
+							} else {
+								String returnStr = "'" + currentSong.getName() + "' already in: '"
+										+ currentPlayList.getName() + "'";
+								return new ResponseEntity<String>(returnStr, HttpStatus.BAD_REQUEST);
+							}
 						}
 					}
 				}
 			} else {
 				throw new Exception();
 			}
-			return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+			return new ResponseEntity<String>(result + "", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
 	}
 

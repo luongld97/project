@@ -10,15 +10,16 @@ import org.springframework.stereotype.Service;
 import com.luog.onlinemusic.dao.PlayListDAO;
 import com.luog.onlinemusic.entity.commons.Account;
 import com.luog.onlinemusic.entity.commons.PlayList;
+import com.luog.onlinemusic.entity.commons.Song;
 import com.luog.onlinemusic.entity.rest.PlayListEntity;
 
 @Transactional
 @Service("playListService")
-public class PlayListServiceImpl implements PlayListService{
-	
+public class PlayListServiceImpl implements PlayListService {
+
 	@Autowired
 	private PlayListDAO playListDAO;
-	
+
 	@Override
 	public List<PlayList> findAll() {
 		return playListDAO.findAll();
@@ -48,8 +49,8 @@ public class PlayListServiceImpl implements PlayListService{
 	 * @author luog
 	 */
 	@Override
-	public List<PlayList> getUserPlayList(Account account) {
-		return playListDAO.getUserPlayList(account);
+	public List<PlayList> getPlayLists(Account account) {
+		return playListDAO.getPlayLists(account);
 	}
 
 	@Override
@@ -64,7 +65,14 @@ public class PlayListServiceImpl implements PlayListService{
 	public boolean isExist(String name) {
 		return playListDAO.isExist(name);
 	}
-	
-	
+
+	/**
+	 * @author luog
+	 */
+	@Override
+
+	public boolean contain(Song song, PlayList inPlayList) {
+		return playListDAO.contain(song, inPlayList);
+	}
 
 }

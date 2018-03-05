@@ -18,8 +18,9 @@ $(document).ready(
 					onClickEvent : function() {
 						var toUrl = base_url;
 						var item = searchBox.getSelectedItemData();
-						if (item.link == null && item.lyric == null && item.listen == null
-								&& item.isVideo == null && item.isShow == null)
+						if (item.link == null && item.lyric == null
+								&& item.listen == null && item.isVideo == null
+								&& item.isShow == null)
 							toUrl += '/artist/singer/info.html?id=' + item.id;
 						if (item.nickName == null && item.dateOfBirth == null
 								&& item.gender == null)
@@ -30,3 +31,16 @@ $(document).ready(
 			};
 			searchBox.easyAutocomplete(options);
 		});
+
+function addToClick(id) {
+	song_id = id;
+	$.ajax({
+		method : 'get',
+		url : base_url + '/song/tolist.html',
+		contentType : 'text/html',
+		success : function(res) {
+			$('#modalAddPlaylist').html('');
+			$('#modalAddPlaylist').html(res);
+		}
+	});
+}

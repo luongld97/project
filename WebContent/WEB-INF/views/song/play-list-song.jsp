@@ -27,29 +27,29 @@
 												class="ml-4 playing-song-text-color">${song.name }</span>
 										</div>
 										<div class="float-right col-md-4">
-												<c:if test="${song.video }">
-													<c:url var="videoLink" value="">
-														<c:param name="id" value="${song.id }"/>
-													</c:url>
-													<a class="playlist-btn-sm" href="${videoLink }" title="Xem MV">
-														<span 	class="glyphicon glyphicon-film" />
-													</a>
-												</c:if>
-											 	<a class="playlist-btn-sm" href="" title="Tải về">
-											 		<span	class="glyphicon glyphicon-download-alt" />
-												</a> 
-												<span class="playlist-btn-sm" href="" title="Thêm vào">
-													<span	class="glyphicon glyphicon-plus" />
-												</span>
-												<a class="playlist-btn-sm" href="" title="Chia sẻ">
-													<span class="glyphicon glyphicon-share" />
-												</a>
-												<c:url var="songLink" value="/song/play.html">
-													<c:param name="id" value="${song.id }"/>
+											<c:if test="${song.video }">
+												<c:url var="videoLink" value="">
+													<c:param name="id" value="${song.id }" />
 												</c:url>
-												<a class="playlist-btn-sm" href="${songLink }" target="_blank" title="Nghe riêng">
-													<span class="glyphicon glyphicon-arrow-right" />
+												<a class="playlist-btn-sm" href="${videoLink }"
+													title="Xem MV"> <span class="glyphicon glyphicon-film" />
 												</a>
+											</c:if>
+											<!-- <a class="playlist-btn-sm" href="" title="Tải về"> <span
+												class="glyphicon glyphicon-download-alt" />
+											</a> -->
+											<a class="playlist-btn-sm" href="#modalAddPlaylist"
+												title="Add to..." data-toggle="modal"
+												onclick="addToClick('${song.id}');"> <span
+												class="glyphicon glyphicon-plus" />
+											</a>
+											<c:url var="songLink" value="/song/play.html">
+												<c:param name="id" value="${song.id }" />
+											</c:url>
+											<a class="playlist-btn-sm" href="${songLink }"
+												target="_blank" title="Nghe riêng"> <span
+												class="glyphicon glyphicon-arrow-right" />
+											</a>
 										</div>
 									</div>
 								</li>
@@ -57,16 +57,9 @@
 						</ul>
 					</div>
 					<div class="btn-tool">
-						<button class="btn btn-primary" title="Phản hồi">
-							<span class="glyphicon glyphicon-comment"></span> Phản hồi
-						</button>
-						<button class="btn btn-primary" title="Chia sẻ">
-							<span class="glyphicon glyphicon-share"></span> Chia sẻ
-						</button>
 						<div class="listen-time float-right">
-							<span>
-								<span class="glyphicon glyphicon-headphones" />
-								<b id="listen"></b>
+							<span> <span class="glyphicon glyphicon-headphones" /> <b
+								id="listen"></b>
 							</span>
 						</div>
 					</div>
@@ -134,8 +127,9 @@
 									alt="">
 							</div>
 							<div class="col-md-10">
-								<textarea id="comment-box" username="${sessionScope.currentAccount.username }" class="text-command"
-									placeholder=" Nhập bình luận ở đây"></textarea>
+								<textarea id="comment-box"
+									username="${sessionScope.currentAccount.username }"
+									class="text-command" placeholder=" Nhập bình luận ở đây"></textarea>
 							</div>
 						</div>
 						<div class="row">
@@ -144,7 +138,8 @@
 									<button class="btn btn-primary float-right" id="post-button">POST</button>
 								</c:if>
 								<c:if test="${sessionScope.currentAccount == null }">
-									<button class="btn btn-primary float-right">You should login first!</button>
+									<button class="btn btn-primary float-right">You should
+										login first!</button>
 								</c:if>
 							</div>
 						</div>
@@ -158,7 +153,8 @@
 					</div>
 					<!-- End Xem binh luan -->
 					<div class="">
-						<button id="show-more-button" class="btn btn-primary full-width">Xem thêm</button>
+						<button id="show-more-button" class="btn btn-primary full-width">Xem
+							thêm</button>
 					</div>
 				</div>
 				<!-- End Binh luan -->
@@ -168,7 +164,7 @@
 			<div class="col-md-4">
 				<div class="col-md-12 body-right">
 					<div class="item-right">
-						<h4 class="title-list-index">MV TUẤN HƯNG</h4>
+						<h4 class="title-list-index">GỢI Ý BÀI HÁT</h4>
 					</div>
 					<ul class="list-item">
 						<li class="item-chart">
@@ -247,136 +243,58 @@
 									class="glyphicon glyphicon-share"></span></a>
 							</div>
 						</li>
+						<li class="item-chart">
+							<div class="label-img">
+								<img
+									src="${pageContext.request.contextPath }/assets/images/imgsong.png"
+									class="image-view thumbnail">
+							</div>
+							<div class="info-chart">
+								<a href=""><b class="song-name-chart">Biết Tìm Ai</b></a><br>
+								<a href=""><i class="singer-name-chart">Ngá Đáo</i></a>
+							</div>
+							<div class="tool-chart">
+								<a class="playlist-btn-sm" href="" title="Nghe"><span
+									class="glyphicon glyphicon-play"></span></a> <a
+									class="playlist-btn-sm" href="" title="Thêm vào"><span
+									class="glyphicon glyphicon-plus"></span></a> <a
+									class="playlist-btn-sm" href="" title="Chia sẻ"><span
+									class="glyphicon glyphicon-share"></span></a>
+							</div>
+						</li>
+						<li class="item-chart">
+							<div class="label-img">
+								<img
+									src="${pageContext.request.contextPath }/assets/images/imgsong2.png"
+									class="image-view thumbnail">
+							</div>
+							<div class="info-chart">
+								<a href=""><b class="song-name-chart">Độc Thoại</b></a><br>
+								<a href=""><i class="singer-name-chart">Chiến Đo</i></a>
+							</div>
+							<div class="tool-chart">
+								<a class="playlist-btn-sm" href="" title="Nghe"><span
+									class="glyphicon glyphicon-play"></span></a> <a
+									class="playlist-btn-sm" href="" title="Thêm vào"><span
+									class="glyphicon glyphicon-plus"></span></a> <a
+									class="playlist-btn-sm" href="" title="Chia sẻ"><span
+									class="glyphicon glyphicon-share"></span></a>
+							</div>
+						</li>
 					</ul>
-				</div>
-				<div class="item-right">
-					<h4 class="title-list-index">GỢI Ý BÀI HÁT</h4>
-				</div>
-				<ul class="list-item">
-					<li class="item-chart">
-						<div class="label-img">
-							<img
-								src="${pageContext.request.contextPath }/assets/images/imgsong.png"
-								class="image-view thumbnail">
-						</div>
-						<div class="info-chart">
-							<a href=""><b class="song-name-chart">Biết Tìm Ai</b></a><br>
-							<a href=""><i class="singer-name-chart">Ngá Đáo</i></a>
-						</div>
-						<div class="tool-chart">
-							<a class="playlist-btn-sm" href="" title="Nghe"><span
-								class="glyphicon glyphicon-play"></span></a> <a
-								class="playlist-btn-sm" href="" title="Thêm vào"><span
-								class="glyphicon glyphicon-plus"></span></a> <a
-								class="playlist-btn-sm" href="" title="Chia sẻ"><span
-								class="glyphicon glyphicon-share"></span></a>
-						</div>
-					</li>
-					<li class="item-chart">
-						<div class="label-img">
-							<img
-								src="${pageContext.request.contextPath }/assets/images/imgsong2.png"
-								class="image-view thumbnail">
-						</div>
-						<div class="info-chart">
-							<a href=""><b class="song-name-chart">Độc Thoại</b></a><br>
-							<a href=""><i class="singer-name-chart">Chiến Đo</i></a>
-						</div>
-						<div class="tool-chart">
-							<a class="playlist-btn-sm" href="" title="Nghe"><span
-								class="glyphicon glyphicon-play"></span></a> <a
-								class="playlist-btn-sm" href="" title="Thêm vào"><span
-								class="glyphicon glyphicon-plus"></span></a> <a
-								class="playlist-btn-sm" href="" title="Chia sẻ"><span
-								class="glyphicon glyphicon-share"></span></a>
-						</div>
-					</li>
-					<li class="item-chart">
-						<div class="label-img">
-							<img
-								src="${pageContext.request.contextPath }/assets/images/imgsong.png"
-								class="image-view thumbnail">
-						</div>
-						<div class="info-chart">
-							<a href=""><b class="song-name-chart">Biết Tìm Ai</b></a><br>
-							<a href=""><i class="singer-name-chart">Ngá Đáo</i></a>
-						</div>
-						<div class="tool-chart">
-							<a class="playlist-btn-sm" href="" title="Nghe"><span
-								class="glyphicon glyphicon-play"></span></a> <a
-								class="playlist-btn-sm" href="" title="Thêm vào"><span
-								class="glyphicon glyphicon-plus"></span></a> <a
-								class="playlist-btn-sm" href="" title="Chia sẻ"><span
-								class="glyphicon glyphicon-share"></span></a>
-						</div>
-					</li>
-					<li class="item-chart">
-						<div class="label-img">
-							<img
-								src="${pageContext.request.contextPath }/assets/images/imgsong2.png"
-								class="image-view thumbnail">
-						</div>
-						<div class="info-chart">
-							<a href=""><b class="song-name-chart">Độc Thoại</b></a><br>
-							<a href=""><i class="singer-name-chart">Chiến Đo</i></a>
-						</div>
-						<div class="tool-chart">
-							<a class="playlist-btn-sm" href="" title="Nghe"><span
-								class="glyphicon glyphicon-play"></span></a> <a
-								class="playlist-btn-sm" href="" title="Thêm vào"><span
-								class="glyphicon glyphicon-plus"></span></a> <a
-								class="playlist-btn-sm" href="" title="Chia sẻ"><span
-								class="glyphicon glyphicon-share"></span></a>
-						</div>
-					</li>
-					<li class="item-chart">
-						<div class="label-img">
-							<img
-								src="${pageContext.request.contextPath }/assets/images/imgsong.png"
-								class="image-view thumbnail">
-						</div>
-						<div class="info-chart">
-							<a href=""><b class="song-name-chart">Biết Tìm Ai</b></a><br>
-							<a href=""><i class="singer-name-chart">Ngá Đáo</i></a>
-						</div>
-						<div class="tool-chart">
-							<a class="playlist-btn-sm" href="" title="Nghe"><span
-								class="glyphicon glyphicon-play"></span></a> <a
-								class="playlist-btn-sm" href="" title="Thêm vào"><span
-								class="glyphicon glyphicon-plus"></span></a> <a
-								class="playlist-btn-sm" href="" title="Chia sẻ"><span
-								class="glyphicon glyphicon-share"></span></a>
-						</div>
-					</li>
-					<li class="item-chart">
-						<div class="label-img">
-							<img
-								src="${pageContext.request.contextPath }/assets/images/imgsong2.png"
-								class="image-view thumbnail">
-						</div>
-						<div class="info-chart">
-							<a href=""><b class="song-name-chart">Độc Thoại</b></a><br>
-							<a href=""><i class="singer-name-chart">Chiến Đo</i></a>
-						</div>
-						<div class="tool-chart">
-							<a class="playlist-btn-sm" href="" title="Nghe"><span
-								class="glyphicon glyphicon-play"></span></a> <a
-								class="playlist-btn-sm" href="" title="Thêm vào"><span
-								class="glyphicon glyphicon-plus"></span></a> <a
-								class="playlist-btn-sm" href="" title="Chia sẻ"><span
-								class="glyphicon glyphicon-share"></span></a>
-						</div>
-					</li>
-				</ul>
 
+				</div>
 			</div>
+			<!-- End Body Right -->
 		</div>
-		<!-- End Body Right -->
 	</div>
-</div>
-<!--End Body Web-->
-<script src="${pageContext.request.contextPath }/assets/js/plyr.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/comment.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/counter.js"></script>
-<script
-	src="${pageContext.request.contextPath }/assets/js/pages/play-list-song.js"></script>
+	<!--End Body Web-->
+	<!-- Form Add To Playlist -->
+	<div class="modal fade" id="modalAddPlaylist" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+	<!-- End Form -->
+	<script src="${pageContext.request.contextPath }/assets/js/plyr.js"></script>
+	<script src="${pageContext.request.contextPath }/assets/js/comment.js"></script>
+	<script src="${pageContext.request.contextPath }/assets/js/counter.js"></script>
+	<script
+		src="${pageContext.request.contextPath }/assets/js/pages/play-list-song.js"></script>

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import com.luog.onlinemusic.entity.commons.Account;
 import com.luog.onlinemusic.entity.commons.PlayList;
+import com.luog.onlinemusic.entity.commons.Song;
 import com.luog.onlinemusic.entity.rest.PlayListEntity;
 
 @Repository("playListDAO")
@@ -139,28 +140,32 @@ public class PlayListDAOImpl implements PlayListDAO {
 	 * @author luog
 	 */
 	@Override
-	@SuppressWarnings("unchecked")
-	public List<PlayList> getUserPlayList(Account account) {
-		List<PlayList> playLists = null;
+	public boolean contain(Song song, PlayList inPlayList) {
+		boolean result = false;
 		Session session = null;
 		Transaction transaction = null;
 		try {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
-			Query query = session.createQuery("FROM PlayList " + "WHERE account = :account");
-			query.setParameter("account", account);
-			playLists = query.list();
+			Query query = session.createQuery("SELECT count(pl) "
+					+ "FROM PlayList pl, "
+					+ "PlayListDetail pld "
+					+ "WHERE pld.playList = :playList "
+					+ "AND pld.song = :song");
+			query.setParameter("song", song);
+			query.setParameter("playList", inPlayList);
+			result = (Long) query.uniqueResult() > 0;
 			transaction.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
-			playLists = new ArrayList<>();
+			result = false;
 			if (transaction != null)
 				transaction.rollback();
 		} finally {
 			session.flush();
 			session.close();
 		}
-		return playLists;
+		return result;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -205,8 +210,7 @@ public class PlayListDAOImpl implements PlayListDAO {
 		try {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
-			query = session.createQuery("FROM PlayList "
-					+ "WHERE replace(name, ' ', '-') = :name");
+			query = session.createQuery("FROM PlayList " + "WHERE replace(name, ' ', '-') = :name");
 			query.setParameter("name", name.replace(" ", "-"));
 			result = (PlayList) query.uniqueResult() != null;
 			transaction.commit();
@@ -220,6 +224,34 @@ public class PlayListDAOImpl implements PlayListDAO {
 			session.close();
 		}
 		return result;
+	}
+
+	/**
+	 * @author luog
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<PlayList> getPlayLists(Account account) {
+		List<PlayList> playLists = null;
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			Query query = session.createQuery("FROM PlayList " + "WHERE account = :account");
+			query.setParameter("account", account);
+			playLists = query.list();
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			playLists = new ArrayList<>();
+			if (transaction != null)
+				transaction.rollback();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return playLists;
 	}
 
 }
