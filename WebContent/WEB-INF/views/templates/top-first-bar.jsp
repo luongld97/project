@@ -41,7 +41,7 @@
 							<ul class="dropdown-menu dropdown-menu-right">
 								<li><a href="myplaylist.html">Music</a></li>
 								<li class="divider"></li>
-								<li><a href="info_account.html">User info</a></li>
+								<li><a href="${pageContext.request.contextPath }/account/accountinfo.hmtl">User info</a></li>
 								<li><a href="<c:url value="/account/logout.html"/>">logout</a></li>
 							</ul>
 						</div>
@@ -52,3 +52,8 @@
 	</div>
 </div>
 <!--End Top first Bar-->
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath }/assets/css/style.css" />
+	<script
+	src="${pageContext.request.contextPath }/assets/js/jquery-3.2.1.min.js"
+	type="text/javascript"></script>

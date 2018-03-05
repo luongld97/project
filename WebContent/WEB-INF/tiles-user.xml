@@ -58,6 +58,9 @@
 
 	<definition name="user.login" template="/WEB-INF/views/account/login_register.jsp"></definition>
 	<definition name="user.register" template="/WEB-INF/views/account/login_register.jsp"></definition>
+	<definition name="user.changepassword" template="/WEB-INF/views/account/change_password"></definition>
+	<definition name="user.accountinfo" template="/WEB-INF/views/account/account_info"></definition>
+	<definition name="user.editaccount" template="/WEB-INF/views/account/edit_account"></definition>
 	<definition name="user.playlist" extends="user.master.template">
 		<put-attribute name="content"
 			value="/WEB-INF/views/account/play-list.jsp" />
