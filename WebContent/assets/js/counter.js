@@ -15,7 +15,8 @@ function increaseListen(song_id, base_url) {
 		contentType : 'text/plain',
 		data : song_id,
 		success : function(res) {
-			console.log('Increase listen for song-ID [' + song_id + '] result: ' + res);
+			console.log('Increase listen for song-ID [' + song_id
+					+ '] result: ' + res);
 			return;
 		},
 		error : function(err) {

@@ -65,11 +65,9 @@ public class SongController {
 	@RequestMapping(value = { "/tolist" }, method = RequestMethod.GET)
 	public String toPlayListForm(HttpSession session, ModelMap modelMap) {
 		Account currentAccount = (Account) session.getAttribute("currentAccount");
-		if (currentAccount != null) {
-			modelMap.put("playLists", playListService.getUserPlayList(currentAccount));
-			return "song.to.play.list";
-		}
-		return "redirect:../account/login.html";
+		modelMap.put("playLists", playListService.getPlayLists(currentAccount));
+		return "song.to.play.list";
+
 	}
 
 }

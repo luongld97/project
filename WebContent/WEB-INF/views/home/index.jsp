@@ -43,13 +43,12 @@
 								</div>
 								<div class="tool-song">
 									<a class="playlist-btn" href="${listenLink }" title="Nghe"><span
-										class="glyphicon glyphicon-play"></span></a> <a
+										class="glyphicon glyphicon-play"></span></a>
+									<!--  <a
 										class="playlist-btn" href="" title="Tải về"><span
-										class="glyphicon glyphicon-download-alt"></span></a> <a
-										class="playlist-btn" href="" title="Thêm vào"><span
-										class="glyphicon glyphicon-plus"></span></a> <a
-										class="playlist-btn" href="" title="Chia sẻ"><span
-										class="glyphicon glyphicon-share"></span></a>
+										class="glyphicon glyphicon-download-alt"></span></a> -->
+									<a class="playlist-btn" href="" title="Thêm vào"><span
+										class="glyphicon glyphicon-plus"></span></a>
 								</div>
 								<div class="number-listen">${chart.listen }</div>
 							</li>
@@ -122,7 +121,8 @@
 					<div class="item-right title-chart">
 						<h4 class="title-list-index">BXH THÁNG BÀI HÁT</h4>
 						<c:url var="playListLink" value="/song/playlist.html" />
-						<a class="play-all-btn" href="${playListLink }" title="Phát tất cả"><span
+						<a class="play-all-btn" href="${playListLink }"
+							title="Phát tất cả"><span
 							class="glyphicon glyphicon-play-circle"></span></a> <a
 							class="text-view-more" href="#">Xem thêm</a>
 					</div>
@@ -131,7 +131,7 @@
 						<c:forEach items="${charts }" var="chart" varStatus="i">
 							<c:set var="song" value="${chart.song }" />
 							<c:url var="listenLink" value="/song/play.html">
-								<c:param name="id" value="${song.id }"/>
+								<c:param name="id" value="${song.id }" />
 							</c:url>
 							<li class="item-chart">
 								<div class="label-rank-chart">${i.index + 1 }</div>
@@ -147,113 +147,24 @@
 									</i>
 								</div>
 								<div class="tool-chart">
-									<a class="playlist-btn-sm" href="" title="Tải về"><span
-										class="glyphicon glyphicon-download-alt"></span></a> <a
-										class="playlist-btn-sm" href="" title="Thêm vào"><span
-										class="glyphicon glyphicon-plus"></span></a> <a
-										class="playlist-btn-sm" href="" title="Chia sẻ"><span
-										class="glyphicon glyphicon-share"></span></a>
+									<a class="playlist-btn-sm" href="${listenLink }" title="Play"><span
+										class="glyphicon glyphicon-play"></span></a> <a
+										class="playlist-btn-sm" onclick="addToClick('${song.id}');"
+										href="#modalAddPlaylist" title="Add to..." data-toggle="modal"><span
+										class="glyphicon glyphicon-plus"></span></a>
 								</div>
 							</li>
 						</c:forEach>
 					</ul>
 				</div>
 				<!-- End BXH bai hat tuan -->
-				<!-- BXH Album tuan -->
-				<div class="col-md-12 body-right">
-					<div class="item-right title-chart">
-						<h4 class="title-list-index">BXH THÁNG ALBUM</h4>
-						<a class="play-all-btn" href="" title="Phát tất cả"><span
-							class="glyphicon glyphicon-play-circle"></span></a> <a
-							class="text-view-more" href="#">Xem thêm</a>
-					</div>
-					<ul class="list-item">
-						<li class="item-chart">
-							<div class="label-rank-chart">1</div>
-							<div class="info-chart">
-								<a href=""><b class="song-name-chart">Perfect Duet</b></a><br>
-								<i><a class="singer-name-chart" href="">Ed Sheeran</a>, <a
-									class="singer-name-chart" href="">Beyoncé</a></i>
-							</div>
-							<div class="tool-chart">
-								<a class="playlist-btn-sm" href="" title="Tải về"><span
-									class="glyphicon glyphicon-download-alt"></span></a> <a
-									class="playlist-btn-sm" href="" title="Thêm vào"><span
-									class="glyphicon glyphicon-plus"></span></a> <a
-									class="playlist-btn-sm" href="" title="Chia sẻ"><span
-									class="glyphicon glyphicon-share"></span></a>
-							</div>
-						</li>
-						<li class="item-chart">
-							<div class="label-rank-chart">2</div>
-							<div class="info-chart">
-								<a href=""><b class="song-name-chart">Perfect Duet</b></a><br>
-								<i><a class="singer-name-chart" href="">Ed Sheeran</a>, <a
-									class="singer-name-chart" href="">Beyoncé</a></i>
-							</div>
-							<div class="tool-chart">
-								<a class="playlist-btn-sm" href="" title="Tải về"><span
-									class="glyphicon glyphicon-download-alt"></span></a> <a
-									class="playlist-btn-sm" href="" title="Thêm vào"><span
-									class="glyphicon glyphicon-plus"></span></a> <a
-									class="playlist-btn-sm" href="" title="Chia sẻ"><span
-									class="glyphicon glyphicon-share"></span></a>
-							</div>
-						</li>
-						<li class="item-chart">
-							<div class="label-rank-chart">3</div>
-							<div class="info-chart">
-								<a href=""><b class="song-name-chart">Perfect Duet</b></a><br>
-								<i><a class="singer-name-chart" href="">Ed Sheeran</a>, <a
-									class="singer-name-chart" href="">Beyoncé</a></i>
-							</div>
-							<div class="tool-chart">
-								<a class="playlist-btn-sm" href="" title="Tải về"><span
-									class="glyphicon glyphicon-download-alt"></span></a> <a
-									class="playlist-btn-sm" href="" title="Thêm vào"><span
-									class="glyphicon glyphicon-plus"></span></a> <a
-									class="playlist-btn-sm" href="" title="Chia sẻ"><span
-									class="glyphicon glyphicon-share"></span></a>
-							</div>
-						</li>
-						<li class="item-chart">
-							<div class="label-rank-chart">4</div>
-							<div class="info-chart">
-								<a href=""><b class="song-name-chart">Perfect Duet</b></a><br>
-								<i><a class="singer-name-chart" href="">Ed Sheeran</a>, <a
-									class="singer-name-chart" href="">Beyoncé</a></i>
-							</div>
-							<div class="tool-chart">
-								<a class="playlist-btn-sm" href="" title="Tải về"><span
-									class="glyphicon glyphicon-download-alt"></span></a> <a
-									class="playlist-btn-sm" href="" title="Thêm vào"><span
-									class="glyphicon glyphicon-plus"></span></a> <a
-									class="playlist-btn-sm" href="" title="Chia sẻ"><span
-									class="glyphicon glyphicon-share"></span></a>
-							</div>
-						</li>
-						<li class="item-chart">
-							<div class="label-rank-chart">5</div>
-							<div class="info-chart">
-								<a href=""><b class="song-name-chart">Perfect Duet</b></a><br>
-								<i><a class="singer-name-chart" href="">Ed Sheeran</a>, <a
-									class="singer-name-chart" href="">Beyoncé</a></i>
-							</div>
-							<div class="tool-chart">
-								<a class="playlist-btn-sm" href="" title="Tải về"><span
-									class="glyphicon glyphicon-download-alt"></span></a> <a
-									class="playlist-btn-sm" href="" title="Thêm vào"><span
-									class="glyphicon glyphicon-plus"></span></a> <a
-									class="playlist-btn-sm" href="" title="Chia sẻ"><span
-									class="glyphicon glyphicon-share"></span></a>
-							</div>
-						</li>
-					</ul>
-				</div>
-				<!-- End BXH Album tuan -->
 			</div>
 			<!-- End Body Right -->
 		</div>
 	</div>
 </div>
 <!--End Body Web-->
+<!-- Form Add To Playlist -->
+<div class="modal fade" id="modalAddPlaylist" tabindex="-1"
+	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+<!-- End Form -->
