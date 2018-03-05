@@ -151,7 +151,7 @@
 								<button type="submit" class="btn btn-success form-control">Đăng ký</button>
 							</div>
 							<div class="text-center">
-								<a href="${pageContext.request.contextPath }/assets/home.html">Trở về trang chủ</a>
+								<a href="${pageContext.request.contextPath }/home.html">Trở về trang chủ</a>
 							</div>
 						</s:form>
 					</div>
