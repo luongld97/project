@@ -27,6 +27,7 @@
 			value="/WEB-INF/views/song/play-list-song.jsp" />
 	</definition>
 	<definition name="song.to.play.list" template="/WEB-INF/views/song/add-to-play-list.jsp" />
+	<definition name="song.recommend" template="/WEB-INF/views/templates/recommend-song.jsp" />
 	<!-- End song area -->
 
 	<!-- Singer area -->

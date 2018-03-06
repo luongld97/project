@@ -30,13 +30,13 @@ public interface SongService {
 	
 	public List<SongInfo> findSongInCategory(Category category);
 
-	public boolean increaseSongListen(Song song);
-
 	public SongEntity getSongEntity(int id);
 
-	public List<Song> randomSong(int limit);
+	public List<Song> randomSong(int limit, Song current);
 
 	List<SongEntity> findSongEntities(String keyWord);
 
 	public List<Song> getTopSongs(Singer singer, Integer limit);
+	
+	public Long getListen(Song song, boolean isVideo);
 }

@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <!--Start Body Web-->
 <div class="body-web">
 	<div class="container bg-web">
@@ -66,9 +67,8 @@
 							<span class="glyphicon glyphicon-download-alt"></span> Tải về
 						</button>
 						<div class="listen-time float-right">
-							<span> <span class="glyphicon glyphicon-headphones" />
-								${song.listen }
-							</span>
+							<span class="glyphicon glyphicon-headphones"></span>
+							<span id="listen"></span>
 						</div>
 					</div>
 				</div>
@@ -165,7 +165,7 @@
 			<!-- Body Right -->
 			<div class="col-md-4">
 				<div class="col-md-12 body-right">
-					
+					<tiles:insertDefinition name="song.recommend" />
 				</div>
 			</div>
 		</div>
