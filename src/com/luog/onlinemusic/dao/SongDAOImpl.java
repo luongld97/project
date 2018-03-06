@@ -301,7 +301,7 @@ public class SongDAOImpl implements SongDAO {
 	}
 
 	@Override
-	public List<Song> randomSong(int limit) {
+	public List<Song> randomSong(int limit, Song current) {
 		List<Song> songs = null;
 		Session session = null;
 		Transaction transaction = null;
@@ -314,8 +314,13 @@ public class SongDAOImpl implements SongDAO {
 			query.setMaxResults(1);
 			while (songs.size() < limit) {
 				Song song = (Song) query.list().get(0);
-				if (!songs.contains(song))
-					songs.add(song);
+				if (current != null) {
+					if (!songs.contains(current) && !songs.contains(song))
+						songs.add(song);
+				} else {
+					if (!songs.contains(song))
+						songs.add(song);
+				}
 			}
 			transaction.commit();
 		} catch (Exception e) {
@@ -397,4 +402,33 @@ public class SongDAOImpl implements SongDAO {
 		return songs;
 	}
 
+	@Override
+	public Long getListen(Song song, boolean isVideo) {
+		Long listen = null;
+		Session session = null;
+		Transaction transaction = null;
+		Query query = null;
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			query = session.createQuery("SELECT sum(c.listen) "
+					+ "FROM Chart c "
+					+ "WHERE c.video = :video "
+					+ "AND "
+					+ "c.song = :song");
+			query.setParameter("video", isVideo);
+			query.setParameter("song", song);
+			listen = (Long) query.uniqueResult();
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			listen = Long.valueOf(0);
+			if (transaction != null)
+				transaction.rollback();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return listen;
+	}
 }

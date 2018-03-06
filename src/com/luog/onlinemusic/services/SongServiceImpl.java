@@ -1,6 +1,5 @@
 package com.luog.onlinemusic.services;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +23,6 @@ import com.luog.onlinemusic.entity.commons.Song;
 import com.luog.onlinemusic.entity.commons.SongDetail;
 import com.luog.onlinemusic.entity.rest.SongEntity;
 import com.luog.onlinemusic.entity.rest.SongInfo;
-import com.luog.onlinemusic.helpers.EntityHelper;
 
 @Transactional
 @Service("songService")
@@ -157,24 +155,6 @@ public class SongServiceImpl implements SongService {
 	public List<SongInfo> findSongInfo() {
 		return songDAO.findSongInfo();
 	}
-
-	/**
-	 * @author luog
-	 */
-	@Override
-	public boolean increaseSongListen(Song song) {
-		boolean result = false;
-		try {
-			int currentSongListen = song.getListen();
-			song.setListen(currentSongListen + 1);
-			result = songDAO.update(song);
-		} catch (Exception e) {
-			e.printStackTrace();
-			result = false;
-		}
-		return result;
-	}
-
 	/**
 	 * @author luog
 	 */
@@ -187,8 +167,8 @@ public class SongServiceImpl implements SongService {
 	 * @author luog
 	 */
 	@Override
-	public List<Song> randomSong(int limit) {
-		return songDAO.randomSong(limit);
+	public List<Song> randomSong(int limit, Song current) {
+		return songDAO.randomSong(limit, current);
 	}
 
 	/**
@@ -262,4 +242,10 @@ public class SongServiceImpl implements SongService {
 		return songDAO.findSongBySinger(singer);
 	}
 
+	@Override
+	public Long getListen(Song song, boolean isVideo) {
+		return songDAO.getListen(song, isVideo);
+	}
+
+	
 }

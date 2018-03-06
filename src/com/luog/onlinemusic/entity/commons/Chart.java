@@ -32,14 +32,6 @@ public class Chart implements java.io.Serializable {
 	private int listen;
 	private boolean video;
 	
-	public boolean isVideo() {
-		return video;
-	}
-
-	public void setVideo(boolean video) {
-		this.video = video;
-	}
-
 	public Chart() {
 	}
 
@@ -89,6 +81,15 @@ public class Chart implements java.io.Serializable {
 
 	public void setListen(int listen) {
 		this.listen = listen;
+	}
+	
+	@Column(name = "video", nullable = false)
+	public boolean isVideo() {
+		return this.video;
+	}
+
+	public void setVideo(boolean video) {
+		this.video = video;
 	}
 
 }

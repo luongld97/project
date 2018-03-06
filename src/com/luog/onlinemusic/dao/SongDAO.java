@@ -20,18 +20,20 @@ public interface SongDAO {
 	public boolean delete(Song song);
 
 	public List<SongInfo> findSongInfo();
-	
+
 	public List<SongInfo> findMVSongInfo();
-	
+
 	public List<SongInfo> findSongBySinger(Singer singer);
-	
+
 	public List<SongInfo> findSongInCategory(Category category);
 
 	public SongEntity getSongEntity(int id);
 
-	public List<Song> randomSong(int limit);
-	
+	public List<Song> randomSong(int limit, Song current);
+
 	List<SongEntity> findSongEntities(String keyWord);
-	
+
 	List<Song> getTopSongs(Singer singer, Integer limit);
+	
+	public Long getListen(Song song, boolean isVideo);
 }

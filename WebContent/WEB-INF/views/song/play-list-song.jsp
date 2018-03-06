@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <!--Start Body Web-->
 <div class="body-web">
 	<div class="container bg-web">
@@ -164,7 +165,7 @@
 			<div class="col-md-4">
 				<div class="col-md-12 body-right">
 					<div class="item-right">
-						<h4 class="title-list-index">GỢI Ý BÀI HÁT</h4>
+						<h4 class="title-list-index">MV TUẤN HƯNG</h4>
 					</div>
 					<ul class="list-item">
 						<li class="item-chart">
@@ -243,58 +244,22 @@
 									class="glyphicon glyphicon-share"></span></a>
 							</div>
 						</li>
-						<li class="item-chart">
-							<div class="label-img">
-								<img
-									src="${pageContext.request.contextPath }/assets/images/imgsong.png"
-									class="image-view thumbnail">
-							</div>
-							<div class="info-chart">
-								<a href=""><b class="song-name-chart">Biết Tìm Ai</b></a><br>
-								<a href=""><i class="singer-name-chart">Ngá Đáo</i></a>
-							</div>
-							<div class="tool-chart">
-								<a class="playlist-btn-sm" href="" title="Nghe"><span
-									class="glyphicon glyphicon-play"></span></a> <a
-									class="playlist-btn-sm" href="" title="Thêm vào"><span
-									class="glyphicon glyphicon-plus"></span></a> <a
-									class="playlist-btn-sm" href="" title="Chia sẻ"><span
-									class="glyphicon glyphicon-share"></span></a>
-							</div>
-						</li>
-						<li class="item-chart">
-							<div class="label-img">
-								<img
-									src="${pageContext.request.contextPath }/assets/images/imgsong2.png"
-									class="image-view thumbnail">
-							</div>
-							<div class="info-chart">
-								<a href=""><b class="song-name-chart">Độc Thoại</b></a><br>
-								<a href=""><i class="singer-name-chart">Chiến Đo</i></a>
-							</div>
-							<div class="tool-chart">
-								<a class="playlist-btn-sm" href="" title="Nghe"><span
-									class="glyphicon glyphicon-play"></span></a> <a
-									class="playlist-btn-sm" href="" title="Thêm vào"><span
-									class="glyphicon glyphicon-plus"></span></a> <a
-									class="playlist-btn-sm" href="" title="Chia sẻ"><span
-									class="glyphicon glyphicon-share"></span></a>
-							</div>
-						</li>
 					</ul>
-
 				</div>
+				<!-- Recommend Song -->
+				<tiles:insertDefinition name="song.recommend" />
 			</div>
-			<!-- End Body Right -->
 		</div>
+		<!-- End Body Right -->
 	</div>
-	<!--End Body Web-->
-	<!-- Form Add To Playlist -->
-	<div class="modal fade" id="modalAddPlaylist" tabindex="-1"
-		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
-	<!-- End Form -->
-	<script src="${pageContext.request.contextPath }/assets/js/plyr.js"></script>
-	<script src="${pageContext.request.contextPath }/assets/js/comment.js"></script>
-	<script src="${pageContext.request.contextPath }/assets/js/counter.js"></script>
-	<script
-		src="${pageContext.request.contextPath }/assets/js/pages/play-list-song.js"></script>
+</div>
+<!--End Body Web-->
+<!-- Form Add To Playlist -->
+<div class="modal fade" id="modalAddPlaylist" tabindex="-1"
+	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+<!-- End Form -->
+<script src="${pageContext.request.contextPath }/assets/js/plyr.js"></script>
+<script src="${pageContext.request.contextPath }/assets/js/comment.js"></script>
+<script src="${pageContext.request.contextPath }/assets/js/counter.js"></script>
+<script
+	src="${pageContext.request.contextPath }/assets/js/pages/play-list-song.js"></script>

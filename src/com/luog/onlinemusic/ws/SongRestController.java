@@ -167,12 +167,32 @@ public class SongRestController {
 				currentChart.setSong(currentSong);
 				currentChart.setDate(currentTime);
 				currentChart.setListen(1);
+				currentChart.setVideo(currentSong.isVideo());
 				result = chartService.create(currentChart);
 			}
-			result = songService.increaseSongListen(currentSong);
 			return new ResponseEntity<Boolean>(result, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	/**
+	 * @author luog
+	 */
+	@RequestMapping(value = "getlisten", method = RequestMethod.GET)
+	public ResponseEntity<String> getListen(@RequestParam(value = "id", required = false) Integer id,
+			@RequestParam(value = "video", required = false) String video) {
+		try {
+			if (id == null)
+				throw new Exception();
+			else {
+				boolean isVideo = video != null ? true : false;
+				Song currentSong = songService.find(id);
+				Long listen = songService.getListen(currentSong, isVideo);
+				return new ResponseEntity<String>((listen == null ? 0 : listen) + "", HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
 	}
 

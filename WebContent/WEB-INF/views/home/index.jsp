@@ -43,11 +43,9 @@
 								</div>
 								<div class="tool-song">
 									<a class="playlist-btn" href="${listenLink }" title="Nghe"><span
-										class="glyphicon glyphicon-play"></span></a>
-									<!--  <a
-										class="playlist-btn" href="" title="Tải về"><span
-										class="glyphicon glyphicon-download-alt"></span></a> -->
-									<a class="playlist-btn" href="" title="Thêm vào"><span
+										class="glyphicon glyphicon-play"></span></a> <a
+										class="playlist-btn" onclick="addToClick('${song.id}');"
+										href="#modalAddPlaylist" title="Add to..." data-toggle="modal"><span
 										class="glyphicon glyphicon-plus"></span></a>
 								</div>
 								<div class="number-listen">${chart.listen }</div>
@@ -69,27 +67,9 @@
 								href="">Orange</a>, <a class="singer-name" href="">Superbrothers</a>
 							</i>
 						</div>
-
 					</div>
-
 				</div>
 				<!-- End Video Hot -->
-				<!-- Album Hot -->
-				<div class="col-md-12 body-left">
-					<a href=""><h3 class="title-list-index">ALBUM HOT</h3></a>
-					<div class="row mb-2">
-						<div class="col-md-3">
-							<a href=""><img
-								src="${pageContext.request.contextPath }/assets/images/imgalbum.png"
-								alt="" class="image-view img-thumbnail mb-1"></a> <br> <a
-								href=""><b class="song-name">Buồn Của Anh</b></a> <br> <i>
-								<a class="singer-name" href="">Masew</a>, <a class="singer-name"
-								href="">Đạt G</a>, <a class="singer-name" href="">K-ICM</a>
-							</i>
-						</div>
-					</div>
-				</div>
-				<!-- End Album Hot -->
 			</div>
 			<!-- End Body Left -->
 			<!-- Body Right -->

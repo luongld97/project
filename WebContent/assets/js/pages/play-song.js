@@ -1,10 +1,11 @@
 /**
  * @author luog
  */
-var song_id, base_url, canPlay, timeOut, increased, player, commentPage, commentArea, buttonShowMore, buttonPost, commentBox, username, listComments;
+var song_id, isVideo, base_url, canPlay, timeOut, increased, player, commentPage, commentArea, buttonShowMore, buttonPost, commentBox, username, listComments;
 
 $(document).ready(function() {
 	song_id = $('audio').attr('songId');
+	isVideo = $('audio').attr('video') != null;
 	base_url = $('audio').attr('baseUrl');
 	canPlay = false;
 	increased = false;
@@ -36,7 +37,7 @@ $(document).ready(function() {
 
 	buttonShowMore.click(btnShowMoreClicked);
 	buttonPost.click(btnPostClicked);
-
+	getListen(base_url, song_id, isVideo);
 	getSongComments(base_url, song_id, commentPage, allComments);
 });
 
@@ -85,4 +86,21 @@ function btnPostClicked() {
 	listComments = [ comment ].concat(listComments);
 	showComments(listComments);
 	commentBox.val('');
+}
+
+function getListen(base_url, id, is_video) {
+	var getUrl = base_url + '/api/song/getlisten?id=' + id;
+	if (is_video)
+		getUrl += '&video';
+	$.ajax({
+		method : 'get',
+		url : getUrl,
+		contentType : 'text/plain',
+		success : function(res) {
+			$('#listen').html(res);
+		},
+		error : function(err) {
+			console.log('GET_LISTEN_ERROR: ' + err.responseText);
+		}
+	});
 }
