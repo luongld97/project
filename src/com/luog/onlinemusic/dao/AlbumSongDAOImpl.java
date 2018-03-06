@@ -191,7 +191,8 @@ public class AlbumSongDAOImpl implements AlbumSongDAO{
 					+ "AlbumSinger abg, AlbumSong abs "
 					+ "WHERE abg.singer = sg AND abg.album = ab "
 					+ "AND abs.song = so AND abs.album = ab "
-					+ "AND ab = :album").setResultTransformer(Transformers.aliasToBean(AlbumSongEntity.class)).setParameter("album", album);
+					+ "AND ab = :album AND so.status = :status").setResultTransformer(Transformers.aliasToBean(AlbumSongEntity.class)).setParameter("album", album);
+			query.setParameter("status", true);
 			albumSongEntities = (List<AlbumSongEntity>) query.list();
 			transaction.commit();
 		} catch (Exception e) {

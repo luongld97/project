@@ -31,7 +31,7 @@ public class Chart implements java.io.Serializable {
 	private Date date;
 	private int listen;
 	private boolean video;
-
+	
 	public Chart() {
 	}
 

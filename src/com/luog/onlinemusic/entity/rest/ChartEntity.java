@@ -4,6 +4,7 @@ public class ChartEntity {
 	
 	private int songId;
 	private String songName;
+	private boolean video;
 	private String link;
 	private String lyric;
 	private String singerName;
@@ -11,6 +12,12 @@ public class ChartEntity {
 	private String date;
 	private int listen;
 	
+	public boolean isVideo() {
+		return video;
+	}
+	public void setVideo(boolean video) {
+		this.video = video;
+	}
 	public int getSongId() {
 		return songId;
 	}
@@ -60,7 +67,7 @@ public class ChartEntity {
 		this.listen = listen;
 	}
 	public ChartEntity(int songId, String songName, String link, String lyric, String singerName, String singerPhoto,
-			String date, int listen) {
+			String date, int listen, boolean video) {
 		super();
 		this.songId = songId;
 		this.songName = songName;
@@ -70,6 +77,7 @@ public class ChartEntity {
 		this.singerPhoto = singerPhoto;
 		this.date = date;
 		this.listen = listen;
+		this.video = video;
 	}
 	public ChartEntity() {
 		super();

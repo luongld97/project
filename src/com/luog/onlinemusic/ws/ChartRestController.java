@@ -105,7 +105,7 @@ public class ChartRestController {
 		}
 	}
 	
-	@RequestMapping(value ="gettopsongs",
+	@RequestMapping(value ="gettopsongs/{video}/{limit}",
 			method = RequestMethod.GET, 
 			produces = MimeTypeUtils.APPLICATION_JSON_VALUE, 
 			headers  = "Accept=application/json")
