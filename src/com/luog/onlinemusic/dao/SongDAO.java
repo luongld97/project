@@ -9,7 +9,9 @@ import com.luog.onlinemusic.entity.rest.SongEntity;
 import com.luog.onlinemusic.entity.rest.SongInfo;
 
 public interface SongDAO {
-	public List<Song> findAll(Boolean status);
+	public List<Song> findAll();
+
+	public List<Song> findAll(boolean isVideo);
 
 	public Song find(int id);
 
@@ -34,6 +36,6 @@ public interface SongDAO {
 	List<SongEntity> findSongEntities(String keyWord);
 
 	List<Song> getTopSongs(Singer singer, Integer limit);
-	
+
 	public Long getListen(Song song, boolean isVideo);
 }

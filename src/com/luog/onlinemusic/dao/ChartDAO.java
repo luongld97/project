@@ -20,7 +20,7 @@ public interface ChartDAO {
 	
 	public List<ChartEntity> getTopSongs(boolean isVideo, Integer limit);
 	
-	public Chart findChart(Song song, Date currentDate);
+	public Chart findChart(Song song, Date currentDate, boolean isVideo);
 	
 	public List<Chart> getChartsByMonth(Date currentDatem, Integer limit);
 	

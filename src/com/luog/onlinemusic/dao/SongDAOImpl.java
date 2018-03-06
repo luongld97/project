@@ -25,11 +25,7 @@ public class SongDAOImpl implements SongDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Song> findAll(Boolean status) {
-		String hql = "FROM Song";
-		if (status != null) {
-			hql += " WHERE status = :status";
-		}
+	public List<Song> findAll() {
 		List<Song> songs = null;
 		Session session = null;
 		Transaction transaction = null;
@@ -37,9 +33,33 @@ public class SongDAOImpl implements SongDAO {
 		try {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
-			query = session.createQuery(hql);
-			if (status != null)
-				query.setParameter("status", status);
+			query = session.createQuery("FROM Song");
+			songs = query.list();
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			songs = new ArrayList<>();
+			if (transaction != null)
+				transaction.rollback();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return songs;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Song> findAll(boolean isVideo) {
+		List<Song> songs = null;
+		Session session = null;
+		Transaction transaction = null;
+		Query query = null;
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			query = session.createQuery("FROM Song " + "WHERE status = :status AND video = :video");
+			query.setParameter("status", true);
 			songs = query.list();
 			transaction.commit();
 		} catch (Exception e) {
@@ -405,11 +425,8 @@ public class SongDAOImpl implements SongDAO {
 		try {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
-			query = session.createQuery("SELECT sum(c.listen) "
-					+ "FROM Chart c "
-					+ "WHERE c.video = :video "
-					+ "AND "
-					+ "c.song = :song");
+			query = session.createQuery(
+					"SELECT sum(c.listen) " + "FROM Chart c " + "WHERE c.video = :video " + "AND " + "c.song = :song");
 			query.setParameter("video", isVideo);
 			query.setParameter("song", song);
 			listen = (Long) query.uniqueResult();

@@ -142,7 +142,7 @@ public class ChartDAOImpl implements ChartDAO {
 	 * @author luog
 	 */
 	@Override
-	public Chart findChart(Song song, Date currentDate) {
+	public Chart findChart(Song song, Date currentDate, boolean isVideo) {
 		Chart chart = null;
 		Session session = null;
 		Transaction transaction = null;
@@ -151,10 +151,9 @@ public class ChartDAOImpl implements ChartDAO {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
 			localDate = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-			Query query = session
-					.createQuery("FROM Chart WHERE song = :song "
-							+ "AND song.status = :status "
-							+ "AND month(date) = :month AND year(date) = :year");
+			Query query = session.createQuery("FROM Chart WHERE song = :song " + "AND song.status = :status "
+					+ "AND video = :video " + "AND month(date) = :month AND year(date) = :year");
+			query.setParameter("video", isVideo);
 			query.setParameter("status", true);
 			query.setParameter("song", song);
 			query.setParameter("month", localDate.getMonthValue());
@@ -188,9 +187,8 @@ public class ChartDAOImpl implements ChartDAO {
 			localDate = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
-			query = session.createQuery(
-					"FROM Chart " + "WHERE month(date) = :month " + "AND year(date) = :year "
-							+ "AND song.status = :status " + "ORDER BY listen DESC");
+			query = session.createQuery("FROM Chart " + "WHERE month(date) = :month " + "AND year(date) = :year "
+					+ "AND song.status = :status " + "ORDER BY listen DESC");
 			query.setParameter("status", true);
 			query.setParameter("month", localDate.getMonthValue());
 			query.setParameter("year", localDate.getYear());
@@ -209,8 +207,7 @@ public class ChartDAOImpl implements ChartDAO {
 		}
 		return charts;
 	}
-	
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ChartEntity> getTopSongs(boolean isVideo, Integer limit) {
@@ -221,21 +218,19 @@ public class ChartDAOImpl implements ChartDAO {
 		try {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
-			query = session.createQuery("SELECT so.id as songId, so.name as songName, so.link as link, so.lyric as lyric, "
+			query = session
+					.createQuery("SELECT so.id as songId, so.name as songName, so.link as link, so.lyric as lyric, "
 							+ "ch.listen as listen, DATE_FORMAT(ch.date,'%Y-%m-%d') as date, "
 							+ "si.name as singerName, si.photo as singerPhoto "
-							+ "FROM Chart ch, Song so, Singer si, SongDetail sd "
-							+ "WHERE ch.song = so "
-							+ "AND so.status = :status "
-							+ "AND sd.song = so AND sd.singer = si "
-							+ "AND ch.video = :video"
-							+ "ORDER BY ch.listen DESC");
+							+ "FROM Chart ch, Song so, Singer si, SongDetail sd " + "WHERE ch.song = so "
+							+ "AND so.status = :status " + "AND sd.song = so AND sd.singer = si "
+							+ "AND ch.video = :video" + "ORDER BY ch.listen DESC");
 			query.setResultTransformer(Transformers.aliasToBean(ChartEntity.class));
 			query.setParameter("status", true);
 			query.setParameter("video", isVideo);
-			if(limit != null) 
+			if (limit != null)
 				query.setMaxResults(limit);
-			
+
 			chartEntities = query.list();
 			transaction.commit();
 		} catch (Exception e) {
@@ -249,5 +244,5 @@ public class ChartDAOImpl implements ChartDAO {
 		}
 		return chartEntities;
 	}
-	
+
 }

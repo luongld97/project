@@ -46,8 +46,8 @@ public class ChartServiceImpl implements ChartService {
 	}
 
 	@Override
-	public Chart findChart(Song song, Date currentDate) {
-		return chartDAO.findChart(song, currentDate);
+	public Chart findChart(Song song, Date currentDate, boolean isVideo) {
+		return chartDAO.findChart(song, currentDate, isVideo);
 	}
 
 	@Override

@@ -49,18 +49,14 @@ public class SongServiceImpl implements SongService {
 	@Autowired
 	private AuthorDAO authorDAO;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.luog.onlinemusic.services.SongService#findAll(java.lang.Boolean)
-	 * 
-	 * @param boolean status This method will return list song with status
-	 * 
-	 * @param null This method will return all song
-	 */
 	@Override
-	public List<Song> findAll(Boolean status) {
-		return songDAO.findAll(status);
+	public List<Song> findAll() {
+		return songDAO.findAll();
+	}
+
+	@Override
+	public List<Song> findAll(boolean isVideo) {
+		return songDAO.findAll(isVideo);
 	}
 
 	@Override
@@ -155,6 +151,7 @@ public class SongServiceImpl implements SongService {
 	public List<SongInfo> findSongInfo() {
 		return songDAO.findSongInfo();
 	}
+
 	/**
 	 * @author luog
 	 */
@@ -247,5 +244,4 @@ public class SongServiceImpl implements SongService {
 		return songDAO.getListen(song, isVideo);
 	}
 
-	
 }

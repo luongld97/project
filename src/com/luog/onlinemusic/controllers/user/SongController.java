@@ -36,11 +36,14 @@ public class SongController {
 	private ChartService chartService;
 
 	@RequestMapping(value = "/play", method = RequestMethod.GET)
-	public String playSong(@RequestParam("id") int songid, ModelMap modelMap) {
+	public String playSong(@RequestParam("id") int songid, ModelMap modelMap,
+			@RequestParam(value = "video", required = false) String video) {
+		boolean isVideo = video != null ? true : false;
 		Song song = songService.find(songid);
 		List<Song> suggestedSongs = songService.randomSong(10, song);
 		modelMap.put("song", song);
 		modelMap.put("suggestedSongs", suggestedSongs);
+		modelMap.put("listen", songService.getListen(song, isVideo));
 		return "song.play";
 	}
 

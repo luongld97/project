@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.luog.onlinemusic.entity.commons.Chart;
+import com.luog.onlinemusic.entity.commons.Song;
 import com.luog.onlinemusic.services.ChartService;
+import com.luog.onlinemusic.services.SongService;
 
 @Controller
 @RequestMapping("home")
@@ -21,6 +23,9 @@ public class HomeController {
 
 	@Autowired
 	private ChartService chartService;
+
+	@Autowired
+	private SongService songService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String index(ModelMap modelMap) {
@@ -39,6 +44,13 @@ public class HomeController {
 		}
 		modelMap.put("charts", currentCharts);
 		return "home.index";
+	}
+
+	@RequestMapping(value = { "/video" }, method = RequestMethod.GET)
+	public String video(ModelMap modelMap) {
+		List<Song> videos = songService.findAll(true);
+		modelMap.put("videos", videos);
+		return "home.video";
 	}
 
 }

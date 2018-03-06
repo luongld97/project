@@ -67,8 +67,8 @@
 							<span class="glyphicon glyphicon-download-alt"></span> Tải về
 						</button>
 						<div class="listen-time float-right">
-							<span class="glyphicon glyphicon-headphones"></span>
-							<span id="listen"></span>
+							<span class="glyphicon glyphicon-headphones"></span> <span
+								id="listen">${listen }</span>
 						</div>
 					</div>
 				</div>
