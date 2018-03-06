@@ -158,8 +158,9 @@ public class SongDAOImpl implements SongDAO {
 					.createQuery("SELECT si.id as singerId, si.name as singerName, si.photo as singerPhoto, "
 							+ "so.id as id, so.name as name, " + "so.link as link, " + "so.lyric as lyric, "
 							+ "so.video as isVideo " + "FROM Singer si, Song so, SongDetail sd "
-							+ "WHERE sd.singer = si AND sd.song = so " + "ORDER BY so.id DESC")
+							+ "WHERE sd.singer = si AND sd.song = so AND so.status = :status " + "ORDER BY so.id DESC")
 					.setResultTransformer(Transformers.aliasToBean(SongInfo.class));
+			query.setParameter("status", true);
 			songInfos = query.list();
 			transaction.commit();
 		} catch (Exception e) {
@@ -186,8 +187,9 @@ public class SongDAOImpl implements SongDAO {
 			query = session.createQuery("SELECT si.id as singerId, si.name as singerName, si.photo as singerPhoto, "
 					+ "so.id as id, so.name as name, " + "so.link as link, " + "so.lyric as lyric, "
 					+ "so.video as isVideo , so.videoLink as videoLink " + "FROM Singer si, Song so, SongDetail sd "
-					+ "WHERE sd.singer = si AND sd.song = so AND so.video = true " + "ORDER BY so.id DESC")
+					+ "WHERE sd.singer = si AND sd.song = so AND so.video = true AND so.status = :status " + "ORDER BY so.id DESC")
 					.setResultTransformer(Transformers.aliasToBean(SongInfo.class));
+			query.setParameter("status", true);
 			songInfos = query.list();
 			transaction.commit();
 		} catch (Exception e) {
@@ -217,8 +219,10 @@ public class SongDAOImpl implements SongDAO {
 							+ "so.video as isVideo , so.videoLink as videoLink "
 							+ "FROM Singer si, Song so, SongDetail sd, " + "CategoryDetail cd "
 							+ "WHERE sd.singer = si AND sd.song = so AND cd.song = so AND cd.category =:category "
+							+ "AND so.status = :status "
 							+ "ORDER BY so.id ASC")
 					.setParameter("category", category).setResultTransformer(Transformers.aliasToBean(SongInfo.class));
+			query.setParameter("status", true);
 			songInfos = query.list();
 			transaction.commit();
 		} catch (Exception e) {
@@ -245,8 +249,10 @@ public class SongDAOImpl implements SongDAO {
 			query = session.createQuery("SELECT si.id as singerId, si.name as singerName, si.photo as singerPhoto, "
 					+ "so.id as id, so.name as name, " + "so.link as link, " + "so.lyric as lyric, "
 					+ "so.video as isVideo , so.videoLink as videoLink " + "FROM Singer si, Song so, SongDetail sd "
-					+ "WHERE sd.singer = si AND sd.song = so AND sd.singer =:singer " + "ORDER BY so.id ASC")
+					+ "WHERE sd.singer = si AND sd.song = so AND sd.singer =:singer "
+					+ "AND so.status = :status " + "ORDER BY so.id ASC")
 					.setParameter("singer", singer).setResultTransformer(Transformers.aliasToBean(SongInfo.class));
+			query.setParameter("status", true);
 			songInfos = query.list();
 			transaction.commit();
 		} catch (Exception e) {

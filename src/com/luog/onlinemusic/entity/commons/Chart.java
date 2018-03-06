@@ -30,14 +30,24 @@ public class Chart implements java.io.Serializable {
 	private Song song;
 	private Date date;
 	private int listen;
+	private boolean video;
+	
+	public boolean isVideo() {
+		return video;
+	}
+
+	public void setVideo(boolean video) {
+		this.video = video;
+	}
 
 	public Chart() {
 	}
 
-	public Chart(Song song, Date date, int listen) {
+	public Chart(Song song, Date date, int listen, boolean video) {
 		this.song = song;
 		this.date = date;
 		this.listen = listen;
+		this.video = video;
 	}
 
 	@Id

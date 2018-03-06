@@ -222,13 +222,14 @@ public class ChartDAOImpl implements ChartDAO {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
 			query = session.createQuery("SELECT so.id as songId, so.name as songName, so.link as link, so.lyric as lyric, "
+							+ "so.video as video, "
 							+ "ch.listen as listen, DATE_FORMAT(ch.date,'%Y-%m-%d') as date, "
 							+ "si.name as singerName, si.photo as singerPhoto "
 							+ "FROM Chart ch, Song so, Singer si, SongDetail sd "
 							+ "WHERE ch.song = so "
 							+ "AND so.status = :status "
 							+ "AND sd.song = so AND sd.singer = si "
-							+ "AND ch.video = :video"
+							+ "AND ch.video = :video "
 							+ "ORDER BY ch.listen DESC");
 			query.setResultTransformer(Transformers.aliasToBean(ChartEntity.class));
 			query.setParameter("status", true);
