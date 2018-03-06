@@ -18,7 +18,7 @@ public interface ChartService {
 	
 	public boolean delete(Chart chart);
 	
-	public List<ChartEntity> getTopSongs();
+	public List<ChartEntity> getTopSongs(boolean isVideo, Integer limit);
 	
 	/**
 	 * @author luog

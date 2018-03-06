@@ -70,8 +70,8 @@ public class ChartServiceImpl implements ChartService {
 	}
 
 	@Override
-	public List<ChartEntity> getTopSongs() {
-		return chartDAO.getTopSongs();
+	public List<ChartEntity> getTopSongs(boolean isVideo, Integer limit) {
+		return chartDAO.getTopSongs(isVideo, limit);
 	}
 
 }
