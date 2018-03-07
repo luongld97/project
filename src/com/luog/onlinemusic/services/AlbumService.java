@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.luog.onlinemusic.entity.commons.Album;
 import com.luog.onlinemusic.entity.commons.Singer;
+import com.luog.onlinemusic.entity.rest.AlbumEntity;
 
 public interface AlbumService {
 
@@ -11,9 +12,9 @@ public interface AlbumService {
 
 	public Album find(int id);
 
-	public boolean create(Album album);
+	public boolean create(AlbumEntity temp);
 
-	public boolean update(Album album);
+	public boolean update(AlbumEntity album);
 
 	public boolean delete(Album album);
 	

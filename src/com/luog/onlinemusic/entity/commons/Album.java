@@ -1,8 +1,10 @@
 package com.luog.onlinemusic.entity.commons;
 // Generated Jan 31, 2018 11:31:17 AM by Hibernate Tools 5.2.6.Final
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,8 +35,8 @@ public class Album implements java.io.Serializable {
 	private String name;
 	private String photo;
 	private Date releasedTime;
-	private Set<AlbumSinger> albumSingers = new HashSet<AlbumSinger>(0);
-	private Set<AlbumSong> albumSongs = new HashSet<AlbumSong>(0);
+	private List<AlbumSinger> albumSingers = new ArrayList<>();
+	private List<AlbumSong> albumSongs = new ArrayList<>();
 
 	public Album() {
 	}
@@ -44,8 +46,8 @@ public class Album implements java.io.Serializable {
 		this.releasedTime = releasedTime;
 	}
 
-	public Album(String name, String photo, Date releasedTime, Set<AlbumSinger> albumSingers,
-			Set<AlbumSong> albumSongs) {
+	public Album(String name, String photo, Date releasedTime, List<AlbumSinger> albumSingers,
+			List<AlbumSong> albumSongs) {
 		this.name = name;
 		this.photo = photo;
 		this.releasedTime = releasedTime;
@@ -95,21 +97,21 @@ public class Album implements java.io.Serializable {
 
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "album")
-	public Set<AlbumSinger> getAlbumSingers() {
+	public List<AlbumSinger> getAlbumSingers() {
 		return this.albumSingers;
 	}
 
-	public void setAlbumSingers(Set<AlbumSinger> albumSingers) {
+	public void setAlbumSingers(List<AlbumSinger> albumSingers) {
 		this.albumSingers = albumSingers;
 	}
 
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "album")
-	public Set<AlbumSong> getAlbumSongs() {
+	public List<AlbumSong> getAlbumSongs() {
 		return this.albumSongs;
 	}
 
-	public void setAlbumSongs(Set<AlbumSong> albumSongs) {
+	public void setAlbumSongs(List<AlbumSong> albumSongs) {
 		this.albumSongs = albumSongs;
 	}
 

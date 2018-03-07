@@ -79,6 +79,25 @@
 	
 	<!-- End category management area -->
 	
+	<!-- Begin album management area -->
+	
+	<definition name="admin.album.allalbum" extends="admin.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/management/album/all-album.jsp" />
+	</definition>
+	
+	
+	<definition name="admin.album.addalbum" extends="admin.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/management/album/add-album.jsp" />
+	</definition>
+	
+	<definition name="admin.album.updatealbum" extends="admin.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/management/album/update-album.jsp" />
+	</definition>
+	
+	<!-- End album management area -->
 	
 	<!-- Begin author management area -->
 	

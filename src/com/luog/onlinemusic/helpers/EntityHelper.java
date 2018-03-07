@@ -4,8 +4,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.luog.onlinemusic.entity.commons.Album;
 import com.luog.onlinemusic.entity.commons.Singer;
 import com.luog.onlinemusic.entity.commons.Song;
+import com.luog.onlinemusic.entity.rest.AlbumEntity;
 import com.luog.onlinemusic.entity.rest.SingerEntity;
 import com.luog.onlinemusic.entity.rest.SongEntity;
 
@@ -78,6 +80,43 @@ public class EntityHelper {
 			singerEntity = new SingerEntity();
 		}
 		return singerEntity;
+	}
+	
+	public static AlbumEntity toAlbumEntity(Album album) {
+
+		AlbumEntity albumEntity = null;
+		SimpleDateFormat simpleDateFormat = null;
+		try {
+			albumEntity = new AlbumEntity();
+			albumEntity.setId(album.getId());
+			albumEntity.setName(album.getName());
+			simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			albumEntity.setReleasedTime(
+					simpleDateFormat.format(album.getReleasedTime())
+				);
+			
+			String song = "";
+			for (int i = 0; i < album.getAlbumSongs().size() -1; i++) {
+				Song currentSong = album.getAlbumSongs().get(i).getSong();
+				song += currentSong.getId() + ":" + currentSong.getName();
+				if (i < album.getAlbumSongs().size() -2)
+					song += ',';
+			}
+			
+			String singer = "";
+			for (int i = 0; i < album.getAlbumSingers().size() -1; i++) {
+				Singer currentSinger = album.getAlbumSingers().get(i).getSinger();
+				singer += currentSinger.getId() + ":" + currentSinger.getName();
+				if (i < album.getAlbumSingers().size() -2)
+					singer += ',';
+			}
+			albumEntity.setSongs(song);
+			albumEntity.setSongs(singer);
+		} catch (Exception e) {
+			e.printStackTrace();
+			albumEntity = new AlbumEntity();
+		}
+		return albumEntity;
 	}
 
 }
