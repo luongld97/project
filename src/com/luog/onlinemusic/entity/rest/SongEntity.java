@@ -110,7 +110,7 @@ public class SongEntity implements java.io.Serializable {
 		this.listen = listen;
 	}
 
-	public Integer getListe() {
+	public Integer getListen() {
 		return this.listen;
 	}
 

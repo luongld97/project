@@ -47,6 +47,4 @@ public interface SongService {
 	
 	public List<SongEntity> getTopSong(boolean isVideo, Date currentDate, Integer limit);
 	
-
-	public Long getListen(Song song, boolean isVideo);
 }

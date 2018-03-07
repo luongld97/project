@@ -37,7 +37,9 @@
 						</c:if>
 
 						<c:if test="${isVideo }">
-							<h1>Chua co giao dien phat video</h1>
+							<video class="play-video" poster="${pageContext.request.contextPath }/assets/images/default-avatar.png">
+								<source src="https://nplus.nixcdn.com/PreNCT7/KhiEmNguSay-ChiDan-2876212.mp4" />
+							</video>
 						</c:if>
 
 					</div>

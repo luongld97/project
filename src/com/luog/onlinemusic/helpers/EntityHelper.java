@@ -1,8 +1,6 @@
 package com.luog.onlinemusic.helpers;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.luog.onlinemusic.entity.commons.Album;
 import com.luog.onlinemusic.entity.commons.Author;
@@ -32,43 +30,40 @@ public class EntityHelper {
 			songEntity.setView(temp.getView());
 			songEntity.setVideoLink(temp.getVideoLink());
 			songEntity.setVideoPhoto(temp.getVideoPhoto());
-			songEntity.setUploadedTime(
-					new SimpleDateFormat("yyyy-MM-dd")
-						.format(temp.getUploadedTime())
-				);
+			songEntity.setUploadedTime(new SimpleDateFormat("yyyy-MM-dd").format(temp.getUploadedTime()));
 			songEntity.setUploadedBy(temp.getUploadedBy());
-			String singer = "";
-			for (int i = 0; i < temp.getSongDetails().size() - 1; i++) {
+			String singers = "";
+			for (int i = 0; i < temp.getSongDetails().size(); i++) {
 				Singer currentSinger = temp.getSongDetails().get(i).getSinger();
-				singer += currentSinger.getId() + ":" + currentSinger.getName() + ":" + currentSinger.getPhoto();
-				if (i < temp.getSongDetails().size() - 2)
-					singer += ",";
+				singers += currentSinger.getId() + ":" + currentSinger.getName() + ":" + currentSinger.getPhoto();
+				if (i < temp.getSongDetails().size() - 1)
+					singers += ",";
 			}
-			
-			String author = "";
-			for (int i = 0; i < temp.getAuthorDetails().size() -1; i++) {
-				Author currentAuthor  = temp.getAuthorDetails().get(i).getAuthor();
-				author += currentAuthor.getId() + ":" + currentAuthor.getName() + ":" + currentAuthor.getPhoto();
-				if (i < temp.getAuthorDetails().size() - 2)
-					author += ",";
+
+			String authors = "";
+			for (int i = 0; i < temp.getAuthorDetails().size(); i++) {
+				Author currentAuthor = temp.getAuthorDetails().get(i).getAuthor();
+				authors += currentAuthor.getId() + ":" + currentAuthor.getName() + ":" + currentAuthor.getPhoto();
+				if (i < temp.getAuthorDetails().size() - 1)
+					authors += ",";
 			}
-			
-			String category = "";
-			for (int i = 0; i< temp.getCategoryDetails().size() -1; i++) {
+
+			String categories = "";
+			for (int i = 0; i < temp.getCategoryDetails().size(); i++) {
 				Category currentCategory = temp.getCategoryDetails().get(i).getCategory();
-				category += currentCategory.getId() + ":" + currentCategory.getName();
-				if (i < temp.getCategoryDetails().size() -2)
-					category += ",";
+				categories += currentCategory.getId() + ":" + currentCategory.getName();
+				if (i < temp.getCategoryDetails().size() - 1)
+					categories += ",";
 			}
-			songEntity.setSingers(singer);
-			songEntity.setAuthors(author);
-			songEntity.setCategories(category);
+			songEntity.setSingers(singers);
+			songEntity.setAuthors(authors);
+			songEntity.setCategories(categories);
 		} catch (Exception e) {
 			songEntity = new SongEntity();
 		}
 		return songEntity;
 	}
-	
+
 	public static SingerEntity toSingerEntity(Singer singer) {
 
 		SingerEntity singerEntity = null;
@@ -79,9 +74,7 @@ public class EntityHelper {
 			singerEntity.setName(singer.getName());
 			singerEntity.setNickName(singer.getNickName());
 			simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			singerEntity.setDateOfBirth(
-					simpleDateFormat.format(singer.getDateOfBirth())
-				);
+			singerEntity.setDateOfBirth(simpleDateFormat.format(singer.getDateOfBirth()));
 			singerEntity.setGender(singer.getGender());
 			singerEntity.setDescription(singer.getDescription());
 			singerEntity.setPhoto(singer.getPhoto());
@@ -91,7 +84,7 @@ public class EntityHelper {
 		}
 		return singerEntity;
 	}
-	
+
 	public static AlbumEntity toAlbumEntity(Album album) {
 
 		AlbumEntity albumEntity = null;
@@ -101,23 +94,21 @@ public class EntityHelper {
 			albumEntity.setId(album.getId());
 			albumEntity.setName(album.getName());
 			simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			albumEntity.setReleasedTime(
-					simpleDateFormat.format(album.getReleasedTime())
-				);
-			
+			albumEntity.setReleasedTime(simpleDateFormat.format(album.getReleasedTime()));
+
 			String song = "";
-			for (int i = 0; i < album.getAlbumSongs().size() -1; i++) {
+			for (int i = 0; i < album.getAlbumSongs().size() - 1; i++) {
 				Song currentSong = album.getAlbumSongs().get(i).getSong();
 				song += currentSong.getId() + ":" + currentSong.getName();
-				if (i < album.getAlbumSongs().size() -2)
+				if (i < album.getAlbumSongs().size() - 2)
 					song += ',';
 			}
-			
+
 			String singer = "";
-			for (int i = 0; i < album.getAlbumSingers().size() -1; i++) {
+			for (int i = 0; i < album.getAlbumSingers().size() - 1; i++) {
 				Singer currentSinger = album.getAlbumSingers().get(i).getSinger();
 				singer += currentSinger.getId() + ":" + currentSinger.getName();
-				if (i < album.getAlbumSingers().size() -2)
+				if (i < album.getAlbumSingers().size() - 2)
 					singer += ',';
 			}
 			albumEntity.setSongs(song);

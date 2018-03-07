@@ -88,6 +88,7 @@ public class SongServiceImpl implements SongService {
 			song.setListen(0);
 			song.setStatus(true);
 			song.setVideo(temp.isVideo());
+			song.setView(0);
 			song.setVideoLink(temp.getVideoLink());
 			song.setVideoPhoto(temp.getVideoPhoto());
 			song.setUploadedTime(new Date());
@@ -282,11 +283,6 @@ public class SongServiceImpl implements SongService {
 	@Override
 	public List<SongInfo> findSongBySinger(Singer singer) {
 		return songDAO.findSongBySinger(singer);
-	}
-
-	@Override
-	public Long getListen(Song song, boolean isVideo) {
-		return songDAO.getListen(song, isVideo);
 	}
 
 	@Override

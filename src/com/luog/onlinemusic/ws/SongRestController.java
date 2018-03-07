@@ -1,7 +1,5 @@
 package com.luog.onlinemusic.ws;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +18,6 @@ import com.luog.onlinemusic.entity.commons.Chart;
 import com.luog.onlinemusic.entity.commons.PlayList;
 import com.luog.onlinemusic.entity.commons.PlayListDetail;
 import com.luog.onlinemusic.entity.commons.Song;
-import com.luog.onlinemusic.entity.rest.ChartEntity;
 import com.luog.onlinemusic.entity.rest.SongEntity;
 import com.luog.onlinemusic.entity.rest.SongInfo;
 import com.luog.onlinemusic.services.CategoryService;
@@ -74,10 +71,11 @@ public class SongRestController {
 	}
 
 	@RequestMapping(value = "findsongincategory/{categoryId}/{limit}", method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE, headers = "Accept=application/json")
-	public ResponseEntity<List<SongInfo>> findSongInCategory(@PathVariable("categoryId") int categoryId, @PathVariable("limit") int limit) {
+	public ResponseEntity<List<SongInfo>> findSongInCategory(@PathVariable("categoryId") int categoryId,
+			@PathVariable("limit") int limit) {
 		try {
-			return new ResponseEntity<List<SongInfo>>(songService.findSongInCategory(categoryService.find(categoryId), limit),
-					HttpStatus.OK);
+			return new ResponseEntity<List<SongInfo>>(
+					songService.findSongInCategory(categoryService.find(categoryId), limit), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<List<SongInfo>>(HttpStatus.BAD_REQUEST);
 		}
@@ -175,28 +173,9 @@ public class SongRestController {
 				currentChart.setVideo(isVideo);
 				result = chartService.create(currentChart);
 			}
-			String resultStr = result ? songService.getListen(currentSong, isVideo) + "" : result + "";
+			String resultStr = result ? (isVideo ? currentSong.getView() + "" : currentSong.getListen() + "")
+					: result + "";
 			return new ResponseEntity<String>(resultStr, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
-		}
-	}
-
-	/**
-	 * @author luog
-	 */
-	@RequestMapping(value = "/getlisten", method = RequestMethod.GET)
-	public ResponseEntity<String> getListen(@RequestParam(value = "id", required = false) Integer id,
-			@RequestParam(value = "video", required = false) String video) {
-		try {
-			if (id == null)
-				throw new Exception();
-			else {
-				boolean isVideo = video != null ? true : false;
-				Song currentSong = songService.find(id);
-				Long listen = songService.getListen(currentSong, isVideo);
-				return new ResponseEntity<String>((listen == null ? 0 : listen) + "", HttpStatus.OK);
-			}
 		} catch (Exception e) {
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
