@@ -1,5 +1,6 @@
 package com.luog.onlinemusic.services;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,8 +11,10 @@ import org.springframework.stereotype.Service;
 
 import com.luog.onlinemusic.dao.ChartDAO;
 import com.luog.onlinemusic.entity.commons.Chart;
+import com.luog.onlinemusic.entity.commons.Singer;
 import com.luog.onlinemusic.entity.commons.Song;
 import com.luog.onlinemusic.entity.rest.ChartEntity;
+import com.luog.onlinemusic.entity.rest.SongEntity;
 
 @Transactional
 @Service("chartService")
@@ -24,7 +27,7 @@ public class ChartServiceImpl implements ChartService {
 	public List<Chart> findAll() {
 		return chartDAO.findAll();
 	}
-	
+
 	@Override
 	public Chart find(int id) {
 		return chartDAO.find(id);
@@ -71,7 +74,12 @@ public class ChartServiceImpl implements ChartService {
 
 	@Override
 	public List<ChartEntity> getTopSongs(boolean isVideo, Integer limit) {
-		return chartDAO.getTopSongs(isVideo, limit);
+		
+		try {
+
+		} catch (Exception e) {
+		}
+		return null;
 	}
 
 }

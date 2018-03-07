@@ -1,5 +1,6 @@
 package com.luog.onlinemusic.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.luog.onlinemusic.entity.commons.Category;
@@ -19,13 +20,13 @@ public interface SongDAO {
 
 	public boolean delete(Song song);
 
-	public List<SongInfo> findSongInfo();
+	public List<SongInfo> findSongInfo(Integer limit);
 
-	public List<SongInfo> findMVSongInfo();
+	public List<SongInfo> findMVSongInfo(Integer limit);
 
 	public List<SongInfo> findSongBySinger(Singer singer);
 
-	public List<SongInfo> findSongInCategory(Category category);
+	public List<SongInfo> findSongInCategory(Category category, Integer limit);
 
 	public SongEntity getSongEntity(int id);
 
@@ -34,6 +35,8 @@ public interface SongDAO {
 	List<SongEntity> findSongEntities(String keyWord);
 
 	List<Song> getTopSongs(Singer singer, Integer limit);
+	
+	public List<Song> getTopSong(boolean isVideo, Date currentDate, Integer limit);
 	
 	public Long getListen(Song song, boolean isVideo);
 }

@@ -1,5 +1,6 @@
 package com.luog.onlinemusic.services;
 
+import java.util.Date;
 import java.util.List;
 
 import com.luog.onlinemusic.entity.commons.Category;
@@ -22,13 +23,13 @@ public interface SongService {
 	
 	public boolean delete(Song song);
 
-	public List<SongInfo> findSongInfo();
+	public List<SongInfo> findSongInfo(Integer limit);
 	
-	public List<SongInfo> findMVSongInfo();
+	public List<SongInfo> findMVSongInfo(Integer limit);
 	
 	public List<SongInfo> findSongBySinger(Singer singer);
 	
-	public List<SongInfo> findSongInCategory(Category category);
+	public List<SongInfo> findSongInCategory(Category category, Integer limit);
 
 	public SongEntity getSongEntity(int id);
 
@@ -37,6 +38,8 @@ public interface SongService {
 	List<SongEntity> findSongEntities(String keyWord);
 
 	public List<Song> getTopSongs(Singer singer, Integer limit);
+	
+	public List<SongEntity> getTopSong(boolean isVideo, Date currentDate, Integer limit);
 	
 	public Long getListen(Song song, boolean isVideo);
 }

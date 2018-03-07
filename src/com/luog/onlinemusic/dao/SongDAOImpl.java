@@ -1,7 +1,10 @@
 package com.luog.onlinemusic.dao;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -13,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.luog.onlinemusic.entity.commons.Category;
+import com.luog.onlinemusic.entity.commons.Chart;
 import com.luog.onlinemusic.entity.commons.Singer;
 import com.luog.onlinemusic.entity.commons.Song;
 import com.luog.onlinemusic.entity.rest.SongEntity;
@@ -146,7 +150,7 @@ public class SongDAOImpl implements SongDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<SongInfo> findSongInfo() {
+	public List<SongInfo> findSongInfo(Integer limit) {
 		List<SongInfo> songInfos = null;
 		Session session = null;
 		Transaction transaction = null;
@@ -161,6 +165,7 @@ public class SongDAOImpl implements SongDAO {
 							+ "WHERE sd.singer = si AND sd.song = so AND so.status = :status " + "ORDER BY so.id DESC")
 					.setResultTransformer(Transformers.aliasToBean(SongInfo.class));
 			query.setParameter("status", true);
+			query.setMaxResults(limit);
 			songInfos = query.list();
 			transaction.commit();
 		} catch (Exception e) {
@@ -176,7 +181,7 @@ public class SongDAOImpl implements SongDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<SongInfo> findMVSongInfo() {
+	public List<SongInfo> findMVSongInfo(Integer limit) {
 		List<SongInfo> songInfos = null;
 		Session session = null;
 		Transaction transaction = null;
@@ -190,6 +195,7 @@ public class SongDAOImpl implements SongDAO {
 					+ "WHERE sd.singer = si AND sd.song = so AND so.video = true AND so.status = :status " + "ORDER BY so.id DESC")
 					.setResultTransformer(Transformers.aliasToBean(SongInfo.class));
 			query.setParameter("status", true);
+			query.setMaxResults(limit);
 			songInfos = query.list();
 			transaction.commit();
 		} catch (Exception e) {
@@ -205,7 +211,7 @@ public class SongDAOImpl implements SongDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<SongInfo> findSongInCategory(Category category) {
+	public List<SongInfo> findSongInCategory(Category category, Integer limit) {
 		List<SongInfo> songInfos = null;
 		Session session = null;
 		Transaction transaction = null;
@@ -223,6 +229,7 @@ public class SongDAOImpl implements SongDAO {
 							+ "ORDER BY so.id ASC")
 					.setParameter("category", category).setResultTransformer(Transformers.aliasToBean(SongInfo.class));
 			query.setParameter("status", true);
+			query.setMaxResults(limit);
 			songInfos = query.list();
 			transaction.commit();
 		} catch (Exception e) {
@@ -401,6 +408,41 @@ public class SongDAOImpl implements SongDAO {
 		}
 		return songs;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Song> getTopSong(boolean isVideo, Date currentDate, Integer limit) {
+		List<Song> songs = null;
+		Session session = null;
+		Transaction transaction = null;
+		Query query = null;
+		LocalDate localDate = null;
+		try {
+			localDate = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			query = session.createQuery(
+					"SELECT so FROM Chart ch, Song so " + "WHERE month(ch.date) = :month " + "AND year(ch.date) = :year "
+							+ "AND so.status = :status AND ch.song = so AND ch.video = :video " + "ORDER BY ch.listen DESC");
+			query.setParameter("status", true);
+			query.setParameter("video", isVideo);
+			query.setParameter("month", localDate.getMonthValue());
+			query.setParameter("year", localDate.getYear());
+			if (limit != null)
+				query.setMaxResults(limit);
+			songs = query.list();
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			songs = new ArrayList<>();
+			if (transaction != null)
+				transaction.rollback();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return songs;
+	}
 
 	@Override
 	public Long getListen(Song song, boolean isVideo) {
@@ -431,4 +473,5 @@ public class SongDAOImpl implements SongDAO {
 		}
 		return listen;
 	}
+
 }

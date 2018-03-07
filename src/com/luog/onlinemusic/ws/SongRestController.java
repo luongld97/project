@@ -1,5 +1,7 @@
 package com.luog.onlinemusic.ws;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +20,7 @@ import com.luog.onlinemusic.entity.commons.Chart;
 import com.luog.onlinemusic.entity.commons.PlayList;
 import com.luog.onlinemusic.entity.commons.PlayListDetail;
 import com.luog.onlinemusic.entity.commons.Song;
+import com.luog.onlinemusic.entity.rest.ChartEntity;
 import com.luog.onlinemusic.entity.rest.SongEntity;
 import com.luog.onlinemusic.entity.rest.SongInfo;
 import com.luog.onlinemusic.services.CategoryService;
@@ -61,19 +64,19 @@ public class SongRestController {
 		}
 	}
 
-	@RequestMapping(value = "findsonginfo", method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE, headers = "Accept=application/json")
-	public ResponseEntity<List<SongInfo>> findSongInfo() {
+	@RequestMapping(value = "findsonginfo/{limit}", method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE, headers = "Accept=application/json")
+	public ResponseEntity<List<SongInfo>> findSongInfo(@PathVariable("limit") int limit) {
 		try {
-			return new ResponseEntity<List<SongInfo>>(songService.findSongInfo(), HttpStatus.OK);
+			return new ResponseEntity<List<SongInfo>>(songService.findSongInfo(limit), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<List<SongInfo>>(HttpStatus.BAD_REQUEST);
 		}
 	}
 
-	@RequestMapping(value = "findsongincategory/{categoryId}", method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE, headers = "Accept=application/json")
-	public ResponseEntity<List<SongInfo>> findSongInCategory(@PathVariable("categoryId") int categoryId) {
+	@RequestMapping(value = "findsongincategory/{categoryId}/{limit}", method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE, headers = "Accept=application/json")
+	public ResponseEntity<List<SongInfo>> findSongInCategory(@PathVariable("categoryId") int categoryId, @PathVariable("limit") int limit) {
 		try {
-			return new ResponseEntity<List<SongInfo>>(songService.findSongInCategory(categoryService.find(categoryId)),
+			return new ResponseEntity<List<SongInfo>>(songService.findSongInCategory(categoryService.find(categoryId), limit),
 					HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<List<SongInfo>>(HttpStatus.BAD_REQUEST);
@@ -90,10 +93,10 @@ public class SongRestController {
 		}
 	}
 
-	@RequestMapping(value = "findmvsonginfo", method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE, headers = "Accept=application/json")
-	public ResponseEntity<List<SongInfo>> findMVSongInfo() {
+	@RequestMapping(value = "findmvsonginfo/{limit}", method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE, headers = "Accept=application/json")
+	public ResponseEntity<List<SongInfo>> findMVSongInfo(@PathVariable("limit") int limit) {
 		try {
-			return new ResponseEntity<List<SongInfo>>(songService.findMVSongInfo(), HttpStatus.OK);
+			return new ResponseEntity<List<SongInfo>>(songService.findMVSongInfo(limit), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<List<SongInfo>>(HttpStatus.BAD_REQUEST);
 		}
@@ -261,6 +264,17 @@ public class SongRestController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	@RequestMapping(value = "gettopsong/{video}/{limit}", method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE, headers = "Accept=application/json")
+	public ResponseEntity<List<SongEntity>> getTopSongs(@PathVariable("video") boolean isVideo,
+			@PathVariable("limit") Integer limit) {
+		try {
+			return new ResponseEntity<List<SongEntity>>(songService.getTopSong(isVideo, new Date(), limit),
+					HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<List<SongEntity>>(HttpStatus.BAD_REQUEST);
 		}
 	}
 
