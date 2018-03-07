@@ -330,7 +330,7 @@ public class SongDAOImpl implements SongDAO {
 		Session session = null;
 		Transaction transaction = null;
 		String hql = "SELECT s.id as id, " + "s.name as name, " + "s.link as link, " + "s.listen as listen, "
-				+ "s.show as show, " + "s.status as status, " + "s.video as video, " + "s.videoPhoto as videoPhoto, "
+				+ "s.view as view, " + "s.status as status, " + "s.video as video, " + "s.videoPhoto as videoPhoto, "
 				+ "str(s.uploadedTime) as uploadedTime, " + "s.uploadedBy as uploadedBy " + "FROM Song s "
 				+ "WHERE id = :id";
 		try {
@@ -429,7 +429,7 @@ public class SongDAOImpl implements SongDAO {
 		Session session = null;
 		Transaction transaction = null;
 		String hql = "SELECT s.id as id, " + "s.name as name, " + "s.link as link, " + "s.listen as listen, "
-				+ "s.show as show, " + "s.status as status, " + "s.video as video, " + "s.videoPhoto as videoPhoto, "
+				+ "s.view as view, " + "s.status as status, " + "s.video as video, " + "s.videoPhoto as videoPhoto, "
 				+ "str(s.uploadedTime) as uploadedTime, " + "s.uploadedBy as uploadedBy " + "FROM Song s "
 				+ "WHERE replace(s.name, ' ', '-') like :name";
 
@@ -548,33 +548,6 @@ public class SongDAOImpl implements SongDAO {
 			session.close();
 		}
 		return songs;
-	}
-
-	@Override
-	public Long getListen(Song song, boolean isVideo) {
-		Long listen = null;
-		Session session = null;
-		Transaction transaction = null;
-		Query query = null;
-		try {
-			session = sessionFactory.openSession();
-			transaction = session.beginTransaction();
-			query = session.createQuery(
-					"SELECT sum(c.listen) " + "FROM Chart c " + "WHERE c.video = :video " + "AND " + "c.song = :song");
-			query.setParameter("video", isVideo);
-			query.setParameter("song", song);
-			listen = (Long) query.uniqueResult();
-			transaction.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			listen = Long.valueOf(0);
-			if (transaction != null)
-				transaction.rollback();
-		} finally {
-			session.flush();
-			session.close();
-		}
-		return listen;
 	}
 
 }

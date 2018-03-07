@@ -45,6 +45,4 @@ public interface SongDAO {
 	List<Song> getTopSongs(Singer singer, Integer limit);
 	
 	public List<Song> getTopSong(boolean isVideo, Date currentDate, Integer limit);
-	
-	public Long getListen(Song song, boolean isVideo);
 }

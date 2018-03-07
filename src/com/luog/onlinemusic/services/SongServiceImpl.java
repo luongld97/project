@@ -88,13 +88,17 @@ public class SongServiceImpl implements SongService {
 			song.setListen(0);
 			song.setStatus(true);
 			song.setVideo(temp.isVideo());
+			song.setView(0);
 			song.setVideoLink(temp.getVideoLink());
 			song.setVideoPhoto(temp.getVideoPhoto());
 			song.setUploadedTime(new Date());
 			song.setUploadedBy(temp.getUploadedBy());
 			result = songDAO.create(song);
-			if (result)
-				result = toSongRelationship(temp, song);
+			if (result) {
+				result = createSongDetail(temp, song);
+				result = createAuthorDetail(temp, song);
+				result = createCategoryDetail(temp, song);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			result = false;
@@ -120,9 +124,23 @@ public class SongServiceImpl implements SongService {
 				currentSong.setVideoPhoto(temp.getVideoPhoto());
 				result = songDAO.update(currentSong);
 				if (result) {
-					result = removeSongRelationship(currentSong);
-					result = toSongRelationship(temp, currentSong);
+					if (temp.getSingers() != null) {
+						for (SongDetail songDetail : currentSong.getSongDetails())
+							result = songDetailDAO.delete(songDetail);
+						result = createSongDetail(temp, currentSong);
+					}
 
+					if (temp.getAuthors() != null) {
+						for (AuthorDetail authorDetail : currentSong.getAuthorDetails())
+							result = authorDetailDAO.delete(authorDetail);
+						result = createAuthorDetail(temp, currentSong);
+					}
+
+					if (temp.getCategories() != null) {
+						for (CategoryDetail categoryDetail : currentSong.getCategoryDetails())
+							result = categoryDetailDAO.delete(categoryDetail);
+						result = createCategoryDetail(temp, currentSong);
+					}
 				}
 			} else
 				result = false;
@@ -231,10 +249,10 @@ public class SongServiceImpl implements SongService {
 	/**
 	 * @author luog
 	 */
-	private boolean toSongRelationship(SongEntity songEntity, Song song) {
+	private boolean createSongDetail(SongEntity songEntity, Song song) {
 		boolean result = false;
 		String[] singers = songEntity.getSingers().split(",");
-		for (int i = 0; i < singers.length; i ++){
+		for (int i = 0; i < singers.length; i++) {
 			String[] singerInfo = singers[i].split(":");
 			int singerId = Integer.parseInt(singerInfo[0]);
 			SongDetail songDetail = new SongDetail();
@@ -242,9 +260,13 @@ public class SongServiceImpl implements SongService {
 			songDetail.setSinger(singerDAO.find(singerId));
 			result = songDetailDAO.create(songDetail);
 		}
-		
+		return result;
+	}
+
+	private boolean createAuthorDetail(SongEntity songEntity, Song song) {
+		boolean result = false;
 		String[] authors = songEntity.getAuthors().split(",");
-		for (int i = 0; i < authors.length; i ++){
+		for (int i = 0; i < authors.length; i++) {
 			String[] authorInfo = authors[i].split(":");
 			int authorId = Integer.parseInt(authorInfo[0]);
 			AuthorDetail authorDetail = new AuthorDetail();
@@ -252,9 +274,13 @@ public class SongServiceImpl implements SongService {
 			authorDetail.setAuthor(authorDAO.find(authorId));
 			result = authorDetailDAO.create(authorDetail);
 		}
-		
+		return result;
+	}
+
+	private boolean createCategoryDetail(SongEntity songEntity, Song song) {
+		boolean result = false;
 		String[] categories = songEntity.getCategories().split(",");
-		for (int i = 0; i < categories.length; i ++){
+		for (int i = 0; i < categories.length; i++) {
 			String[] categoryInfo = categories[i].split(":");
 			int categoryId = Integer.parseInt(categoryInfo[0]);
 			CategoryDetail categoryDetail = new CategoryDetail();
@@ -265,35 +291,16 @@ public class SongServiceImpl implements SongService {
 		return result;
 	}
 
-	/**
-	 * @author luog
-	 */
-	private boolean removeSongRelationship(Song song) {
-		boolean result = false;
-		for (SongDetail songDetail : song.getSongDetails())
-			result = songDetailDAO.delete(songDetail);
-		for (CategoryDetail categoryDetail : song.getCategoryDetails())
-			result = categoryDetailDAO.delete(categoryDetail);
-		for (AuthorDetail authorDetail : song.getAuthorDetails())
-			result = authorDetailDAO.delete(authorDetail);
-		return result;
-	}
-
 	@Override
 	public List<SongInfo> findSongBySinger(Singer singer) {
 		return songDAO.findSongBySinger(singer);
 	}
 
 	@Override
-	public Long getListen(Song song, boolean isVideo) {
-		return songDAO.getListen(song, isVideo);
-	}
-
-	@Override
 	public List<SongEntity> getTopSong(boolean isVideo, Date currentDate, Integer limit) {
 		List<Song> songs = songDAO.getTopSong(isVideo, currentDate, limit);
 		List<SongEntity> songEntities = new ArrayList<>();
-		for (Song song : songs){
+		for (Song song : songs) {
 			songEntities.add(EntityHelper.toSongEntity(song));
 		}
 		return songEntities;

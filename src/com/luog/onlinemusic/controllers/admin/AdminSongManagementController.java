@@ -71,9 +71,10 @@ public class AdminSongManagementController implements ServletContextAware {
 	}
 
 	@RequestMapping(value = { "/addsong", "/create", "/newsong" }, method = RequestMethod.POST)
-	public String addSongAction(@ModelAttribute("song") @Valid SongEntity temp, BindingResult bindingResult,
-			@RequestParam(value = "photo", required = false) MultipartFile image, ModelMap modelMap,
-			HttpSession session) {
+	public String addSongAction(
+			@ModelAttribute("song") @Valid SongEntity temp, BindingResult bindingResult,
+			@RequestParam(value = "photo", required = false) MultipartFile image, 
+			ModelMap modelMap, HttpSession session) {
 		//
 		songValidator.validate(temp, bindingResult);
 		//
@@ -122,6 +123,7 @@ public class AdminSongManagementController implements ServletContextAware {
 					temp.setVideoPhoto(imageName);
 				}
 			}
+			
 			return songService.update(temp) ? "redirect:../song.html"
 					: initForm("admin.song.updatesong", modelMap, temp);
 		}

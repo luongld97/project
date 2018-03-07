@@ -1,7 +1,6 @@
 /******************************************************************
 For All
 ******************************************************************/
-
 a {
 	text-decoration: none !important;
 }
@@ -127,7 +126,6 @@ Header
 	font-size: 18px;
 	margin-top: 16px;
 	text-align: right;
-
 }
 
 .user-logged {
@@ -727,61 +725,60 @@ Right
 	top: 36px !important;
 }
 
-
 /*******************************************************************************
 Nghe Si
 *******************************************************************************/
-.main-relative{
+.main-relative {
 	position: relative;
 	height: 334px;
 }
 
-.box-info-artics{
+.box-info-artics {
 	position: absolute;
 	bottom: 10px;
 	left: 10px;
 	height: 160px;
 }
 
-.avatar-artics{
+.avatar-artics {
 	
 }
 
-.info-summary{
+.info-summary {
 	
 }
 
-.lyric-f1{
+.lyric-f1 {
 	color: white;
 	font-size: 16px;
 	margin-right: 25px;
 }
 
-.artics-listsong-item{
+.artics-listsong-item {
 	height: 50px;
 	padding: 15px 20px 15px 10px;
 	font-size: 15px;
 }
 
-.hr-css{
+.hr-css {
 	margin: 5px 0 5px 0;
 	border-top: 1px solid #8f8f8f;
 }
 
-.linksong{
+.linksong {
 	color: black;
 	font-size: 16px;
 }
 
-.linksong span{
+.linksong span {
 	color: gray;
 }
 
-.linksong:hover, .linksong span:hover{
+.linksong:hover, .linksong span:hover {
 	color: purple;
 }
 
-.artic-play-all-btn{
+.artic-play-all-btn {
 	color: gray;
 	position: absolute;
 	top: 8px;
@@ -792,8 +789,7 @@ Nghe Si
 /******************************************************************************
 Info Account
 *******************************************************************************/
-
-.info-account-border-left{
+.info-account-border-left {
 	text-align: right;
 	margin: 30px 0 30px 0;
 	padding: 0px !important;
@@ -805,7 +801,7 @@ Info Account
 	height: 581px;
 }
 
-.info-account-border-right{
+.info-account-border-right {
 	margin: 30px 0 30px 0;
 	padding: 50px 30px 50px 0px !important;
 	border-radius: 15px;
@@ -816,33 +812,35 @@ Info Account
 	height: 581px;
 }
 
-.file-control{
+.file-control {
 	margin-top: 5px;
 }
 
 /********************************************************************************
 Edit Playlist
 *********************************************************************************/
-.edit-playlist-item-song .col-md-9, .edit-playlist-item-song .col-md-9 a{
+.edit-playlist-item-song .col-md-9, .edit-playlist-item-song .col-md-9 a
+	{
 	font-size: 18px;
 	color: black;
 	text-shadow: 0 0 0 aqua;
 	cursor: pointer;
 }
 
-.edit-playlist-item-song .col-md-9:hover, .edit-playlist-item-song .col-md-9 a:hover{
+.edit-playlist-item-song .col-md-9:hover, .edit-playlist-item-song .col-md-9 a:hover
+	{
 	color: orange;
 }
 
-.edit-playlist-item-song .col-md-9:active, .edit-playlist-item-song .col-md-9 a:active{
+.edit-playlist-item-song .col-md-9:active, .edit-playlist-item-song .col-md-9 a:active
+	{
 	color: red;
 }
 
 /********************************************************************************
 Chart
 *********************************************************************************/
-
-.top-20-chart-song, .top-20-chart-song a{
+.top-20-chart-song, .top-20-chart-song a {
 	color: black;
 	text-shadow: 0 0 0 aqua;
 	font-size: 16px;
@@ -850,23 +848,23 @@ Chart
 	padding: 0;
 }
 
-.top-20-chart-song:hover, .top-20-chart-song a:hover{
+.top-20-chart-song:hover, .top-20-chart-song a:hover {
 	color: purple;
 }
 
-.border-chart{
+.border-chart {
 	border-left: solid 0.5px goldenrod;
 	border-right: solid 0.5px goldenrod;
 }
 
-.rank-chart-video{
+.rank-chart-video {
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	-moz-transform: translate(-50%, -50%);
 	-ms-transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
 	z-index: 1;
 	color: blue;
 	text-shadow: 0 0 10px aqua, 0 0 20px yellow;
@@ -874,19 +872,23 @@ Chart
 	font-family: Segoe UI Black;
 }
 
-.image-avatar{
+.image-avatar {
 	width: 60px;
 	height: 60px;
 }
 
-
-.hr-css1{
+.hr-css1 {
 	margin: 10px 0 10px 0;
 	border-top: 1px solid #8f8f8f;
 }
 
-.song-name2{
+.song-name2 {
 	color: blue;
 	text-shadow: 0 0 1px aqua;
 	font-size: 16px;
+}
+
+.play-video {
+	border: solid 4px;
+	border-color: blue red purple goldenrod;
 }
