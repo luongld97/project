@@ -18,13 +18,14 @@ public class AlbumValidator implements Validator {
 	@Override
 	public void validate(Object object, Errors errors) {
 		AlbumEntity albumEntity = (AlbumEntity) object;
-		if (albumEntity.getName().isEmpty() && albumEntity.getPhoto().isEmpty() && albumEntity.getSingers().isEmpty()
-				&& albumEntity.getSongs().isEmpty()) {
+		if (albumEntity.getName().isEmpty()) {
 			errors.rejectValue("name", "name.required");
-			errors.rejectValue("photo", "photo.required");
+		}
+		if (albumEntity.getSingers() == null) {
 			errors.rejectValue("singers", "singers.required");
+		}
+		if (albumEntity.getSongs() == null) {
 			errors.rejectValue("songs", "songs.required");
-			
 		}
 	}
 
