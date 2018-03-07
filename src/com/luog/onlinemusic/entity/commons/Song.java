@@ -34,11 +34,11 @@ public class Song implements java.io.Serializable {
 	private String link;
 	private String lyric;
 	private Integer listen;
-	private boolean isShow;
 	private boolean status;
-	private boolean isVideo;
+	private boolean video;
 	private String videoLink;
 	private String videoPhoto;
+	private Integer view;
 	private Date uploadedTime;
 	private String uploadedBy;
 	private List<AuthorDetail> authorDetails = new ArrayList<AuthorDetail>(0);
@@ -52,21 +52,21 @@ public class Song implements java.io.Serializable {
 	public Song() {
 	}
 
-	public Song(String name, String link, String lyric, boolean isShow, boolean status, boolean isVideo, String videoLink,
+	public Song(String name, String link, String lyric, boolean status, boolean video, Integer view,  String videoLink,
 			String videoPhoto, Date uploadedTime, String uploadedBy) {
 		this.name = name;
 		this.link = link;
 		this.lyric = lyric;
-		this.isShow = isShow;
 		this.status = status;
-		this.isVideo = isVideo;
+		this.video = video;
+		this.view = view;
 		this.videoLink = videoLink;
 		this.videoPhoto = videoPhoto;
 		this.uploadedTime = uploadedTime;
 		this.uploadedBy = uploadedBy;
 	}
 
-	public Song(String name, String link, String lyric, Integer listen, boolean isShow, boolean status, boolean isVideo,String videoLink,
+	public Song(String name, String link, String lyric, Integer listen, boolean status, boolean video, Integer view, String videoLink,
 			String videoPhoto, Date uploadedTime, String uploadedBy, List<AuthorDetail> authorDetails, List<Chart> charts,
 			List<Comment> comments, List<AlbumSong> albumSongs, List<PlayListDetail> playListDetails,
 			List<SongDetail> songDetails, List<CategoryDetail> categoryDetails) {
@@ -74,9 +74,9 @@ public class Song implements java.io.Serializable {
 		this.link = link;
 		this.lyric = lyric;
 		this.listen = listen;
-		this.isShow = isShow;
 		this.status = status;
-		this.isVideo = isVideo;
+		this.video = video;
+		this.view = view;
 		this.videoLink = videoLink;
 		this.videoPhoto = videoPhoto;
 		this.uploadedTime = uploadedTime;
@@ -138,13 +138,13 @@ public class Song implements java.io.Serializable {
 		this.listen = listen;
 	}
 
-	@Column(name = "is_show", nullable = false)
-	public boolean isShow() {
-		return this.isShow;
+	@Column(name = "view", nullable = false)
+	public Integer getView() {
+		return this.view;
 	}
 
-	public void setShow(boolean isShow) {
-		this.isShow = isShow;
+	public void setView(Integer view) {
+		this.view = view;
 	}
 
 	@Column(name = "status", nullable = false)
@@ -156,13 +156,13 @@ public class Song implements java.io.Serializable {
 		this.status = status;
 	}
 
-	@Column(name = "is_video", nullable = false)
+	@Column(name = "video", nullable = false)
 	public boolean isVideo() {
-		return this.isVideo;
+		return this.video;
 	}
 
-	public void setVideo(boolean isVideo) {
-		this.isVideo = isVideo;
+	public void setVideo(boolean video) {
+		this.video = video;
 	}
 	
 	@Column(name = "video_link", nullable = true, length = 250)

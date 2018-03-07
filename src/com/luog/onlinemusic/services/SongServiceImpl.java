@@ -85,7 +85,6 @@ public class SongServiceImpl implements SongService {
 			song.setLink(temp.getLink());
 			song.setLyric(temp.getLyric());
 			song.setListen(0);
-			song.setShow(temp.isShow());
 			song.setStatus(true);
 			song.setVideo(temp.isVideo());
 			song.setVideoLink(temp.getVideoLink());
@@ -114,7 +113,6 @@ public class SongServiceImpl implements SongService {
 				currentSong.setName(temp.getName());
 				currentSong.setLink(temp.getLink());
 				currentSong.setLyric(temp.getLyric());
-				currentSong.setShow(temp.isShow());
 				currentSong.setStatus(temp.isStatus());
 				currentSong.setVideo(temp.isVideo());
 				currentSong.setVideoLink(temp.getVideoLink());

@@ -41,8 +41,9 @@
 					<th class="text-center"><b>Link</b></th>
 					<th class="text-center"><b>Lyric</b></th>
 					<th class="text-center"><b>Listen</b></th>
-					<th class="text-center"><b>Show</b></th>
+					<th class="text-center"><b>Status</b></th>
 					<th class="text-center"><b>Video</b></th>
+					<th class="text-center"><b>View</b></th>
 					<th class="text-center"><b>Uploaded</b></th>
 					<th class="text-center"><b>Uploaded by</b></th>
 					<th class="text-center" width="8%"><b>Options</b></th>
@@ -57,8 +58,9 @@
 							<td>${song.link }</td>
 							<td><div style="max-height: 100px; overflow: auto;">${song.lyric }</div></td>
 							<td>${song.listen }</td>
-							<td>${song.show }</td>
-							<td>${song.video }</td>
+							<td>${song.status ? 'SHOW' : 'HIDE' }</td>
+							<td>${song.video ? 'YES' : 'NO' }</td>
+							<td>${song.view }
 							<td>${song.uploadedTime }</td>
 							<td>${song.uploadedBy }</td>
 							<c:url var="updateLink" value="/admin/song/updatesong.html">

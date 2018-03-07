@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="item-right">
-	<h4 class="title-list-index">GỢI Ý BÀI HÁT</h4>
+	<h4 class="title-list-index">RECOMMENDS</h4>
 </div>
 <ul class="list-item">
 	<c:forEach items="${suggestedSongs }" var="suggestedSong">
@@ -13,7 +13,7 @@
 					class="image-view thumbnail">
 			</div>
 			<div class="info-chart">
-				<c:url var="suggestedSongLink" value="play.html">
+				<c:url var="suggestedSongLink" value="/song/play.html">
 					<c:param name="id" value="${suggestedSong.id }" />
 				</c:url>
 				<a href="${suggestedSongLink }"><b class="song-name-chart">${suggestedSong.name }</b></a><br>

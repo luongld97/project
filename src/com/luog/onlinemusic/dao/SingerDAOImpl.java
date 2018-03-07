@@ -176,6 +176,35 @@ public class SingerDAOImpl implements SingerDAO {
 		return singerEntities;
 	}
 	
+	/**
+	 * @author luog
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Singer> findSinger(String keyWord) {
+		List<Singer> singers = null;
+		Session session = null;
+		Transaction transaction = null;
+		Query query = null;
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			query = session.createQuery("FROM Singer "
+					+ "WHERE replace(name, '', '-') like :name");
+			query.setParameter("name", "%" + keyWord + "%");
+			singers = query.list();
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			singers = new ArrayList<>();
+			if (transaction != null)
+				transaction.rollback();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return singers;
+	}
 	
 	/**
 	 * @author luog

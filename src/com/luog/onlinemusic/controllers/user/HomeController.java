@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.luog.onlinemusic.entity.commons.Chart;
 import com.luog.onlinemusic.entity.commons.Song;
+import com.luog.onlinemusic.entity.rest.SingerEntity;
 import com.luog.onlinemusic.entity.rest.SongEntity;
 import com.luog.onlinemusic.services.ChartService;
 import com.luog.onlinemusic.services.SearchService;
@@ -27,7 +28,7 @@ import com.luog.onlinemusic.services.SongService;
 @Controller
 @RequestMapping("home")
 public class HomeController {
-	
+
 	@Autowired
 	private SearchService searchService;
 
@@ -69,14 +70,18 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
-	public String search(ModelMap modelMap, @RequestParam(value = "keyword", required = false) String keyWord) {
+	public String search(HttpServletRequest request, ModelMap modelMap,
+			@RequestParam(value = "keyword", required = false) String keyWord) {
 		if (keyWord != null) {
 			List<Object> result = searchService.search(keyWord);
-			for(Object object : result) {
-				System.out.println(object instanceof SongEntity);
-			}
+			PagedListHolder<Object> pagedListHolder = new PagedListHolder<>(result);
+			int page = ServletRequestUtils.getIntParameter(request, "page", 0);
+			pagedListHolder.setPage(page);
+			pagedListHolder.setPageSize(20);
+
+			modelMap.put("result", pagedListHolder);
+			return "home.search";
 		}
-		
-		return "home.search";
+		return "redirect: ../home.html";
 	}
 }

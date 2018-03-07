@@ -38,6 +38,8 @@ public interface SongDAO {
 	public List<Song> randomSong(Singer singer, boolean isVideo, int limit, Song current);
 
 	List<SongEntity> findSongEntities(String keyWord);
+	
+	List<Song> findSong(String keyWord);
 
 	List<Song> getTopSongs(Singer singer, Integer limit);
 

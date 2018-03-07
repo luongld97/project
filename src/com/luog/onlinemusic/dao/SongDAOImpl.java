@@ -96,7 +96,7 @@ public class SongDAOImpl implements SongDAO {
 		}
 		return song;
 	}
-	
+
 	@Override
 	public Song find(int id, boolean status) {
 		Song song = null;
@@ -106,9 +106,7 @@ public class SongDAOImpl implements SongDAO {
 		try {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
-			query = session.createQuery("FROM Song "
-					+ "WHERE id = :id "
-					+ "AND status = :status");
+			query = session.createQuery("FROM Song " + "WHERE id = :id " + "AND status = :status");
 			query.setParameter("id", id);
 			query.setParameter("status", status);
 			song = (Song) query.uniqueResult();
@@ -393,14 +391,8 @@ public class SongDAOImpl implements SongDAO {
 		try {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
-			query = session.createQuery("SELECT so "
-					+ "FROM Song so, "
-					+ "SongDetail sd "
-					+ "WHERE so != :song "
-					+ "AND sd.song = so "
-					+ "AND sd.singer = :singer "
-					+ "AND so.video = :video "
-					+ "ORDER BY rand()");
+			query = session.createQuery("SELECT so " + "FROM Song so, " + "SongDetail sd " + "WHERE so != :song "
+					+ "AND sd.song = so " + "AND sd.singer = :singer " + "AND so.video = :video " + "ORDER BY rand()");
 			query.setParameter("singer", singer);
 			query.setParameter("video", isVideo);
 			query.setParameter("song", current);
@@ -452,6 +444,36 @@ public class SongDAOImpl implements SongDAO {
 			session.close();
 		}
 		return songEntities;
+	}
+
+	/**
+	 * @author luog
+	 */
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Song> findSong(String keyWord) {
+		List<Song> songs = null;
+		Session session = null;
+		Transaction transaction = null;
+		Query query = null;
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			query = session.createQuery("FROM Song " + "WHERE replace(name, ' ', '-') like :name");
+			query.setParameter("name", "%" + keyWord + "%");
+			songs = query.list();
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			songs = new ArrayList<>();
+			if (transaction != null)
+				transaction.rollback();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return songs;
 	}
 
 	/**
