@@ -70,7 +70,10 @@ public class ChartServiceImpl implements ChartService {
 			chart.setListen(currentChartListen + 1);
 			result = chartDAO.update(chart);
 			Song song = chart.getSong();
-			song.setListen(song.getListen() + 1);
+			if (chart.isVideo())
+				song.setView(song.getView() + 1);
+			else
+				song.setListen(song.getListen() + 1);
 			result = songDAO.update(song);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -81,7 +84,7 @@ public class ChartServiceImpl implements ChartService {
 
 	@Override
 	public List<ChartEntity> getTopSongs(boolean isVideo, Integer limit) {
-		
+
 		try {
 
 		} catch (Exception e) {
