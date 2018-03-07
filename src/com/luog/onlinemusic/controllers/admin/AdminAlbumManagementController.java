@@ -20,22 +20,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.luog.onlinemusic.entity.commons.Account;
 import com.luog.onlinemusic.entity.commons.Album;
-import com.luog.onlinemusic.entity.commons.Song;
 import com.luog.onlinemusic.entity.rest.AlbumEntity;
-import com.luog.onlinemusic.entity.rest.SongEntity;
 import com.luog.onlinemusic.helpers.ImageHelper;
 import com.luog.onlinemusic.helpers.EntityHelper;
 import com.luog.onlinemusic.services.AlbumService;
-import com.luog.onlinemusic.services.AuthorService;
-import com.luog.onlinemusic.services.CategoryService;
 import com.luog.onlinemusic.services.SingerService;
 import com.luog.onlinemusic.services.SongService;
-import com.luog.onlinemusic.validators.SongValidator;
 
 @Controller
-@RequestMapping("admin/song**")
+@RequestMapping("admin/album**")
 public class AdminAlbumManagementController implements ServletContextAware {
 
 	private ServletContext servletContext;
@@ -48,9 +42,6 @@ public class AdminAlbumManagementController implements ServletContextAware {
 
 	@Autowired
 	private SongService songService ;
-
-	@Autowired
-	private SongValidator songValidator;
 
 	@RequestMapping(value = { "", "/allalbum", "/index" }, method = RequestMethod.GET)
 	public String allAlbums(HttpServletRequest request, ModelMap modelMap) {
@@ -92,7 +83,7 @@ public class AdminAlbumManagementController implements ServletContextAware {
 	}
 
 	@RequestMapping(value = { "/updatealbum", "/update" }, method = RequestMethod.GET)
-	public String updateSongForm(@RequestParam(value = "error", required = false) String error,
+	public String updateAlbumForm(@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "id", required = false) Integer id, ModelMap modelMap) {
 		if (id != null) {
 			AlbumEntity albumEntity = EntityHelper.toAlbumEntity(albumService.find(id));
@@ -102,28 +93,26 @@ public class AdminAlbumManagementController implements ServletContextAware {
 		return "redirect:../album.html";
 	}
 
-//	@RequestMapping(value = { "/updatesong", "/update" }, method = RequestMethod.POST)
-//	public String updateSongAction(@ModelAttribute("song") @Valid SongEntity temp, BindingResult bindingResult,
-//			@RequestParam(value = "photo", required = false) MultipartFile image, ModelMap modelMap,
-//			HttpSession session) {
-//		//
-//		songValidator.validate(temp, bindingResult);
-//		//
-//		if (!bindingResult.hasErrors()) {
-//			if (!image.isEmpty()) {
-//				if (!ImageHelper.validateImage(image)) {
-//					modelMap.put("fileTypeError", "This file is not support!");
-//					return initForm("admin.song.updatesong", modelMap, temp);
-//				} else {
-//					String imageName = ImageHelper.saveImage(servletContext, image);
-//					temp.setVideoPhoto(imageName);
-//				}
-//			}
-//			return songService.update(temp) ? "redirect:../song.html"
-//					: initForm("admin.song.updatesong", modelMap, temp);
-//		}
-//		return initForm("admin.song.updatesong", modelMap, temp);
-//	}
+	@RequestMapping(value = { "/updatealbum", "/update" }, method = RequestMethod.POST)
+	public String updateSongAction(@ModelAttribute("album") @Valid AlbumEntity temp, BindingResult bindingResult,
+			@RequestParam(value = "photo", required = false) MultipartFile image, ModelMap modelMap,
+			HttpSession session) {
+		
+		if (!bindingResult.hasErrors()) {
+			if (!image.isEmpty()) {
+				if (!ImageHelper.validateImage(image)) {
+					modelMap.put("fileTypeError", "This file is not support!");
+					return initForm("admin.album.updatealbum", modelMap, temp);
+				} else {
+					String imageName = ImageHelper.saveImage(servletContext, image);
+					temp.setPhoto(imageName);
+				}
+			}
+			return albumService.update(temp) ? "redirect:../album.html"
+					: initForm("admin.album.updatealbum", modelMap, temp);
+		}
+		return initForm("admin.album.updatealbum", modelMap, temp);
+	}
 
 	
 	/**
