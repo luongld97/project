@@ -4,44 +4,44 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 
-<jsp:useBean id="videos" scope="request"
+<jsp:useBean id="albums" scope="request"
 	type="org.springframework.beans.support.PagedListHolder" />
-<c:url value="/home/video.html" var="pagedLink">
+<c:url value="/album/index.html" var="pagedLink">
 	<c:param name="page" value="~" />
 </c:url>
 <!--Start Body Web-->
 <div class="body-web">
 	<div class="container bg-web">
-		<h1 class="title-list-index">ALL VIDEO</h1>
+		<h1 class="title-list-index">ALL ALBUM</h1>
 
 		<c:forEach begin="0" end="3" var="i">
 			<c:set var="temp" value="${i % 4 }" />
 			<c:if test="${temp == 3 }">
 				<div class="row mb-3">
-					<c:forEach items="${videos.pageList }" var="video">
+					<c:forEach items="${albums.pageList }" var="album">
 						<c:if test="${temp == 3 }">
 							<div class="col-md-3">
 								<div class="">
-									<c:url var="playVideo" value="/song/play.html?video">
-										<c:param name="id" value="${video.id }" />
+									<c:url var="playAlbum" value="/album/play.html">
+										<c:param name="id" value="${album.id }" />
 									</c:url>
-									<a href="${playVideo }">
+									<a href="${playAlbum }">
 										<img
-										src="${pageContext.request.contextPath }/assets/images/${video.videoPhoto }"
+										src="${pageContext.request.contextPath }/assets/images/${album.photo }"
 										alt="" class="img-thumbnail mb-1">
 									</a>
 										<br> 
-										<a href="${playVideo }">
-											<b>${video.name }</b>
+										<a href="${playAlbum }">
+											<b>${album.name }</b>
 										</a>
 										<br>
 										<i> 
-											<c:forEach items="${video.songDetails }" var="songDetail" varStatus="j">
+											<c:forEach items="${album.albumSingers }" var="albumSinger" varStatus="j">
 												<c:url var="singerLink" value="/artist/singer/info.html">
-													<c:param name="id" value="${songDetail.singer.id }" />
+													<c:param name="id" value="${albumSinger.singer.id }" />
 												</c:url>
-												<a href="${singerLink }">${songDetail.singer.name }</a>
-												<c:if test="${j.index < video.songDetails.size() - 1 }">
+												<a href="${singerLink }">${albumSinger.singer.name }</a>
+												<c:if test="${j.index < album.albumSingers.size() - 1 }">
 													,&nbsp;
 												</c:if>
 										</c:forEach>
@@ -55,7 +55,7 @@
 			</c:if>
 		</c:forEach>
 		<div class="text-center mb-3">
-			<tg:paging pagedListHolder="${videos}" pagedLink="${pagedLink}" />
+			<tg:paging pagedListHolder="${albums}" pagedLink="${pagedLink}" />
 		</div>
 	</div>
 </div>

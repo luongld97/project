@@ -33,5 +33,5 @@ public interface ChartService {
 	/**
 	 * @author luog
 	 */
-	public boolean increaseChartListen(Chart chart);
+	public boolean increaseListen(Chart chart);
 }

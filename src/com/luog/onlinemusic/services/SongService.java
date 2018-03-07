@@ -15,6 +15,8 @@ public interface SongService {
 	public List<Song> findAll(boolean video);
 
 	public Song find(int id);
+	
+	public Song find(int id, boolean status);
 
 	public boolean create(SongEntity temp);
 
@@ -35,6 +37,8 @@ public interface SongService {
 	public SongEntity getSongEntity(int id);
 
 	public List<Song> randomSong(int limit, Song current);
+
+	public List<Song> randomSong(Song current, boolean isVideo, int limit);
 
 	List<SongEntity> findSongEntities(String keyWord);
 

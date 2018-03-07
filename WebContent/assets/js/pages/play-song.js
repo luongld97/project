@@ -1,7 +1,7 @@
 /**
  * @author luog
  */
-var song_id, isVideo, base_url, canPlay, timeOut, increased, player, commentPage, listenArea, commentArea, buttonShowMore, buttonPost, commentBox, username, listComments;
+var song_id, isVideo, base_url, canPlay, timeOut, increased, player, commentPage, commentArea, listenArea, buttonShowMore, buttonPost, commentBox, username, listComments;
 
 $(document).ready(function() {
 	song_id = $('audio').attr('songId');
@@ -14,8 +14,8 @@ $(document).ready(function() {
 	buttonShowMore = $('#show-more-button');
 	buttonPost = $('#post-button');
 	commentBox = $('#comment-box');
-	username = commentBox.attr('username');
 	listenArea = $('#listen');
+	username = commentBox.attr('username');
 	listComments = [];
 	player = plyr.setup({
 		autoplay : 'true'
@@ -23,12 +23,7 @@ $(document).ready(function() {
 
 	player[0].on('canplay', songCanPlay);
 
-	player[0].on('play', function() {
-		if (canPlay && !increased) {
-			timeOut = initTimeout(song_id, base_url, listenArea);
-			increased = true;
-		}
-	});
+	player[0].on('play', songPlay);
 
 	player[0].on('pause', function() {
 		clearTimeout(timeOut);
@@ -44,6 +39,13 @@ $(document).ready(function() {
 function songCanPlay() {
 	canPlay = true;
 	if (!increased) {
+		timeOut = initTimeout(song_id, base_url, listenArea);
+		increased = true;
+	}
+}
+
+function songPlay() {
+	if (canPlay && !increased) {
 		timeOut = initTimeout(song_id, base_url, listenArea);
 		increased = true;
 	}
@@ -87,20 +89,3 @@ function btnPostClicked() {
 	showComments(listComments);
 	commentBox.val('');
 }
-
-//function getListen(base_url, id, is_video) {
-//	var getUrl = base_url + '/api/song/getlisten?id=' + id;
-//	if (is_video)
-//		getUrl += '&video';
-//	$.ajax({
-//		method : 'get',
-//		url : getUrl,
-//		contentType : 'text/plain',
-//		success : function(res) {
-//			$('#listen').html(res);
-//		},
-//		error : function(err) {
-//			console.log('GET_LISTEN_ERROR: ' + err.responseText);
-//		}
-//	});
-//}

@@ -14,6 +14,8 @@ public interface SongDAO {
 	public List<Song> findAll(boolean isVideo);
 
 	public Song find(int id);
+	
+	public Song find(int id, boolean status);
 
 	public boolean create(Song song);
 
@@ -32,6 +34,8 @@ public interface SongDAO {
 	public SongEntity getSongEntity(int id);
 
 	public List<Song> randomSong(int limit, Song current);
+	
+	public List<Song> randomSong(Singer singer, boolean isVideo, int limit, Song current);
 
 	List<SongEntity> findSongEntities(String keyWord);
 

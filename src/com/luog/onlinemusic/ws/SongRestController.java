@@ -55,7 +55,7 @@ public class SongRestController {
 	@RequestMapping(value = "findall", method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE, headers = "Accept=application/json")
 	public ResponseEntity<List<Song>> findAll() {
 		try {
-			return new ResponseEntity<List<Song>>(songService.findAll(false), HttpStatus.OK);
+			return new ResponseEntity<List<Song>>(songService.randomSong(songService.find(1), true, 10), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<List<Song>>(HttpStatus.BAD_REQUEST);
 		}
@@ -163,7 +163,7 @@ public class SongRestController {
 			Song currentSong = songService.find(Integer.parseInt(id));
 			Chart currentChart = chartService.findChart(currentSong, currentTime, isVideo);
 			if (currentChart != null) {
-				result = chartService.increaseChartListen(currentChart);
+				result = chartService.increaseListen(currentChart);
 			} else {
 				currentChart = new Chart();
 				currentChart.setSong(currentSong);

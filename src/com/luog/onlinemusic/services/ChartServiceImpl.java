@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.luog.onlinemusic.dao.ChartDAO;
+import com.luog.onlinemusic.dao.SongDAO;
 import com.luog.onlinemusic.entity.commons.Chart;
 import com.luog.onlinemusic.entity.commons.Song;
 import com.luog.onlinemusic.entity.rest.ChartEntity;
@@ -20,11 +21,14 @@ public class ChartServiceImpl implements ChartService {
 	@Autowired
 	private ChartDAO chartDAO;
 
+	@Autowired
+	private SongDAO songDAO;
+
 	@Override
 	public List<Chart> findAll() {
 		return chartDAO.findAll();
 	}
-	
+
 	@Override
 	public Chart find(int id) {
 		return chartDAO.find(id);
@@ -56,12 +60,15 @@ public class ChartServiceImpl implements ChartService {
 	}
 
 	@Override
-	public boolean increaseChartListen(Chart chart) {
+	public boolean increaseListen(Chart chart) {
 		boolean result = false;
 		try {
 			int currentChartListen = chart.getListen();
 			chart.setListen(currentChartListen + 1);
 			result = chartDAO.update(chart);
+			Song song = chart.getSong();
+			song.setListen(song.getListen() + 1);
+			result = songDAO.update(song);
 		} catch (Exception e) {
 			e.printStackTrace();
 			result = false;

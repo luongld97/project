@@ -1,7 +1,11 @@
 package com.luog.onlinemusic.services;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -62,6 +66,11 @@ public class SongServiceImpl implements SongService {
 	@Override
 	public Song find(int id) {
 		return songDAO.find(id);
+	}
+
+	@Override
+	public Song find(int id, boolean status) {
+		return songDAO.find(id, status);
 	}
 
 	/**
@@ -166,6 +175,32 @@ public class SongServiceImpl implements SongService {
 	@Override
 	public List<Song> randomSong(int limit, Song current) {
 		return songDAO.randomSong(limit, current);
+	}
+
+	@Override
+	public List<Song> randomSong(Song current, boolean isVideo, int limit) {
+		List<Song> randoms = null;
+		Random rand = null;
+		try {
+			randoms = new ArrayList<>();
+			rand = new Random();
+			List<SongDetail> songDetails = current.getSongDetails();
+			int detailSize = songDetails.size();
+			while (randoms.size() < limit) {
+				int randNumber1 = rand.nextInt(detailSize);
+				int randNumber2 = rand.nextInt(limit);
+				randoms.addAll(
+						songDAO.randomSong(songDetails.get(randNumber1).getSinger(), isVideo, randNumber2, current));
+			}
+			List<Song> temprandoms = randoms.stream().distinct().collect(Collectors.toList());
+			if (temprandoms.size() < limit) {
+				temprandoms.addAll(songDAO.randomSong(limit - randoms.size(), current));
+			}
+			return temprandoms;
+		} catch (Exception e) {
+			randoms = new ArrayList<>();
+			return randoms;
+		}
 	}
 
 	/**

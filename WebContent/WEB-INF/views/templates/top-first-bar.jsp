@@ -18,7 +18,9 @@
 						placeholder="Nhập nội dung tìm kiếm" id="search-box"
 						baseUrl="${pageContext.request.contextPath }"> <span
 						class="input-group-btn">
-						<button type="submit" class="btn btn-default">
+						<button id="btn-click"
+							onclick="search('${pageContext.request.contextPath}');"
+							class="btn btn-default">
 							<span class="glyphicon glyphicon-search"></span>
 						</button>
 					</span>
@@ -41,7 +43,9 @@
 							<ul class="dropdown-menu dropdown-menu-right">
 								<li><a href="myplaylist.html">Music</a></li>
 								<li class="divider"></li>
-								<li><a href="${pageContext.request.contextPath }/account/accountinfo.html">User info</a></li>
+								<li><a
+									href="${pageContext.request.contextPath }/account/accountinfo.html">User
+										info</a></li>
 								<li><a href="<c:url value="/account/logout.html"/>">logout</a></li>
 							</ul>
 						</div>
@@ -54,6 +58,12 @@
 <!--End Top first Bar-->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath }/assets/css/style.css" />
-	<script
+<script
 	src="${pageContext.request.contextPath }/assets/js/jquery-3.2.1.min.js"
 	type="text/javascript"></script>
+<script type="text/javascript">
+	function search(base_url) {
+		window.location = base_url + '/home/search.html?keyword='
+				+ $('#search-box').val().split(' ').join('-');
+	}
+</script>

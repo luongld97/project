@@ -26,13 +26,20 @@
 						</c:forEach>
 					</h4>
 					<div class="play-song">
-						<img
-							src="${pageContext.request.contextPath }/assets/images/chude.png"
-							alt="" class="image-view">
-						<audio baseUrl="${pageContext.request.contextPath }"
-							songId="${song.id }">
-							<source src="${song.link }" />
-						</audio>
+						<c:if test="${!isVideo }">
+							<img
+								src="${pageContext.request.contextPath }/assets/images/chude.png"
+								alt="" class="image-view">
+							<audio baseUrl="${pageContext.request.contextPath }"
+								songId="${song.id }">
+								<source src="${song.link }" />
+							</audio>
+						</c:if>
+
+						<c:if test="${isVideo }">
+							<h1>Chua co giao dien phat video</h1>
+						</c:if>
+
 					</div>
 					<div class="info-play-song">
 						<p>

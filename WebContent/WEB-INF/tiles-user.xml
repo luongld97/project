@@ -19,7 +19,17 @@
 	<definition name="home.video" extends="user.master.template">
 		<put-attribute name="content" value="/WEB-INF/views/home/video.jsp" />
 	</definition>
+
+	<definition name="home.search" extends="user.master.template">
+		<put-attribute name="content" value="/WEB-INF/views/home/search.jsp" />
+	</definition>
 	<!-- End Home area -->
+
+	<!-- Album area -->
+	<definition name="album.index" extends="user.master.template">
+		<put-attribute name="content" value="/WEB-INF/views/album/all-album.jsp" />
+	</definition>
+	<!-- End Album area -->
 	<!-- Song area -->
 
 	<definition name="song.play" extends="user.master.template">
