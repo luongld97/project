@@ -11,16 +11,20 @@ import com.luog.onlinemusic.entity.rest.SongInfo;
 
 public interface SongService {
 
-	public List<Song> findAll(Boolean status);
-	
+	public List<Song> findAll();
+
+	public List<Song> findAll(boolean video);
+
 	public Song find(int id);
+	
+	public Song find(int id, boolean status);
 
 	public boolean create(SongEntity temp);
-	
+
 	public boolean update(SongEntity temp);
-	
+
 	public boolean changeStatus(Song song);
-	
+
 	public boolean delete(Song song);
 
 	public List<SongInfo> findSongInfo(Integer limit);
@@ -35,11 +39,14 @@ public interface SongService {
 
 	public List<Song> randomSong(int limit, Song current);
 
+	public List<Song> randomSong(Song current, boolean isVideo, int limit);
+
 	List<SongEntity> findSongEntities(String keyWord);
 
 	public List<Song> getTopSongs(Singer singer, Integer limit);
 	
 	public List<SongEntity> getTopSong(boolean isVideo, Date currentDate, Integer limit);
 	
+
 	public Long getListen(Song song, boolean isVideo);
 }

@@ -2,17 +2,17 @@
  * @author luog
  */
 
-var base_url, audioPlayer, lyricElm, listenElm, currentSong, audio, timeOut, listLink, ids, listItem, player, increased, canPlay, commentPage, commentArea, buttonShowMore, buttonPost, commentBox, username;
+var base_url, audioPlayer, lyricElm, currentSong, audio, timeOut, listLink, ids, listItem, player, increased, canPlay, commentPage, commentArea, listenArea, buttonShowMore, buttonPost, commentBox, username;
 
 $(document).ready(function() {
 	base_url = $('audio').attr('baseUrl');
 	audioPlayer = $('#audio-player');
 	lyricElm = $('#lyric');
-	listenElm = $('#listen');
 	audio = audioPlayer[0];
 	listLink = $('.list-item li input[name="link"]');
 	ids = $('.list-item li input[name="id"]');
 	listItem = $('#list-song .play-this-song');
+	listenArea = $('#listen');
 	player = plyr.setup('#audio-player');
 	increased = false;
 	canPlay = false;
@@ -30,16 +30,16 @@ $(document).ready(function() {
 	})
 
 	play();
-	
+
 	buttonShowMore.click(btnShowMoreClicked);
 	buttonPost.click(btnPostClicked);
-	
+
 	audio.plyr.on('canplay', function() {
 		canPlay = true;
 		if (!increased) {
 			increased = true;
 			var song_id = $(ids[currentSong]).val();
-			timeOut = initTimeout(song_id, base_url);
+			timeOut = initTimeout(song_id, base_url, listenArea, false);
 		}
 	});
 
@@ -47,7 +47,7 @@ $(document).ready(function() {
 		if (canPlay && !increased) {
 			increased = true;
 			var song_id = $(ids[currentSong]).val();
-			timeOut = initTimeout(song_id, base_url);
+			timeOut = initTimeout(song_id, base_url, listenArea, false);
 		}
 	});
 
@@ -61,7 +61,7 @@ $(document).ready(function() {
 		clearTimeout(timeOut);
 	});
 });
-function setSongInfo(id, listenElm, lyricElm) {
+function setSongInfo(id, lyricElm) {
 	$.ajax({
 		method : 'post',
 		url : base_url + '/api/song/getsong',
@@ -71,7 +71,6 @@ function setSongInfo(id, listenElm, lyricElm) {
 			var lyric = song.lyric !== null ? song.lyric
 					: 'Hiện chưa có lời bài hát!';
 			lyricElm.html(lyric);
-			listenElm.html(song.listen);
 		},
 		error : function(err) {
 			console.log(err)
@@ -90,7 +89,10 @@ function nextSong() {
 	audio.play();
 	increased = false;
 	songId = $(ids[currentSong]).val();
+	//
 	setSongInfo(songId, listenElm, lyricElm);
+	getListen(songId, base_url, listenArea, false);
+	//
 	if (timeOut != null)
 		clearTimeout(timeOut);
 	getSongComments(base_url, songId, commentPage, showComments);
@@ -106,8 +108,10 @@ function play() {
 	});
 	audioPlayer.on('ended', nextSong);
 	songId = $(ids[currentSong]).val();
-	setSongInfo(songId, listenElm, lyricElm);
-
+	//
+	setSongInfo(songId, lyricElm);
+	getListen(songId, base_url, listenArea, false);
+	//
 	getSongComments(base_url, songId, commentPage, showComments);
 }
 
@@ -120,7 +124,10 @@ function listItemClicked(e, item) {
 	currentSong = listItem.index(item);
 	item.closest('li').addClass('playing-song');
 	songId = $(ids[currentSong]).val();
-	setSongInfo(songId, listenElm, lyricElm);
+	//
+	setSongInfo(songId, lyricElm);
+	getListen(songId, base_url, listenArea, false);
+	//
 	if (timeOut != null)
 		clearTimeout(timeOut);
 	getSongComments(base_url, songId, commentPage, showComments);
@@ -128,7 +135,7 @@ function listItemClicked(e, item) {
 
 function showComments(result) {
 	var comments = '';
-	if (typeof(result) == 'object') {
+	if (typeof (result) == 'object') {
 		for (var i = 0; i < result.length; i++) {
 			comments += commentHTML(result[i]);
 		}
@@ -138,13 +145,13 @@ function showComments(result) {
 	}
 }
 
-function  btnShowMoreClicked() {
+function btnShowMoreClicked() {
 	var song_id = $(ids[currentSong]).val();
-	commentPage ++;
+	commentPage++;
 	getSongComments(base_url, song_id, commentPage, showComments);
 }
 
-function  btnPostClicked() {
+function btnPostClicked() {
 	var comment = {};
 	comment.username = username;
 	comment.content = commentBox.val();

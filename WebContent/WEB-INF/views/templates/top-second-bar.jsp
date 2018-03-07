@@ -13,7 +13,8 @@
 				<div class="navbar-item">
 					<c:url var="userPlayList" value="/account/playlist.html">
 						<c:if test="${sessionScope.currentAccount != null}">
-							<c:param name="username" value="${sessionScope.currentAccount.username }"/>
+							<c:param name="username"
+								value="${sessionScope.currentAccount.username }" />
 						</c:if>
 					</c:url>
 					<a href="${userPlayList }">Nhạc cá nhân</a>
@@ -22,7 +23,10 @@
 					<a href="">Bảng xếp hạng</a>
 				</div>
 				<div class="navbar-item">
-					<a href="">Album</a>
+					<a href="<c:url value="/home/video.html"/>">Video</a>
+				</div>
+				<div class="navbar-item">
+					<a href="<c:url value="/album/index.html"/>">Album</a>
 				</div>
 				<div class="navbar-item">
 					<a href="">Nghệ sĩ</a>

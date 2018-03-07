@@ -2,7 +2,10 @@ package com.luog.onlinemusic.services;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -51,23 +54,24 @@ public class SongServiceImpl implements SongService {
 	@Autowired
 	private AuthorDAO authorDAO;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.luog.onlinemusic.services.SongService#findAll(java.lang.Boolean)
-	 * 
-	 * @param boolean status This method will return list song with status
-	 * 
-	 * @param null This method will return all song
-	 */
 	@Override
-	public List<Song> findAll(Boolean status) {
-		return songDAO.findAll(status);
+	public List<Song> findAll() {
+		return songDAO.findAll();
+	}
+
+	@Override
+	public List<Song> findAll(boolean isVideo) {
+		return songDAO.findAll(isVideo);
 	}
 
 	@Override
 	public Song find(int id) {
 		return songDAO.find(id);
+	}
+
+	@Override
+	public Song find(int id, boolean status) {
+		return songDAO.find(id, status);
 	}
 
 	/**
@@ -157,6 +161,7 @@ public class SongServiceImpl implements SongService {
 	public List<SongInfo> findSongInfo(Integer limit) {
 		return songDAO.findSongInfo(limit);
 	}
+
 	/**
 	 * @author luog
 	 */
@@ -171,6 +176,32 @@ public class SongServiceImpl implements SongService {
 	@Override
 	public List<Song> randomSong(int limit, Song current) {
 		return songDAO.randomSong(limit, current);
+	}
+
+	@Override
+	public List<Song> randomSong(Song current, boolean isVideo, int limit) {
+		List<Song> randoms = null;
+		Random rand = null;
+		try {
+			randoms = new ArrayList<>();
+			rand = new Random();
+			List<SongDetail> songDetails = current.getSongDetails();
+			int detailSize = songDetails.size();
+			while (randoms.size() < limit) {
+				int randNumber1 = rand.nextInt(detailSize);
+				int randNumber2 = rand.nextInt(limit);
+				randoms.addAll(
+						songDAO.randomSong(songDetails.get(randNumber1).getSinger(), isVideo, randNumber2, current));
+			}
+			List<Song> temprandoms = randoms.stream().distinct().collect(Collectors.toList());
+			if (temprandoms.size() < limit) {
+				temprandoms.addAll(songDAO.randomSong(limit - randoms.size(), current));
+			}
+			return temprandoms;
+		} catch (Exception e) {
+			randoms = new ArrayList<>();
+			return randoms;
+		}
 	}
 
 	/**
@@ -259,5 +290,4 @@ public class SongServiceImpl implements SongService {
 		return songEntities;
 	}
 
-	
 }

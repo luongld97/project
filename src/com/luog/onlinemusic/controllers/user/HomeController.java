@@ -6,21 +6,36 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.luog.onlinemusic.entity.commons.Chart;
+import com.luog.onlinemusic.entity.commons.Song;
+import com.luog.onlinemusic.entity.rest.SongEntity;
 import com.luog.onlinemusic.services.ChartService;
+import com.luog.onlinemusic.services.SearchService;
+import com.luog.onlinemusic.services.SongService;
 
 @Controller
 @RequestMapping("home")
 public class HomeController {
+	
+	@Autowired
+	private SearchService searchService;
 
 	@Autowired
 	private ChartService chartService;
+
+	@Autowired
+	private SongService songService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String index(ModelMap modelMap) {
@@ -41,4 +56,27 @@ public class HomeController {
 		return "home.index";
 	}
 
+	@RequestMapping(value = { "/video" }, method = RequestMethod.GET)
+	public String video(HttpServletRequest request, ModelMap modelMap) {
+		List<Song> videos = songService.findAll(true);
+		PagedListHolder<Song> pagedListHolder = new PagedListHolder<>(videos);
+		int page = ServletRequestUtils.getIntParameter(request, "page", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setPageSize(20);
+
+		modelMap.put("videos", pagedListHolder);
+		return "home.video";
+	}
+
+	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
+	public String search(ModelMap modelMap, @RequestParam(value = "keyword", required = false) String keyWord) {
+		if (keyWord != null) {
+			List<Object> result = searchService.search(keyWord);
+			for(Object object : result) {
+				System.out.println(object instanceof SongEntity);
+			}
+		}
+		
+		return "home.search";
+	}
 }

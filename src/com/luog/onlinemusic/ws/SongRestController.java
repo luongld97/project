@@ -58,7 +58,7 @@ public class SongRestController {
 	@RequestMapping(value = "findall", method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE, headers = "Accept=application/json")
 	public ResponseEntity<List<Song>> findAll() {
 		try {
-			return new ResponseEntity<List<Song>>(songService.findAll(true), HttpStatus.OK);
+			return new ResponseEntity<List<Song>>(songService.randomSong(songService.find(1), true, 10), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<List<Song>>(HttpStatus.BAD_REQUEST);
 		}
@@ -155,34 +155,37 @@ public class SongRestController {
 	/**
 	 * @author luog
 	 */
-	@RequestMapping(value = "changelisten", method = RequestMethod.POST)
-	public ResponseEntity<Boolean> changeListen(@RequestBody String id) {
+	@RequestMapping(value = "/changelisten", method = RequestMethod.POST)
+	public ResponseEntity<String> changeListen(@RequestBody String id,
+			@RequestParam(value = "video", required = false) String video) {
 
 		boolean result = false;
 		try {
+			boolean isVideo = video != null ? true : false;
 			Date currentTime = new Date();
 			Song currentSong = songService.find(Integer.parseInt(id));
-			Chart currentChart = chartService.findChart(currentSong, currentTime);
+			Chart currentChart = chartService.findChart(currentSong, currentTime, isVideo);
 			if (currentChart != null) {
-				result = chartService.increaseChartListen(currentChart);
+				result = chartService.increaseListen(currentChart);
 			} else {
 				currentChart = new Chart();
 				currentChart.setSong(currentSong);
 				currentChart.setDate(currentTime);
 				currentChart.setListen(1);
-				currentChart.setVideo(currentSong.isVideo());
+				currentChart.setVideo(isVideo);
 				result = chartService.create(currentChart);
 			}
-			return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+			String resultStr = result ? songService.getListen(currentSong, isVideo) + "" : result + "";
+			return new ResponseEntity<String>(resultStr, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<Boolean>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
 	}
 
 	/**
 	 * @author luog
 	 */
-	@RequestMapping(value = "getlisten", method = RequestMethod.GET)
+	@RequestMapping(value = "/getlisten", method = RequestMethod.GET)
 	public ResponseEntity<String> getListen(@RequestParam(value = "id", required = false) Integer id,
 			@RequestParam(value = "video", required = false) String video) {
 		try {
@@ -202,7 +205,7 @@ public class SongRestController {
 	/**
 	 * @author luog
 	 */
-	@RequestMapping(value = "getsong", method = RequestMethod.POST, produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/getsong", method = RequestMethod.POST, produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
 	public ResponseEntity<SongEntity> getSong(@RequestBody int id) {
 		try {
 			SongEntity songEntity = songService.getSongEntity(id);
@@ -216,7 +219,7 @@ public class SongRestController {
 	/**
 	 * @author luog
 	 */
-	@RequestMapping(value = "search", method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/search", method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<SongEntity>> findSongs(@RequestParam("keyword") String keyWord) {
 		List<SongEntity> songEntities = null;
 		try {

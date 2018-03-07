@@ -54,7 +54,7 @@ public class AdminSongManagementController implements ServletContextAware {
 
 	@RequestMapping(value = { "", "/allsong", "/index" }, method = RequestMethod.GET)
 	public String allSongs(HttpServletRequest request, ModelMap modelMap) {
-		List<Song> songs = songService.findAll(null);
+		List<Song> songs = songService.findAll();
 		PagedListHolder<Song> pagedListHolder = new PagedListHolder<>(songs);
 		int page = ServletRequestUtils.getIntParameter(request, "page", 0);
 		pagedListHolder.setPage(page);

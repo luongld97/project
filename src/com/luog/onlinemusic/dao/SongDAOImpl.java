@@ -29,11 +29,7 @@ public class SongDAOImpl implements SongDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Song> findAll(Boolean status) {
-		String hql = "FROM Song";
-		if (status != null) {
-			hql += " WHERE status = :status";
-		}
+	public List<Song> findAll() {
 		List<Song> songs = null;
 		Session session = null;
 		Transaction transaction = null;
@@ -41,9 +37,34 @@ public class SongDAOImpl implements SongDAO {
 		try {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
-			query = session.createQuery(hql);
-			if (status != null)
-				query.setParameter("status", status);
+			query = session.createQuery("FROM Song");
+			songs = query.list();
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			songs = new ArrayList<>();
+			if (transaction != null)
+				transaction.rollback();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return songs;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Song> findAll(boolean isVideo) {
+		List<Song> songs = null;
+		Session session = null;
+		Transaction transaction = null;
+		Query query = null;
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			query = session.createQuery("FROM Song " + "WHERE status = :status AND video = :video");
+			query.setParameter("status", true);
+			query.setParameter("video", isVideo);
 			songs = query.list();
 			transaction.commit();
 		} catch (Exception e) {
@@ -67,6 +88,34 @@ public class SongDAOImpl implements SongDAO {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
 			song = (Song) session.get(Song.class, (Serializable) id);
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			song = null;
+			if (transaction != null)
+				transaction.rollback();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return song;
+	}
+	
+	@Override
+	public Song find(int id, boolean status) {
+		Song song = null;
+		Session session = null;
+		Transaction transaction = null;
+		Query query = null;
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			query = session.createQuery("FROM Song "
+					+ "WHERE id = :id "
+					+ "AND status = :status");
+			query.setParameter("id", id);
+			query.setParameter("status", status);
+			song = (Song) query.uniqueResult();
 			transaction.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -192,8 +241,8 @@ public class SongDAOImpl implements SongDAO {
 			query = session.createQuery("SELECT si.id as singerId, si.name as singerName, si.photo as singerPhoto, "
 					+ "so.id as id, so.name as name, " + "so.link as link, " + "so.lyric as lyric, "
 					+ "so.video as isVideo , so.videoLink as videoLink " + "FROM Singer si, Song so, SongDetail sd "
-					+ "WHERE sd.singer = si AND sd.song = so AND so.video = true AND so.status = :status " + "ORDER BY so.id DESC")
-					.setResultTransformer(Transformers.aliasToBean(SongInfo.class));
+					+ "WHERE sd.singer = si AND sd.song = so AND so.video = true AND so.status = :status "
+					+ "ORDER BY so.id DESC").setResultTransformer(Transformers.aliasToBean(SongInfo.class));
 			query.setParameter("status", true);
 			query.setMaxResults(limit);
 			songInfos = query.list();
@@ -225,8 +274,7 @@ public class SongDAOImpl implements SongDAO {
 							+ "so.video as isVideo , so.videoLink as videoLink "
 							+ "FROM Singer si, Song so, SongDetail sd, " + "CategoryDetail cd "
 							+ "WHERE sd.singer = si AND sd.song = so AND cd.song = so AND cd.category =:category "
-							+ "AND so.status = :status "
-							+ "ORDER BY so.id ASC")
+							+ "AND so.status = :status " + "ORDER BY so.id ASC")
 					.setParameter("category", category).setResultTransformer(Transformers.aliasToBean(SongInfo.class));
 			query.setParameter("status", true);
 			query.setMaxResults(limit);
@@ -256,9 +304,9 @@ public class SongDAOImpl implements SongDAO {
 			query = session.createQuery("SELECT si.id as singerId, si.name as singerName, si.photo as singerPhoto, "
 					+ "so.id as id, so.name as name, " + "so.link as link, " + "so.lyric as lyric, "
 					+ "so.video as isVideo , so.videoLink as videoLink " + "FROM Singer si, Song so, SongDetail sd "
-					+ "WHERE sd.singer = si AND sd.song = so AND sd.singer =:singer "
-					+ "AND so.status = :status " + "ORDER BY so.id ASC")
-					.setParameter("singer", singer).setResultTransformer(Transformers.aliasToBean(SongInfo.class));
+					+ "WHERE sd.singer = si AND sd.song = so AND sd.singer =:singer " + "AND so.status = :status "
+					+ "ORDER BY so.id ASC").setParameter("singer", singer)
+					.setResultTransformer(Transformers.aliasToBean(SongInfo.class));
 			query.setParameter("status", true);
 			songInfos = query.list();
 			transaction.commit();
@@ -329,6 +377,42 @@ public class SongDAOImpl implements SongDAO {
 						songs.add(song);
 				}
 			}
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			songs = new ArrayList<>();
+			if (transaction != null)
+				transaction.rollback();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return songs;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Song> randomSong(Singer singer, boolean isVideo, int limit, Song current) {
+		List<Song> songs = null;
+		Session session = null;
+		Transaction transaction = null;
+		Query query = null;
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			query = session.createQuery("SELECT so "
+					+ "FROM Song so, "
+					+ "SongDetail sd "
+					+ "WHERE so != :song "
+					+ "AND sd.song = so "
+					+ "AND sd.singer = :singer "
+					+ "AND so.video = :video "
+					+ "ORDER BY rand()");
+			query.setParameter("singer", singer);
+			query.setParameter("video", isVideo);
+			query.setParameter("song", current);
+			query.setMaxResults(limit);
+			songs = query.list();
 			transaction.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -453,11 +537,8 @@ public class SongDAOImpl implements SongDAO {
 		try {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
-			query = session.createQuery("SELECT sum(c.listen) "
-					+ "FROM Chart c "
-					+ "WHERE c.video = :video "
-					+ "AND "
-					+ "c.song = :song");
+			query = session.createQuery(
+					"SELECT sum(c.listen) " + "FROM Chart c " + "WHERE c.video = :video " + "AND " + "c.song = :song");
 			query.setParameter("video", isVideo);
 			query.setParameter("song", song);
 			listen = (Long) query.uniqueResult();
