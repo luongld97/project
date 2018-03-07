@@ -71,10 +71,9 @@ public class AdminSongManagementController implements ServletContextAware {
 	}
 
 	@RequestMapping(value = { "/addsong", "/create", "/newsong" }, method = RequestMethod.POST)
-	public String addSongAction(
-			@ModelAttribute("song") @Valid SongEntity temp, BindingResult bindingResult,
-			@RequestParam(value = "photo", required = false) MultipartFile image, 
-			ModelMap modelMap, HttpSession session) {
+	public String addSongAction(@ModelAttribute("song") @Valid SongEntity temp, BindingResult bindingResult,
+			@RequestParam(value = "photo", required = false) MultipartFile image, ModelMap modelMap,
+			HttpSession session) {
 		//
 		songValidator.validate(temp, bindingResult);
 		//
@@ -100,8 +99,13 @@ public class AdminSongManagementController implements ServletContextAware {
 			@RequestParam(value = "id", required = false) Integer id, ModelMap modelMap) {
 		if (id != null) {
 			SongEntity songEntity = EntityHelper.toSongEntity(songService.find(id));
-			if (songEntity != null)
+			if (songEntity != null) {
+
+				modelMap.put("currentSingers", getName(songEntity.getSingers()));
+				modelMap.put("currentAuthors", getName(songEntity.getAuthors()));
+				modelMap.put("currentCategories", getName(songEntity.getCategories()));
 				return initForm("admin.song.updatesong", modelMap, songEntity);
+			}
 		}
 		return "redirect:../song.html";
 	}
@@ -123,7 +127,7 @@ public class AdminSongManagementController implements ServletContextAware {
 					temp.setVideoPhoto(imageName);
 				}
 			}
-			
+
 			return songService.update(temp) ? "redirect:../song.html"
 					: initForm("admin.song.updatesong", modelMap, temp);
 		}
@@ -161,5 +165,19 @@ public class AdminSongManagementController implements ServletContextAware {
 	@Override
 	public void setServletContext(ServletContext servletContext) {
 		this.servletContext = servletContext;
+	}
+
+	private String getName(String entityString) {
+		String result = "";
+
+		String[] arr = entityString.split(",");
+		for (int i = 0; i < arr.length; i++) {
+			String[] info = arr[i].split(":");
+			result += "<b>" + (i + 1) + "-" + info[1] + "</b>";
+			if (i < arr.length - 1)
+				result += ", ";
+		}
+
+		return result;
 	}
 }

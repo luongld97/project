@@ -46,9 +46,10 @@
 					</div>
 				</div>
 				<div class="col-md-5">
-					<s:errors path="singers" cssClass="alert alert-danger"
-						cssStyle="display:block;" />
 					<div class="form-group">
+						<s:errors path="singers" cssClass="alert alert-danger"
+							cssStyle="display:block;" />
+						<span class="sm-alert alert-success" style="display: block;">${currentSingers }</span>
 						<div class="input-group">
 							<div class="input-group-btn">
 								<button type="submit" name="addsinger" class="btn btn-primary"
@@ -65,6 +66,7 @@
 					<div class="form-group">
 						<s:errors path="authors" cssClass="alert alert-danger"
 							cssStyle="display:block;" />
+						<span class="sm-alert alert-success" style="display: block;">${currentAuthors }</span>
 						<div class="input-group">
 							<div class="input-group-btn">
 								<button type="submit" name="addauthor" class="btn btn-primary"
@@ -81,6 +83,7 @@
 					<div class="form-group">
 						<s:errors path="categories" cssClass="alert alert-danger"
 							cssStyle="display:block;" />
+						<span class="sm-alert alert-success" style="display: block;">${currentCategories }</span>
 						<div class="input-group">
 							<div class="input-group-btn">
 								<button type="submit" name="addcategory" class="btn btn-primary"
@@ -102,7 +105,7 @@
 					</div>
 					<div class="checkbox">
 						<label> <s:checkbox path="video" id="is-video" /> <span
-							id="is-video-content">${song.video ? 'this is a video.' : 'this is not a video.' }</span>
+							id="is-video-content">${song.video ? 'This is a video.' : 'This is not a video.' }</span>
 						</label>
 					</div>
 					<div id="video-photo"

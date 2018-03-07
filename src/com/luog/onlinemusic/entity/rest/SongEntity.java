@@ -1,6 +1,5 @@
 package com.luog.onlinemusic.entity.rest;
 
-
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
 
