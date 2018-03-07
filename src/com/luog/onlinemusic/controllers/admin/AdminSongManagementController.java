@@ -123,6 +123,7 @@ public class AdminSongManagementController implements ServletContextAware {
 					temp.setVideoPhoto(imageName);
 				}
 			}
+			
 			return songService.update(temp) ? "redirect:../song.html"
 					: initForm("admin.song.updatesong", modelMap, temp);
 		}
