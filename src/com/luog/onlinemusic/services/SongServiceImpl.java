@@ -233,23 +233,34 @@ public class SongServiceImpl implements SongService {
 	 */
 	private boolean toSongRelationship(SongEntity songEntity, Song song) {
 		boolean result = false;
-		for (int singerId : songEntity.getSingers()) {
+		String[] singers = songEntity.getSingers().split(",");
+		for (int i = 0; i < singers.length; i ++){
+			String[] singerInfo = singers[i].split(":");
+			int singerId = Integer.parseInt(singerInfo[0]);
 			SongDetail songDetail = new SongDetail();
 			songDetail.setSong(song);
 			songDetail.setSinger(singerDAO.find(singerId));
 			result = songDetailDAO.create(songDetail);
 		}
-		for (int categoryId : songEntity.getCategories()) {
-			CategoryDetail categoryDetail = new CategoryDetail();
-			categoryDetail.setSong(song);
-			categoryDetail.setCategory(categoryDAO.find(categoryId));
-			result = categoryDetailDAO.create(categoryDetail);
-		}
-		for (int authorId : songEntity.getAuthors()) {
+		
+		String[] authors = songEntity.getAuthors().split(",");
+		for (int i = 0; i < authors.length; i ++){
+			String[] authorInfo = authors[i].split(":");
+			int authorId = Integer.parseInt(authorInfo[0]);
 			AuthorDetail authorDetail = new AuthorDetail();
 			authorDetail.setSong(song);
 			authorDetail.setAuthor(authorDAO.find(authorId));
 			result = authorDetailDAO.create(authorDetail);
+		}
+		
+		String[] categories = songEntity.getCategories().split(",");
+		for (int i = 0; i < categories.length; i ++){
+			String[] categoryInfo = categories[i].split(":");
+			int categoryId = Integer.parseInt(categoryInfo[0]);
+			CategoryDetail categoryDetail = new CategoryDetail();
+			categoryDetail.setSong(song);
+			categoryDetail.setCategory(categoryDAO.find(categoryId));
+			result = categoryDetailDAO.create(categoryDetail);
 		}
 		return result;
 	}

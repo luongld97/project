@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.luog.onlinemusic.entity.commons.Album;
+import com.luog.onlinemusic.entity.commons.Author;
+import com.luog.onlinemusic.entity.commons.Category;
 import com.luog.onlinemusic.entity.commons.Singer;
 import com.luog.onlinemusic.entity.commons.Song;
 import com.luog.onlinemusic.entity.rest.AlbumEntity;
@@ -27,6 +29,7 @@ public class EntityHelper {
 			songEntity.setListen(0);
 			songEntity.setStatus(temp.isStatus());
 			songEntity.setVideo(temp.isVideo());
+			songEntity.setView(temp.getView());
 			songEntity.setVideoLink(temp.getVideoLink());
 			songEntity.setVideoPhoto(temp.getVideoPhoto());
 			songEntity.setUploadedTime(
@@ -34,24 +37,32 @@ public class EntityHelper {
 						.format(temp.getUploadedTime())
 				);
 			songEntity.setUploadedBy(temp.getUploadedBy());
-			List<Integer> authors= new ArrayList<>(), 
-						  categories= new ArrayList<>(), 
-						  singers = new ArrayList<>();
-			temp.getAuthorDetails().forEach(
-					authorDetail -> 
-						authors.add(authorDetail.getAuthor().getId())
-				);
-			temp.getSongDetails().forEach(
-					songDetail -> 
-						singers.add(songDetail.getSinger().getId())
-				);
-			temp.getCategoryDetails().forEach(
-					categoryDetail -> 
-						categories.add(categoryDetail.getCategory().getId())
-				);
-			songEntity.setAuthors(authors);
-			songEntity.setCategories(categories);
-			songEntity.setSingers(singers);
+			String singer = "";
+			for (int i = 0; i < temp.getSongDetails().size() - 1; i++) {
+				Singer currentSinger = temp.getSongDetails().get(i).getSinger();
+				singer += currentSinger.getId() + ":" + currentSinger.getName() + ":" + currentSinger.getPhoto();
+				if (i < temp.getSongDetails().size() - 2)
+					singer += ",";
+			}
+			
+			String author = "";
+			for (int i = 0; i < temp.getAuthorDetails().size() -1; i++) {
+				Author currentAuthor  = temp.getAuthorDetails().get(i).getAuthor();
+				author += currentAuthor.getId() + ":" + currentAuthor.getName() + ":" + currentAuthor.getPhoto();
+				if (i < temp.getAuthorDetails().size() - 2)
+					author += ",";
+			}
+			
+			String category = "";
+			for (int i = 0; i< temp.getCategoryDetails().size() -1; i++) {
+				Category currentCategory = temp.getCategoryDetails().get(i).getCategory();
+				category += currentCategory.getId() + ":" + currentCategory.getName();
+				if (i < temp.getCategoryDetails().size() -2)
+					category += ",";
+			}
+			songEntity.setSingers(singer);
+			songEntity.setAuthors(author);
+			songEntity.setCategories(category);
 		} catch (Exception e) {
 			songEntity = new SongEntity();
 		}

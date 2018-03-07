@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.luog.onlinemusic.dao.AlbumDAO;
 import com.luog.onlinemusic.entity.commons.Album;
 import com.luog.onlinemusic.entity.commons.Singer;
+import com.luog.onlinemusic.entity.rest.AlbumEntity;
 
 @Transactional
 @Service("albumService")
@@ -29,13 +30,14 @@ public class AlbumServiceImpl implements AlbumService {
 	}
 
 	@Override
-	public boolean create(Album album) {
-		return albumDAO.create(album);
+	public boolean create(AlbumEntity albumEntity) {
+		
+		return albumDAO.create(new Album());
 	}
 
 	@Override
-	public boolean update(Album album) {
-		return albumDAO.update(album);
+	public boolean update(AlbumEntity albumEntity) {
+		return albumDAO.update(new Album());
 	}
 
 	@Override

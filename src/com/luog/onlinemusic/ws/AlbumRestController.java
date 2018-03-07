@@ -63,54 +63,7 @@ public class AlbumRestController {
 		}
 	}
 	
-	/**
-	 * create Album
-	 * */
-	@RequestMapping(value = "create", 
-			method = RequestMethod.POST
-		)
-	public ResponseEntity<Void> create(
-			@RequestBody Album album) {
-		try {
-			albumService.create(album);
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-		}
-	}
-	/**
-	 * update Album
-	 * */
 	
-	
-	@RequestMapping(value = "update", 
-			method = RequestMethod.POST
-		)
-	public ResponseEntity<Void> update(
-			@RequestBody Album album) {
-		try {
-			albumService.update(album);
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-		}
-	}
-	/**
-	 * delete Album
-	 * */
-	
-	@RequestMapping(value = "delete/{id}", 
-			method = RequestMethod.DELETE
-	)
-	public ResponseEntity<Void> delete(
-			@PathVariable("id") int id) {
-		try {
-			albumService.delete(albumService.find(id));
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-		}
-	}
 	
 	@RequestMapping(value ="findalbumsinger",
 			method = RequestMethod.GET, 

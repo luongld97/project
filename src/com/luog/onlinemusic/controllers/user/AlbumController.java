@@ -47,7 +47,7 @@ public class AlbumController {
 		if (id != null) {
 			Album album = albumService.find(id);
 			List<Song> songs = new ArrayList<>();
-			Set<AlbumSong> albumSongs = album.getAlbumSongs();
+			List<AlbumSong> albumSongs = album.getAlbumSongs();
 			for (AlbumSong albumSong : albumSongs) {
 				songs.add(albumSong.getSong());
 			}

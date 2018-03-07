@@ -1,6 +1,5 @@
 package com.luog.onlinemusic.entity.rest;
 
-import java.util.List;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
@@ -12,32 +11,33 @@ public class SongEntity implements java.io.Serializable {
 	private String name;
 	private String link;
 	private String lyric;
-	private int listen;
-	private boolean show;
+	private Integer listen;
 	private boolean status;
 	private boolean video;
+	private Integer view;
 	private String videoPhoto;
 	private String videoLink;
 	private String uploadedTime;
 	private String uploadedBy;
-	private List<Integer> singers;
-	private List<Integer> authors;
-	private List<Integer> categories;
+	private String singers;
+	private String authors;
+	private String categories;
 
 	public SongEntity() {
 	}
 
-	public SongEntity(Integer id, String name, String link, String lyric, int listen, boolean show, boolean status,
-			boolean video, String videoPhoto, String videoLink, String uploadedTime, String uploadedBy, List<Integer> singers,
-			List<Integer> authors, List<Integer> categories) {
+	public SongEntity(Integer id, String name, String link, String lyric, Integer listen, boolean status, boolean video,
+			Integer view, String videoPhoto, String videoLink, String uploadedTime, String uploadedBy, String singers,
+			String authors, String categories) {
+		super();
 		this.id = id;
 		this.name = name;
 		this.link = link;
 		this.lyric = lyric;
 		this.listen = listen;
-		this.show = show;
 		this.status = status;
 		this.video = video;
+		this.view = view;
 		this.videoPhoto = videoPhoto;
 		this.videoLink = videoLink;
 		this.uploadedTime = uploadedTime;
@@ -82,22 +82,6 @@ public class SongEntity implements java.io.Serializable {
 		this.lyric = lyric;
 	}
 
-	public int getListen() {
-		return listen;
-	}
-
-	public void setListen(int listen) {
-		this.listen = listen;
-	}
-
-	public boolean isShow() {
-		return show;
-	}
-
-	public void setShow(boolean show) {
-		this.show = show;
-	}
-
 	public boolean isStatus() {
 		return status;
 	}
@@ -114,6 +98,22 @@ public class SongEntity implements java.io.Serializable {
 		this.video = video;
 	}
 
+	public Integer getView() {
+		return view;
+	}
+
+	public void setView(Integer view) {
+		this.view = view;
+	}
+
+	public void setListen(Integer listen) {
+		this.listen = listen;
+	}
+
+	public Integer getListe() {
+		return this.listen;
+	}
+
 	public String getVideoPhoto() {
 		return videoPhoto;
 	}
@@ -121,7 +121,7 @@ public class SongEntity implements java.io.Serializable {
 	public void setVideoPhoto(String videoPhoto) {
 		this.videoPhoto = videoPhoto;
 	}
-	
+
 	@URL
 	public String getVideoLink() {
 		return videoLink;
@@ -147,30 +147,27 @@ public class SongEntity implements java.io.Serializable {
 		this.uploadedBy = uploadedBy;
 	}
 
-	@NotEmpty
-	public List<Integer> getSingers() {
+	public String getSingers() {
 		return singers;
 	}
 
-	public void setSingers(List<Integer> singers) {
+	public void setSingers(String singers) {
 		this.singers = singers;
 	}
 
-	@NotEmpty
-	public List<Integer> getAuthors() {
+	public String getAuthors() {
 		return authors;
 	}
 
-	public void setAuthors(List<Integer> authors) {
+	public void setAuthors(String authors) {
 		this.authors = authors;
 	}
 
-	@NotEmpty
-	public List<Integer> getCategories() {
+	public String getCategories() {
 		return categories;
 	}
 
-	public void setCategories(List<Integer> categories) {
+	public void setCategories(String categories) {
 		this.categories = categories;
 	}
 

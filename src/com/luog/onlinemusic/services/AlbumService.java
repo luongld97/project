@@ -11,10 +11,9 @@ public interface AlbumService {
 	public List<Album> findAll();
 
 	public Album find(int id);
+	public boolean create(AlbumEntity albumEntity);
 
-	public boolean create(AlbumEntity temp);
-
-	public boolean update(AlbumEntity album);
+	public boolean update(AlbumEntity albumEntity);
 
 	public boolean delete(Album album);
 	

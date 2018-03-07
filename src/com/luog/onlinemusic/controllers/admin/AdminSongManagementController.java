@@ -67,9 +67,7 @@ public class AdminSongManagementController implements ServletContextAware {
 
 	@RequestMapping(value = { "/addsong", "/create", "/newsong" }, method = RequestMethod.GET)
 	public String addSongForm(@RequestParam(value = "error", required = false) String error, ModelMap modelMap) {
-		SongEntity songEntity = new SongEntity();
-		songEntity.setShow(true);
-		return initForm("admin.song.addsong", modelMap, songEntity);
+		return initForm("admin.song.addsong", modelMap, new SongEntity());
 	}
 
 	@RequestMapping(value = { "/addsong", "/create", "/newsong" }, method = RequestMethod.POST)
