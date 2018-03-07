@@ -34,7 +34,7 @@
 							</c:url>
 							<td>${category.id }</td>
 							<td>${category.name }</td>
-							<td><a href="${updateLink }">Update</a></td>
+							<td><a href="${updateLink }">Edit</a></td>
 						</tr>
 					</c:forEach>
 				</c:if>

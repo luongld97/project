@@ -30,7 +30,7 @@
 						</a>
 					</li>
 					<li>
-						<a ${currentTab == 'album' ? 'class="active"' : '' }  href="#">
+						<a ${currentTab == 'album' ? 'class="active"' : '' }  href="<c:url value="/admin/album.html"/>">
 							<span class="glyphicon glyphicon-list-alt"></span>&nbsp;
 							Album
 						</a>

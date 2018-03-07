@@ -94,7 +94,7 @@ public class AdminAlbumManagementController implements ServletContextAware {
 	}
 
 	@RequestMapping(value = { "/updatealbum", "/update" }, method = RequestMethod.POST)
-	public String updateSongAction(@ModelAttribute("album") @Valid AlbumEntity temp, BindingResult bindingResult,
+	public String updateAlbumAction(@ModelAttribute("album") @Valid AlbumEntity temp, BindingResult bindingResult,
 			@RequestParam(value = "photo", required = false) MultipartFile image, ModelMap modelMap,
 			HttpSession session) {
 		
@@ -121,7 +121,7 @@ public class AdminAlbumManagementController implements ServletContextAware {
 	private String initForm(String tileName, ModelMap modelMap, AlbumEntity albumEntity) {
 		modelMap.put("album", albumEntity);
 		modelMap.put("singers", singerService.findAll());
-		modelMap.put("songs", songService.findAll());
+		modelMap.put("songs", songService.findAll(true));
 		modelMap.put("currentTab", "album");
 		return tileName;
 	}

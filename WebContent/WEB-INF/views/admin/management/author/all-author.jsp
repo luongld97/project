@@ -40,9 +40,9 @@
 							<td>${author.name }</td>
 							<td>${author.dateOfBirth }</td>
 							<td>${author.gender }</td>
-							<td>${author.description }</td>
+							<td style="max-height: 100px; overflow: auto;" >${author.description }</td>
 							<td>${author.photo }</td>
-							<td><a href="${updateLink }">Update</a></td>
+							<td><a href="${updateLink }">Edit</a></td>
 						</tr>
 					</c:forEach>
 				</c:if>
