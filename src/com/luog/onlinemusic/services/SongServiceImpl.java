@@ -27,6 +27,7 @@ import com.luog.onlinemusic.entity.commons.Song;
 import com.luog.onlinemusic.entity.commons.SongDetail;
 import com.luog.onlinemusic.entity.rest.SongEntity;
 import com.luog.onlinemusic.entity.rest.SongInfo;
+import com.luog.onlinemusic.helpers.EntityHelper;
 
 @Transactional
 @Service("songService")
@@ -155,8 +156,8 @@ public class SongServiceImpl implements SongService {
 	}
 
 	@Override
-	public List<SongInfo> findSongInfo() {
-		return songDAO.findSongInfo();
+	public List<SongInfo> findSongInfo(Integer limit) {
+		return songDAO.findSongInfo(limit);
 	}
 
 	/**
@@ -210,8 +211,8 @@ public class SongServiceImpl implements SongService {
 	}
 
 	@Override
-	public List<SongInfo> findMVSongInfo() {
-		return songDAO.findMVSongInfo();
+	public List<SongInfo> findMVSongInfo(Integer limit) {
+		return songDAO.findMVSongInfo(limit);
 	}
 
 	/**
@@ -223,8 +224,8 @@ public class SongServiceImpl implements SongService {
 	}
 
 	@Override
-	public List<SongInfo> findSongInCategory(Category category) {
-		return songDAO.findSongInCategory(category);
+	public List<SongInfo> findSongInCategory(Category category, Integer limit) {
+		return songDAO.findSongInCategory(category, limit);
 	}
 
 	/**
@@ -275,6 +276,16 @@ public class SongServiceImpl implements SongService {
 	@Override
 	public Long getListen(Song song, boolean isVideo) {
 		return songDAO.getListen(song, isVideo);
+	}
+
+	@Override
+	public List<SongEntity> getTopSong(boolean isVideo, Date currentDate, Integer limit) {
+		List<Song> songs = songDAO.getTopSong(isVideo, currentDate, limit);
+		List<SongEntity> songEntities = new ArrayList<>();
+		for (Song song : songs){
+			songEntities.add(EntityHelper.toSongEntity(song));
+		}
+		return songEntities;
 	}
 
 }
