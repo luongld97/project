@@ -25,7 +25,6 @@ public class EntityHelper {
 			songEntity.setLink(temp.getLink());
 			songEntity.setLyric(temp.getLyric());
 			songEntity.setListen(0);
-			songEntity.setShow(temp.isShow());
 			songEntity.setStatus(temp.isStatus());
 			songEntity.setVideo(temp.isVideo());
 			songEntity.setVideoLink(temp.getVideoLink());

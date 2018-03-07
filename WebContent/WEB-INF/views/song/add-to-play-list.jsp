@@ -15,7 +15,7 @@
 				<span id="name-box-error" style="display: block;"
 					class="alert alert-danger hidden"></span>
 				<div id="add-form"
-					style="display: none; border: 0.5px solid yellow; padding: 12px; margin-bottom: 15px; border-radius: 6px;">
+					style="display: none; border: 2px solid #E5E5E5; padding: 12px; margin-bottom: 15px; border-radius: 10px;">
 					<div class="form-group">
 						<label>PlayList Name: </label> <input
 							baseUrl="${pageContext.request.contextPath }" id="play-list-name"

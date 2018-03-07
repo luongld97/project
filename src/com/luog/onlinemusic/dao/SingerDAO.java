@@ -20,6 +20,8 @@ public interface SingerDAO {
 	
 	public List<SingerEntity> findSingerEntities (String keyWord);
 	
+	public List<Singer> findSinger(String keyWord);
+	
 	public boolean isExist(String name);
 	
 }

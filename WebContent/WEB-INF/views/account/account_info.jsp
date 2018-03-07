@@ -14,7 +14,7 @@
 					<!-- End body Left -->
 					<!-- Body Right -->
 					<div class="col-xs-5 col-md-5 info-account-border-right">
-						<s:form class="form-horizontal" commandName="account" action="${pageContext.request.contextPath }/account/accountinfo.html">
+						<form class="form-horizontal" action="">
 							<div class="form-group">
 								<label class="col-sm-4 control-label">Tài khoản</label>
 								<div class="col-sm-5">
@@ -54,7 +54,7 @@
 									<a href="${pageContext.request.contextPath }/account/changepassword.html"><button type="button" class="btn btn-success">Đổi mật khẩu</button></a>
 								</div>
 							</div>
-						</s:form>
+						</form>
 					</div>
 				</div>
 				<!-- End Body Right -->

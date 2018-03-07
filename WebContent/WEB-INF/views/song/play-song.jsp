@@ -75,7 +75,7 @@
 						</button>
 						<div class="listen-time float-right">
 							<span class="glyphicon glyphicon-headphones"></span> <span
-								id="listen">${listen }</span>
+								id="listen">${isVideo ? song.view : song.listen }</span>
 						</div>
 					</div>
 				</div>

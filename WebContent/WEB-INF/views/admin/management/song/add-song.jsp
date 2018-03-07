@@ -117,11 +117,6 @@
 						<label>Select photo for this video.</label> <input type="file"
 							name="photo" accept="image/*" />
 					</div>
-					<div class="checkbox">
-						<label> <s:checkbox path="show" /> <span>show in
-								home page?</span>
-						</label>
-					</div>
 				</div>
 			</div>
 		</div>

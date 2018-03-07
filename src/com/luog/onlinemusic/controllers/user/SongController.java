@@ -46,7 +46,6 @@ public class SongController {
 				modelMap.put("song", song);
 				modelMap.put("suggestedSongs", suggestedSongs);
 				modelMap.put("isVideo", isVideo);
-				modelMap.put("listen", songService.getListen(song, isVideo));
 				return "song.play";
 			}
 

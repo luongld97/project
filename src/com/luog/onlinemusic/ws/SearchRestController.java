@@ -28,7 +28,7 @@ public class SearchRestController {
 	public ResponseEntity<List<Object>> findSongs(@RequestParam("keyword") String keyWord) {
 		List<Object> result = null;
 		try {
-			result = searchService.search(keyWord);
+			result = searchService.searchWS(keyWord);
 			return new ResponseEntity<List<Object>>(result, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

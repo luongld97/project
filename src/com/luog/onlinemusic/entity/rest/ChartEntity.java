@@ -1,5 +1,9 @@
 package com.luog.onlinemusic.entity.rest;
 
+import java.util.List;
+
+import com.luog.onlinemusic.entity.commons.Singer;
+
 public class ChartEntity {
 	
 	private int songId;
@@ -7,17 +11,9 @@ public class ChartEntity {
 	private boolean video;
 	private String link;
 	private String lyric;
-	private String singerName;
-	private String singerPhoto;
+	private List<Singer> singers;
 	private String date;
 	private int listen;
-	
-	public boolean isVideo() {
-		return video;
-	}
-	public void setVideo(boolean video) {
-		this.video = video;
-	}
 	public int getSongId() {
 		return songId;
 	}
@@ -29,6 +25,12 @@ public class ChartEntity {
 	}
 	public void setSongName(String songName) {
 		this.songName = songName;
+	}
+	public boolean isVideo() {
+		return video;
+	}
+	public void setVideo(boolean video) {
+		this.video = video;
 	}
 	public String getLink() {
 		return link;
@@ -42,17 +44,11 @@ public class ChartEntity {
 	public void setLyric(String lyric) {
 		this.lyric = lyric;
 	}
-	public String getSingerName() {
-		return singerName;
+	public List<Singer> getSingers() {
+		return singers;
 	}
-	public void setSingerName(String singerName) {
-		this.singerName = singerName;
-	}
-	public String getSingerPhoto() {
-		return singerPhoto;
-	}
-	public void setSingerPhoto(String singerPhoto) {
-		this.singerPhoto = singerPhoto;
+	public void setSingers(List<Singer> singers) {
+		this.singers = singers;
 	}
 	public String getDate() {
 		return date;
@@ -66,18 +62,17 @@ public class ChartEntity {
 	public void setListen(int listen) {
 		this.listen = listen;
 	}
-	public ChartEntity(int songId, String songName, String link, String lyric, String singerName, String singerPhoto,
-			String date, int listen, boolean video) {
+	public ChartEntity(int songId, String songName, boolean video, String link, String lyric, List<Singer> singers,
+			String date, int listen) {
 		super();
 		this.songId = songId;
 		this.songName = songName;
+		this.video = video;
 		this.link = link;
 		this.lyric = lyric;
-		this.singerName = singerName;
-		this.singerPhoto = singerPhoto;
+		this.singers = singers;
 		this.date = date;
 		this.listen = listen;
-		this.video = video;
 	}
 	public ChartEntity() {
 		super();
