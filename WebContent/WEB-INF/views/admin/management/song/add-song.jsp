@@ -96,7 +96,7 @@
 					</div>
 					<div class="checkbox">
 						<label> <s:checkbox path="video" id="is-video" /> <span
-							id="is-video-content">${song.video ? 'this is a video.' : 'this is not a video.' }</span>
+							id="is-video-content">${song.video ? 'This is a video.' : 'This is not a video.' }</span>
 						</label>
 					</div>
 					<div id="video-photo"

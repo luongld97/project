@@ -1370,3 +1370,10 @@ p.back-link {
 .easy-autocomplete-container ul {
 	top: 46px !important;
 }
+
+.sm-alert {
+	padding: 8px 10px;
+	margin-bottom: 15px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
