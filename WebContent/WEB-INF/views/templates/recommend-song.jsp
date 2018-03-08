@@ -2,15 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="item-right">
-	<h4 class="title-list-index">SONG RECOMMENDS</h4>
+	<h4 class="color-purple">SONG RECOMMENDS</h4>
 </div>
 <ul class="list-item">
-	<c:forEach items="${suggestedSongs }" var="suggestedSong">
+	<c:forEach items="${suggestedSongs }" varStatus="i" var="suggestedSong">
 		<li class="item-chart">
-			<div class="label-img">
-				<img
-					src="${pageContext.request.contextPath }/assets/images/imgsong.png"
-					class="image-view thumbnail">
+			<div class="label-img text-right">
+				${i.index +1 }
 			</div>
 			<div class="info-chart">
 				<c:url var="suggestedSongLink" value="/song/play.html">

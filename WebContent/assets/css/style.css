@@ -290,7 +290,7 @@ Body Left
 
 .info-song {
 	position: absolute;
-	top: 5px;
+	top: 15px;
 	left: 100px;
 	margin: 0 20px 0 20px;
 }
@@ -416,9 +416,9 @@ Body Right
 
 .label-img {
 	position: absolute;
-	top: 5px;
-	left: -14px;
-	margin: 0 20px 0 20px;
+	top: 10px;
+	left: -30px;
+	margin: 0 20px;
 	color: blue;
 	font-size: 30px;
 	width: 50px;
@@ -794,10 +794,6 @@ Nghe Si
 	left: 0;
 	width: 20%;
 	padding: 0 15px;
-}
-
-.full-width{
-	width: 100%;
 }
 
 .info-summary {

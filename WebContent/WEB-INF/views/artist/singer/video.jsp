@@ -28,14 +28,17 @@
 								<c:forEach begin="${temp }" end="${temp + 3 }" var="j">
 									<c:set var="song" value="${songs.pageList[j] }" />
 									<div class="col-xs-3 col-md-3">
+										<c:url var="videoLink" value="/artist/singer/play-list.html">
+											<c:param name="id" value="${song.id }"></c:param>
+										</c:url>
 										<div class="my-img-180">
-											<a href=""><img
+											<a href="${videoLink }"><img
 												src="${pageContext.request.contextPath }/assets/images/${song.videoPhoto}"
 												alt="Video background" class="image-view img-thumbnail" /></a>
 										</div>
-										<br> <a class="song-name" href="">${song.name }</a> <br>
-										<i> <span> <c:forEach items="${song.songDetails }"
-													var="songDetail" varStatus="k">
+										<br> <a class="song-name" href="${videoLink }">${song.name }</a>
+										<br> <i> <span> <c:forEach
+													items="${song.songDetails }" var="songDetail" varStatus="k">
 													<c:url var="singerLink" value="/artist/singer/info.html">
 														<c:param name="id" value="${songDetail.singer.id }" />
 													</c:url>
@@ -58,14 +61,17 @@
 							var="j">
 							<c:set var="song" value="${songs.pageList[j] }" />
 							<div class="col-xs-3 col-md-3">
+								<c:url var="videoLink" value="/artist/singer/play-list.html">
+									<c:param name="id" value="${song.id }"></c:param>
+								</c:url>
 								<div class="my-img-150">
-									<img
+									<a href="${videoLink }"> <img
 										src="${pageContext.request.contextPath }/assets/images/${song.videoPhoto}"
-										alt="Video background" class="image-view img-thumbnail">
+										alt="Video background" class="image-view img-thumbnail"></a>
 								</div>
-								<br> <a class="song-name" href="">${song.name }</a> <br>
-								<i> <span> <c:forEach items="${song.songDetails }"
-											var="songDetail" varStatus="k">
+								<br> <a class="song-name" href="${videoLink }">${song.name }</a>
+								<br> <i> <span> <c:forEach
+											items="${song.songDetails }" var="songDetail" varStatus="k">
 											<c:url var="singerLink" value="/artist/singer/info.html">
 												<c:param name="id" value="${songDetail.singer.id }" />
 											</c:url>

@@ -16,7 +16,7 @@
 		<div class="row">
 			<tiles:insertDefinition name="play.list.body.left" />
 			<!-- Body Right -->
-			<div class="col-md-9">
+			<div class="col-xs-9 col-md-9">
 				<div class="row mt-4">
 					<div class="col-xs-4 col-md-4">
 						<div class="my-img-120">
@@ -66,7 +66,7 @@
 					</div>
 				</div>
 				<c:if test="${songs.pageList.size() > 0 }">
-					<h2 class="title-list-index mt-3">List song</h2>
+					<h2 class="color-purple mt-3">List song</h2>
 					<div class="row mt-2">
 						<div class="col-xs-12 col-md-12">
 							<c:forEach items="${songs.pageList }" var="song" varStatus="i">
@@ -90,11 +90,12 @@
 								<hr class="hr-css1">
 							</c:forEach>
 						</div>
-						<div class="col-xs-12 col-md-12">
+						<div class="text-center">
 							<tg:paging pagedListHolder="${songs}" pagedLink="${pagedLink}" />
 						</div>
 					</div>
 				</c:if>
+
 				<c:if test="${songs.pageList.size() <= 0}">
 					<div class="row mt-2 text-center">
 						<h3>No have song in this play list!</h3>

@@ -176,7 +176,7 @@ public class AccountController implements ServletContextAware {
 				PagedListHolder<Song> pagedListHolder = new PagedListHolder<>(songs);
 				int page = ServletRequestUtils.getIntParameter(request, "page", 0);
 				pagedListHolder.setPage(page);
-				pagedListHolder.setPageSize(2);
+				pagedListHolder.setPageSize(10);
 				modelMap.put("songs", pagedListHolder);
 				modelMap.put("playList", playList);
 				return "user.playlist.update";

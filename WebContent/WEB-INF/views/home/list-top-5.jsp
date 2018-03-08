@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<div class="col-md-12 body-left">
+<div class="col-xs-12 col-md-12 body-left">
 	<ul class="list-item">
 		<li class="item">
 			<div class="label-rank-top">1</div>
