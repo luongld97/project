@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -30,7 +32,9 @@ import com.luog.onlinemusic.entity.commons.Account;
 import com.luog.onlinemusic.entity.commons.Album;
 import com.luog.onlinemusic.entity.commons.Author;
 import com.luog.onlinemusic.entity.commons.PlayList;
+import com.luog.onlinemusic.entity.commons.PlayListDetail;
 import com.luog.onlinemusic.entity.commons.Role;
+import com.luog.onlinemusic.entity.commons.Song;
 import com.luog.onlinemusic.services.AccountService;
 import com.luog.onlinemusic.services.PlayListService;
 import com.luog.onlinemusic.services.RoleService;
@@ -151,29 +155,42 @@ public class AccountController {
 	/**
 	 * @author luog
 	 */
-	@RequestMapping(value = { "/playlist/addplaylist" }, method = RequestMethod.GET)
-	public String getPlayList(HttpSession session, ModelMap modelMap) {
-		Account currentAccount = (Account) session.getAttribute("currentAccount");
-		if (currentAccount != null) {
-			modelMap.put("album", new Album());
-			return "user.playlist.add";
-		}
-		return "redirect:/account/login.html";
-	}
-
-	/**
-	 * @author luog
-	 */
 	@RequestMapping(value = { "/playlist/update" }, method = RequestMethod.GET)
-	public String updatePlayList(@RequestParam(value = "id", required = false) Integer id, HttpSession session,
+	public String updatePlayList(@RequestParam(value = "id", required = false) Integer id, HttpServletRequest request, HttpSession session,
 			ModelMap modelMap) {
 		if (id != null) {
 			Account currentAccount = (Account) session.getAttribute("currentAccount");
 			if (currentAccount != null) {
 				PlayList playList = playListService.find(id);
+				List<Song> songs = new ArrayList<>();
+				Set<PlayListDetail> playListDetails = playList.getPlayListDetails();
+				for (PlayListDetail playListDetail : playListDetails)
+					songs.add(playListDetail.getSong());
+				PagedListHolder<Song> pagedListHolder = new PagedListHolder<>(songs);
+				int page = ServletRequestUtils.getIntParameter(request, "page", 0);
+				pagedListHolder.setPage(page);
+				pagedListHolder.setPageSize(2);
+				modelMap.put("songs", pagedListHolder);
 				modelMap.put("playList", playList);
 				return "user.playlist.update";
 			}
+			return "redirect:/account/login.html";
+		}
+
+		return "redirect:/";
+	}
+
+	/**
+	 * @author luog
+	 */
+	@RequestMapping(value = { "/playlist/update" }, method = RequestMethod.POST)
+	public String updatePlayListAction(@ModelAttribute("playList") @Valid PlayList playList, HttpSession session,
+			ModelMap modelMap) {
+
+		Account currentAccount = (Account) session.getAttribute("currentAccount");
+		if (currentAccount != null) {
+			System.out.println(currentAccount.getUsername());
+			System.out.println(playList.getName());
 		}
 		return "redirect:/account/login.html";
 	}

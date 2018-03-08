@@ -14,10 +14,15 @@ public class PlayListDetailServiceImpl implements PlayListDetailService {
 
 	@Autowired
 	private PlaylistDetailDAO playlistDetailDAO;
-	
+
 	@Override
 	public boolean create(PlayListDetail playListDetail) {
 		return playlistDetailDAO.create(playListDetail);
+	}
+
+	@Override
+	public boolean delete(PlayListDetail playListDetail) {
+		return playlistDetailDAO.delete(playListDetail);
 	}
 
 }
