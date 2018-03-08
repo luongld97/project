@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.luog.onlinemusic.entity.commons.Account;
+import com.luog.onlinemusic.entity.commons.Album;
 import com.luog.onlinemusic.entity.commons.Chart;
 import com.luog.onlinemusic.entity.commons.PlayList;
 import com.luog.onlinemusic.entity.commons.PlayListDetail;
 import com.luog.onlinemusic.entity.commons.Song;
+import com.luog.onlinemusic.services.AlbumService;
 import com.luog.onlinemusic.services.ChartService;
 import com.luog.onlinemusic.services.PlayListService;
 import com.luog.onlinemusic.services.SongService;
@@ -34,6 +36,8 @@ public class SongController {
 
 	@Autowired
 	private ChartService chartService;
+	@Autowired
+	private AlbumService albumService;
 
 	@RequestMapping(value = "/play", method = RequestMethod.GET)
 	public String playSong(@RequestParam(value = "id", required = false) Integer songid, ModelMap modelMap,
@@ -69,7 +73,7 @@ public class SongController {
 				for (PlayListDetail playListDetail : currentPlayList.getPlayListDetails()) {
 					songs.add(playListDetail.getSong());
 				}
-				modelMap.put("recommendPlayLists", playListService.randomPlayList(account, currentPlayList, 4));
+				modelMap.put("recommendPlayLists", playListService.randomPlayList(account, 4, currentPlayList));
 			} else
 				return "redirect: ../home.html";
 		}
@@ -77,8 +81,10 @@ public class SongController {
 
 		List<Song> suggestedVideos = songService.randomSong(4, true);
 		List<Song> suggestedSongs = songService.randomSong(6);
+		List<Album> suggestedAlbums = albumService.randomAlbum(4, null);
 		modelMap.put("suggestedSongs", suggestedSongs);
 		modelMap.put("suggestedVideos", suggestedVideos);
+		modelMap.put("suggestedAlbums", suggestedAlbums);
 		return "list.song.play";
 	}
 

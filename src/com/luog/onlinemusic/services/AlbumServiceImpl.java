@@ -143,4 +143,10 @@ public class AlbumServiceImpl implements AlbumService {
 		return result;
 	}
 
+	@Override
+	public List<Album> randomAlbum(int limit, Album current) {
+		return albumDAO.randomAlbum(limit, current);
+	}
+
+	
 }

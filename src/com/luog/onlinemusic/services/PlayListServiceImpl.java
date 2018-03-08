@@ -76,8 +76,8 @@ public class PlayListServiceImpl implements PlayListService {
 	}
 
 	@Override
-	public List<PlayList> randomPlayList(Account account, PlayList current, int limit) {
-		return playListDAO.randomPlayList(account, current, limit);
+	public List<PlayList> randomPlayList(Account account, int limit, PlayList current) {
+		return playListDAO.randomPlayList(account, limit, current);
 	}
 
 }

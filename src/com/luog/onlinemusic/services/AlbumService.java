@@ -19,5 +19,7 @@ public interface AlbumService {
 	public boolean delete(Album album);
 	
 	public List<Album> getAlbums(Singer singer);
+	
+	public List<Album> randomAlbum(int limit, Album current);
 
 }

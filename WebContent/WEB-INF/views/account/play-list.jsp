@@ -31,11 +31,10 @@
 						</div>
 						<div class="col-xs-6 col-md-6 playlist-content-info mt-1">
 							<p>
-								<c:url var="playListDetailLink"
-									value="/account/playlist/update.html">
+								<c:url var="playThisList" value="/song/playlist.html">
 									<c:param name="id" value="${playList.id }" />
 								</c:url>
-								<a href="${playListDetailLink }">${playList.name }</a>
+								<a href="${playThisList }">${playList.name }</a>
 							</p>
 							<span> Created: <fmt:formatDate
 									value="${playList.createdTime }" pattern="yyyy-MM-dd HH:mm:ss" />

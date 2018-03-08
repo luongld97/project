@@ -20,4 +20,6 @@ public interface AlbumDAO {
 	
 	public List<Album> getAlbums(Singer singer);
 	
+	public List<Album> randomAlbum(int limit, Album current);
+	
 }

@@ -147,11 +147,8 @@ public class PlayListDAOImpl implements PlayListDAO {
 		try {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
-			Query query = session.createQuery("SELECT count(pl) "
-					+ "FROM PlayList pl, "
-					+ "PlayListDetail pld "
-					+ "WHERE pld.playList = :playList "
-					+ "AND pld.song = :song");
+			Query query = session.createQuery("SELECT count(pl) " + "FROM PlayList pl, " + "PlayListDetail pld "
+					+ "WHERE pld.playList = :playList " + "AND pld.song = :song");
 			query.setParameter("song", song);
 			query.setParameter("playList", inPlayList);
 			result = (Long) query.uniqueResult() > 0;
@@ -259,21 +256,21 @@ public class PlayListDAOImpl implements PlayListDAO {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<PlayList> randomPlayList(Account account, PlayList current, int limit) {
+	public List<PlayList> randomPlayList(Account account, int limit, PlayList current) {
 		List<PlayList> playLists = null;
 		Session session = null;
 		Transaction transaction = null;
 		try {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
-			Query query = session.createQuery("FROM PlayList " 
-					+ "WHERE account = :account "
-					+ "AND id != :id "
-					+ "ORDER BY rand()");
+			Query query = session.createQuery("FROM PlayList " + "WHERE account = :account " + "ORDER BY rand()");
 			query.setParameter("account", account);
-			query.setParameter("id", current.getId());
 			query.setMaxResults(limit);
 			playLists = query.list();
+			if (current != null) {
+				if (playLists.contains(current))
+					playLists.remove(current);
+			}
 			transaction.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -287,5 +284,4 @@ public class PlayListDAOImpl implements PlayListDAO {
 		return playLists;
 	}
 
-	
 }
