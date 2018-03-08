@@ -41,6 +41,7 @@ import com.luog.onlinemusic.helpers.ImageHelper;
 import com.luog.onlinemusic.services.AccountService;
 import com.luog.onlinemusic.services.PlayListService;
 import com.luog.onlinemusic.services.RoleService;
+import com.luog.onlinemusic.validators.AccountValidator;
 import com.sun.xml.internal.ws.api.pipe.Fiber;
 
 @Controller
@@ -58,6 +59,9 @@ public class AccountController implements ServletContextAware {
 
 	@Autowired
 	private PlayListService playListService;
+	
+	@Autowired
+	private AccountValidator accountValidator;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(@RequestParam(value = "error", required = false) String error, ModelMap modelMap) {
@@ -98,8 +102,9 @@ public class AccountController implements ServletContextAware {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String registerProccess(@ModelAttribute("account") Account account, ModelMap modelMap,
-			@RequestParam("file") MultipartFile image) {
+	public String registerProccess(@ModelAttribute("account") @Valid Account account, ModelMap modelMap,
+			@RequestParam("file") MultipartFile image, BindingResult bindingResult) {
+		accountValidator.validate(account, bindingResult);
 		Role role = roleService.find(3);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Calendar cal = Calendar.getInstance();

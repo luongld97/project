@@ -20,37 +20,37 @@
 			<div class="col-xs-5 col-md-5 info-account-border-right">
 				<form class="form-horizontal" >
 					<div class="form-group">
-						<label class="col-sm-4 control-label">Tài khoản</label>
+						<label class="col-sm-4 control-label">Username</label>
 						<div class="col-sm-5">
 							<p class="form-control-static">${sessionScope.currentAccount.username }</p>
 						</div>
 						<div class="col-sm-3">
 							<div class="text-right">
 								<a href="${pageContext.request.contextPath }/account/updateAccount.html?acc=${sessionScope.currentAccount.username }"><input type="button"
-									class="btn btn-success" value="Chỉnh sửa"></a>
+									class="btn btn-success" value="Edit info"></a>
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-4 control-label">Ngày sinh</label>
+						<label class="col-sm-4 control-label">Birthday</label>
 						<div class="col-sm-8">
 							<p class="form-control-static">${sessionScope.currentAccount.dateOfBirth }</p>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-4 control-label">Giới tính</label>
+						<label class="col-sm-4 control-label">Gender</label>
 						<div class="col-sm-8">
 							<p class="form-control-static">${sessionScope.currentAccount.gender }</p>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-4 control-label">Số điện thoại</label>
+						<label class="col-sm-4 control-label">Phone number</label>
 						<div class="col-sm-8">
 							<p class="form-control-static">${sessionScope.currentAccount.phone }</p>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-4 control-label">Ảnh đại diện</label>
+						<label class="col-sm-4 control-label">Avatar</label>
 						<div class="col-sm-8">
 							<img
 								src="${pageContext.request.contextPath }/assets/images/${sessionScope.currentAccount.photo}"
@@ -62,7 +62,7 @@
 						<div class="col-sm-8">
 							<a
 								href="${pageContext.request.contextPath }/account/changepassword.html?username=${sessionScope.currentAccount.username}"><button
-									type="button" class="btn btn-success">Đổi mật khẩu</button></a>
+									type="button" class="btn btn-success">Change password</button></a>
 						</div>
 					</div>
 				</form>
