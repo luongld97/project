@@ -15,7 +15,7 @@
 					<!-- Body Right -->
 					<div class="col-xs-5 col-md-5 info-account-border-right">
 						${message}
-						<form method="post" class="form-horizontal" name="account" action="${pageContext.request.contextPath }/account/doUpdateAccount.html">
+						<form method="post" class="form-horizontal" enctype="multipart/form-data" name="account" action="${pageContext.request.contextPath }/account/doUpdateAccount.html">
 							<div class="form-group">
 								<label class="col-sm-4 control-label">Username</label>
 								<div class="col-sm-5">
@@ -28,10 +28,6 @@
 								</div>
 							</div>
 							<input hidden name="username" value="${account.username }">
-							<input hidden name="createdTime" value="${account.createdTime }">
-							<input hidden name="role" value="${account.role }">
-							<input hidden name="status" value="${account.status }">
-							<input hidden name="password" value="${account.password }">
 							<div class="form-group">
 								<label class="col-sm-4 control-label">Birthday</label>
 								<div class="col-sm-8">
@@ -57,7 +53,7 @@
 							<div class="form-group">
 								<label class="col-sm-4 control-label">Avatar</label>
 								<div class="col-sm-8">
-									<input type="file" class="file-control" name="photo" value="${account.photo }"></input>
+									<input type="file" class="file-control" name="file" value="${account.photo }"></input>
 								</div>
 							</div>
 						</form>

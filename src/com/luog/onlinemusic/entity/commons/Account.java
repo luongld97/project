@@ -87,7 +87,6 @@ public class Account implements java.io.Serializable {
 		this.role = role;
 	}
 
-	@NotEmpty
 	@Column(name = "password", nullable = false, length = 250)
 	public String getPassword() {
 		return this.password;
@@ -126,7 +125,6 @@ public class Account implements java.io.Serializable {
 		this.gender = gender;
 	}
 
-	@NotEmpty
 	@Column(name = "phone", nullable = false, length = 15)
 	public String getPhone() {
 		return this.phone;

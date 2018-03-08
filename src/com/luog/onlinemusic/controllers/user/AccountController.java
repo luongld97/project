@@ -59,7 +59,7 @@ public class AccountController implements ServletContextAware {
 
 	@Autowired
 	private PlayListService playListService;
-	
+
 	@Autowired
 	private AccountValidator accountValidator;
 
@@ -256,18 +256,32 @@ public class AccountController implements ServletContextAware {
 	@RequestMapping(value = "/doUpdateAccount", method = RequestMethod.POST)
 	public String updateAccountAction(@ModelAttribute("account") Account account, ModelMap modelMap,
 			HttpSession httpSession, @RequestParam("file") MultipartFile image) {
-		Role role = roleService.find(3);
-		account.setRole(role);
-		boolean currentAccount = accountService.update(account);
-		if (currentAccount) {
-			Account acc = accountService.find(account.getUsername());
+
+		Account acc = accountService.find(account.getUsername());
+		if (acc != null) {
 			modelMap.put("account", acc);
-			httpSession.setAttribute("currentAccount", acc);
+			if (account.getPassword() != null) {
+				acc.setPassword(account.getPassword());
+			}
+			acc.setDateOfBirth(account.getDateOfBirth());
+			acc.setGender(account.getGender());
+			if (!image.isEmpty()) {
+				if (ImageHelper.validateImage(image)) {
+					acc.setPhoto(ImageHelper.saveImage(servletContext, image));
+				}
+			}
+			if (account.getPhone() != null) {
+				acc.setPhone(account.getPhone());
+			}
+			boolean currentAccount = accountService.update(acc);
+			if (currentAccount)
+				httpSession.setAttribute("currentAccount", acc);
 			return "redirect:../account/accountinfo.html";
 		} else {
-			modelMap.put("message", "Update Fail!");
+			modelMap.put("massage", "Update Fail!");
 			return "user.editaccount";
 		}
+
 	}
 
 	@RequestMapping(value = "/accountinfo", method = RequestMethod.GET)
