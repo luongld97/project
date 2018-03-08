@@ -9,7 +9,7 @@
 			<div>
 				<img
 					src="${pageContext.request.contextPath }/assets/images/${singer.photo }"
-					alt="Avatar singer" class="full-width img-thumbnail">
+					alt="Avatar singer" class="image-view img-thumbnail">
 			</div>
 		</div>
 		<div class="info-summary">
@@ -23,7 +23,7 @@
 	</div>
 </div>
 <!-- End Info Background -->
-<div class="row">
+<div class="row top-second-bar">
 	<div class="col-xs-12 col-md-12">
 		<div class="navbar-item">
 			<c:url var="singerInfo" value="/artist/singer/info.html">

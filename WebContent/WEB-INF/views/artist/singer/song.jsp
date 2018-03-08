@@ -11,11 +11,24 @@
 			<!-- Body Left -->
 			<div class="col-md-9">
 				<div class="col-md-12 body-left">
-					<a href=""><h3 class="title-list-index">${singer.name.toUpperCase() }' S SONG</h3></a>
-					<!-- <div class="sort-song">
-						<span>Sắp xếp theo: </span> <a href=""><span>Mới nhất</span></a> |
-						<a href=""><span>Lượt nghe</span></a>
-					</div> -->
+				
+					<div class="row">
+						<div class="col-xs-10 col-md-10">
+							<h3 class="color-purple">${singer.name.toUpperCase() }'S
+								SONG</h3>
+							<c:url var="playTopSongs" value="/artist/singer/play-list.html">
+								<c:param name="id" value="${singer.id }" />
+							</c:url>
+						</div>
+						<div class="col-xs-2 col-md-2">
+							<div class="artist-play-all-btn text-right">
+								<a href="${playTopSongs }" title="Play all"><h3>
+										<span class="glyphicon glyphicon-play-circle pr-1-5" />
+									</h3> </a>
+							</div>
+						</div>
+					</div>
+					
 					<ul class="list-item">
 						<jsp:useBean id="songs" scope="request"
 							type="org.springframework.beans.support.PagedListHolder" />
@@ -38,7 +51,7 @@
 													<c:url var="singerLink" value="/artist/singer/info.html">
 														<c:param name="id" value="${songDetail.singer.id }" />
 													</c:url>
-													<a href="${singerLink }">${songDetail.singer.name }</a>
+													<a class="text-view-more" href="${singerLink }">${songDetail.singer.name }</a>
 													<c:if test="${i.index < song.songDetails.size() - 1 }">
 														,&nbsp;
 													</c:if>
@@ -47,12 +60,9 @@
 										</div>
 										<div class="col-md-3">
 											<div class="float-right">
-												<a class="playlist-btn-sm" href="" title="Tải về"><span
-													class="glyphicon glyphicon-download-alt"></span></a> <a
-													class="playlist-btn-sm" href="" title="Thêm vào"><span
-													class="glyphicon glyphicon-plus"></span></a> <a
-													class="playlist-btn-sm" href="" title="Chia sẻ"><span
-													class="glyphicon glyphicon-share"></span></a>
+												<a
+													class="playlist-btn-sm" href="" title="Add to your playlist"><span
+													class="glyphicon glyphicon-plus"></span></a>
 											</div>
 										</div>
 									</div>

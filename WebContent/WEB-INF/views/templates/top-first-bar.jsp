@@ -41,7 +41,7 @@
 								class="caret"></span>
 							</a>
 							<ul class="dropdown-menu dropdown-menu-right">
-								<li><a href="myplaylist.html">My music</a></li>
+								<li><a href="${pageContext.request.contextPath }/account/playlist.html">My music</a></li>
 								<li class="divider"></li>
 								<li><a
 									href="${pageContext.request.contextPath }/account/accountinfo.html">User

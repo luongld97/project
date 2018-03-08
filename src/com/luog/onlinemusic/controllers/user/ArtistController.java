@@ -44,6 +44,10 @@ public class ArtistController {
 		if (id != null) {
 			Singer currentSinger = singerService.find(id);
 			if (currentSinger != null) {
+				List<Song> videos = songService.randomSong(4, true, currentSinger);
+				List<Album> albums = albumService.randomAlbumOfSinger(4, currentSinger);
+				modelMap.put("albums", albums);
+				modelMap.put("videos", videos);
 				modelMap.put("singer", currentSinger);
 				modelMap.put("topSongs", songService.getTopSongs(currentSinger, LIST_SONG_LIMIT));
 				tileName = "artist.singer.index";

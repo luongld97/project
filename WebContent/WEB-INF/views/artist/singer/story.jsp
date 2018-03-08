@@ -8,11 +8,8 @@
 			<!-- Body Left -->
 			<div class="col-md-9">
 				<div class="col-md-12 body-left">
-					<a href=""><h3 class="title-list-index">${singer.name.toUpperCase() }' S STORY</h3></a>
+					<h3 class="color-purple">${singer.name.toUpperCase() }'S STORY</h3>
 					<div class="text-justify lyric-f2">
-						<p>${singer.name }</p>
-						<p>Ngày sinh: 12/04/1989</p>
-						<p>Quốc Gia: Việt Nam</p>
 						<p>${singer.description }</p>
 					</div>
 				</div>

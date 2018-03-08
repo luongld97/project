@@ -19,10 +19,10 @@
 			<div class="col-md-9">
 				<div class="row mt-4">
 					<div class="col-xs-4 col-md-4">
-						<div class="img-thumbnail my-img-120">
+						<div class="my-img-120">
 							<img
 								src="${pageContext.request.contextPath }/assets/images/${playList.photo }"
-								class="image-view">
+								class="img-thumbnail image-view" alt="Playlist background">
 						</div>
 					</div>
 					<div class="col-xs-8 col-md-8">
@@ -59,7 +59,7 @@
 							<div class="form-group">
 								<label class="col-sm-4"></label>
 								<div class="col-sm-8 text-right">
-									<button type="submit" class="btn btn-primary">&nbsp;Save&nbsp;</button>
+									<button type="submit" class="btn btn-success">&nbsp;Save&nbsp;</button>
 								</div>
 							</div>
 						</s:form>
