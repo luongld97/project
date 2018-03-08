@@ -18,8 +18,7 @@
 				<!-- List TOP 5 -->
 				<div class="col-xs-12 col-md-12 body-left">
 					<ul class="list-item">
-						<c:forEach items="${charts }" var="chart" varStatus="i">
-							<c:set var="song" value="${chart.song }" />
+						<c:forEach items="${chartSongs }" var="song" varStatus="i">
 							<c:url var="listenLink" value="/song/play.html">
 								<c:param name="id" value="${song.id }" />
 							</c:url>
@@ -48,7 +47,7 @@
 										href="#modal-add-play-list" title="Add to..."
 										data-toggle="modal"><span class="glyphicon glyphicon-plus"></span></a>
 								</div>
-								<div class="number-listen">${chart.listen }</div>
+								<div class="number-listen">${song.listen }</div>
 							</li>
 						</c:forEach>
 					</ul>
@@ -59,20 +58,32 @@
 					<a href="<c:url value="home/video.html"/>"><h3
 							class="color-purple">VIDEO HOT</h3></a>
 					<div class="row mb-2">
-						<div class="col-xs-3 col-md-3">
-							<div class="my-img-120">
-								<img
-									src="${pageContext.request.contextPath }/assets/images/"
-									class="img-thumbnail image-view" />
+						<c:forEach var="video" items="${videos }">
+							<c:url var="playVideo" value="/song/play.html?video">
+								<c:param name="id" value="${video.id }" />
+							</c:url>
+							<div class="col-xs-3 col-md-3">
+								<div class="my-img-120">
+									<a class="song-name" href="${playVideo }"><img
+										src="${pageContext.request.contextPath }/assets/images/${video.videoPhoto }"
+										class="img-thumbnail image-view" /> </a>
+								</div>
+								<a class="song-name" href="${playVideo }">${video.name }</a>
+								<div>
+									<i> <c:forEach var="songDetail"
+											items="${video.songDetails }">
+											<c:url var="singerLink" value="/artist/singer/info.html">
+												<c:param name="id" value="${songDetail.singer.id }" />
+											</c:url>
+											<a class="singer-name" href="${singerLink }">${songDetail.singer.name }</a>
+											<c:if test="">
+												,&nbsp;
+											</c:if>
+										</c:forEach>
+									</i>
+								</div>
 							</div>
-							<a class="song-name" href="">Người lạ ơi</a>
-							<div>
-								<i> <a class="singer-name" href="">Karik</a>, <a
-									class="singer-name" href="">Orange</a>, <a class="singer-name"
-									href="">Superbrothers</a>
-								</i>
-							</div>
-						</div>
+						</c:forEach>
 						<!-- x4 -->
 					</div>
 				</div>
@@ -91,7 +102,7 @@
 							<div class="col-xs-2">
 								<c:url var="playListLink" value="/song/playlist.html" />
 								<a class="play-all-btn" href="${playListLink }"
-									title="Phát tất cả"> <span
+									title="play all..."> <span
 									class="glyphicon glyphicon-play-circle"></span>
 								</a>
 							</div>

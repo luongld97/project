@@ -38,7 +38,7 @@ public interface SongService {
 	public SongEntity getSongEntity(int id);
 
 	public List<Song> randomSong(int limit);
-	
+
 	public List<Song> randomSong(int limit, boolean isVideo);
 
 	public List<Song> randomSong(int limit, boolean isVideo, Song current);
@@ -50,5 +50,9 @@ public interface SongService {
 	public List<Song> getTopSongs(Singer singer, Integer limit);
 
 	public List<SongEntity> getTopSong(boolean isVideo, Date currentDate, Integer limit);
+
+	public List<Song> getTopSongs(Integer limit);
+	
+	public List<Song> getTopSong(boolean isVideo, Date currentDate, int limit);
 
 }
