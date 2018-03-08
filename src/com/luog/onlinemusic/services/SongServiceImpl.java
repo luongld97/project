@@ -292,4 +292,9 @@ public class SongServiceImpl implements SongService {
 		return songDAO.randomSong(limit, isVideo, current);
 	}
 
+	@Override
+	public List<Song> getTopSong(boolean isVideo, Date currentDate, int limit) {
+		return songDAO.getTopSong(isVideo, currentDate, limit);
+	}
+
 }

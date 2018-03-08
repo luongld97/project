@@ -59,20 +59,32 @@
 					<a href="<c:url value="home/video.html"/>"><h3
 							class="color-purple">VIDEO HOT</h3></a>
 					<div class="row mb-2">
-						<div class="col-xs-3 col-md-3">
-							<div class="my-img-120">
-								<img
-									src="${pageContext.request.contextPath }/assets/images/"
-									class="img-thumbnail image-view" />
+						<c:forEach var="video" items="${videos }">
+							<c:url var="playVideo" value="/song/play.html?video">
+								<c:param name="id" value="${video.id }" />
+							</c:url>
+							<div class="col-xs-3 col-md-3">
+								<div class="my-img-120">
+									<a class="song-name" href="${playVideo }"><img
+										src="${pageContext.request.contextPath }/assets/images/${video.videoPhoto }"
+										class="img-thumbnail image-view" /> </a>
+								</div>
+								<a class="song-name" href="${playVideo }">${video.name }</a>
+								<div>
+									<i> <c:forEach var="songDetail"
+											items="${video.songDetails }">
+											<c:url var="singerLink" value="/artist/singer/info.html">
+												<c:param name="id" value="${songDetail.singer.id }" />
+											</c:url>
+											<a class="singer-name" href="${singerLink }">${songDetail.singer.name }</a>
+											<c:if test="">
+												,&nbsp;
+											</c:if>
+										</c:forEach>
+									</i>
+								</div>
 							</div>
-							<a class="song-name" href="">Người lạ ơi</a>
-							<div>
-								<i> <a class="singer-name" href="">Karik</a>, <a
-									class="singer-name" href="">Orange</a>, <a class="singer-name"
-									href="">Superbrothers</a>
-								</i>
-							</div>
-						</div>
+						</c:forEach>
 						<!-- x4 -->
 					</div>
 				</div>

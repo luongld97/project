@@ -55,6 +55,7 @@ public class HomeController {
 			e.printStackTrace();
 			currentCharts = new ArrayList<>();
 		}
+		modelMap.put("videos", songService.getTopSong(true, chartTime, 4));
 		modelMap.put("charts", currentCharts);
 		return "home.index";
 	}
