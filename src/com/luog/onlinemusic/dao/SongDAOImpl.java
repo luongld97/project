@@ -397,7 +397,8 @@ public class SongDAOImpl implements SongDAO {
 		try {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
-			query = session.createQuery("FROM Song " + "WHERE video = :video AND status = :status " + "ORDER BY rand()");
+			query = session
+					.createQuery("FROM Song " + "WHERE video = :video AND status = :status " + "ORDER BY rand()");
 			query.setParameter("status", true);
 			query.setParameter("video", isVideo);
 			query.setMaxResults(limit);
@@ -606,6 +607,37 @@ public class SongDAOImpl implements SongDAO {
 			query.setParameter("status", true);
 			query.setParameter("singer", current);
 			query.setMaxResults(limit);
+			songs = query.list();
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			songs = new ArrayList<>();
+			if (transaction != null)
+				transaction.rollback();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return songs;
+	}
+
+	/**
+	 * @author luog
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Song> getTopSongs(Integer limit) {
+		List<Song> songs = null;
+		Session session = null;
+		Transaction transaction = null;
+		Query query = null;
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			query = session.createQuery("FROM Song WHERE status = :status " + "ORDER BY listen DESC");
+			query.setParameter("status", true);
+			if (limit != null)
+				query.setMaxResults(limit);
 			songs = query.list();
 			transaction.commit();
 		} catch (Exception e) {

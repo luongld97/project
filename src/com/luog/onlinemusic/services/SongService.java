@@ -51,6 +51,8 @@ public interface SongService {
 
 	public List<SongEntity> getTopSong(boolean isVideo, Date currentDate, Integer limit);
 
+	public List<Song> getTopSongs(Integer limit);
+	
 	public List<Song> getTopSong(boolean isVideo, Date currentDate, int limit);
 
 }

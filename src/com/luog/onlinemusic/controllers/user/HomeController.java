@@ -46,15 +46,16 @@ public class HomeController {
 		Date chartTime = new Date();
 		try {
 			LocalDate localDate = chartTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-			currentCharts = chartService.getChartsByMonth(chartTime, 5);
-			if (currentCharts.isEmpty() || currentCharts.size() < 5) {
+			currentCharts = chartService.getChartsByMonth(chartTime, 10);
+			if (currentCharts.isEmpty() || currentCharts.size() < 10) {
 				chartTime = Date.from(localDate.minusMonths(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
-				currentCharts = chartService.getChartsByMonth(chartTime, 5);
+				currentCharts = chartService.getChartsByMonth(chartTime, 10);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			currentCharts = new ArrayList<>();
 		}
+		modelMap.put("chartSongs", songService.getTopSongs(5));
 		modelMap.put("videos", songService.getTopSong(true, chartTime, 4));
 		modelMap.put("charts", currentCharts);
 		return "home.index";

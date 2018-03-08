@@ -18,8 +18,7 @@
 				<!-- List TOP 5 -->
 				<div class="col-xs-12 col-md-12 body-left">
 					<ul class="list-item">
-						<c:forEach items="${charts }" var="chart" varStatus="i">
-							<c:set var="song" value="${chart.song }" />
+						<c:forEach items="${chartSongs }" var="song" varStatus="i">
 							<c:url var="listenLink" value="/song/play.html">
 								<c:param name="id" value="${song.id }" />
 							</c:url>
@@ -48,7 +47,7 @@
 										href="#modal-add-play-list" title="Add to..."
 										data-toggle="modal"><span class="glyphicon glyphicon-plus"></span></a>
 								</div>
-								<div class="number-listen">${chart.listen }</div>
+								<div class="number-listen">${song.listen }</div>
 							</li>
 						</c:forEach>
 					</ul>
@@ -103,7 +102,7 @@
 							<div class="col-xs-2">
 								<c:url var="playListLink" value="/song/playlist.html" />
 								<a class="play-all-btn" href="${playListLink }"
-									title="Phát tất cả"> <span
+									title="play all..."> <span
 									class="glyphicon glyphicon-play-circle"></span>
 								</a>
 							</div>

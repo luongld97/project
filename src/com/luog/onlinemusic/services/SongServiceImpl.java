@@ -297,4 +297,9 @@ public class SongServiceImpl implements SongService {
 		return songDAO.getTopSong(isVideo, currentDate, limit);
 	}
 
+	@Override
+	public List<Song> getTopSongs(Integer limit) {
+		return songDAO.getTopSongs(limit);
+	}
+
 }
