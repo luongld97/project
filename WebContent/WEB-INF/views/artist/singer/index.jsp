@@ -8,18 +8,20 @@
 		<tiles:insertDefinition name="artist.singer.header" />
 		<div class="row">
 			<!-- Body Left -->
-			<div class="col-md-9">
-				<div class="col-md-12 body-left">
+			<div class="col-xs-9 col-md-9">
+				<div class="col-xs-12 col-md-12 body-left">
+				<div class="row">
 					<a href="">
-						<h3 class="title-list-index">${singer.name.toUpperCase() }' S SONG</h3>
+						<h3 class="color-purple">${singer.name.toUpperCase() }' S SONG</h3>
 					</a>
 					&nbsp;
 					<c:url var="playTopSongs" value="/artist/singer/play-list.html">
 						<c:param name="id" value="${singer.id }"/>
 					</c:url>
-					<a class="artic-play-all-btn" href="${playTopSongs }" title="Phát tất cả">
+					<a class="artic-play-all-btn" href="${playTopSongs }" title="Play all">
 						<span	class="glyphicon glyphicon-play-circle" />
 					</a>
+					</div>
 					<ul class="list-item">
 						<c:forEach var="song" items="${topSongs }">
 							<c:url var="songLink" value="/song/play.html" >
@@ -239,7 +241,7 @@
 			</div>
 			<!-- End Body Left -->
 			<!-- Body Right -->
-			<div class="col-md-4"></div>
+			<div class="col-xs-3 col-md-3"></div>
 			<!-- End Body Right -->
 		</div>
 	</div>

@@ -3,13 +3,15 @@
 <!-- Body Left  -->
 <div class="col-xs-3 col-md-3 mb-10">
 	<div class="row mt-2">
-		<div class="col-md-3 pr-0">
-			<img
-				src="${pageContext.request.contextPath }/assets/images/${sessionScope.currentAccount.photo }"
-				class="image-avatar img-thumbnail">
+		<div class="col-xs-3 col-md-3 pr-0">
+			<div class="image-avatar img-thumbnail">
+				<img
+					src="${pageContext.request.contextPath }/assets/images/${sessionScope.currentAccount.photo }"
+					class="image-view" />
+			</div>
 		</div>
-		<div class="col-md-9">
-			<div class="mt-2">
+		<div class="col-xs-9 col-md-9">
+			<div class="pt-2">
 				<strong>${sessionScope.currentAccount.username }</strong>
 			</div>
 		</div>

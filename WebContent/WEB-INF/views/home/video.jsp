@@ -12,7 +12,7 @@
 <!--Start Body Web-->
 <div class="body-web">
 	<div class="container bg-web">
-		<h1 class="title-list-index">ALL VIDEO</h1>
+		<h1 class="color-purple">ALL VIDEO</h1>
 
 		<c:forEach begin="0" end="3" var="i">
 			<c:set var="temp" value="${i % 4 }" />
@@ -20,16 +20,18 @@
 				<div class="row mb-3">
 					<c:forEach items="${videos.pageList }" var="video">
 						<c:if test="${temp == 3 }">
-							<div class="col-md-3">
+							<div class="col-xs-3 col-md-3">
 								<div class="">
 									<c:url var="playVideo" value="/song/play.html?video">
 										<c:param name="id" value="${video.id }" />
 									</c:url>
+									<div class="my-img-150 mt-2">
 									<a href="${playVideo }">
 										<img
 										src="${pageContext.request.contextPath }/assets/images/${video.videoPhoto }"
-										alt="" class="img-thumbnail mb-1">
+										alt="Video background" class="image-view img-thumbnail">
 									</a>
+									</div>
 										<br> 
 										<a href="${playVideo }">
 											<b>${video.name }</b>

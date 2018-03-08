@@ -22,10 +22,10 @@
 				<div class="col-md-4 col-xs-8 bg-form">
 					<div class="row mb-3">
 						<div class="pd-login col-xs-6 col-md-6">
-							<div class="text-center bg-login bg-is-selected">Đăng nhập</div>
+							<div class="text-center bg-login bg-is-selected">Sign In</div>
 						</div>
 						<div class="pd-register col-xs-6 col-md-6">
-							<div class="text-center bg-register">Đăng ký</div>
+							<div class="text-center bg-register">Sign Up</div>
 						</div>
 					</div>
 					<div id="login-tab">
@@ -35,20 +35,16 @@
 							<div class="form-group">
 								<div class="input-group">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-									<s:input type="text" class="form-control" placeholder="Tài khoản" path="username"></s:input>
+									<s:input type="text" class="form-control" placeholder="Username" path="username"></s:input>
 								</div>
 							</div>
 							<div class="form-group">
 								<div class="input-group">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-									<s:input type="password" class="form-control" placeholder="Mật khẩu" path="password"></s:input>
+									<s:input type="password" class="form-control" placeholder="Password" path="password"></s:input>
 								</div>
 							</div>
-							<div class="checkbox">
-								<label>
-									<input type="checkbox"> Lưu mật khẩu
-								</label>
-							</div>
+							
 							<c:if test="${error != null }"> 
 								<div class="sm-alert alert-danger">
 									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -57,10 +53,10 @@
 							</c:if>
 							
 							<div class="form-group">
-								<button type="submit" class="btn btn-success form-control">Đăng nhập</button>
+								<button type="submit" class="btn btn-success form-control">Sign In</button>
 							</div>
 							<div class="text-center">
-								<a href="${pageContext.request.contextPath }/home.html">Trở về trang chủ</a>
+								<a href="${pageContext.request.contextPath }/home.html">Return home</a>
 							</div>
 						</s:form>
 					</div>
@@ -70,7 +66,7 @@
 							<div class="form-group">
 								<div class="input-group">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-									<s:input type="text" class="form-control" placeholder="Tài khoản" path="username"></s:input>
+									<s:input type="text" class="form-control" placeholder="Username" path="username"></s:input>
 								</div>
 							</div>
 							<div class="sm-alert alert-danger">
@@ -80,7 +76,7 @@
 							<div class="form-group">
 								<div class="input-group">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-									<s:input type="password" class="form-control" placeholder="Mật khẩu" path="password"></s:input>
+									<s:input type="password" class="form-control" placeholder="Password" path="password"></s:input>
 								</div>
 							</div>
 							<div class="sm-alert alert-success">
@@ -90,7 +86,7 @@
 							<%-- <div class="form-group">
 								<div class="input-group">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-cog"></span></span>
-									<input type="password" class="form-control" placeholder="Xác nhận mật khẩu">
+									<s:input type="password" class="form-control" placeholder="Confirm password" path=""></s:input>
 								</div>
 							</div> --%>
 							<div class="sm-alert alert-danger">
@@ -101,7 +97,7 @@
 								<div class="input-group">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 									<input type="date" class="form-control" name="dateOfBirth"></input>
-									<span class="input-group-addon">Ngày sinh</span>
+									<span class="input-group-addon">Birthday</span>
 								</div>
 							</div>
 							<div class="sm-alert alert-warning">
@@ -113,7 +109,7 @@
 									<span class="input-group-addon"><span class="glyphicon glyphicon-picture"></span></span>
 									<div class="custom-file">
 										<input name="file" type="file" class="custom-file-input form-control"></input>
-										<span class="custom-file-label">Chọn ảnh đại diện</span>
+										<span class="custom-file-label">Choose avatar</span>
 									</div>
 								</div>
 							</div>
@@ -124,7 +120,7 @@
 							<div class="form-group">
 								<div class="input-group">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-phone-alt"></span></span>
-									<s:input type="text" class="form-control" placeholder="Số điện thoại" path="phone"></s:input>
+									<s:input type="text" class="form-control" placeholder="Phone number" path="phone"></s:input>
 								</div>
 							</div>
 							<div class="sm-alert alert-warning">
@@ -135,10 +131,10 @@
 								<div class="input-group">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-heart"></span></span>
 									<s:select class="form-control" path="gender">
-										<option selected>Chọn giới tính...</option>
-										<option value="male">Nam</option>
-										<option value="female">Nữ</option>
-										<option value="other">Khác</option>
+										<option selected>Choose gender...</option>
+										<option value="male">Male</option>
+										<option value="female">Feemale</option>
+										<option value="other">Other</option>
 									</s:select>
 								</div>
 							</div>
@@ -148,10 +144,10 @@
 							</div>
 							${errors }
 							<div class="form-group">
-								<button type="submit" class="btn btn-success form-control">Đăng ký</button>
+								<button type="submit" class="btn btn-success form-control">Sign Up</button>
 							</div>
 							<div class="text-center">
-								<a href="${pageContext.request.contextPath }/home.html">Trở về trang chủ</a>
+								<a href="${pageContext.request.contextPath }/home.html">Return home</a>
 							</div>
 						</s:form>
 					</div>
