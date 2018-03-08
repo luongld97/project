@@ -47,7 +47,6 @@ public class AlbumEntity implements java.io.Serializable {
 		this.releasedTime = releasedTime;
 	}
 
-	@NotEmpty
 	public String getSingers() {
 		return singers;
 	}
@@ -56,7 +55,6 @@ public class AlbumEntity implements java.io.Serializable {
 		this.singers = singers;
 	}
 
-	@NotEmpty
 	public String getSongs() {
 		return songs;
 	}
