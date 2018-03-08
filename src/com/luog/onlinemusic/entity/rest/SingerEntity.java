@@ -52,7 +52,6 @@ public class SingerEntity {
 		this.nickName = nickName;
 	}
 
-	@NotEmpty
 	public String getDateOfBirth() {
 		return dateOfBirth;
 	}
