@@ -1,24 +1,30 @@
 package com.luog.onlinemusic.controllers.user;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.ServletRequestUtils;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.luog.onlinemusic.entity.commons.Account;
 import com.luog.onlinemusic.entity.commons.Author;
@@ -27,11 +33,15 @@ import com.luog.onlinemusic.entity.commons.Role;
 import com.luog.onlinemusic.services.AccountService;
 import com.luog.onlinemusic.services.PlayListService;
 import com.luog.onlinemusic.services.RoleService;
+import com.sun.xml.internal.ws.api.pipe.Fiber;
 
 @Controller
 @RequestMapping("account")
 public class AccountController {
-
+	
+	@Autowired
+	ServletContext context;
+	
 	@Autowired
 	public AccountService accountService;
 
@@ -62,7 +72,12 @@ public class AccountController {
 
 		return "redirect:../home.html";
 	}
-
+	
+	@InitBinder
+    public void initBinder(WebDataBinder binder){
+        binder.registerCustomEditor(Date.class,new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"),true));
+    }
+	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String register(@RequestParam(value = "error", required = false) String error, ModelMap modelMap) {
 		modelMap.put("account", new Account());
@@ -75,20 +90,23 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String registerProccess(@ModelAttribute("account") Account account, ModelMap modelMap) {
+	public String registerProccess(@ModelAttribute("account") Account account, ModelMap modelMap, MultipartFile file) {
 		Role role = roleService.find(3);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Calendar cal = Calendar.getInstance();
 		String date = dateFormat.format(cal.getTime());
-		;
+		
 		try {
+			if(!file.isEmpty()) {
+				String path = context.getRealPath("/assets/images") + File.separator + file.getOriginalFilename();
+				file.transferTo(new File(path));
+			}
+			account.setPhoto(file.getOriginalFilename());
 			account.setCreatedTime(dateFormat.parse(date));
 			account.setStatus(true);
 			account.setRole(role);
 			if (accountService.create(account)) {
-
 				return "redirect:/account/login.html";
-
 			} else {
 				return "redirect:/account/register.html?error";
 			}
@@ -132,11 +150,10 @@ public class AccountController {
 		return "redirect:/account/login.html";
 	}
 	
-	@RequestMapping(value = "/accountfinfo", method = RequestMethod.POST)
-	public String getInfoAccount(@ModelAttribute("account") Account infoAccount, ModelMap modelMap,
+	@RequestMapping(value = "/accountinfo", method = RequestMethod.GET)
+	public String getInfoAccount(ModelMap modelMap,
 			HttpSession httpSession) {
-		Account currentAccount = accountService.find(infoAccount.getUsername());
-		modelMap.put("account", currentAccount);
+		
 		return "user.accountinfo";
 	}
 	

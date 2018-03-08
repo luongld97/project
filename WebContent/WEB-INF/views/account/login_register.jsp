@@ -65,7 +65,7 @@
 						</s:form>
 					</div>
 					<div id="register-tab" >
-						<s:form commandName="account"
+						<s:form commandName="account" enctype="multipart/form-data"
 							action="${pageContext.request.contextPath }/account/register.html" method="post">
 							<div class="form-group">
 								<div class="input-group">
@@ -100,7 +100,7 @@
 							<div class="form-group">
 								<div class="input-group">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-									<s:input type="date" class="form-control" path="dateOfBirth"></s:input>
+									<input type="date" class="form-control" name="dateOfBirth"></input>
 									<span class="input-group-addon">Ngày sinh</span>
 								</div>
 							</div>
@@ -112,7 +112,7 @@
 								<div class="input-group">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-picture"></span></span>
 									<div class="custom-file">
-										<s:input type="file" class="custom-file-input form-control" path=""></s:input>
+										<input name="file" type="file" class="custom-file-input form-control"></input>
 										<span class="custom-file-label">Chọn ảnh đại diện</span>
 									</div>
 								</div>
