@@ -29,12 +29,12 @@ public class ArtistController {
 
 	@Autowired
 	private SongService songService;
-	
+
 	@Autowired
 	private AlbumService albumService;
-	
+
 	private final int LIST_SONG_LIMIT = 7;
-	
+
 	/**
 	 * @author luog
 	 */
@@ -50,6 +50,20 @@ public class ArtistController {
 			}
 		}
 		return tileName;
+	}
+
+	/**
+	 * @author luog
+	 */
+	@RequestMapping(value = { "/singer/allsinger", "singer/list" }, method = RequestMethod.GET)
+	public String allSingers(HttpServletRequest request, ModelMap modelMap) {
+		List<Singer> singers = singerService.findAll();
+		PagedListHolder<Singer> pagedListHolder = new PagedListHolder<>(singers);
+		int page = ServletRequestUtils.getIntParameter(request, "page", 0);
+		pagedListHolder.setPage(page);
+		pagedListHolder.setPageSize(30);
+		modelMap.put("singers", pagedListHolder);
+		return "artist.singer.allsinger";
 	}
 
 	/**

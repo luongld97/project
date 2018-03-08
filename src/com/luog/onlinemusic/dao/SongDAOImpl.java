@@ -353,28 +353,22 @@ public class SongDAOImpl implements SongDAO {
 		return songEntity;
 	}
 
+	/**
+	 * @author luog
+	 */
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Song> randomSong(int limit, Song current) {
+	public List<Song> randomSong(int limit) {
 		List<Song> songs = null;
 		Session session = null;
 		Transaction transaction = null;
 		Query query = null;
 		try {
-			songs = new ArrayList<>();
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
 			query = session.createQuery("FROM Song ORDER BY rand()");
-			query.setMaxResults(1);
-			while (songs.size() < limit) {
-				Song song = (Song) query.list().get(0);
-				if (current != null) {
-					if (!songs.contains(current) && !songs.contains(song))
-						songs.add(song);
-				} else {
-					if (!songs.contains(song))
-						songs.add(song);
-				}
-			}
+			query.setMaxResults(limit);
+			songs = query.list();
 			transaction.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -388,9 +382,12 @@ public class SongDAOImpl implements SongDAO {
 		return songs;
 	}
 
+	/**
+	 * @author luog
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Song> randomSong(Singer singer, boolean isVideo, int limit, Song current) {
+	public List<Song> randomSong(int limit, boolean isVideo) {
 		List<Song> songs = null;
 		Session session = null;
 		Transaction transaction = null;
@@ -398,13 +395,44 @@ public class SongDAOImpl implements SongDAO {
 		try {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
-			query = session.createQuery("SELECT so " + "FROM Song so, " + "SongDetail sd " + "WHERE so != :song "
-					+ "AND sd.song = so " + "AND sd.singer = :singer " + "AND so.video = :video " + "ORDER BY rand()");
-			query.setParameter("singer", singer);
+			query = session.createQuery("FROM Song " + "WHERE video = :video " + "ORDER BY rand()");
 			query.setParameter("video", isVideo);
-			query.setParameter("song", current);
 			query.setMaxResults(limit);
 			songs = query.list();
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			songs = new ArrayList<>();
+			if (transaction != null)
+				transaction.rollback();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return songs;
+	}
+
+	/**
+	 * @author luog
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Song> randomSong(int limit, boolean isVideo, Song current) {
+		List<Song> songs = null;
+		Session session = null;
+		Transaction transaction = null;
+		Query query = null;
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			query = session.createQuery("FROM Song " + "WHERE video = :video " + "ORDER BY rand()");
+			query.setParameter("video", isVideo);
+			query.setMaxResults(limit);
+			songs = query.list();
+			if (current != null) {
+				if (songs.contains(current))
+					songs.remove(current);
+			}
 			transaction.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -514,7 +542,7 @@ public class SongDAOImpl implements SongDAO {
 		}
 		return songs;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Song> getTopSong(boolean isVideo, Date currentDate, Integer limit) {
@@ -527,9 +555,9 @@ public class SongDAOImpl implements SongDAO {
 			localDate = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
-			query = session.createQuery(
-					"SELECT so FROM Chart ch, Song so " + "WHERE month(ch.date) = :month " + "AND year(ch.date) = :year "
-							+ "AND so.status = :status AND ch.song = so AND ch.video = :video " + "ORDER BY ch.listen DESC");
+			query = session.createQuery("SELECT so FROM Chart ch, Song so " + "WHERE month(ch.date) = :month "
+					+ "AND year(ch.date) = :year " + "AND so.status = :status AND ch.song = so AND ch.video = :video "
+					+ "ORDER BY ch.listen DESC");
 			query.setParameter("status", true);
 			query.setParameter("video", isVideo);
 			query.setParameter("month", localDate.getMonthValue());

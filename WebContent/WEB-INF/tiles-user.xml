@@ -23,6 +23,11 @@
 	<definition name="home.search" extends="user.master.template">
 		<put-attribute name="content" value="/WEB-INF/views/home/search.jsp" />
 	</definition>
+	
+	<definition name="home.chart" extends="user.master.template">
+		<put-attribute name="content" value="/WEB-INF/views/home/chart.jsp" />
+	</definition>
+	<definition name="play.list.body.left" template="/WEB-INF/views/account/play-list-body-left.jsp" />
 	<!-- End Home area -->
 
 	<!-- Album area -->
@@ -55,6 +60,10 @@
 	<definition name="artist.singer.song" extends="user.master.template">
 		<put-attribute name="content"
 			value="/WEB-INF/views/artist/singer/song.jsp" />
+	</definition>
+	<definition name="artist.singer.allsinger" extends="user.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/artist/singer/all-singer.jsp" />
 	</definition>
 	<definition name="artist.singer.album" extends="user.master.template">
 		<put-attribute name="content"

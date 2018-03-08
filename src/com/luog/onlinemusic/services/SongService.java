@@ -16,7 +16,7 @@ public interface SongService {
 	public List<Song> findAll(boolean video);
 
 	public Song find(int id);
-	
+
 	public Song find(int id, boolean status);
 
 	public boolean create(SongEntity temp);
@@ -28,23 +28,25 @@ public interface SongService {
 	public boolean delete(Song song);
 
 	public List<SongInfo> findSongInfo(Integer limit);
-	
+
 	public List<SongInfo> findMVSongInfo(Integer limit);
-	
+
 	public List<SongInfo> findSongBySinger(Singer singer);
-	
+
 	public List<SongInfo> findSongInCategory(Category category, Integer limit);
 
 	public SongEntity getSongEntity(int id);
 
-	public List<Song> randomSong(int limit, Song current);
+	public List<Song> randomSong(int limit);
+	
+	public List<Song> randomSong(int limit, boolean isVideo);
 
-	public List<Song> randomSong(Song current, boolean isVideo, int limit);
+	public List<Song> randomSong(int limit, boolean isVideo, Song current);
 
 	List<SongEntity> findSongEntities(String keyWord);
 
 	public List<Song> getTopSongs(Singer singer, Integer limit);
-	
+
 	public List<SongEntity> getTopSong(boolean isVideo, Date currentDate, Integer limit);
-	
+
 }

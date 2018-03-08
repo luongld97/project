@@ -1,67 +1,63 @@
 /******************************************************************
 For All
 ******************************************************************/
-a {
+a{
 	text-decoration: none !important;
 }
 
-.mb-0 {
+.mb-0{
 	margin-bottom: 0px !important;
 }
 
-.mb-1 {
-	margin-bottom: 0px !important;
-}
-
-.mb-1 {
+.mb-1{
 	margin-bottom: 10px !important;
 }
 
-.mb-2 {
+.mb-2{
 	margin-bottom: 20px !important;
 }
 
-.mb-3 {
+.mb-3{
 	margin-bottom: 30px !important;
 }
 
-.mb-10 {
+.mb-4{
+	margin-bottom: 40px !important;
+}
+
+.mb-10{
 	margin-bottom: 100px !important;
 }
 
-.mt-1 {
+.mt-1{
 	margin-top: 10px !important;
 }
 
-.mt-2 {
+.mt-2{
 	margin-top: 20px !important;
 }
 
-.mt-3 {
+.mt-3{
 	margin-top: 30px !important;
 }
 
-.ml-4 {
+.mt-4{
+	margin-top: 40px !important;
+}
+
+.ml-4{
 	margin-left: 40px !important;
 }
 
-.mr-2 {
-	margin-right: 20px !important;
+.mr-2{
+	margin-right: 20px !important;	
 }
 
-.ml-4 {
-	margin-left: 40px !important;
-}
-
-.mr-2 {
-	margin-right: 20px !important;
-}
-
-.float-right {
+.float-right{
 	float: right !important;
 }
 
-.float-left {
+.float-left{
 	float: left !important;
 }
 
@@ -72,12 +68,48 @@ a {
 	border-radius: 4px;
 }
 
-.pl-0 {
+
+.pl-0{
 	padding-left: 0px !important;
 }
 
-.pr-0 {
+.pl-1{
+	padding-left: 10px !important;	
+}
+
+.pr-0{
 	padding-right: 0px !important;
+}
+
+h3{
+	margin: 10px 0px 10px 0px !important;
+}
+
+.full-width{
+	width: 100%;
+}
+
+.custom-file {
+  position: relative;
+  width: 100%;
+}
+
+.custom-file-input {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  opacity: 0;
+}
+
+.custom-file-label {
+  position: absolute;
+  right: 0;
+  left: 0;
+  padding: 6px;
+  color: #495057;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 0 4px 4px 0;
 }
 
 h3 {
@@ -891,4 +923,13 @@ Chart
 .play-video {
 	border: solid 4px;
 	border-color: blue red purple goldenrod;
+}
+
+#list-song {
+	height: 150px;
+	overflow: auto;
+}
+
+#play_list_dropbox_chosen {
+	width: 100%;
 }

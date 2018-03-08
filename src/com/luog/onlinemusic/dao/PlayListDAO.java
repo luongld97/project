@@ -25,5 +25,7 @@ public interface PlayListDAO {
 	
 	public boolean contain(Song song, PlayList inPlayList);
 	
+	public List<PlayList> randomPlayList(Account account, PlayList current, int limit);
+	
 	public boolean isExist(String name);
 }
