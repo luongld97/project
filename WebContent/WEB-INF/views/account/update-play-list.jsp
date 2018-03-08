@@ -28,7 +28,8 @@
 					<div class="col-xs-8 col-md-8">
 						<c:url var="postLink" value="/account/playlist/update.html" />
 						<s:form cssClass="form-horizontal" commandName="playList"
-							action="${postLink }" method="post">
+							action="${postLink }" method="post" enctype="multipart/form-data">
+							<s:hidden path="id" />
 							<div class="form-group">
 								<label class="col-sm-4 control-label">Name:</label>
 								<div class="col-sm-8">
@@ -38,15 +39,21 @@
 							<div class="form-group">
 								<label class="col-sm-4"></label>
 								<div class="col-sm-8 checkbox">
-									<label> <input type="checkbox" /> Change background ?
+									<label> <input type="checkbox"
+										${fileTypeError != null ? 'checked' : '' } /> Change
+										background ?
 									</label>
 								</div>
 							</div>
-							<div class="form-group" id="image-form" style="display: none;">
+							<div class="form-group" id="image-form"
+								style="display: ${fileTypeError != null ? 'block': 'none'};">
 								<label class="col-sm-4"></label>
-								<div class="col-sm-8 checkbox">
-									<span class="sm-alert alert-danger" style="display: none;">{fileTypeError
-										}</span> <input type="file" name="albumPhoto" accept="image/*" />
+								<div class="col-sm-8">
+									<span
+										class="sm-alert alert-danger ${fileTypeError != null ? '' : 'hidden' }"
+										style="display: block;">${fileTypeError
+										}</span> <input
+										type="file" name="albumPhoto" accept="image/*" />
 								</div>
 							</div>
 							<div class="form-group">

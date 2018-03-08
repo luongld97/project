@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.luog.onlinemusic.entity.commons.Account;
@@ -35,6 +36,7 @@ import com.luog.onlinemusic.entity.commons.PlayList;
 import com.luog.onlinemusic.entity.commons.PlayListDetail;
 import com.luog.onlinemusic.entity.commons.Role;
 import com.luog.onlinemusic.entity.commons.Song;
+import com.luog.onlinemusic.helpers.ImageHelper;
 import com.luog.onlinemusic.services.AccountService;
 import com.luog.onlinemusic.services.PlayListService;
 import com.luog.onlinemusic.services.RoleService;
@@ -42,10 +44,10 @@ import com.sun.xml.internal.ws.api.pipe.Fiber;
 
 @Controller
 @RequestMapping("account")
-public class AccountController {
+public class AccountController implements ServletContextAware {
 
 	@Autowired
-	ServletContext context;
+	private ServletContext servletContext;
 
 	@Autowired
 	private AccountService accountService;
@@ -103,7 +105,8 @@ public class AccountController {
 
 		try {
 			if (!file.isEmpty()) {
-				String path = context.getRealPath("/assets/images") + File.separator + file.getOriginalFilename();
+				String path = servletContext.getRealPath("/assets/images") + File.separator
+						+ file.getOriginalFilename();
 				file.transferTo(new File(path));
 			}
 			account.setPhoto(file.getOriginalFilename());
@@ -156,8 +159,8 @@ public class AccountController {
 	 * @author luog
 	 */
 	@RequestMapping(value = { "/playlist/update" }, method = RequestMethod.GET)
-	public String updatePlayList(@RequestParam(value = "id", required = false) Integer id, HttpServletRequest request, HttpSession session,
-			ModelMap modelMap) {
+	public String updatePlayList(@RequestParam(value = "id", required = false) Integer id, HttpServletRequest request,
+			HttpSession session, ModelMap modelMap) {
 		if (id != null) {
 			Account currentAccount = (Account) session.getAttribute("currentAccount");
 			if (currentAccount != null) {
@@ -176,7 +179,6 @@ public class AccountController {
 			}
 			return "redirect:/account/login.html";
 		}
-
 		return "redirect:/";
 	}
 
@@ -184,13 +186,38 @@ public class AccountController {
 	 * @author luog
 	 */
 	@RequestMapping(value = { "/playlist/update" }, method = RequestMethod.POST)
-	public String updatePlayListAction(@ModelAttribute("playList") @Valid PlayList playList, HttpSession session,
-			ModelMap modelMap) {
-
+	public String updatePlayListAction(@ModelAttribute("playList") @Valid PlayList playList,
+			BindingResult bindingResult, @RequestParam(value = "albumPhoto", required = false) MultipartFile image,
+			HttpSession session, HttpServletRequest request, ModelMap modelMap) {
 		Account currentAccount = (Account) session.getAttribute("currentAccount");
 		if (currentAccount != null) {
-			System.out.println(currentAccount.getUsername());
-			System.out.println(playList.getName());
+			if (!bindingResult.hasErrors()) {
+				PlayList currentPlayList = playListService.find(playList.getId());
+				if (!image.isEmpty()) {
+					if (ImageHelper.validateImage(image)) {
+						currentPlayList.setPhoto(ImageHelper.saveImage(servletContext, image));
+					} else {
+						modelMap.put("fileTypeError", "This file is not support!");
+						List<Song> songs = new ArrayList<>();
+						Set<PlayListDetail> playListDetails = playList.getPlayListDetails();
+						for (PlayListDetail playListDetail : playListDetails)
+							songs.add(playListDetail.getSong());
+						PagedListHolder<Song> pagedListHolder = new PagedListHolder<>(songs);
+						int page = ServletRequestUtils.getIntParameter(request, "page", 0);
+						pagedListHolder.setPage(page);
+						pagedListHolder.setPageSize(2);
+						modelMap.put("songs", pagedListHolder);
+						modelMap.put("playList", currentPlayList);
+						return "user.playlist.update";
+					}
+				}
+
+				currentPlayList.setName(playList.getName());
+				playList.setAccount(currentAccount);
+				boolean result = playListService.update(currentPlayList);
+				if (result)
+					return "redirect: ../playlist.html";
+			}
 		}
 		return "redirect:/account/login.html";
 	}
@@ -235,6 +262,11 @@ public class AccountController {
 	@RequestMapping(value = "/accountinfo", method = RequestMethod.GET)
 	public String getInfoAccount(ModelMap modelMap, HttpSession httpSession) {
 		return "user.accountinfo";
+	}
+
+	@Override
+	public void setServletContext(ServletContext servletContext) {
+		this.servletContext = servletContext;
 	}
 
 }

@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.luog.onlinemusic.dao.PlayListDAO;
+import com.luog.onlinemusic.dao.PlaylistDetailDAO;
 import com.luog.onlinemusic.entity.commons.Account;
 import com.luog.onlinemusic.entity.commons.PlayList;
+import com.luog.onlinemusic.entity.commons.PlayListDetail;
 import com.luog.onlinemusic.entity.commons.Song;
 import com.luog.onlinemusic.entity.rest.PlayListEntity;
 
@@ -19,6 +21,9 @@ public class PlayListServiceImpl implements PlayListService {
 
 	@Autowired
 	private PlayListDAO playListDAO;
+
+	@Autowired
+	private PlaylistDetailDAO playListDetailDAO;
 
 	@Override
 	public List<PlayList> findAll() {
@@ -42,7 +47,18 @@ public class PlayListServiceImpl implements PlayListService {
 
 	@Override
 	public boolean delete(PlayList playList) {
-		return playListDAO.delete(playList);
+		boolean result = false;
+		try {
+			for (PlayListDetail playListDetail : playList.getPlayListDetails()) {
+				result = playListDetailDAO.delete(playListDetail);
+			}
+			if (result) {
+				result = playListDAO.delete(playList);
+			}
+		} catch (Exception e) {
+			result = false;
+		}
+		return result;
 	}
 
 	/**
