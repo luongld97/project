@@ -9,51 +9,44 @@
 			<tiles:insertDefinition name="play.list.body.left" />
 			<!-- Body Right -->
 			<div class="col-md-9">
-				<h2 class="pl-title-top">UPDATE PLAYLIST</h2>
-				<hr>
 				<div class="row">
-					<div class="col-md-4">
-						<img
-							src="${pageContext.request.contextPath }/assets/images/${playList.photo }"
-							class="img-thumbnail" alt=""> <br> <br> <label>Change
-							background?</label> <input type="file">
+					<div class="col-xs-4 col-md-4">
+						<div class="img-thumbnail my-img-120">
+							<img src="${pageContext.request.contextPath }/images/default_playlist.png" class="image-view" alt="">
+						</div>
 					</div>
-					<div class="col-md-8">
+					<div class="col-xs-8 col-md-8">
 						<form class="form-horizontal">
 							<div class="form-group">
-								<label class="col-sm-4 control-label">Name:</label>
+								<label class="col-sm-4 control-label">Playlist name</label>
 								<div class="col-sm-8">
 									<input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Change background?</label>
+								<div class="col-sm-8">
+									<input type="file">
 								</div>
 							</div>
 						</form>
 					</div>
 				</div>
-				<h3 class="title-list-index mt-3">List song</h3>
+				<h2 class="title-list-index mt-3">List song</h2>
 				<div class="row mt-2">
-					<div class="col-md-12">
-						<ul class="list-item">
-							<c:forEach var="song" items="">
-								<li class="edit-playlist-item-song">
-									<div class="row">
-										<div class="col-md-9">
-											05. <a href="">Người Lạ ơi</a>
-										</div>
-										<div class="col-md-3">
-											<div class="float-right">
-												<a class="playlist-btn-nm" href="" title="Delete song"><span
-													class="glyphicon glyphicon-remove"></span></a>
-											</div>
-										</div>
-									</div>
-								</li>
-								<hr class="hr-css1" />
-							</c:forEach>
-						</ul>
-						<div class="text-right mt-3 mb-3">
-							<a href=""><button class="btn btn-success">Update</button></a> <a
-								href=""><button class="btn btn-success">Cancel</button></a>
+					<div class="col-xs-12 col-md-12">
+						<div class="row">
+							<div class="col-xs-9 col-md-9 edit-playlist-song-name">
+								<span>01. <a href="">Người Lạ ơi</a></span>
+							</div>
+							<div class="col-xs-3 col-md-3">
+								<div class="text-right">
+									<a class="playlist-btn-nm" href="" title="Delete song"><span
+										class="glyphicon glyphicon-remove"></span></a>
+								</div>
+							</div>
 						</div>
+						<hr class="hr-css1">
 					</div>
 				</div>
 			</div>
