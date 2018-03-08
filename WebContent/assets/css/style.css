@@ -925,7 +925,6 @@ Chart
 	border-color: blue red purple goldenrod;
 }
 
-<<<<<<< HEAD
 .height-image-playlist{
 	height: 121px !important;
 	width: 100% !important;
@@ -933,8 +932,8 @@ Chart
 
 .img-max-height{
 	max-height: 100% !important;
+}	
 	
-=======
 #list-song {
 	height: 150px;
 	overflow: auto;
@@ -942,5 +941,4 @@ Chart
 
 #play_list_dropbox_chosen {
 	width: 100%;
->>>>>>> 5c1a78d90c58e90ee8875f3fe76cc629f44d1703
 }
