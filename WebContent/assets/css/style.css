@@ -125,8 +125,18 @@ Header
 }
 
 .login{
-	margin-top: 11px;
+	margin-top: 15px;
 	text-align: right;
+}
+
+.login-btn{
+	color: red;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.login-btn:hover{
+	color: yellow;
 }
 
 .login-form{
@@ -296,7 +306,7 @@ Body Left
 	font-size: 25px;
 }
 
-.title-list-index{
+.color-purple{
 	color: purple;
 }
 /***********************
@@ -329,9 +339,6 @@ Body Right
 }
 
 .text-view-more{
-	position: absolute;
-	top: 0px;
-	right: 0;
 	color: blue;
 }
 

@@ -18,13 +18,13 @@
 		</div>
 		<div class="container">
 			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="col-md-4 bg-form">
+				<div class="col-md-4 col-xs-2"></div>
+				<div class="col-md-4 col-xs-8 bg-form">
 					<div class="row mb-3">
-						<div class="pd-login col-md-6">
+						<div class="pd-login col-xs-6 col-md-6">
 							<div class="text-center bg-login bg-is-selected">Đăng nhập</div>
 						</div>
-						<div class="pd-register col-md-6">
+						<div class="pd-register col-xs-6 col-md-6">
 							<div class="text-center bg-register">Đăng ký</div>
 						</div>
 					</div>
@@ -156,7 +156,7 @@
 						</s:form>
 					</div>
 				</div>
-				<div class="col-md-4"></div>
+				<div class="col-md-4 col-xs-2"></div>
 			</div>
 		</div>
 	</body>
