@@ -7,16 +7,16 @@
 	<div class="container bg-web">
 		<div class="row">
 			<!-- Body Left -->
-			<div class="col-md-8">
+			<div class="col-xs-8 col-md-8">
 				<!-- Start Live Show -->
-				<div class="col-md-12 body-left">
+				<div class="col-xs-12 col-md-12 body-left">
 					<img
 						src="${pageContext.request.contextPath }/assets/images/liveshow.png"
 						class="image-view" alt="">
 				</div>
 				<!-- End Live Show -->
 				<!-- List TOP 5 -->
-				<div class="col-md-12 body-left">
+				<div class="col-xs-12 col-md-12 body-left">
 					<ul class="list-item">
 						<c:forEach items="${charts }" var="chart" varStatus="i">
 							<c:set var="song" value="${chart.song }" />
@@ -55,10 +55,11 @@
 				</div>
 				<!-- End List TOP 5 -->
 				<!-- Video HOT -->
-				<div class="col-md-12 body-left">
-					<a href=""><h3 class="title-list-index">VIDEO HOT</h3></a>
+				<div class="col-xs-12 col-md-12 body-left">
+					<a href="<c:url value="home/video.html"/>"><h3
+							class="color-purple">VIDEO HOT</h3></a>
 					<div class="row mb-2">
-						<div class="col-md-3">
+						<div class="col-xs-3 col-md-3">
 							<img
 								src="${pageContext.request.contextPath }/assets/images/imgvideo.png"
 								alt="" class="image-view img-thumbnail mb-1"> <br> <a
@@ -73,38 +74,27 @@
 			</div>
 			<!-- End Body Left -->
 			<!-- Body Right -->
-			<div class="col-md-4">
-				<!-- Theme Hot -->
-				<div class="col-md-12 body-right">
-					<div class="item-right title-list-index">
-						<h4>CHỦ ĐỀ HOT</h4>
-					</div>
-					<div class="item-right">
-						<img
-							src="${pageContext.request.contextPath }/assets/images/chude4.png"
-							class="image-view" alt="">
-					</div>
-					<div class="item-right">
-						<img
-							src="${pageContext.request.contextPath }/assets/images/chude2.png"
-							class="image-view" alt="">
-					</div>
-					<div class="item-right">
-						<img
-							src="${pageContext.request.contextPath }/assets/images/chude3.png"
-							class="image-view" alt="">
-					</div>
-				</div>
-				<!-- End Theme Hot -->
+			<div class="col-xs-4 col-md-4">
 				<!-- BXH bai hat tuan-->
-				<div class="col-md-12 body-right">
+				<div class="col-xs-12 col-md-12 body-right">
 					<div class="item-right title-chart">
-						<h4 class="title-list-index">BXH THÁNG BÀI HÁT</h4>
-						<c:url var="playListLink" value="/song/playlist.html" />
-						<a class="play-all-btn" href="${playListLink }"
-							title="Phát tất cả"><span
-							class="glyphicon glyphicon-play-circle"></span></a> <a
-							class="text-view-more" href="#">Xem thêm</a>
+						<div class="row">
+							<div class="col-xs-5">
+								<h4 class="color-purple">#TOP SONG</h4>
+							</div>
+							<div class="col-xs-2">
+								<c:url var="playListLink" value="/song/playlist.html" />
+								<a class="play-all-btn" href="${playListLink }"
+									title="Phát tất cả"> <span
+									class="glyphicon glyphicon-play-circle"></span>
+								</a>
+							</div>
+							<div class="col-xs-5 text-right">
+
+								<a class="text-view-more"
+									href="<c:url value="/home/chart.html"/>">Xem thêm</a>
+							</div>
+						</div>
 					</div>
 
 					<ul class="list-item">

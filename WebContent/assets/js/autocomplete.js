@@ -30,6 +30,7 @@ $(document).ready(
 				}
 			};
 			searchBox.easyAutocomplete(options);
+
 		});
 
 function addToClick(id) {
@@ -43,4 +44,36 @@ function addToClick(id) {
 			$('#modal-add-play-list').html(res);
 		}
 	});
+}
+
+function quickAdd() {
+	var name_box = $('#play-list-name');
+	var options = {
+		method : 'post',
+		url : base_url + '/api/playlist/quickadd',
+		data : name_box.val(),
+		contentType : 'application/json',
+		success : function(res) {
+			hideErrMsg();
+			$('#create-play-list-modal').modal('hide').data('modal', null);
+			window.location = base_url + '/account/playlist/update.html?id='
+					+ res;
+		},
+		error : function(err) {
+			var errMsg = err.responseText;
+			$('#name-box-error').text(errMsg);
+			$('#name-box-error').removeClass('hidden');
+		}
+	};
+	$.ajax(options);
+}
+
+$('#create-play-list-modal').on('hidden.bs.modal', function() {
+	hideErrMsg();
+});
+
+function hideErrMsg() {
+	$('#name-box-error').addClass('hidden');
+	$('#name-box-error').text('');
+	$('#name-box').val('');
 }
