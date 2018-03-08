@@ -5,9 +5,11 @@ import java.text.SimpleDateFormat;
 import com.luog.onlinemusic.entity.commons.Album;
 import com.luog.onlinemusic.entity.commons.Author;
 import com.luog.onlinemusic.entity.commons.Category;
+import com.luog.onlinemusic.entity.commons.Comment;
 import com.luog.onlinemusic.entity.commons.Singer;
 import com.luog.onlinemusic.entity.commons.Song;
 import com.luog.onlinemusic.entity.rest.AlbumEntity;
+import com.luog.onlinemusic.entity.rest.CommentEntity;
 import com.luog.onlinemusic.entity.rest.SingerEntity;
 import com.luog.onlinemusic.entity.rest.SongEntity;
 
@@ -59,7 +61,7 @@ public class EntityHelper {
 			songEntity.setAuthors(authors);
 			songEntity.setCategories(categories);
 		} catch (Exception e) {
-			songEntity = new SongEntity();
+			songEntity = null;
 		}
 		return songEntity;
 	}
@@ -80,7 +82,7 @@ public class EntityHelper {
 			singerEntity.setPhoto(singer.getPhoto());
 		} catch (Exception e) {
 			e.printStackTrace();
-			singerEntity = new SingerEntity();
+			singerEntity = null;
 		}
 		return singerEntity;
 	}
@@ -115,9 +117,29 @@ public class EntityHelper {
 			albumEntity.setSongs(singer);
 		} catch (Exception e) {
 			e.printStackTrace();
-			albumEntity = new AlbumEntity();
+			albumEntity = null;
 		}
 		return albumEntity;
 	}
+
+	public static CommentEntity toCommentEntity(Comment comment) {
+		CommentEntity commentEntity = null;
+		SimpleDateFormat simpleDateFormat = null;
+		try {
+			commentEntity = new CommentEntity();
+			commentEntity.setContent(comment.getContent());
+			commentEntity.setId(comment.getId());
+			simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			commentEntity.setCreated(simpleDateFormat.format(comment.getCreated()));
+			commentEntity.setSongId(comment.getSong().getId());
+			commentEntity.setUsername(comment.getAccount().getUsername());
+			commentEntity.setUserPhoto(comment.getAccount().getPhoto());
+		} catch (Exception e) {
+			commentEntity = null;
+		}
+		return commentEntity;
+	}
+	
+	
 
 }

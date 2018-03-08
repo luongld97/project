@@ -892,3 +892,12 @@ Chart
 	border: solid 4px;
 	border-color: blue red purple goldenrod;
 }
+
+#list-song {
+	height: 150px;
+	overflow: auto;
+}
+
+#play_list_dropbox_chosen {
+	width: 100%;
+}

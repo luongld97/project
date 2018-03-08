@@ -4,13 +4,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
-<!--Start Body Web-->
 <div class="body-web">
 	<div class="container bg-web">
 		<div class="row">
-			<!-- Body Left  -->
 			<div class="col-md-8">
-				<!-- Play Song -->
 				<div class="col-md-12 body-left">
 					<h4>
 						<strong>${song.name }</strong> &nbsp;-&nbsp;
@@ -25,6 +22,7 @@
 							</c:if>
 						</c:forEach>
 					</h4>
+					<input type="hidden" id="page-info" value="${song.video ? 'video' : 'audio' }"	base-url="${pageContext.request.contextPath }" song-id="${song.id }" />
 					<div class="play-song">
 						<c:if test="${!isVideo }">
 							<img
@@ -35,13 +33,14 @@
 								<source src="${song.link }" />
 							</audio>
 						</c:if>
-
 						<c:if test="${isVideo }">
-							<video class="play-video" poster="${pageContext.request.contextPath }/assets/images/default-avatar.png">
-								<source src="https://nplus.nixcdn.com/PreNCT7/KhiEmNguSay-ChiDan-2876212.mp4" />
+							<video class="play-video"
+								poster="${pageContext.request.contextPath }/assets/images/default-avatar.png">
+								<source
+									src="https://nplus.nixcdn.com/PreNCT7/KhiEmNguSay-ChiDan-2876212.mp4?st=MaKpbwvKF_j-R4eeY_t5NQ&e=1520515309&download=true"
+									type="video/mp4" />
 							</video>
 						</c:if>
-
 					</div>
 					<div class="info-play-song">
 						<p>
@@ -143,8 +142,7 @@
 										alt="">
 								</div>
 								<div class="col-md-10">
-									<textarea id="comment-box"
-										username="${sessionScope.currentAccount.username }"
+									<textarea id="comment-box" username="${sessionScope.currentAccount.username }"
 										class="text-command" placeholder="Say something...!"></textarea>
 								</div>
 							</div>

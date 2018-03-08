@@ -24,7 +24,7 @@ function btnSaveClicked() {
 
 function btnAddClicked() {
 	nameBox = $('#play-list-name');
-	base_url = nameBox.attr('baseUrl');
+	base_url = nameBox.attr('base-url');
 	$.ajax({
 		method : 'post',
 		url : base_url + '/api/playlist/quickadd',

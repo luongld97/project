@@ -18,7 +18,7 @@
 					style="display: none; border: 2px solid #E5E5E5; padding: 12px; margin-bottom: 15px; border-radius: 10px;">
 					<div class="form-group">
 						<label>PlayList Name: </label> <input
-							baseUrl="${pageContext.request.contextPath }" id="play-list-name"
+							base-url="${pageContext.request.contextPath }" id="play-list-name"
 							class="form-control" type="text" />
 					</div>
 					<div class="form-group">
