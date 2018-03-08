@@ -41,7 +41,7 @@
 						<s:errors path="dateOfBirth" cssClass="alert alert-danger"
 							cssStyle="display: block;" />
 						<div class="form-group">
-							<div class="input-group date" id="singer-dob">
+							<div class="input-group date" id="author-dob">
 								<span class="input-group-addon"><span
 									class="glyphicon glyphicon-calendar"></span></span>
 								<%

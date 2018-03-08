@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.luog.onlinemusic.entity.commons.Album;
+import com.luog.onlinemusic.entity.commons.Category;
 import com.luog.onlinemusic.entity.commons.Singer;
 
 @Repository("albumDAO")
@@ -157,7 +158,34 @@ public class AlbumDAOImpl implements AlbumDAO {
 		}
 		return albums;
 	}
-
+	
+	@Override
+	public boolean isExist(String name) {
+		boolean result = false;
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			
+			Query query = session.createQuery("FROM Album "
+					+ "WHERE replace(name, ' ', '-') = :name");
+			query.setParameter("name", name.replace(" ", "-"));
+			Album currentAlbum = (Album) query.uniqueResult();
+			result = currentAlbum != null;
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = false;
+			if (transaction != null)
+				transaction.rollback();
+		} finally{
+			session.flush();
+			session.close();
+		}
+		return result;
+	}	
+		
 	/**
 	 * @author luog
 	 */

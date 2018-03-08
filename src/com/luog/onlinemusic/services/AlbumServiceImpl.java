@@ -144,9 +144,12 @@ public class AlbumServiceImpl implements AlbumService {
 	}
 
 	@Override
+	public boolean isExist(String name) {
+		return albumDAO.isExist(name);
+	}
+
 	public List<Album> randomAlbum(int limit, Album current) {
 		return albumDAO.randomAlbum(limit, current);
 	}
-
 	
 }
