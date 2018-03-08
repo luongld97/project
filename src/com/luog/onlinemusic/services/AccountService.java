@@ -18,7 +18,7 @@ public interface AccountService {
 	
 	public boolean changeStatus(Account account);
 	
-	public Account login(String username, String password);
-	
 	public boolean isExist(String username);
+	
+	public Account login(String username, String password);
 }

@@ -11,6 +11,7 @@ import com.luog.onlinemusic.dao.AccountDAO;
 import com.luog.onlinemusic.entity.commons.Account;
 import com.luog.onlinemusic.entity.commons.Album;
 import com.luog.onlinemusic.entity.commons.Song;
+import com.luog.onlinemusic.helpers.BCrypt;
 
 @Transactional
 @Service("accountService")
@@ -56,13 +57,20 @@ public class AccountServiceImpl implements AccountService {
 		return accountDAO.delete(account);
 	}
 	
-	public Account login(String username, String password) {
-		return accountDAO.login(username, password);
-	}
-
 	@Override
 	public boolean isExist(String username) {
 		return accountDAO.isExist(username);
+	}
+
+	@Override
+	public Account login(String username, String password) {
+		Account account = accountDAO.find(username);
+		if(account != null) {
+			if(BCrypt.checkpw(password, account.getPassword())) {
+				return account;
+			}
+		}
+		return null;
 	}
 
 }

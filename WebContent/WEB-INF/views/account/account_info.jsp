@@ -61,7 +61,7 @@
 						<div class="col-sm-4"></div>
 						<div class="col-sm-8">
 							<a
-								href="${pageContext.request.contextPath }/account/changepassword.html"><button
+								href="${pageContext.request.contextPath }/account/changepassword.html?username=${sessionScope.currentAccount.username}"><button
 									type="button" class="btn btn-success">Đổi mật khẩu</button></a>
 						</div>
 					</div>

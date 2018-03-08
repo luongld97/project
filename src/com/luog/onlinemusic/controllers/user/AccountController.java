@@ -36,6 +36,7 @@ import com.luog.onlinemusic.entity.commons.PlayList;
 import com.luog.onlinemusic.entity.commons.PlayListDetail;
 import com.luog.onlinemusic.entity.commons.Role;
 import com.luog.onlinemusic.entity.commons.Song;
+import com.luog.onlinemusic.helpers.BCrypt;
 import com.luog.onlinemusic.helpers.ImageHelper;
 import com.luog.onlinemusic.services.AccountService;
 import com.luog.onlinemusic.services.PlayListService;
@@ -97,22 +98,25 @@ public class AccountController implements ServletContextAware {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String registerProccess(@ModelAttribute("account") Account account, ModelMap modelMap, MultipartFile file) {
+	public String registerProccess(@ModelAttribute("account") Account account, ModelMap modelMap,
+			@RequestParam("file") MultipartFile image) {
 		Role role = roleService.find(3);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Calendar cal = Calendar.getInstance();
 		String date = dateFormat.format(cal.getTime());
 
 		try {
-			if (!file.isEmpty()) {
-				String path = servletContext.getRealPath("/assets/images") + File.separator
-						+ file.getOriginalFilename();
-				file.transferTo(new File(path));
+			if (!image.isEmpty()) {
+				if (ImageHelper.validateImage(image)) {
+					account.setPhoto(ImageHelper.saveImage(servletContext, image));
+				}
+			} else {
+				account.setPhoto("default_avatar.png");
 			}
-			account.setPhoto(file.getOriginalFilename());
 			account.setCreatedTime(dateFormat.parse(date));
 			account.setStatus(true);
 			account.setRole(role);
+			account.setPassword(BCrypt.hashpw(account.getPassword(), BCrypt.gensalt()));
 			if (accountService.create(account)) {
 				return "redirect:/account/login.html";
 			} else {
@@ -245,13 +249,15 @@ public class AccountController implements ServletContextAware {
 	}
 
 	@RequestMapping(value = "/doUpdateAccount", method = RequestMethod.POST)
-	public String updateAccountAction(@ModelAttribute("account") Account account, ModelMap modelMap) {
+	public String updateAccountAction(@ModelAttribute("account") Account account, ModelMap modelMap,
+			HttpSession httpSession, @RequestParam("file") MultipartFile image) {
 		Role role = roleService.find(3);
 		account.setRole(role);
 		boolean currentAccount = accountService.update(account);
 		if (currentAccount) {
 			Account acc = accountService.find(account.getUsername());
 			modelMap.put("account", acc);
+			httpSession.setAttribute("currentAccount", acc);
 			return "redirect:../account/accountinfo.html";
 		} else {
 			modelMap.put("message", "Update Fail!");
@@ -262,6 +268,29 @@ public class AccountController implements ServletContextAware {
 	@RequestMapping(value = "/accountinfo", method = RequestMethod.GET)
 	public String getInfoAccount(ModelMap modelMap, HttpSession httpSession) {
 		return "user.accountinfo";
+	}
+
+	@RequestMapping(value = "/changepassword", method = RequestMethod.GET)
+	public String getChangePassword(@RequestParam(value = "username", required = false) String username,
+			ModelMap modelMap) {
+		Account account = accountService.find(username);
+		modelMap.put("account", account);
+		return "user.changepassword";
+	}
+
+	@RequestMapping(value = "/updatepassword", method = RequestMethod.POST)
+	public String getUpdatePassword(@RequestParam(value = "username") String username,
+			@RequestParam(value = "oldpassword") String oldPassword,
+			@RequestParam(value = "newpassword") String newPassword, ModelMap modelMap) {
+		Account account = accountService.find(username);
+		if (!BCrypt.checkpw(oldPassword, account.getPassword())) {
+			modelMap.put("error", "Old password is wrong!");
+			modelMap.put("account", account);
+			return "user.changepassword";
+		}
+		account.setPassword(BCrypt.hashpw(newPassword, BCrypt.gensalt()));
+		accountService.update(account);
+		return "redirect:../account/accountinfo.html";
 	}
 
 	@Override
