@@ -38,10 +38,10 @@ import com.sun.xml.internal.ws.api.pipe.Fiber;
 @Controller
 @RequestMapping("account")
 public class AccountController {
-	
+
 	@Autowired
 	ServletContext context;
-	
+
 	@Autowired
 	private AccountService accountService;
 
@@ -72,12 +72,12 @@ public class AccountController {
 
 		return "redirect:../home.html";
 	}
-	
+
 	@InitBinder
-    public void initBinder(WebDataBinder binder){
-        binder.registerCustomEditor(Date.class,new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"),true));
-    }
-	
+	public void initBinder(WebDataBinder binder) {
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
+	}
+
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String register(@RequestParam(value = "error", required = false) String error, ModelMap modelMap) {
 		modelMap.put("account", new Account());
@@ -95,9 +95,9 @@ public class AccountController {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Calendar cal = Calendar.getInstance();
 		String date = dateFormat.format(cal.getTime());
-		
+
 		try {
-			if(!file.isEmpty()) {
+			if (!file.isEmpty()) {
 				String path = context.getRealPath("/assets/images") + File.separator + file.getOriginalFilename();
 				file.transferTo(new File(path));
 			}
@@ -163,16 +163,9 @@ public class AccountController {
 		}
 		return "redirect:/account/login.html";
 	}
-<<<<<<< HEAD
-	
-	@RequestMapping(value = "/accountinfo", method = RequestMethod.GET)
-	public String getInfoAccount(ModelMap modelMap,
-=======
 
-	@RequestMapping(value = "/accountfinfo", method = RequestMethod.POST)
-	public String getInfoAccount(@ModelAttribute("account") Account infoAccount, ModelMap modelMap,
->>>>>>> 5588ed22f639de95df56a4f28cac8f5fa8be9f9f
-			HttpSession httpSession) {
+	@RequestMapping(value = "/accountinfo", method = RequestMethod.GET)
+	public String getInfoAccount(ModelMap modelMap, HttpSession httpSession) {
 		
 		return "user.accountinfo";
 	}
