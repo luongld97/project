@@ -64,7 +64,7 @@ public class AdminAlbumManagementController implements ServletContextAware {
 
 	@RequestMapping(value = { "/addalbum", "/create", "/newalbum" }, method = RequestMethod.POST)
 	public String addAlbumAction(@ModelAttribute("album") @Valid AlbumEntity temp, BindingResult bindingResult,
-			@RequestParam(value = "photo", required = false) MultipartFile image, ModelMap modelMap,
+			@RequestParam(value = "album-photo", required = false) MultipartFile image, ModelMap modelMap,
 			HttpSession session) {
 		
 		if (!bindingResult.hasErrors()) {
@@ -77,6 +77,7 @@ public class AdminAlbumManagementController implements ServletContextAware {
 					temp.setPhoto(imageName);
 				}
 			}
+			temp.setPhoto("default_album.png");
 			return albumService.create(temp) ? "redirect:../album.html" : initForm("admin.album.addalbum", modelMap, temp);
 		}
 		return initForm("admin.album.addalbum", modelMap, temp);

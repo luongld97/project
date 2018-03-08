@@ -158,15 +158,9 @@ public class AccountController {
 		}
 		return "redirect:/account/login.html";
 	}
-<<<<<<< HEAD
-	
-	@RequestMapping(value = "/accountinfo", method = RequestMethod.GET)
-	public String getInfoAccount(ModelMap modelMap,
-=======
 
-	@RequestMapping(value = "/accountfinfo", method = RequestMethod.POST)
+	@RequestMapping(value = "/accountinfo", method = RequestMethod.GET)
 	public String getInfoAccount(@ModelAttribute("account") Account infoAccount, ModelMap modelMap,
->>>>>>> 5588ed22f639de95df56a4f28cac8f5fa8be9f9f
 			HttpSession httpSession) {
 		
 		return "user.accountinfo";

@@ -24,15 +24,13 @@ public class AlbumSong implements java.io.Serializable {
 	private Integer id;
 	private Album album;
 	private Song song;
-	private Date releasedTime;
 
 	public AlbumSong() {
 	}
 
-	public AlbumSong(Album album, Song song, Date releasedTime) {
+	public AlbumSong(Album album, Song son) {
 		this.album = album;
 		this.song = song;
-		this.releasedTime = releasedTime;
 	}
 
 	@Id
@@ -65,16 +63,6 @@ public class AlbumSong implements java.io.Serializable {
 
 	public void setSong(Song song) {
 		this.song = song;
-	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "released_time", nullable = false, length = 10)
-	public Date getReleasedTime() {
-		return this.releasedTime;
-	}
-
-	public void setReleasedTime(Date releasedTime) {
-		this.releasedTime = releasedTime;
 	}
 
 }

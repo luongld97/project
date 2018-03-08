@@ -60,6 +60,7 @@ public class AlbumServiceImpl implements AlbumService {
 			Album album = new Album();
 			album.setName(albumEntity.getName());
 			album.setPhoto(albumEntity.getPhoto());
+			album.setReleasedTime(new Date());
 			result = albumDAO.create(album);
 			if (result)
 				result = createAlbumSinger(albumEntity, album);

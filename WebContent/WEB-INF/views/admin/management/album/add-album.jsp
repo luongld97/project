@@ -30,7 +30,7 @@
 							<span class="input-group-addon"><span
 								class="glyphicon glyphicon-picture"></span></span>
 							<div class="custom-file">
-								<input name="photo" type="file" accept="image/*"
+								<input name="album-photo" type="file" accept="image/*"
 									class="custom-file-input form-control" /> <span
 									class="custom-file-label" style="height: 46px">Choose
 									photo</span>

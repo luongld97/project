@@ -18,7 +18,7 @@ public class AlbumValidator implements Validator {
 	@Override
 	public void validate(Object object, Errors errors) {
 		AlbumEntity albumEntity = (AlbumEntity) object;
-		if (albumEntity.getName().isEmpty()) {
+		if (albumEntity.getName() == null) {
 			errors.rejectValue("name", "name.required");
 		}
 		if (albumEntity.getSingers() == null) {
