@@ -62,6 +62,7 @@ public class ArtistController {
 		int page = ServletRequestUtils.getIntParameter(request, "page", 0);
 		pagedListHolder.setPage(page);
 		pagedListHolder.setPageSize(30);
+		System.out.println(pagedListHolder.getPageList().size());
 		modelMap.put("singers", pagedListHolder);
 		return "artist.singer.allsinger";
 	}
