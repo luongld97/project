@@ -12,7 +12,7 @@ import com.luog.onlinemusic.services.CategoryService;
 public class CategoryValidator implements Validator {
 
 	@Autowired
-	private CategoryService categoryDAO;
+	private CategoryService categoryService;
 
 	@Override
 	public boolean supports(Class<?> arg0) {
@@ -22,7 +22,7 @@ public class CategoryValidator implements Validator {
 	@Override
 	public void validate(Object object, Errors errors) {
 		Category category = (Category) object;
-		if (categoryDAO.isExist(category.getName()))
+		if (categoryService.isExist(category.getName()) && category.getId() == null)
 			errors.rejectValue("name", "category.exist");
 
 	}

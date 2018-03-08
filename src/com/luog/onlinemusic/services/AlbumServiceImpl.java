@@ -143,4 +143,9 @@ public class AlbumServiceImpl implements AlbumService {
 		return result;
 	}
 
+	@Override
+	public boolean isExist(String name) {
+		return albumDAO.isExist(name);
+	}
+
 }

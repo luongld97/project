@@ -17,5 +17,7 @@ public interface AuthorService {
 	public boolean delete(Author author);
 	
 	public List<AuthorEntity> getSongAuthor(Author author);
+	
+	public boolean isExist(String name);
 }
 

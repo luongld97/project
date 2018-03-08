@@ -1,15 +1,20 @@
 package com.luog.onlinemusic.validators;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import com.luog.onlinemusic.entity.commons.Album;
 import com.luog.onlinemusic.entity.rest.AlbumEntity;
-import com.luog.onlinemusic.entity.rest.SongEntity;
+import com.luog.onlinemusic.services.AlbumService;
 
 @Component
 public class AlbumValidator implements Validator {
-
+	
+	@Autowired
+	private AlbumService albumService;
+	
 	@Override
 	public boolean supports(Class<?> arg0) {
 		return AlbumEntity.class.equals(arg0);
@@ -27,6 +32,9 @@ public class AlbumValidator implements Validator {
 		if (albumEntity.getSongs() == null) {
 			errors.rejectValue("songs", "songs.required");
 		}
+		
+		if (albumService.isExist(albumEntity.getName()) && albumEntity.getId() == null)
+			errors.rejectValue("name", "albumEntity.exist");
 	}
-
+	
 }

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.luog.onlinemusic.entity.commons.Author;
+import com.luog.onlinemusic.entity.commons.Category;
 import com.luog.onlinemusic.entity.rest.AuthorEntity;
 
 @Repository("authorDAO")
@@ -164,6 +165,32 @@ public class AuthorDAOImpl implements AuthorDAO {
 		}
 		return authorEntities;
 	}
-
+	
+	@Override
+	public boolean isExist(String name) {
+		boolean result = false;
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			
+			Query query = session.createQuery("FROM Author "
+					+ "WHERE replace(name, ' ', '-') = :name");
+			query.setParameter("name", name.replace(" ", "-"));
+			Author currentAuthor = (Author) query.uniqueResult();
+			result = currentAuthor != null;
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = false;
+			if (transaction != null)
+				transaction.rollback();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return result;
+	}
 
 }

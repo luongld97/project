@@ -20,4 +20,6 @@ public interface AlbumDAO {
 	
 	public List<Album> getAlbums(Singer singer);
 	
+	public boolean isExist(String name);
+	
 }

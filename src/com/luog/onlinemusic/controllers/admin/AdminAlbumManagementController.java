@@ -27,6 +27,8 @@ import com.luog.onlinemusic.helpers.EntityHelper;
 import com.luog.onlinemusic.services.AlbumService;
 import com.luog.onlinemusic.services.SingerService;
 import com.luog.onlinemusic.services.SongService;
+import com.luog.onlinemusic.validators.AlbumValidator;
+import com.luog.onlinemusic.validators.CategoryValidator;
 
 @Controller
 @RequestMapping("admin/album**")
@@ -42,6 +44,9 @@ public class AdminAlbumManagementController implements ServletContextAware {
 
 	@Autowired
 	private SongService songService ;
+	
+	@Autowired
+	private AlbumValidator albumValidator;
 
 	@RequestMapping(value = { "", "/allalbum", "/index" }, method = RequestMethod.GET)
 	public String allAlbums(HttpServletRequest request, ModelMap modelMap) {
@@ -66,7 +71,7 @@ public class AdminAlbumManagementController implements ServletContextAware {
 	public String addAlbumAction(@ModelAttribute("album") @Valid AlbumEntity temp, BindingResult bindingResult,
 			@RequestParam(value = "album-photo", required = false) MultipartFile image, ModelMap modelMap,
 			HttpSession session) {
-		
+		albumValidator.validate(temp, bindingResult);
 		if (!bindingResult.hasErrors()) {
 			if (!image.isEmpty()) {
 				if (!ImageHelper.validateImage(image)) {
@@ -98,7 +103,7 @@ public class AdminAlbumManagementController implements ServletContextAware {
 	public String updateAlbumAction(@ModelAttribute("album") @Valid AlbumEntity temp, BindingResult bindingResult,
 			@RequestParam(value = "photo", required = false) MultipartFile image, ModelMap modelMap,
 			HttpSession session) {
-		
+		albumValidator.validate(temp, bindingResult);
 		if (!bindingResult.hasErrors()) {
 			if (!image.isEmpty()) {
 				if (!ImageHelper.validateImage(image)) {
