@@ -254,4 +254,38 @@ public class PlayListDAOImpl implements PlayListDAO {
 		return playLists;
 	}
 
+	/**
+	 * @author luog
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PlayList> randomPlayList(Account account, PlayList current, int limit) {
+		List<PlayList> playLists = null;
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			Query query = session.createQuery("FROM PlayList " 
+					+ "WHERE account = :account "
+					+ "AND id != :id "
+					+ "ORDER BY rand()");
+			query.setParameter("account", account);
+			query.setParameter("id", current.getId());
+			query.setMaxResults(limit);
+			playLists = query.list();
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			playLists = new ArrayList<>();
+			if (transaction != null)
+				transaction.rollback();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return playLists;
+	}
+
+	
 }

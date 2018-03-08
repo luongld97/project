@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="item-right">
-	<h4 class="title-list-index">RECOMMENDS</h4>
+	<h4 class="title-list-index">SONG RECOMMENDS</h4>
 </div>
 <ul class="list-item">
 	<c:forEach items="${suggestedSongs }" var="suggestedSong">
@@ -17,7 +17,7 @@
 					<c:param name="id" value="${suggestedSong.id }" />
 				</c:url>
 				<a href="${suggestedSongLink }"><b class="song-name-chart">${suggestedSong.name }</b></a><br>
-				<a href="${suggestedSongLink }"> <i class="singer-name-chart">
+				<i class="singer-name-chart">
 						<c:forEach items="${suggestedSong.songDetails }" var="songDetail"
 							varStatus="i">
 												${songDetail.singer.name }
@@ -27,13 +27,12 @@
 												</c:if>
 						</c:forEach>
 				</i>
-				</a>
 			</div>
 			<div class="tool-chart">
 				<a class="playlist-btn-sm" href="${suggestedSongLink }" title="Nghe"><span
 					class="glyphicon glyphicon-play"></span></a> <a class="playlist-btn-sm"
 					onclick="addToClick('${suggestedSong.id}');"
-					href="#modalAddPlaylist" title="Add to..." data-toggle="modal"><span
+					href="#modal-add-play-list" title="Add to..." data-toggle="modal"><span
 					class="glyphicon glyphicon-plus"></span></a>
 			</div>
 		</li>

@@ -55,7 +55,7 @@ public class SongRestController {
 	@RequestMapping(value = "findall", method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE, headers = "Accept=application/json")
 	public ResponseEntity<List<Song>> findAll() {
 		try {
-			return new ResponseEntity<List<Song>>(songService.randomSong(songService.find(1), true, 10), HttpStatus.OK);
+			return new ResponseEntity<List<Song>>(songService.findAll(), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<List<Song>>(HttpStatus.BAD_REQUEST);
 		}

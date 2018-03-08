@@ -84,4 +84,9 @@ public class HomeController {
 		}
 		return "redirect: ../home.html";
 	}
+
+	@RequestMapping(value = { "/chart" }, method = RequestMethod.GET)
+	public String chart(ModelMap modelMap) {
+		return "home.chart";
+	}
 }

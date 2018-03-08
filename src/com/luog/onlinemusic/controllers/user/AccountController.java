@@ -33,13 +33,13 @@ import com.luog.onlinemusic.services.RoleService;
 public class AccountController {
 
 	@Autowired
-	public AccountService accountService;
+	private AccountService accountService;
 
 	@Autowired
-	public RoleService roleService;
+	private RoleService roleService;
 
 	@Autowired
-	public PlayListService playListService;
+	private PlayListService playListService;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(@RequestParam(value = "error", required = false) String error, ModelMap modelMap) {
@@ -112,26 +112,35 @@ public class AccountController {
 	 */
 	@RequestMapping(value = { "/playlist" }, method = RequestMethod.GET)
 	public String getPlayList(@RequestParam(value = "username", required = false) String username,
-			HttpServletRequest request, HttpSession httpSession, ModelMap modelMap) {
-		if (username != null) {
-			Account currentAccount = accountService.find(username);
-			if (currentAccount != null) {
-				List<PlayList> playLists = null;
-				playLists = currentAccount != null ? playListService.getPlayLists(currentAccount)
-						: new ArrayList<>();
-				PagedListHolder<PlayList> pagedListHolder = new PagedListHolder<>(playLists);
-				int page = ServletRequestUtils.getIntParameter(request, "page", 0);
-				pagedListHolder.setPage(page);
-				pagedListHolder.setPageSize(10);
-				modelMap.put("playLists", pagedListHolder);
-				modelMap.put("currentPage", page);
-				modelMap.put("account", currentAccount);
-				return "user.playlist";
-			}
+			HttpServletRequest request, HttpSession session, ModelMap modelMap) {
+		Account currentAccount = (Account) session.getAttribute("currentAccount");
+		if (currentAccount != null) {
+			List<PlayList> playLists = null;
+			playLists = currentAccount != null ? playListService.getPlayLists(currentAccount) : new ArrayList<>();
+			PagedListHolder<PlayList> pagedListHolder = new PagedListHolder<>(playLists);
+			int page = ServletRequestUtils.getIntParameter(request, "page", 0);
+			pagedListHolder.setPage(page);
+			pagedListHolder.setPageSize(10);
+			modelMap.put("playLists", pagedListHolder);
+			modelMap.put("currentPage", page);
+			modelMap.put("account", currentAccount);
+			return "user.playlist";
 		}
 		return "redirect:/account/login.html";
 	}
-	
+
+	/**
+	 * @author luog
+	 */
+	@RequestMapping(value = { "/playlist/update" }, method = RequestMethod.GET)
+	public String updatePlayList(HttpServletRequest request, HttpSession session, ModelMap modelMap) {
+		Account currentAccount = (Account) session.getAttribute("currentAccount");
+		if (currentAccount != null) {
+			
+		}
+		return "redirect:/account/login.html";
+	}
+
 	@RequestMapping(value = "/accountfinfo", method = RequestMethod.POST)
 	public String getInfoAccount(@ModelAttribute("account") Account infoAccount, ModelMap modelMap,
 			HttpSession httpSession) {
@@ -139,5 +148,5 @@ public class AccountController {
 		modelMap.put("account", currentAccount);
 		return "user.accountinfo";
 	}
-	
+
 }
