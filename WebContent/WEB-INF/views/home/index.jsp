@@ -45,8 +45,8 @@
 									<a class="playlist-btn" href="${listenLink }" title="Nghe"><span
 										class="glyphicon glyphicon-play"></span></a> <a
 										class="playlist-btn" onclick="addToClick('${song.id}');"
-										href="#modalAddPlaylist" title="Add to..." data-toggle="modal"><span
-										class="glyphicon glyphicon-plus"></span></a>
+										href="#modal-add-play-list" title="Add to..."
+										data-toggle="modal"><span class="glyphicon glyphicon-plus"></span></a>
 								</div>
 								<div class="number-listen">${chart.listen }</div>
 							</li>
@@ -130,8 +130,8 @@
 									<a class="playlist-btn-sm" href="${listenLink }" title="Play"><span
 										class="glyphicon glyphicon-play"></span></a> <a
 										class="playlist-btn-sm" onclick="addToClick('${song.id}');"
-										href="#modalAddPlaylist" title="Add to..." data-toggle="modal"><span
-										class="glyphicon glyphicon-plus"></span></a>
+										href="#modal-add-play-list" title="Add to..."
+										data-toggle="modal"><span class="glyphicon glyphicon-plus"></span></a>
 								</div>
 							</li>
 						</c:forEach>
@@ -145,6 +145,6 @@
 </div>
 <!--End Body Web-->
 <!-- Form Add To Playlist -->
-<div class="modal fade" id="modalAddPlaylist" tabindex="-1"
+<div class="modal fade" id="modal-add-play-list" tabindex="-1"
 	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 <!-- End Form -->

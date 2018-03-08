@@ -169,7 +169,7 @@
 								</div>
 								<div class="info-chart">
 									<c:url var="videoLink" value="/song/play.html?video">
-										<c:param name="id" value="${video.id }"/>
+										<c:param name="id" value="${video.id }" />
 									</c:url>
 									<a href="${videoLink }"><b class="song-name-chart">${video.name }</b></a><br>
 									<i class="singer-name-chart"> <c:forEach

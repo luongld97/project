@@ -19,7 +19,6 @@ $(document).ready(function () {
 
 function initVariable() {
     modal_add = $('#modal-add-play-list');
-    base_url = modal_add.attr('base-url');
     dropbox = $('#play-list-dropbox');
     error_box = $('#name-box-error');
     btn_add = $('#btn-add');
@@ -28,6 +27,7 @@ function initVariable() {
     add_form = $('#add-form');
     is_open = false;
     dropbox.chosen({ 'placeholder_text_multiple': 'Select your playlist.' })
+    $('#play_list_dropbox_chosen').css('width', '100%');
 }
 
 function btnSaveClicked() {

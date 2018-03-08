@@ -6,7 +6,7 @@ var searchBox, base_url;
 $(document).ready(
 		function() {
 			searchBox = $('#search-box');
-			base_url = searchBox.attr('baseUrl');
+			base_url = searchBox.attr('base-url');
 			var options = {
 				url : base_url + '/api/search/searchname?keyword='
 						+ searchBox.val().split(' ').join('-'),

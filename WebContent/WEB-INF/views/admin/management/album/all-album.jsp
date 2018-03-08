@@ -31,7 +31,6 @@
 					<th class="text-center">ID</th>
 					<th class="text-center"><b>Name</b></th>
 					<th class="text-center"><b>Photo</b></th>
-					<th class="text-center"><b>Options</b></th>
 				</tr>
 			</thead>
 			<c:if test="${albums.pageList.size() > 0 }">
@@ -43,9 +42,8 @@
 							</c:url>
 							<td>${album.id }</td>
 							<td>${album.name }</td>
-							<td><img alt="Images Album"
-								src="${pageContext.request.contextPath }/assets/images/${album.photo }"></td>
-							<td><a href="${updateLink }">Edit</a></td>
+							<td><div class="my-img-120 img-thumbnail text-center"><img alt="Images Album"
+								src="${pageContext.request.contextPath }/assets/images/${album.photo }"></div></td>
 						</tr>
 					</c:forEach>
 				</tbody>
