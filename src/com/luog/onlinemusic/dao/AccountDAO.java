@@ -17,4 +17,6 @@ public interface AccountDAO {
 	public boolean delete(Account account);
 	
 	public Account login(String username, String password);
+	
+	public boolean isExist(String username);
 }

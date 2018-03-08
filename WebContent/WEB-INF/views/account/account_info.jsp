@@ -18,7 +18,7 @@
 			<!-- End body Left -->
 			<!-- Body Right -->
 			<div class="col-xs-5 col-md-5 info-account-border-right">
-				<form class="form-horizontal" action="">
+				<form class="form-horizontal" >
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Tài khoản</label>
 						<div class="col-sm-5">
@@ -26,7 +26,7 @@
 						</div>
 						<div class="col-sm-3">
 							<div class="text-right">
-								<a href="info_account_edit.html"><input type="button"
+								<a href="${pageContext.request.contextPath }/account/updateAccount.html?acc=${sessionScope.currentAccount.username }"><input type="button"
 									class="btn btn-success" value="Chỉnh sửa"></a>
 							</div>
 						</div>

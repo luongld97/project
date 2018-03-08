@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.luog.onlinemusic.entity.commons.Account;
+import com.luog.onlinemusic.entity.commons.Category;
 
 @Repository("accountDAO")
 public class AccountDAOImpl implements AccountDAO {
@@ -158,5 +159,32 @@ public class AccountDAOImpl implements AccountDAO {
 		}
 		return account;
 	}
+	
+	@Override
+	public boolean isExist(String username) {
+		boolean result = false;
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			
+			Query query = session.createQuery("FROM Account "
+					+ "WHERE replace(username, ' ', '-') = :username");
+			query.setParameter("username", username.replace(" ", "-"));
+			Account currentAccount = (Account) query.uniqueResult();
+			result = currentAccount != null;
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = false;
+			if (transaction != null)
+				transaction.rollback();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return result;
+	} 
 
 }
