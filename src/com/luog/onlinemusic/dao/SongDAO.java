@@ -15,7 +15,7 @@ public interface SongDAO {
 	public List<Song> findAll(boolean isVideo);
 
 	public Song find(int id);
-	
+
 	public Song find(int id, boolean status);
 
 	public boolean create(Song song);
@@ -35,16 +35,18 @@ public interface SongDAO {
 	public SongEntity getSongEntity(int id);
 
 	public List<Song> randomSong(int limit);
-	
+
 	public List<Song> randomSong(int limit, boolean isVideo);
-	
+
+	public List<Song> randomSong(int limit, boolean isVideo, Singer singer);
+
 	public List<Song> randomSong(int limit, boolean isVideo, Song current);
 
 	List<SongEntity> findSongEntities(String keyWord);
-	
+
 	List<Song> findSong(String keyWord);
 
 	List<Song> getTopSongs(Singer singer, Integer limit);
-	
+
 	public List<Song> getTopSong(boolean isVideo, Date currentDate, Integer limit);
 }

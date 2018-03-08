@@ -43,6 +43,8 @@ public interface SongService {
 
 	public List<Song> randomSong(int limit, boolean isVideo, Song current);
 
+	public List<Song> randomSong(int limit, boolean isVideo, Singer current);
+
 	List<SongEntity> findSongEntities(String keyWord);
 
 	public List<Song> getTopSongs(Singer singer, Integer limit);

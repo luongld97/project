@@ -287,4 +287,9 @@ public class SongServiceImpl implements SongService {
 		return songEntities;
 	}
 
+	@Override
+	public List<Song> randomSong(int limit, boolean isVideo, Singer current) {
+		return songDAO.randomSong(limit, isVideo, current);
+	}
+
 }

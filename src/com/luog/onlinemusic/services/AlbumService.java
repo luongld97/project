@@ -23,5 +23,7 @@ public interface AlbumService {
 	public boolean isExist(String name);
 	
 	public List<Album> randomAlbum(int limit, Album current);
+	
+	public List<Album> randomAlbumOfSinger(int limit, Singer current);
 
 }

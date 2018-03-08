@@ -158,7 +158,7 @@ public class AlbumDAOImpl implements AlbumDAO {
 		}
 		return albums;
 	}
-	
+
 	@Override
 	public boolean isExist(String name) {
 		boolean result = false;
@@ -167,9 +167,8 @@ public class AlbumDAOImpl implements AlbumDAO {
 		try {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
-			
-			Query query = session.createQuery("FROM Album "
-					+ "WHERE replace(name, ' ', '-') = :name");
+
+			Query query = session.createQuery("FROM Album " + "WHERE replace(name, ' ', '-') = :name");
 			query.setParameter("name", name.replace(" ", "-"));
 			Album currentAlbum = (Album) query.uniqueResult();
 			result = currentAlbum != null;
@@ -179,13 +178,13 @@ public class AlbumDAOImpl implements AlbumDAO {
 			result = false;
 			if (transaction != null)
 				transaction.rollback();
-		} finally{
+		} finally {
 			session.flush();
 			session.close();
 		}
 		return result;
-	}	
-		
+	}
+
 	/**
 	 * @author luog
 	 */
@@ -200,6 +199,43 @@ public class AlbumDAOImpl implements AlbumDAO {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
 			query = session.createQuery("FROM Album ORDER BY rand()");
+			query.setMaxResults(limit);
+			albums = query.list();
+			transaction.commit();
+			if (current != null) {
+				if (albums.contains(current))
+					albums.remove(current);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			albums = new ArrayList<>();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return albums;
+	}
+
+	/**
+	 * @author luog
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Album> randomAlbum(int limit, Singer current) {
+		List<Album> albums = null;
+		Session session = null;
+		Transaction transaction = null;
+		Query query = null;
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			query = session.createQuery("SELECT al FROM "
+					+ "Album al, "
+					+ "AlbumSinger als "
+					+ "WHERE als.album = al "
+					+ "AND als.singer = :singer "
+					+ "ORDER BY rand()");
+			query.setParameter("singer", current);
 			query.setMaxResults(limit);
 			albums = query.list();
 			transaction.commit();

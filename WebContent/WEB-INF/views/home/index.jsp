@@ -60,10 +60,10 @@
 							class="color-purple">VIDEO HOT</h3></a>
 					<div class="row mb-2">
 						<div class="col-xs-3 col-md-3">
-							<div class="img-thumbnail my-img-120">
+							<div class="my-img-120">
 								<img
-									src="${pageContext.request.contextPath }/assets/images/imgvideo.png"
-									class="image-view" />
+									src="${pageContext.request.contextPath }/assets/images/"
+									class="img-thumbnail image-view" />
 							</div>
 							<a class="song-name" href="">Người lạ ơi</a>
 							<div>
@@ -73,48 +73,7 @@
 								</i>
 							</div>
 						</div>
-						<div class="col-xs-3 col-md-3">
-							<div class="img-thumbnail my-img-120">
-								<img
-									src="${pageContext.request.contextPath }/assets/images/imgvideo.png"
-									class="image-view" />
-							</div>
-							<a class="song-name" href="">Người lạ ơi</a>
-							<div>
-								<i> <a class="singer-name" href="">Karik</a>, <a
-									class="singer-name" href="">Orange</a>, <a class="singer-name"
-									href="">Superbrothers</a>
-								</i>
-							</div>
-						</div>
-						<div class="col-xs-3 col-md-3">
-							<div class="img-thumbnail my-img-120">
-								<img
-									src="${pageContext.request.contextPath }/assets/images/imgvideo.png"
-									class="image-view" />
-							</div>
-							<a class="song-name" href="">Người lạ ơi</a>
-							<div>
-								<i> <a class="singer-name" href="">Karik</a>, <a
-									class="singer-name" href="">Orange</a>, <a class="singer-name"
-									href="">Superbrothers</a>
-								</i>
-							</div>
-						</div>
-						<div class="col-xs-3 col-md-3">
-							<div class="img-thumbnail my-img-120">
-								<img
-									src="${pageContext.request.contextPath }/assets/images/imgvideo.png"
-									class="image-view" />
-							</div>
-							<a class="song-name" href="">Người lạ ơi</a>
-							<div>
-								<i> <a class="singer-name" href="">Karik</a>, <a
-									class="singer-name" href="">Orange</a>, <a class="singer-name"
-									href="">Superbrothers</a>
-								</i>
-							</div>
-						</div>
+						<!-- x4 -->
 					</div>
 				</div>
 				<!-- End Video Hot -->

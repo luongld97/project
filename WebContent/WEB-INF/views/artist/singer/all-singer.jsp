@@ -13,8 +13,7 @@
 		<h1 class="color-purple">ALL SINGERS</h1>
 		<c:set var="temp" value="0" />
 		<c:if test="${singers.pageList.size() / 5 - 1 >= 0 }">
-			<c:forEach begin="0" end="${singers.pageList.size() / 5 - 1 }"
-				var="i">
+			<c:forEach begin="0" end="${singers.pageList.size() / 5 - 1 }" var="i">
 				<div class="row">
 					<c:forEach begin="${temp }" end="${temp + 4 }" var="j">
 						<c:set var="singer" value="${singers.pageList[j] }" />
@@ -63,7 +62,7 @@
 				</div>
 			</c:forEach>
 		</div>
-		<div class="text-center mb-3">
+		<div class="text-center">
 			<tg:paging pagedListHolder="${singers}" pagedLink="${pagedLink}" />
 		</div>
 	</div>

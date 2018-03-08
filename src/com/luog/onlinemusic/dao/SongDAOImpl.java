@@ -299,12 +299,14 @@ public class SongDAOImpl implements SongDAO {
 		try {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
-			query = session.createQuery("SELECT si.id as singerId, si.name as singerName, si.photo as singerPhoto, "
-					+ "so.id as id, so.name as name, " + "so.link as link, " + "so.lyric as lyric, "
-					+ "so.video as isVideo , so.videoLink as videoLink " + "FROM Singer si, Song so, SongDetail sd "
-					+ "WHERE sd.singer = si AND sd.song = so AND sd.singer =:singer " + "AND so.status = :status "
-					+ "ORDER BY so.id ASC").setParameter("singer", singer)
-					.setResultTransformer(Transformers.aliasToBean(SongInfo.class));
+			query = session
+					.createQuery("SELECT si.id as singerId, si.name as singerName, si.photo as singerPhoto, "
+							+ "so.id as id, so.name as name, " + "so.link as link, " + "so.lyric as lyric, "
+							+ "so.video as isVideo , so.videoLink as videoLink "
+							+ "FROM Singer si, Song so, SongDetail sd "
+							+ "WHERE sd.singer = si AND sd.song = so AND sd.singer =:singer "
+							+ "AND so.status = :status " + "ORDER BY so.id ASC")
+					.setParameter("singer", singer).setResultTransformer(Transformers.aliasToBean(SongInfo.class));
 			query.setParameter("status", true);
 			songInfos = query.list();
 			transaction.commit();
@@ -564,6 +566,40 @@ public class SongDAOImpl implements SongDAO {
 			query.setParameter("year", localDate.getYear());
 			if (limit != null)
 				query.setMaxResults(limit);
+			songs = query.list();
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			songs = new ArrayList<>();
+			if (transaction != null)
+				transaction.rollback();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return songs;
+	}
+
+	/**
+	 * @author luog
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Song> randomSong(int limit, boolean isVideo, Singer current) {
+		List<Song> songs = null;
+		Session session = null;
+		Transaction transaction = null;
+		Query query = null;
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			query = session.createQuery("SELECT so " + "FROM Song so, " + "SongDetail sd " + "WHERE "
+					+ "so.video = :video " + "AND so.status = :status " + "AND sd.song = so "
+					+ "AND sd.singer = :singer " + "ORDER BY rand()");
+			query.setParameter("video", isVideo);
+			query.setParameter("status", true);
+			query.setParameter("singer", current);
+			query.setMaxResults(limit);
 			songs = query.list();
 			transaction.commit();
 		} catch (Exception e) {

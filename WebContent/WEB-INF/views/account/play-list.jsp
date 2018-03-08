@@ -16,7 +16,7 @@
 			<tiles:insertDefinition name="play.list.body.left" />
 			<!-- Body Right -->
 			<div class="col-xs-9 col-md-9">
-				<h2 class="pl-title-top">PERSONAL PLAY LIST</h2>
+				<h2 class="color-purple">PERSONAL PLAY LIST</h2>
 				<hr>
 				<div class="mb-2">
 					<a href="#create-play-list-modal" data-toggle="modal"
@@ -25,12 +25,14 @@
 				</div>
 				<c:forEach var="playList" items="${playLists.pageList }">
 					<div class="row">
-						<div class="col-xs-3 col-md-3">
-							<a href=""><img
-								src="${pageContext.request.contextPath }/assets/images/${playList.photo }"
-								class="image-view img-thumbnail"></a>
+						<div class="col-xs-4 col-md-4">
+							<div class="my-img-120">
+								<a href=""><img
+									src="${pageContext.request.contextPath }/assets/images/${playList.photo }"
+									class="image-view img-thumbnail" alt="Playlist background"></a>
+							</div>
 						</div>
-						<div class="col-xs-6 col-md-6 playlist-content-info mt-1">
+						<div class="col-xs-5 col-md-5 playlist-content-info mt-1">
 							<p>
 								<c:url var="playThisList" value="/song/playlist.html">
 									<c:param name="id" value="${playList.id }" />

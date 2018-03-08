@@ -17,13 +17,13 @@
 						${message}
 						<form method="post" class="form-horizontal" name="account" action="${pageContext.request.contextPath }/account/doUpdateAccount.html">
 							<div class="form-group">
-								<label class="col-sm-4 control-label">Tài khoản</label>
+								<label class="col-sm-4 control-label">Username</label>
 								<div class="col-sm-5">
 									<p class="form-control-static">${account.username }</p>
 								</div>
 								<div class="col-sm-3">
 									<div class="text-right">
-										<button type="submit" class="btn btn-success">Cập nhật</button>
+										<button type="submit" class="btn btn-success">Update</button>
 									</div>
 								</div>
 							</div>
@@ -33,29 +33,29 @@
 							<input hidden name="status" value="${account.status }">
 							<input hidden name="password" value="${account.password }">
 							<div class="form-group">
-								<label class="col-sm-4 control-label">Ngày sinh</label>
+								<label class="col-sm-4 control-label">Birthday</label>
 								<div class="col-sm-8">
 									<input type="date" class="form-control" value="${account.dateOfBirth }" name="dateOfBirth">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-4 control-label">Giới tính</label>
+								<label class="col-sm-4 control-label">Gender</label>
 								<div class="col-sm-8">
 									<select class="form-control" itemValue="${account.gender }" name="gender" >
-										<option value="malle">Nam</option>
-										<option value="female">Nữ</option>
-										<option value="other">Khác</option>
+										<option value="Male">Male</option>
+										<option value="Female">Female</option>
+										<option value="other">other</option>
 									</select>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-4 control-label">Số điện thoại</label>
+								<label class="col-sm-4 control-label">Phone number</label>
 								<div class="col-sm-8">
-									<input type="text" name="phone" class="form-control" placeholder="Nhập số điện thoại" value="${account.phone }">
+									<input type="text" name="phone" class="form-control" value="${account.phone }">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-4 control-label">Ảnh đại diện</label>
+								<label class="col-sm-4 control-label">Avatar</label>
 								<div class="col-sm-8">
 									<input type="file" class="file-control" name="photo" value="${account.photo }"></input>
 								</div>

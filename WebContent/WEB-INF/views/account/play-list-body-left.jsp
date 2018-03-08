@@ -7,7 +7,7 @@
 			<div class="image-avatar img-thumbnail">
 				<img
 					src="${pageContext.request.contextPath }/assets/images/${sessionScope.currentAccount.photo }"
-					class="image-view" />
+					class="image-view" alt="Avatar"/>
 			</div>
 		</div>
 		<div class="col-xs-9 col-md-9">
