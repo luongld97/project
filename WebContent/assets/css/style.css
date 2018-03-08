@@ -902,6 +902,15 @@ Chart
 	top: 36px !important;
 }
 
+.height-image-playlist{
+	height: 121px !important;
+	width: 100% !important;
+}
+
+.img-max-height{
+	max-height: 100% !important;
+}	
+	
 #list-song {
 	height: 150px;
 	overflow: auto;

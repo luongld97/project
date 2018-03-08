@@ -31,7 +31,6 @@ public class AlbumEntity implements java.io.Serializable {
 		this.name = name;
 	}
 	
-	@NotEmpty
 	public String getPhoto() {
 		return photo;
 	}

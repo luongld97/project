@@ -24,7 +24,7 @@
 				<ul class="children collapse ${(currentTab == 'account' || currentTab == 'author'|| currentTab == 'singer'|| currentTab == 'song'|| currentTab == 'album'|| currentTab == 'category') ? 'in' : '' }" id="sub-item-entity">
 					
 					<li>
-						<a ${currentTab == 'account' ? 'class="active"' : '' } href="<c:url value = "/admin/management/account.html"/>">
+						<a ${currentTab == 'account' ? 'class="active"' : '' } href="<c:url value = "/admin/account.html"/>">
 							<span class="glyphicon glyphicon-user"></span>&nbsp;
 							Account
 						</a>
@@ -47,7 +47,7 @@
 						</ul>
 					</li>
 					<li>
-						<a ${currentTab == 'category' ? 'class="active"' : '' } href="#">
+						<a ${currentTab == 'category' ? 'class="active"' : '' } href="<c:url value="/admin/category.html"/>">
 							<span class="glyphicon glyphicon-list"></span>&nbsp;
 							Category
 						</a>
