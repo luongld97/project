@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.luog.onlinemusic.entity.commons.Account;
+import com.luog.onlinemusic.entity.commons.Album;
 import com.luog.onlinemusic.entity.commons.Author;
 import com.luog.onlinemusic.entity.commons.PlayList;
 import com.luog.onlinemusic.entity.commons.Role;
@@ -138,7 +139,7 @@ public class AccountController {
 			PagedListHolder<PlayList> pagedListHolder = new PagedListHolder<>(playLists);
 			int page = ServletRequestUtils.getIntParameter(request, "page", 0);
 			pagedListHolder.setPage(page);
-			pagedListHolder.setPageSize(10);
+			pagedListHolder.setPageSize(3);
 			modelMap.put("playLists", pagedListHolder);
 			modelMap.put("currentPage", page);
 			modelMap.put("account", currentAccount);
@@ -150,9 +151,22 @@ public class AccountController {
 	/**
 	 * @author luog
 	 */
+	@RequestMapping(value = { "/playlist/addplaylist" }, method = RequestMethod.GET)
+	public String getPlayList(HttpSession session, ModelMap modelMap) {
+		Account currentAccount = (Account) session.getAttribute("currentAccount");
+		if (currentAccount != null) {
+			modelMap.put("album", new Album());
+			return "user.playlist.add";
+		}
+		return "redirect:/account/login.html";
+	}
+
+	/**
+	 * @author luog
+	 */
 	@RequestMapping(value = { "/playlist/update" }, method = RequestMethod.GET)
-	public String updatePlayList(@RequestParam(value = "id", required = false) Integer id, HttpServletRequest request,
-			HttpSession session, ModelMap modelMap) {
+	public String updatePlayList(@RequestParam(value = "id", required = false) Integer id, HttpSession session,
+			ModelMap modelMap) {
 		if (id != null) {
 			Account currentAccount = (Account) session.getAttribute("currentAccount");
 			if (currentAccount != null) {
@@ -163,29 +177,44 @@ public class AccountController {
 		}
 		return "redirect:/account/login.html";
 	}
-	
-	@RequestMapping(value ="/updateAccount", method = RequestMethod.GET)
-	public String updateAccount(@RequestParam(value="acc", required = false) String username, ModelMap modelMap){
+
+	/**
+	 * @author luog
+	 */
+	@RequestMapping(value = { "/playlist/delete" }, method = RequestMethod.GET)
+	public String deletePlayList(@RequestParam(value = "id", required = false) Integer id) {
+		if (id != null) {
+			PlayList playList = playListService.find(id);
+			if (playList != null) {
+				boolean result = playListService.delete(playList);
+				return "redirect:/account/playlist.html";
+			}
+		}
+		return "redirect:/account/playlist.html";
+	}
+
+	@RequestMapping(value = "/updateAccount", method = RequestMethod.GET)
+	public String updateAccount(@RequestParam(value = "acc", required = false) String username, ModelMap modelMap) {
 		Account account = accountService.find(username);
 		modelMap.put("account", account);
 		return "user.editaccount";
-		}
-	
-	@RequestMapping(value ="/doUpdateAccount", method = RequestMethod.POST)
+	}
+
+	@RequestMapping(value = "/doUpdateAccount", method = RequestMethod.POST)
 	public String updateAccountAction(@ModelAttribute("account") Account account, ModelMap modelMap) {
 		Role role = roleService.find(3);
 		account.setRole(role);
 		boolean currentAccount = accountService.update(account);
-		if(currentAccount) {
+		if (currentAccount) {
 			Account acc = accountService.find(account.getUsername());
 			modelMap.put("account", acc);
 			return "redirect:../account/accountinfo.html";
-		} else{
+		} else {
 			modelMap.put("message", "Update Fail!");
 			return "user.editaccount";
 		}
 	}
-	
+
 	@RequestMapping(value = "/accountinfo", method = RequestMethod.GET)
 	public String getInfoAccount(ModelMap modelMap, HttpSession httpSession) {
 		return "user.accountinfo";

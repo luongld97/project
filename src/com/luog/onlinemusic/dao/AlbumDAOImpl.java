@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.luog.onlinemusic.entity.commons.Album;
+import com.luog.onlinemusic.entity.commons.Category;
 import com.luog.onlinemusic.entity.commons.Singer;
 
 @Repository("albumDAO")
@@ -143,14 +144,8 @@ public class AlbumDAOImpl implements AlbumDAO {
 		try {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
-			query = session.createQuery("SELECT al "
-					+ "FROM "
-					+ "Album al, "
-					+ "AlbumSinger asg "
-					+ "WHERE "
-					+ "asg.album = al "
-					+ "AND "
-					+ "asg.singer = :singer");
+			query = session.createQuery("SELECT al " + "FROM " + "Album al, " + "AlbumSinger asg " + "WHERE "
+					+ "asg.album = al " + "AND " + "asg.singer = :singer");
 			query.setParameter("singer", singer);
 			albums = query.list();
 			transaction.commit();
@@ -164,6 +159,62 @@ public class AlbumDAOImpl implements AlbumDAO {
 		return albums;
 	}
 	
-	
+	@Override
+	public boolean isExist(String name) {
+		boolean result = false;
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			
+			Query query = session.createQuery("FROM Album "
+					+ "WHERE replace(name, ' ', '-') = :name");
+			query.setParameter("name", name.replace(" ", "-"));
+			Album currentAlbum = (Album) query.uniqueResult();
+			result = currentAlbum != null;
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = false;
+			if (transaction != null)
+				transaction.rollback();
+		} finally{
+			session.flush();
+			session.close();
+		}
+		return result;
+	}	
+		
+	/**
+	 * @author luog
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Album> randomAlbum(int limit, Album current) {
+		List<Album> albums = null;
+		Session session = null;
+		Transaction transaction = null;
+		Query query = null;
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			query = session.createQuery("FROM Album ORDER BY rand()");
+			query.setMaxResults(limit);
+			albums = query.list();
+			transaction.commit();
+			if (current != null) {
+				if (albums.contains(current))
+					albums.remove(current);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			albums = new ArrayList<>();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return albums;
+	}
 
 }

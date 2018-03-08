@@ -18,6 +18,8 @@ import org.springframework.web.context.ServletContextAware;
 import com.luog.onlinemusic.entity.commons.Account;
 import com.luog.onlinemusic.entity.commons.Song;
 import com.luog.onlinemusic.services.AccountService;
+import com.luog.onlinemusic.validators.AccountValidator;
+import com.luog.onlinemusic.validators.CategoryValidator;
 
 @Controller
 @RequestMapping("admin/account**")
@@ -27,6 +29,9 @@ public class AdminAccountManagementController implements ServletContextAware{
 	
 	@Autowired
 	private AccountService accountService ;
+	
+	@Autowired
+	private AccountValidator accountValidator;
 	
 	@RequestMapping(value = { "", "/allaccount", "/index" }, method = RequestMethod.GET)
 	public String allAccounts(HttpServletRequest request, ModelMap modelMap) {

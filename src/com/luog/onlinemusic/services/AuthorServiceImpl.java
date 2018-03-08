@@ -48,4 +48,9 @@ public class AuthorServiceImpl implements AuthorService {
 		return authorDAO.getSongAuthor(author);
 	}
 
+	@Override
+	public boolean isExist(String name) {
+		return authorDAO.isExist(name);
+	}
+
 }

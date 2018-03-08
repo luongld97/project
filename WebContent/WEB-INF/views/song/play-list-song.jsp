@@ -29,7 +29,7 @@
 												class="playing-song-text-color">${i.index + 1}</span> <span
 												class="ml-4 playing-song-text-color">${song.name }</span>
 										</div>
-										<div class="float-right col-md-4">
+										<div class="text-right col-md-4">
 											<c:if test="${song.video }">
 												<c:url var="videoLink" value="/song/play.html?video">
 													<c:param name="id" value="${song.id }" />
@@ -41,7 +41,7 @@
 											<!-- <a class="playlist-btn-sm" href="" title="Tải về"> <span
 												class="glyphicon glyphicon-download-alt" />
 											</a> -->
-											<a class="playlist-btn-sm" href="#modalAddPlaylist"
+											<a class="playlist-btn-sm" href="#modal-add-play-list"
 												title="Add to..." data-toggle="modal"
 												onclick="addToClick('${song.id}');"> <span
 												class="glyphicon glyphicon-plus" />
@@ -75,10 +75,14 @@
 				</div>
 				<!-- End Loi Bai Hat -->
 
-				<c:if test="${sessionScope.currentAccount != null }">
+				<c:if
+					test="${sessionScope.currentAccount != null && recommendPlayLists.size() > 0 }">
 					<!-- Album cá nhân -->
 					<div class="col-md-12 body-left">
-						<a href=""><h3 class="title-list-index">MY PLAY LIST</h3></a>
+						<h3>
+							<a class="title-list-index"
+								href="<c:url value="/account/playlist.html"/>">MY PLAY LIST</a>
+						</h3>
 						<div class="row mb-2">
 							<c:forEach var="playList" items="${recommendPlayLists }">
 								<div class="col-md-3">
@@ -99,14 +103,22 @@
 				<div class="col-md-12 body-left">
 					<a href=""><h3 class="title-list-index">RECOMMEND ALBUM</h3></a>
 					<div class="row mb-2">
-						<div class="col-md-3">
-							<a href=""><img src="images/imgalbum.png" alt=""
-								class="image-view img-thumbnail mb-1"></a> <br> <a
-								href=""><b class="song-name">Play List 1</b></a> <br> <i>
-								<a class="singer-name" href="">Masew</a>, <a class="singer-name"
-								href="">Đạt G</a>, <a class="singer-name" href="">K-ICM</a>
-							</i>
-						</div>
+						<c:forEach items="${suggestedAlbums }" var="album">
+							<c:url var="playAlbum" value="/album/play.html">
+								<c:param name="id" value="${album.id }" />
+							</c:url>
+							<div class="col-md-3">
+								<a href="${playAlbum }"><img
+									src="${pageContext.request.contextPath }/assets/images/${album.photo }"
+									alt="" class="image-view img-thumbnail mb-1"></a> <br> <a
+									href="${playAlbum }"><b class="song-name">${album.name }</b></a>
+								<br> <i> <c:forEach var="albumSinger"
+										items="${album.albumSingers }" varStatus="i">
+										<a class="singer-name" href="">${albumSinger.singer.name }</a>
+									</c:forEach> <c:if test="${i.index <  album.albumSingers.size() - 1}">,&nbsp;</c:if>
+								</i>
+							</div>
+						</c:forEach>
 					</div>
 				</div>
 				<!-- Binh luan -->
@@ -184,12 +196,11 @@
 									</i>
 								</div>
 								<div class="tool-chart">
-									<a class="playlist-btn-sm" href="" title="Nghe"><span
+									<a class="playlist-btn-sm" href="${videoLink }" title="Play"><span
 										class="glyphicon glyphicon-play"></span></a> <a
-										class="playlist-btn-sm" href="" title="Thêm vào"><span
-										class="glyphicon glyphicon-plus"></span></a> <a
-										class="playlist-btn-sm" href="" title="Chia sẻ"><span
-										class="glyphicon glyphicon-share"></span></a>
+										class="playlist-btn-sm" href="#modal-add-play-list"
+										data-toggle="modal" onclick="addToClick('${video.id}');"
+										title="Add to..."><span class="glyphicon glyphicon-plus"></span></a>
 								</div>
 							</li>
 						</c:forEach>
