@@ -122,31 +122,22 @@ Header
 	margin-top: 11px;
 }
 
-<<<<<<< HEAD
-.login{
+.login {
 	margin-top: 15px;
 	text-align: right;
 }
 
-.login-btn{
+.login-btn {
 	color: red;
 	font-size: 20px;
 	cursor: pointer;
 }
 
-.login-btn:hover{
+.login-btn:hover {
 	color: yellow;
 }
 
-.login-form{
-=======
-.login {
-	margin-top: 11px;
-	text-align: right;
-}
-
 .login-form {
->>>>>>> 2c315c20492dc48184c6c8cc67f694176ed8cdfa
 	padding: 20px !important;
 }
 
@@ -309,11 +300,7 @@ Body Left
 	font-size: 25px;
 }
 
-<<<<<<< HEAD
-.color-purple{
-=======
-.title-list-index {
->>>>>>> 2c315c20492dc48184c6c8cc67f694176ed8cdfa
+.color-purple {
 	color: purple;
 }
 /***********************
@@ -344,14 +331,7 @@ Body Right
 	color: orange;
 }
 
-<<<<<<< HEAD
-.text-view-more{
-=======
 .text-view-more {
-	position: absolute;
-	top: 0px;
-	right: 0;
->>>>>>> 2c315c20492dc48184c6c8cc67f694176ed8cdfa
 	color: blue;
 }
 
