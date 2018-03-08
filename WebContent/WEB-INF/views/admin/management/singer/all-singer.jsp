@@ -3,28 +3,32 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
-<div id="form-add-song" class="col-md-8"></div>
+<div id="form-add-singer" class="col-md-8"></div>
 <div class="panel">
 	<div class="panel-heading">
-		<div class="col-md-3">
-			<a href="${pageContext.request.contextPath }/admin/singer/addsinger.html"
-				class="btn btn-primary" style="height: 46px; line-height: 32px;"> NEW SINGER </a>
-		</div>
-		<div class="col-md-6">
-			<div class="form-group">
-				<div class="input-group">
-					<input class="form-control" placeholder="Enter singer name!"
-						id="search-box" baseUrl="${pageContext.request.contextPath }"
-						requestUrl="/api/singer/search"
-						targetUrl="/admin/singer/updatesinger.html" />
-					<div class="input-group-addon">
-						<span class="input-group-text"><span
-							class="glyphicon glyphicon-search"></span></span>
+		<div class="row">
+			<div class="col-md-3">
+				<a
+					href="${pageContext.request.contextPath }/admin/singer/addsinger.html"
+					class="btn btn-primary" style="height: 46px; line-height: 32px;">
+					NEW SINGER </a>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<div class="input-group">
+						<input class="form-control" placeholder="Enter singer name!"
+							id="search-box" baseUrl="${pageContext.request.contextPath }"
+							requestUrl="/api/singer/search"
+							targetUrl="/admin/singer/updatesinger.html" />
+						<div class="input-group-addon">
+							<span class="input-group-text"><span
+								class="glyphicon glyphicon-search"></span></span>
+						</div>
 					</div>
 				</div>
 			</div>
+			<div class="col-md-3"></div>
 		</div>
-		<div class="col-md-3"></div>
 	</div>
 	<div class="panel-body">
 		<jsp:useBean id="singers" scope="request"
@@ -33,16 +37,16 @@
 			<c:param name="page" value="~" />
 		</c:url>
 		<table class="table table-bordered text-center">
-			<thead class="text-center">
+			<thead>
 				<tr>
 					<th class="text-center">ID</th>
-					<th class="text-center" width="10%" ><b>Name</b></th>
-					<th class="text-center" width="10%" ><b>Nickname</b></th>
-					<th class="text-center" width="10%" ><b>Date of birth</b></th>
-					<th class="text-center" width="5%" ><b>Gender</b></th>
-					<th class="text-center" width="35%" ><b>Description</b></th>
-					<th class="text-center" width="15%" ><b>Photo</b></th>
-					<th class="text-center" width="10%" ><b>Options</b></th>
+					<th class="text-center" width="10%">Name</th>
+					<th class="text-center" width="10%">Nickname</th>
+					<th class="text-center" width="10%">Date of birth</th>
+					<th class="text-center" width="5%">Gender</th>
+					<th class="text-center" width="35%">Description</th>
+					<th class="text-center" width="15%">Photo</th>
+					<th class="text-center" width="10%">Options</th>
 				</tr>
 			</thead>
 			<c:if test="${singers.pageList.size() > 0 }">
@@ -55,11 +59,13 @@
 							<td>${singer.dateOfBirth }</td>
 							<td>${singer.gender }</td>
 							<td><div style="max-height: 100px; overflow: auto;">${singer.description }</div></td>
-							<td><img src="${pageContext.request.contextPath }/assets/images/${singer.photo }"  height="100px" /></td>
+							<td><img
+								src="${pageContext.request.contextPath }/assets/images/${singer.photo }"
+								height="100px" /></td>
 							<c:url var="updateLink" value="/admin/singer/updatesinger.html">
-								<c:param name="id" value="${singer.id }"/>
+								<c:param name="id" value="${singer.id }" />
 							</c:url>
-							<td><a href="${updateLink }" >Edit</a> &nbsp; <a href="" >Hide</a></td>
+							<td><a href="${updateLink }">Edit</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

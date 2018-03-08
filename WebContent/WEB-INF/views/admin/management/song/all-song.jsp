@@ -34,19 +34,19 @@
 			<c:param name="page" value="~" />
 		</c:url>
 		<table class="table table-bordered text-center">
-			<thead class="text-center">
+			<thead>
 				<tr>
 					<th class="text-center">ID</th>
-					<th class="text-center"><b>Name</b></th>
-					<th class="text-center"><b>Link</b></th>
-					<th class="text-center"><b>Lyric</b></th>
-					<th class="text-center"><b>Listen</b></th>
-					<th class="text-center"><b>Status</b></th>
-					<th class="text-center"><b>Video</b></th>
-					<th class="text-center"><b>View</b></th>
-					<th class="text-center"><b>Uploaded</b></th>
-					<th class="text-center"><b>Uploaded by</b></th>
-					<th class="text-center" width="8%"><b>Options</b></th>
+					<th class="text-center">Name</th>
+					<th class="text-center">Link</th>
+					<th class="text-center">Lyric</th>
+					<th class="text-center" width="5%">Listen</th>
+					<th class="text-center" width="5%">Status</th>
+					<th class="text-center" width="5%">Video</th>
+					<th class="text-center" width="5%">View</th>
+					<th class="text-center" width="10%">Uploaded</th>
+					<th class="text-center" width="5%">Uploaded by</th>
+					<th class="text-center" width="10%">Options</th>
 				</tr>
 			</thead>
 			<c:if test="${songs.pageList.size() > 0 }">

@@ -892,3 +892,13 @@ Chart
 	border: solid 4px;
 	border-color: blue red purple goldenrod;
 }
+
+.height-image-playlist{
+	height: 121px !important;
+	width: 100% !important;
+}
+
+.img-max-height{
+	max-height: 100% !important;
+	
+}

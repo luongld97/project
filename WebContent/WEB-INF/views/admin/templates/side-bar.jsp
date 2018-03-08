@@ -47,7 +47,7 @@
 						</ul>
 					</li>
 					<li>
-						<a ${currentTab == 'category' ? 'class="active"' : '' } href="#">
+						<a ${currentTab == 'category' ? 'class="active"' : '' } href="<c:url value="/admin/category.html"/>">
 							<span class="glyphicon glyphicon-list"></span>&nbsp;
 							Category
 						</a>

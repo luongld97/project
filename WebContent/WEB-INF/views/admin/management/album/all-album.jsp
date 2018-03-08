@@ -6,26 +6,18 @@
 <div id="form-add-album" class="col-md-8"></div>
 <div class="panel">
 	<div class="panel-heading">
-		<div class="col-md-3">
-			<a href="${pageContext.request.contextPath }/admin/album/addalbum.html"
-				class="btn btn-primary" style="height: 46px; line-height: 32px;">
-				NEW ALBUM </a>
-		</div>
-		<div class="col-md-6">
-			<div class="form-group">
-				<div class="input-group">
-					<input class="form-control" placeholder="Enter album name!"
-						id="search-box" baseUrl="${pageContext.request.contextPath }"
-						requestUrl="/api/album/search"
-						targetUrl="/admin/album/updatealbum.html" />
-					<div class="input-group-addon">
-						<span class="input-group-text"><span
-							class="glyphicon glyphicon-search"></span></span>
-					</div>
-				</div>
+		<div class="row">
+			<div class="col-md-3">
+				<a
+					href="${pageContext.request.contextPath }/admin/album/addalbum.html"
+					class="btn btn-primary" style="height: 46px; line-height: 32px;">
+					NEW ALBUM </a>
 			</div>
+			<div class="col-md-6">
+				
+			</div>
+			<div class="col-md-3"></div>
 		</div>
-		<div class="col-md-3"></div>
 	</div>
 	<div class="panel-body">
 		<jsp:useBean id="albums" scope="request"
@@ -47,12 +39,13 @@
 					<c:forEach var="album" items="${albums.pageList }">
 						<tr>
 							<c:url value="/admin/album/updatealbum.html" var="updateLink">
-								<c:param name="id" value="${album.id }"/>
+								<c:param name="id" value="${album.id }" />
 							</c:url>
 							<td>${album.id }</td>
 							<td>${album.name }</td>
-							<td><img alt="Images Album" src="${pageContext.request.contextPath }/assets/images/${album.photo }"></td>
-							<td><a href="${updateLink }" >Edit</a></td>
+							<td><img alt="Images Album"
+								src="${pageContext.request.contextPath }/assets/images/${album.photo }"></td>
+							<td><a href="${updateLink }">Edit</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
