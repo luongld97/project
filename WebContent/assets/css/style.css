@@ -923,3 +923,15 @@ Chart
 	height: 150px;
 	overflow: auto;
 }
+
+.edit-playlist-song-name span, .edit-playlist-song-name span a {
+	color: black;
+	text-shadow: 0 0 0 aqua;
+	font-size: 20px;
+}
+
+.edit-playlist-song-name span:hover, .edit-playlist-song-name span a:hover
+	{
+	color: purple;
+	text-shadow: 0 0 1px red;
+}

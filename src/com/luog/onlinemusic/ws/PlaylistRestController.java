@@ -110,7 +110,7 @@ public class PlaylistRestController {
 		try {
 			if (!name.isEmpty()) {
 				if (playlistService.isExist(name))
-					return new ResponseEntity<String>("Play list already exist!", HttpStatus.OK);
+					return new ResponseEntity<String>("Play list already exist!", HttpStatus.ACCEPTED);
 				else {
 					Account currentAccount = (Account) session.getAttribute("currentAccount");
 					if (currentAccount != null) {
@@ -121,15 +121,16 @@ public class PlaylistRestController {
 						playList.setPhoto("playlist-default.png");
 						return playlistService.create(playList)
 								? new ResponseEntity<String>(playList.getId() + "", HttpStatus.OK)
-								: new ResponseEntity<String>("Error, try again!", HttpStatus.OK);
+								: new ResponseEntity<String>("Error, try again!", HttpStatus.ACCEPTED);
 					}
+					throw new Exception();
 
 				}
 			}
-			return new ResponseEntity<String>("Name is required!", HttpStatus.OK);
+			return new ResponseEntity<String>("Name is required!", HttpStatus.ACCEPTED);
 
 		} catch (Exception e) {
-			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>("Hava some error, login and try again!", HttpStatus.BAD_REQUEST);
 		}
 	}
 

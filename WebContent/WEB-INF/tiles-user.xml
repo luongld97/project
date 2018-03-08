@@ -104,4 +104,8 @@
 		<put-attribute name="content"
 			value="/WEB-INF/views/account/update-play-list.jsp" />
 	</definition>
+	<definition name="user.playlist.add" extends="user.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/account/add-play-list.jsp" />
+	</definition>
 </tiles-definitions>

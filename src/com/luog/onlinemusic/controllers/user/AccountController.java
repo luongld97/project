@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.luog.onlinemusic.entity.commons.Account;
+import com.luog.onlinemusic.entity.commons.Album;
 import com.luog.onlinemusic.entity.commons.Author;
 import com.luog.onlinemusic.entity.commons.PlayList;
 import com.luog.onlinemusic.entity.commons.Role;
@@ -138,11 +139,24 @@ public class AccountController {
 			PagedListHolder<PlayList> pagedListHolder = new PagedListHolder<>(playLists);
 			int page = ServletRequestUtils.getIntParameter(request, "page", 0);
 			pagedListHolder.setPage(page);
-			pagedListHolder.setPageSize(10);
+			pagedListHolder.setPageSize(3);
 			modelMap.put("playLists", pagedListHolder);
 			modelMap.put("currentPage", page);
 			modelMap.put("account", currentAccount);
 			return "user.playlist";
+		}
+		return "redirect:/account/login.html";
+	}
+
+	/**
+	 * @author luog
+	 */
+	@RequestMapping(value = { "/playlist/addplaylist" }, method = RequestMethod.GET)
+	public String getPlayList(HttpSession session, ModelMap modelMap) {
+		Account currentAccount = (Account) session.getAttribute("currentAccount");
+		if (currentAccount != null) {
+			modelMap.put("album", new Album());
+			return "user.playlist.add";
 		}
 		return "redirect:/account/login.html";
 	}
