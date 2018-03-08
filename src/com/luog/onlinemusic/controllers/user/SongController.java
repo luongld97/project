@@ -41,34 +41,44 @@ public class SongController {
 		if (songid != null) {
 			Song song = songService.find(songid);
 			if (song != null) {
-				List<Song> suggestedSongs = songService.randomSong(10, song);
+				List<Song> suggestedSongs = songService.randomSong(10);
+				List<Song> suggestedVideos = songService.randomSong(4, true);
 				boolean isVideo = (video != null && song.isVideo()) ? true : false;
 				modelMap.put("song", song);
 				modelMap.put("suggestedSongs", suggestedSongs);
+				modelMap.put("suggestedVideos", suggestedVideos);
 				modelMap.put("isVideo", isVideo);
 				return "song.play";
 			}
-
 		}
 		return "redirect:../home.html";
 	}
 
 	@RequestMapping(value = "/playlist", method = RequestMethod.GET)
-	public String playListSong(@RequestParam(value = "id", required = false) Integer id, ModelMap modelMap) {
+	public String playListSong(@RequestParam(value = "id", required = false) Integer id, HttpSession session,
+			ModelMap modelMap) {
 		List<Song> songs = new ArrayList<>();
 		if (id == null) {
 			List<Chart> charts = chartService.getChartsByMonth(new Date(), 20);
 			for (Chart chart : charts)
 				songs.add(chart.getSong());
 		} else {
-			PlayList currentPlayList = playListService.find(id);
-			for (PlayListDetail playListDetail : currentPlayList.getPlayListDetails()) {
-				songs.add(playListDetail.getSong());
-			}
+			Account account = (Account) session.getAttribute("currentAccount");
+			if (account != null) {
+				PlayList currentPlayList = playListService.find(id);
+				for (PlayListDetail playListDetail : currentPlayList.getPlayListDetails()) {
+					songs.add(playListDetail.getSong());
+				}
+				modelMap.put("recommendPlayLists", playListService.randomPlayList(account, currentPlayList, 4));
+			} else
+				return "redirect: ../home.html";
 		}
 		modelMap.put("songs", songs);
-		List<Song> suggestedSongs = songService.randomSong(10, null);
+
+		List<Song> suggestedVideos = songService.randomSong(4, true);
+		List<Song> suggestedSongs = songService.randomSong(6);
 		modelMap.put("suggestedSongs", suggestedSongs);
+		modelMap.put("suggestedVideos", suggestedVideos);
 		return "list.song.play";
 	}
 

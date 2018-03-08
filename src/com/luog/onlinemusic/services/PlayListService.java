@@ -26,4 +26,6 @@ public interface PlayListService {
 	public List<PlayListEntity> getSongPlayList(PlayList playList);
 	
 	public boolean isExist(String name);
+
+	public List<PlayList> randomPlayList(Account account, PlayList current, int limit);
 }

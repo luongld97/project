@@ -34,9 +34,11 @@ public interface SongDAO {
 
 	public SongEntity getSongEntity(int id);
 
-	public List<Song> randomSong(int limit, Song current);
+	public List<Song> randomSong(int limit);
 	
-	public List<Song> randomSong(Singer singer, boolean isVideo, int limit, Song current);
+	public List<Song> randomSong(int limit, boolean isVideo);
+	
+	public List<Song> randomSong(int limit, boolean isVideo, Song current);
 
 	List<SongEntity> findSongEntities(String keyWord);
 	
