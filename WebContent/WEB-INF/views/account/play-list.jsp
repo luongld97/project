@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 <jsp:useBean id="playLists" scope="request"
 	type="org.springframework.beans.support.PagedListHolder" />
@@ -32,7 +32,7 @@
 						<div class="col-xs-6 col-md-6 playlist-content-info mt-1">
 							<p>
 								<c:url var="playListDetailLink"
-									value="/account/playlist/detail.html">
+									value="/account/playlist/update.html">
 									<c:param name="id" value="${playList.id }" />
 								</c:url>
 								<a href="${playListDetailLink }">${playList.name }</a>
