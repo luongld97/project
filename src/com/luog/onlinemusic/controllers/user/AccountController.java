@@ -163,10 +163,31 @@ public class AccountController {
 		}
 		return "redirect:/account/login.html";
 	}
-
+	
+	@RequestMapping(value ="/updateAccount", method = RequestMethod.GET)
+	public String updateAccount(@RequestParam(value="acc", required = false) String username, ModelMap modelMap){
+		Account account = accountService.find(username);
+		modelMap.put("account", account);
+		return "user.editaccount";
+		}
+	
+	@RequestMapping(value ="/doUpdateAccount", method = RequestMethod.POST)
+	public String updateAccountAction(@ModelAttribute("account") Account account, ModelMap modelMap) {
+		Role role = roleService.find(3);
+		account.setRole(role);
+		boolean currentAccount = accountService.update(account);
+		if(currentAccount) {
+			Account acc = accountService.find(account.getUsername());
+			modelMap.put("account", acc);
+			return "redirect:../account/accountinfo.html";
+		} else{
+			modelMap.put("message", "Update Fail!");
+			return "user.editaccount";
+		}
+	}
+	
 	@RequestMapping(value = "/accountinfo", method = RequestMethod.GET)
 	public String getInfoAccount(ModelMap modelMap, HttpSession httpSession) {
-		
 		return "user.accountinfo";
 	}
 

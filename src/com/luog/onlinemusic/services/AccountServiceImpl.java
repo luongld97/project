@@ -60,4 +60,9 @@ public class AccountServiceImpl implements AccountService {
 		return accountDAO.login(username, password);
 	}
 
+	@Override
+	public boolean isExist(String username) {
+		return accountDAO.isExist(username);
+	}
+
 }
