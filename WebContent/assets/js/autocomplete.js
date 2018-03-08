@@ -1,11 +1,10 @@
 /**
  * @author luog
  */
-var searchBox, base_url, btn_save;
+var searchBox, base_url;
 
 $(document).ready(
 		function() {
-			btn_save = $('#btn-add-play-list');
 			searchBox = $('#search-box');
 			base_url = searchBox.attr('base-url');
 			var options = {
@@ -34,10 +33,6 @@ $(document).ready(
 
 		});
 
-btn_save.click(function() {
-	alert(1)
-})
-
 function addToClick(id) {
 	song_id = id;
 	$.ajax({
@@ -61,7 +56,8 @@ function quickAdd() {
 		success : function(res) {
 			hideErrMsg();
 			$('#create-play-list-modal').modal('hide').data('modal', null);
-			window.location = base_url + '/account/playlist/update.html?id=' + res;
+			window.location = base_url + '/account/playlist/update.html?id='
+					+ res;
 		},
 		error : function(err) {
 			var errMsg = err.responseText;
