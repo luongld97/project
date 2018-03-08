@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
-<div id="form-add-song" class="col-md-8"></div>
+<div id="form-add-album" class="col-md-8"></div>
 <div class="panel">
 	<div class="panel-heading">
 		<div class="col-md-3">
@@ -46,6 +46,9 @@
 				<tbody>
 					<c:forEach var="album" items="${albums.pageList }">
 						<tr>
+							<c:url value="/admin/album/updatealbum.html" var="updateLink">
+								<c:param name="id" value="${album.id }"/>
+							</c:url>
 							<td>${album.id }</td>
 							<td>${album.name }</td>
 							<td><img alt="Images Album" src="${pageContext.request.contextPath }/assets/images/${album.photo }"></td>
