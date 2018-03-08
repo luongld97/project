@@ -52,7 +52,7 @@ public class AlbumController {
 				songs.add(albumSong.getSong());
 			}
 			modelMap.put("songs", songs);
-			List<Song> suggestedSongs = songService.randomSong(10, null);
+			List<Song> suggestedSongs = songService.randomSong(8);
 			modelMap.put("suggestedSongs", suggestedSongs);
 			return "list.song.play";
 		}

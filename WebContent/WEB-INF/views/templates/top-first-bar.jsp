@@ -7,7 +7,7 @@
 		<div class="row">
 			<div class="col-md-3 plr0">
 				<div class="logo">
-					<a href=""> <img
+					<a href="<c:url value="/"/>"> <img
 						src="${pageContext.request.contextPath }/assets/images/logo.png">
 					</a>
 				</div>
@@ -16,7 +16,7 @@
 				<div class="input-group search-control">
 					<input type="text" class="form-control"
 						placeholder="Nhập nội dung tìm kiếm" id="search-box"
-						baseUrl="${pageContext.request.contextPath }"> <span
+						base-url="${pageContext.request.contextPath }"> <span
 						class="input-group-btn">
 						<button id="btn-click"
 							onclick="search('${pageContext.request.contextPath}');"
@@ -29,8 +29,7 @@
 			<div class="col-md-3 plr0">
 				<c:if test="${sessionScope.currentAccount == null }">
 					<div class="login">
-						<a href="${pageContext.request.contextPath }/account/login.html">Đăng
-							nhập</a>
+						<a href="${pageContext.request.contextPath }/account/login.html">LOGIN</a>
 					</div>
 				</c:if>
 				<c:if test="${sessionScope.currentAccount != null }">

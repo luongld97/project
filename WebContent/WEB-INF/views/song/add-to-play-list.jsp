@@ -18,8 +18,8 @@
 					style="display: none; border: 2px solid #E5E5E5; padding: 12px; margin-bottom: 15px; border-radius: 10px;">
 					<div class="form-group">
 						<label>PlayList Name: </label> <input
-							baseUrl="${pageContext.request.contextPath }" id="play-list-name"
-							class="form-control" type="text" />
+							base-url="${pageContext.request.contextPath }"
+							id="play-list-name" class="form-control" type="text" />
 					</div>
 					<div class="form-group">
 						<div class="text-right">
@@ -51,7 +51,7 @@
 			<script
 				src="${pageContext.request.contextPath }/assets/js/chosen.jquery.min.js"></script>
 			<script type="text/javascript"
-				src="${pageContext.request.contextPath }/assets/js/pages/add-to-play-list.js"></script>
+				src="${pageContext.request.contextPath }/assets/js/pages/to-play-list.js"></script>
 		</c:if>
 		<c:if test="${sessionScope.currentAccount == null }">
 			<div class="modal-body text-center">

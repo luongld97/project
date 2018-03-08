@@ -37,7 +37,12 @@
 		<put-attribute name="content"
 			value="/WEB-INF/views/admin/management/song/index.jsp" />
 	</definition>
-
+	
+	<definition name="admin.account.allaccount" extends="admin.master.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/management/account/all-account.jsp" />
+	</definition>
+	
 	<definition name="admin.song.allsong" extends="admin.master.template">
 		<put-attribute name="content"
 			value="/WEB-INF/views/admin/management/song/all-song.jsp" />

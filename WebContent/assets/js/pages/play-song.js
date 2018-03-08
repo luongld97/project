@@ -1,91 +1,99 @@
 /**
  * @author luog
  */
-var song_id, isVideo, base_url, canPlay, timeOut, increased, player, commentPage, commentArea, listenArea, buttonShowMore, buttonPost, commentBox, username, listComments;
+var page_info,
+    song_id,
+    is_video,
+    base_url,
+    can_play,
+    time_out,
+    increased,
+    comment_page,
+    comment_area,
+    listen_area,
+    btn_show_more,
+    btn_post,
+    comment_box,
+    username,
+    list_comments,
+    player;
 
-$(document).ready(function() {
-	song_id = $('audio').attr('songId');
-	isVideo = $('audio').attr('video') != null;
-	base_url = $('audio').attr('baseUrl');
-	canPlay = false;
-	increased = false;
-	commentPage = 0;
-	commentArea = $('#comment-area');
-	buttonShowMore = $('#show-more-button');
-	buttonPost = $('#post-button');
-	commentBox = $('#comment-box');
-	listenArea = $('#listen');
-	username = commentBox.attr('username');
-	listComments = [];
-	player = plyr.setup({
-		autoplay : 'true'
-	});
-
-	player[0].on('canplay', songCanPlay);
-
-	player[0].on('play', songPlay);
-
-	player[0].on('pause', function() {
-		clearTimeout(timeOut);
-	});
-
-	player[0].on('ended', songEnded);
-
-	buttonShowMore.click(btnShowMoreClicked);
-	buttonPost.click(btnPostClicked);
-	getSongComments(base_url, song_id, commentPage, allComments);
+$(document).ready(function () {
+    //
+    initVariable();
+    //
+    getSongComments(base_url, song_id, comment_page, getComments);
 });
 
-function songCanPlay() {
-	canPlay = true;
-	if (!increased) {
-		timeOut = initTimeout(song_id, base_url, listenArea);
-		increased = true;
-	}
+function initVariable() {
+    page_info = $('#page-info');
+    song_id = page_info.attr('song-id');
+    base_url = page_info.attr('base-url');
+    is_video = page_info.val() == 'video' ? true : false;
+    can_play = false;
+    increased = false;
+    comment_page = 0;
+    comment_area = $('#comment-area');
+    btn_show_more = $('#show-more-button');
+    btn_post = $('#post-button');
+    listen_area = $('#listen');
+    comment_box = $('#comment-box');
+    username = comment_box.attr('username');
+    list_comments = [];
+    //
+    player = plyr.setup({ autoplay: 'true' })[0];
+    player.on('canplay', playerCanPlay);
+    player.on('play', playerPlay);
+    player.on('pause', playerPause);
+    player.on('ended', playerEnded);
+    //
+    btn_show_more.click(btnShowMoreClicked);
+    btn_post.click(btnPostClick);
 }
 
-function songPlay() {
-	if (canPlay && !increased) {
-		timeOut = initTimeout(song_id, base_url, listenArea);
-		increased = true;
-	}
+function playerCanPlay() {
+    can_play = true;
+    if (!increased) {
+        time_out = initTimeout(base_url, song_id, is_video, listen_area);
+        increased = true;
+    }
 }
 
-function songEnded() {
-	clearTimeout(timeOut);
-	increased = false;
+function playerPlay() {
+    if (can_play && !increased) {
+        time_out = initTimeout(base_url, song_id, is_video, listen_area);
+    }
 }
 
-function allComments(comments) {
-	if (typeof (comments) == 'object') {
-		listComments = listComments.concat(comments);
-		showComments(listComments);
-	}
+function playerPause() {
+    clearTimeout(time_out);
 }
 
-function showComments(result) {
-	var html = '';
-	for (var i = 0; i < result.length; i++) {
-		html += commentHTML(result[i]);
-	}
-	commentArea.html(html)
+function playerEnded() {
+    clearTimeout(time_out);
+    increased = false;
+}
+
+function getComments(comments) {
+    if (typeof (comments) == 'object') {
+        list_comments = list_comments.concat(comments);
+        showComments(base_url, list_comments, comment_area);
+    }
 }
 
 function btnShowMoreClicked() {
-	commentPage++;
-	getSongComments(base_url, song_id, commentPage, allComments);
+    comment_page++;
+    getSongComments(base_url, song_id, comment_page, getComments);
 }
 
-function btnPostClicked() {
-	var comment = {};
-	comment.username = username;
-	comment.content = commentBox.val();
-	comment.songId = parseInt(song_id);
-	postComment(base_url, comment);
-	comment.created = formatDate(new Date());
-	comment.userPhoto = $('#user-avatar').attr('src').replace(
-			base_url + '/assets/images/', '');
-	listComments = [ comment ].concat(listComments);
-	showComments(listComments);
-	commentBox.val('');
+function btnPostClick() {
+    var comment = {};
+    comment.username = username;
+    comment.content = comment_box.val();
+    comment.songId = parseInt(song_id);
+    postComment(base_url, comment, function (comment) {
+        list_comments = [comment].concat(list_comments);
+        showComments(base_url, list_comments, comment_area);
+        comment_box.val('');
+    });
 }

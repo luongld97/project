@@ -1,163 +1,166 @@
-/**
- * @author luog
- */
-
-var base_url, audioPlayer, lyricElm, currentSong, audio, timeOut, listLink, ids, listItem, player, increased, canPlay, commentPage, commentArea, listenArea, buttonShowMore, buttonPost, commentBox, username;
-
+var base_url, song_id, media_player, lyric_area, current_song, media, time_out, links, ids, items, player, increased, can_play, comment_page, list_comments, comment_area, listen_area, btn_show_more, btn_post, comment_box, username;
 $(document).ready(function() {
-	base_url = $('audio').attr('baseUrl');
-	audioPlayer = $('#audio-player');
-	lyricElm = $('#lyric');
-	audio = audioPlayer[0];
-	listLink = $('.list-item li input[name="link"]');
-	ids = $('.list-item li input[name="id"]');
-	listItem = $('#list-song .play-this-song');
-	listenArea = $('#listen');
-	player = plyr.setup('#audio-player');
-	increased = false;
-	canPlay = false;
-
-	commentPage = 0;
-	commentArea = $('#comment-area');
-	buttonShowMore = $('#show-more-button');
-	buttonPost = $('#post-button');
-	commentBox = $('#comment-box');
-	username = commentBox.attr('username');
-
-	$('#list-song').css({
-		'height' : '150px',
-		'overflow' : 'auto'
-	})
-
-	play();
-
-	buttonShowMore.click(btnShowMoreClicked);
-	buttonPost.click(btnPostClicked);
-
-	audio.plyr.on('canplay', function() {
-		canPlay = true;
-		if (!increased) {
-			increased = true;
-			var song_id = $(ids[currentSong]).val();
-			timeOut = initTimeout(song_id, base_url, listenArea, false);
-		}
+	initVariable();
+	//
+	media.plyr.on('canplay', mediaCanPlay);
+	media.plyr.on('play', mediaPlay);
+	media.plyr.on('pause', mediaPause);
+	media.plyr.on('ended', mediaEnded);
+	items.click(function(e) {
+		itemsClicked(e, $(this));
 	});
+	media_player.on('ended', nextSong);
+	//
+	btn_show_more.click(btnShowMoreClicked);
+	btn_post.click(btnPostClick);
+	//
+	mediaAutoPlay();
+	// 
+	getSongComments(base_url, song_id, comment_page, getComments);
 
-	audio.plyr.on('play', function() {
-		if (canPlay && !increased) {
-			increased = true;
-			var song_id = $(ids[currentSong]).val();
-			timeOut = initTimeout(song_id, base_url, listenArea, false);
-		}
-	});
-
-	audio.plyr.on('pause', function() {
-		clearTimeout(timeOut);
-	});
-
-	audio.plyr.on('ended', function() {
-		increased = false;
-		canPlay = false;
-		clearTimeout(timeOut);
-	});
 });
-function setSongInfo(id, lyricElm) {
-	$.ajax({
-		method : 'post',
-		url : base_url + '/api/song/getsong',
-		contentType : 'application/json',
-		data : id,
-		success : function(song) {
-			var lyric = song.lyric !== null ? song.lyric
-					: 'Hiện chưa có lời bài hát!';
-			lyricElm.html(lyric);
-		},
-		error : function(err) {
-			console.log(err)
-		}
-	});
+
+function initVariable() {
+	base_url = $('#page-info').attr('base-url');
+	player = plyr.setup('#media-player');
+	media_player = $('#media-player');
+	media = media_player[0];
+	lyric_area = $('#lyric');
+	listen_area = $('#listen');
+	list_comments = [];
+	comment_area = $('#comment-area');
+	comment_box = $('#comment-box');
+	username = comment_box.attr('username');
+	items = $('#list-song .play-this-song');
+	links = $('.list-item li input[name="link"]');
+	ids = $('.list-item li input[name="id"]');
+	btn_show_more = $('#show-more-button');
+	btn_post = $('#post-button');
+	increased = false;
+	can_play = false;
+	comment_page = 0;
+}
+
+function mediaAutoPlay() {
+	current_song = 0;
+	$('.list-item li:eq(' + current_song + ')').addClass('playing-song');
+	media.src = $(links[current_song]).val();
+	media.play();
+	//
+	song_id = $(ids[current_song]).val();
+	getSongInfo(base_url, song_id, showSongInfo);
+}
+
+function mediaCanPlay() {
+	can_play = true;
+	if (!increased) {
+		song_id = $(ids[current_song]).val();
+		time_out = initTimeout(base_url, song_id, false, listen_area);
+		increased = true;
+	}
+}
+
+function mediaPlay() {
+	if (can_play && !increased) {
+		song_id = $(ids[current_song]).val();
+		time_out = initTimeout(base_url, song_id, false, listen_area);
+		increased = true;
+	}
+}
+
+function mediaPause() {
+	clearTimeout(time_out);
+}
+
+function mediaEnded() {
+	increased = false;
+	can_play = false;
+	clearTimeout(time_out);
 }
 
 function nextSong() {
-	currentSong++;
-	if (currentSong == listLink.length) {
-		currentSong = 0;
-	}
-	listItem.removeClass('playing-song');
-	$('.list-item li:eq(' + currentSong + ')').addClass('playing-song');
-	audio.src = $(listLink[currentSong]).val();
-	audio.play();
+	current_song++;
+	if (current_song == links.length)
+		current_song = 0;
+	//
 	increased = false;
-	songId = $(ids[currentSong]).val();
+	list_comments = [];
+	items.removeClass('playing-song');
+	media.src = $(links[current_song]).val();
+	media.play();
+	song_id = $(ids[current_song]).val();
 	//
-	setSongInfo(songId, listenElm, lyricElm);
-	getListen(songId, base_url, listenArea, false);
+	getSongInfo(base_url, song_id, showSongInfo);
+	list_comments = [];
+	comment_page = 0;
+	getSongComments(base_url, song_id, comment_page, getComments);
 	//
-	if (timeOut != null)
-		clearTimeout(timeOut);
-	getSongComments(base_url, songId, commentPage, showComments);
+	if (time_out != null)
+		clearTimeout(time_out);
 }
 
-function play() {
-	currentSong = 0;
-	audio.src = $(listLink[currentSong]).val()
-	audio.play();
-	$('.list-item li:eq(' + currentSong + ')').addClass('playing-song');
-	listItem.click(function(e) {
-		listItemClicked(e, $(this));
-	});
-	audioPlayer.on('ended', nextSong);
-	songId = $(ids[currentSong]).val();
-	//
-	setSongInfo(songId, lyricElm);
-	getListen(songId, base_url, listenArea, false);
-	//
-	getSongComments(base_url, songId, commentPage, showComments);
-}
-
-function listItemClicked(e, item) {
+function itemsClicked(e, item) {
 	e.preventDefault();
 	increased = false;
-	audio.src = item.find('input[name="link"]').val();
-	audio.play();
-	listItem.closest('li').removeClass('playing-song');
-	currentSong = listItem.index(item);
+	list_comments = [];
+	items.closest('li').removeClass('playing-song');
 	item.closest('li').addClass('playing-song');
-	songId = $(ids[currentSong]).val();
+	current_song = items.index(item);
+	media.src = $(links[current_song]).val();
+	media.play();
 	//
-	setSongInfo(songId, lyricElm);
-	getListen(songId, base_url, listenArea, false);
-	//
-	if (timeOut != null)
-		clearTimeout(timeOut);
-	getSongComments(base_url, songId, commentPage, showComments);
+	song_id = $(ids[current_song]).val();
+	getSongInfo(base_url, song_id, showSongInfo);
+	list_comments = [];
+	comment_page = 0;
+	getSongComments(base_url, song_id, comment_page, getComments);
 }
 
-function showComments(result) {
-	var comments = '';
-	if (typeof (result) == 'object') {
-		for (var i = 0; i < result.length; i++) {
-			comments += commentHTML(result[i]);
+function getSongInfo(base_url, song_id, success) {
+	var options = {
+		method : 'post',
+		url : base_url + '/api/song/getsong',
+		contentType : 'application/json',
+		data : song_id,
+		success : success
+		/**
+		 * Use this function to debug Delete when release
+		 */
+		,
+		error : function(err) {
+			console.log(err);
 		}
-		commentArea.html(comments);
-	} else {
-		commentPage = result;
+	};
+	$.ajax(options);
+}
+
+function showSongInfo(song) {
+	var lyric = song.lyric != null ? song.lyric : 'No have lyric now!';
+	var listen = song.listen;
+	lyric_area.html(lyric);
+	listen_area.html(listen);
+}
+
+function getComments(comments) {
+	if (typeof (comments) == 'object') {
+		list_comments = list_comments.concat(comments);
+		showComments(base_url, list_comments, comment_area);
 	}
 }
 
 function btnShowMoreClicked() {
-	var song_id = $(ids[currentSong]).val();
-	commentPage++;
-	getSongComments(base_url, song_id, commentPage, showComments);
+	comment_page++;
+	getSongComments(base_url, song_id, comment_page, getComments);
 }
 
-function btnPostClicked() {
+function btnPostClick() {
 	var comment = {};
 	comment.username = username;
-	comment.content = commentBox.val();
-	var song_id = $(ids[currentSong]).val();
+	comment.content = comment_box.val();
 	comment.songId = parseInt(song_id);
-	postComment(base_url, comment);
-	comment.created = formatDate(new Date());
-	commentArea.append(commentHTML(comment));
+	postComment(base_url, comment, function(cmt) {
+		list_comments = [ cmt ].concat(list_comments);
+		showComments(base_url, list_comments, comment_area);
+		comment_box.val('');
+	});
 }

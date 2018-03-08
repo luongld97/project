@@ -19,6 +19,7 @@ import com.luog.onlinemusic.entity.commons.Account;
 import com.luog.onlinemusic.entity.commons.Comment;
 import com.luog.onlinemusic.entity.commons.Song;
 import com.luog.onlinemusic.entity.rest.CommentEntity;
+import com.luog.onlinemusic.helpers.EntityHelper;
 import com.luog.onlinemusic.services.AccountService;
 import com.luog.onlinemusic.services.CommentService;
 import com.luog.onlinemusic.services.SongService;
@@ -42,13 +43,15 @@ public class CommentRestController {
 	 * @author luog
 	 */
 	@RequestMapping(value = "postcomment", method = RequestMethod.POST, produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Boolean> postComment(HttpSession session, @RequestBody(required = false) CommentEntity commentEntity) {
+	public ResponseEntity<CommentEntity> postComment(HttpSession session,
+			@RequestBody(required = false) CommentEntity commentEntity) {
 		try {
 			Account currentAccount = (Account) session.getAttribute("currentAccount");
 			if (currentAccount != null) {
 				Comment comment = toComment(commentEntity);
 				boolean result = commentService.create(comment);
-				return new ResponseEntity<>(result, HttpStatus.OK);
+				if (result)
+					return new ResponseEntity<>(EntityHelper.toCommentEntity(comment), HttpStatus.OK);
 			}
 			throw new Exception();
 		} catch (Exception e) {

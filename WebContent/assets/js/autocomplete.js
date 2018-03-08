@@ -39,8 +39,8 @@ function addToClick(id) {
 		url : base_url + '/song/tolist.html',
 		contentType : 'text/html',
 		success : function(res) {
-			$('#modalAddPlaylist').html('');
-			$('#modalAddPlaylist').html(res);
+			$('#modal-add-play-list').html('');
+			$('#modal-add-play-list').html(res);
 		}
 	});
 }
