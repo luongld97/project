@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.luog.onlinemusic.dao.AccountDAO;
 import com.luog.onlinemusic.entity.commons.Account;
+import com.luog.onlinemusic.entity.commons.Album;
+import com.luog.onlinemusic.entity.commons.Song;
 
 @Transactional
 @Service("accountService")
@@ -35,6 +37,19 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public boolean update(Account account) {
 		return accountDAO.update(account);
+	}
+	
+	@Override
+	public boolean changeStatus(Account account) {
+		boolean result = false;
+		try {
+			boolean currentStatus = account.isStatus();
+			account.setStatus(!currentStatus);
+			result = accountDAO.update(account);
+		} catch (Exception e) {
+			result = false;
+		}
+		return result;
 	}
 	
 	public boolean delete(Account account) {

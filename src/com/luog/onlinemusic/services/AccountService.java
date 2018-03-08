@@ -3,6 +3,7 @@ package com.luog.onlinemusic.services;
 import java.util.List;
 
 import com.luog.onlinemusic.entity.commons.Account;
+import com.luog.onlinemusic.entity.commons.Song;
 
 public interface AccountService {
 	public List<Account> findAll();
@@ -14,6 +15,8 @@ public interface AccountService {
 	public boolean update(Account account);
 	
 	public boolean delete(Account account);
+	
+	public boolean changeStatus(Account account);
 	
 	public Account login(String username, String password);
 }

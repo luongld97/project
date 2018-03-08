@@ -7,12 +7,6 @@
 <div class="panel">
 	<div class="panel-heading">
 		<div class="row">
-			<div class="col-md-3">
-				<a
-					href="${pageContext.request.contextPath }/admin/account/addaccount.html"
-					class="btn btn-primary" style="height: 46px; line-height: 32px;">
-					NEW ACCOUNT </a>
-			</div>
 			<div class="col-md-6">
 				<div class="form-group">
 					<div class="input-group">
@@ -63,10 +57,19 @@
 							<td>${account.createdTime }</td>
 							<td>${account.gender }</td>
 							<td>${account.phone }</td>
-							<td>${account.status }</td>
+							<td>${account.status ? 'SHOW' : 'HIDE' }</td>
 							<td><img alt="Avatar"
 								src="${pageContext.request.contextPath }/assets/images/${account.photo }"></td>
-							<td><a href="${updateLink }">Edit</a></td>
+							<c:url var="statusLink" value="/admin/account/changestatus.html">
+								<c:param name="username" value="${account.username }" />
+							</c:url>
+							<td>&nbsp; <a
+								href="${statusLink }"> <c:if test="${account.status }">
+											Hide
+										</c:if> <c:if test="${!account.status }">
+											Show
+										</c:if>
+							</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
