@@ -144,14 +144,8 @@ public class AlbumDAOImpl implements AlbumDAO {
 		try {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
-			query = session.createQuery("SELECT al "
-					+ "FROM "
-					+ "Album al, "
-					+ "AlbumSinger asg "
-					+ "WHERE "
-					+ "asg.album = al "
-					+ "AND "
-					+ "asg.singer = :singer");
+			query = session.createQuery("SELECT al " + "FROM " + "Album al, " + "AlbumSinger asg " + "WHERE "
+					+ "asg.album = al " + "AND " + "asg.singer = :singer");
 			query.setParameter("singer", singer);
 			albums = query.list();
 			transaction.commit();
@@ -185,11 +179,42 @@ public class AlbumDAOImpl implements AlbumDAO {
 			result = false;
 			if (transaction != null)
 				transaction.rollback();
-		} finally {
+		} finally{
 			session.flush();
 			session.close();
 		}
 		return result;
+	}	
+		
+	/**
+	 * @author luog
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Album> randomAlbum(int limit, Album current) {
+		List<Album> albums = null;
+		Session session = null;
+		Transaction transaction = null;
+		Query query = null;
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			query = session.createQuery("FROM Album ORDER BY rand()");
+			query.setMaxResults(limit);
+			albums = query.list();
+			transaction.commit();
+			if (current != null) {
+				if (albums.contains(current))
+					albums.remove(current);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			albums = new ArrayList<>();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return albums;
 	}
 
 }

@@ -53,7 +53,11 @@ public class AlbumController {
 			}
 			modelMap.put("songs", songs);
 			List<Song> suggestedSongs = songService.randomSong(8);
+			List<Song> suggestedVideos = songService.randomSong(4, true);
+			List<Album> suggestedAlbums = albumService.randomAlbum(4, null);
+			modelMap.put("suggestedAlbums", suggestedAlbums);
 			modelMap.put("suggestedSongs", suggestedSongs);
+			modelMap.put("suggestedVideos", suggestedVideos);
 			return "list.song.play";
 		}
 		return "redirect:../album/index.html";

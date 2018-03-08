@@ -148,4 +148,8 @@ public class AlbumServiceImpl implements AlbumService {
 		return albumDAO.isExist(name);
 	}
 
+	public List<Album> randomAlbum(int limit, Album current) {
+		return albumDAO.randomAlbum(limit, current);
+	}
+	
 }

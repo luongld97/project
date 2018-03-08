@@ -38,6 +38,8 @@ public class HomeController {
 	@Autowired
 	private SongService songService;
 
+	private final int CHART_SIZE = 8;
+
 	@RequestMapping(method = RequestMethod.GET)
 	public String index(ModelMap modelMap) {
 		List<Chart> currentCharts = null;
@@ -87,6 +89,8 @@ public class HomeController {
 
 	@RequestMapping(value = { "/chart" }, method = RequestMethod.GET)
 	public String chart(ModelMap modelMap) {
+		modelMap.put("songs", songService.getTopSong(false, new Date(), CHART_SIZE));
+		modelMap.put("videos", songService.getTopSong(true, new Date(), CHART_SIZE / 2));
 		return "home.chart";
 	}
 }

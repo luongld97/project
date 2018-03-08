@@ -151,8 +151,8 @@ public class AccountController {
 	 * @author luog
 	 */
 	@RequestMapping(value = { "/playlist/update" }, method = RequestMethod.GET)
-	public String updatePlayList(@RequestParam(value = "id", required = false) Integer id, HttpServletRequest request,
-			HttpSession session, ModelMap modelMap) {
+	public String updatePlayList(@RequestParam(value = "id", required = false) Integer id, HttpSession session,
+			ModelMap modelMap) {
 		if (id != null) {
 			Account currentAccount = (Account) session.getAttribute("currentAccount");
 			if (currentAccount != null) {
@@ -163,29 +163,44 @@ public class AccountController {
 		}
 		return "redirect:/account/login.html";
 	}
-	
-	@RequestMapping(value ="/updateAccount", method = RequestMethod.GET)
-	public String updateAccount(@RequestParam(value="acc", required = false) String username, ModelMap modelMap){
+
+	/**
+	 * @author luog
+	 */
+	@RequestMapping(value = { "/playlist/delete" }, method = RequestMethod.GET)
+	public String deletePlayList(@RequestParam(value = "id", required = false) Integer id) {
+		if (id != null) {
+			PlayList playList = playListService.find(id);
+			if (playList != null) {
+				boolean result = playListService.delete(playList);
+				return "redirect:/account/playlist.html";
+			}
+		}
+		return "redirect:/account/playlist.html";
+	}
+
+	@RequestMapping(value = "/updateAccount", method = RequestMethod.GET)
+	public String updateAccount(@RequestParam(value = "acc", required = false) String username, ModelMap modelMap) {
 		Account account = accountService.find(username);
 		modelMap.put("account", account);
 		return "user.editaccount";
-		}
-	
-	@RequestMapping(value ="/doUpdateAccount", method = RequestMethod.POST)
+	}
+
+	@RequestMapping(value = "/doUpdateAccount", method = RequestMethod.POST)
 	public String updateAccountAction(@ModelAttribute("account") Account account, ModelMap modelMap) {
 		Role role = roleService.find(3);
 		account.setRole(role);
 		boolean currentAccount = accountService.update(account);
-		if(currentAccount) {
+		if (currentAccount) {
 			Account acc = accountService.find(account.getUsername());
 			modelMap.put("account", acc);
 			return "redirect:../account/accountinfo.html";
-		} else{
+		} else {
 			modelMap.put("message", "Update Fail!");
 			return "user.editaccount";
 		}
 	}
-	
+
 	@RequestMapping(value = "/accountinfo", method = RequestMethod.GET)
 	public String getInfoAccount(ModelMap modelMap, HttpSession httpSession) {
 		return "user.accountinfo";

@@ -31,20 +31,26 @@
 						</div>
 						<div class="col-xs-6 col-md-6 playlist-content-info mt-1">
 							<p>
-								<c:url var="playListDetailLink"
-									value="/account/playlist/update.html">
+								<c:url var="playThisList" value="/song/playlist.html">
 									<c:param name="id" value="${playList.id }" />
 								</c:url>
-								<a href="${playListDetailLink }">${playList.name }</a>
+								<a href="${playThisList }">${playList.name }</a>
 							</p>
 							<span> Created: <fmt:formatDate
 									value="${playList.createdTime }" pattern="yyyy-MM-dd HH:mm:ss" />
 							</span> <br> <span>Song: ${playList.playListDetails.size() }</span>
 						</div>
 						<div class="col-xs-3 col-md-3 mt-4">
-							<a class="playlist-btn" href="" title="update"><span
+							<c:url var="updatePlayList" value="/account/playlist/update.html">
+								<c:param name="id" value="${playList.id }" />
+							</c:url>
+							<c:url var="deletePlayList" value="/account/playlist/delete.html">
+								<c:param name="id" value="${playList.id }" />
+							</c:url>
+							<a class="playlist-btn" href="${updatePlayList }" title="update"><span
 								class="glyphicon glyphicon-pencil"></span></a> <a
-								class="playlist-btn" href="" title="delete"><span
+								class="playlist-btn" href="${deletePlayList }"
+								onclick="confirm('Are you sure?');" title="delete"><span
 								class="glyphicon glyphicon-remove"></span></a>
 						</div>
 					</div>
