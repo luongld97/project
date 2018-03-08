@@ -133,10 +133,15 @@ public class AccountController {
 	 * @author luog
 	 */
 	@RequestMapping(value = { "/playlist/update" }, method = RequestMethod.GET)
-	public String updatePlayList(HttpServletRequest request, HttpSession session, ModelMap modelMap) {
-		Account currentAccount = (Account) session.getAttribute("currentAccount");
-		if (currentAccount != null) {
-			
+	public String updatePlayList(@RequestParam(value = "id", required = false) Integer id, HttpServletRequest request,
+			HttpSession session, ModelMap modelMap) {
+		if (id != null) {
+			Account currentAccount = (Account) session.getAttribute("currentAccount");
+			if (currentAccount != null) {
+				PlayList playList = playListService.find(id);
+				modelMap.put("playList", playList);
+				return "user.playlist.update";
+			}
 		}
 		return "redirect:/account/login.html";
 	}
