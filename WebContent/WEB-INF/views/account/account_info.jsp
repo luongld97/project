@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!--Start Body Web-->
 <div class="body-web">
 	<div class="container bg-web">
@@ -34,7 +34,7 @@
 					<div class="form-group">
 						<label class="col-sm-4 control-label">Birthday</label>
 						<div class="col-sm-8">
-							<p class="form-control-static">${sessionScope.currentAccount.dateOfBirth }</p>
+							<p class="form-control-static"><fmt:formatDate value="${sessionScope.currentAccount.dateOfBirth }" pattern="yyyy-MM-dd"></fmt:formatDate></p>
 						</div>
 					</div>
 					<div class="form-group">

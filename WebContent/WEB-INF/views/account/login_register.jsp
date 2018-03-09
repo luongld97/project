@@ -33,6 +33,7 @@
 						action="${pageContext.request.contextPath }/account/login.html"
 						method="post">
 							<div class="form-group">
+							
 								<div class="input-group">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
 									<s:input type="text" class="form-control" placeholder="Username" path="username"></s:input>
@@ -63,36 +64,29 @@
 					<div id="register-tab" >
 						<s:form commandName="account" enctype="multipart/form-data"
 							action="${pageContext.request.contextPath }/account/register.html" method="post">
+							<s:errors path="username" cssClass="alert alert-danger"
+							cssStyle="display: block;" />
 							<div class="form-group">
 								<div class="input-group">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
 									<s:input type="text" class="form-control" placeholder="Username" path="username"></s:input>
 								</div>
 							</div>
-							<div class="sm-alert alert-danger">
-								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-								<!-- Account invalid -->
-							</div>
+							
 							<div class="form-group">
 								<div class="input-group">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
 									<s:input type="password" class="form-control" placeholder="Password" path="password"></s:input>
 								</div>
 							</div>
-							<div class="sm-alert alert-success">
-								<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-								<!-- Enter a valid email address -->
-							</div>
+							
 							<%-- <div class="form-group">
 								<div class="input-group">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-cog"></span></span>
 									<input type="password" class="form-control" placeholder="Xác nhận mật khẩu">
 								</div>
 							</div> --%>
-							<div class="sm-alert alert-danger">
-								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-								<!-- Account invalid -->
-							</div>
+							
 							<div class="form-group">
 								<div class="input-group">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
@@ -100,10 +94,7 @@
 									<span class="input-group-addon">Birthday</span>
 								</div>
 							</div>
-							<div class="sm-alert alert-warning">
-								<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
-								<!-- Enter a valid email address -->
-							</div>
+							
 							<div class="form-group">
 								<div class="input-group">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-picture"></span></span>
@@ -113,20 +104,14 @@
 									</div>
 								</div>
 							</div>
-							<div class="sm-alert alert-warning">
-								<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
-								<!-- Enter a valid email address -->
-							</div>
+							
 							<div class="form-group">
 								<div class="input-group">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-phone-alt"></span></span>
 									<s:input type="text" class="form-control" placeholder="Phone number" path="phone"></s:input>
 								</div>
 							</div>
-							<div class="sm-alert alert-warning">
-								<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
-								<!-- Enter a valid email address -->
-							</div>
+							
 							<div class="form-group">
 								<div class="input-group">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-heart"></span></span>
@@ -138,10 +123,7 @@
 									</s:select>
 								</div>
 							</div>
-							<div class="sm-alert alert-danger">
-								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-								<!-- Account invalid -->
-							</div>
+							
 							${errors }
 							<div class="form-group">
 								<button type="submit" class="btn btn-success form-control">Sign Up</button>

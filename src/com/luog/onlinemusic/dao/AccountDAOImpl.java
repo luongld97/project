@@ -170,8 +170,8 @@ public class AccountDAOImpl implements AccountDAO {
 			transaction = session.beginTransaction();
 			
 			Query query = session.createQuery("FROM Account "
-					+ "WHERE replace(username, ' ', '-') = :username");
-			query.setParameter("username", username.replace(" ", "-"));
+					+ "WHERE username = :username");
+			query.setParameter("username", username);
 			Account currentAccount = (Account) query.uniqueResult();
 			result = currentAccount != null;
 			transaction.commit();

@@ -109,31 +109,32 @@ public class AccountController implements ServletContextAware {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Calendar cal = Calendar.getInstance();
 		String date = dateFormat.format(cal.getTime());
-
+		accountValidator.validate(account, bindingResult);
 		try {
-			if (!image.isEmpty()) {
-				if (ImageHelper.validateImage(image)) {
-					account.setPhoto(ImageHelper.saveImage(servletContext, image));
+			if (!bindingResult.hasErrors()) {
+				if (!image.isEmpty()) {
+					if (ImageHelper.validateImage(image)) {
+						account.setPhoto(ImageHelper.saveImage(servletContext, image));
+					}
+				} else {
+					account.setPhoto("default_avatar.png");
 				}
-			} else {
-				account.setPhoto("default_avatar.png");
-			}
-			account.setCreatedTime(dateFormat.parse(date));
-			account.setStatus(true);
-			account.setRole(role);
-			account.setPassword(BCrypt.hashpw(account.getPassword(), BCrypt.gensalt()));
-			if (accountService.create(account)) {
-				return "redirect:/account/login.html";
-			} else {
-				return "redirect:/account/register.html?error";
+				account.setCreatedTime(dateFormat.parse(date));
+				account.setStatus(true);
+				account.setRole(role);
+				account.setPassword(BCrypt.hashpw(account.getPassword(), BCrypt.gensalt()));
+				if (accountService.create(account)) {
+					return "redirect:/account/login.html";
+				} else {
+					return "redirect:/account/register.html?error";
+				}
 			}
 		} catch (Exception e) {
 
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
-
-		return "redirect:/account/login.html";
+		return "user.register";
 	}
 
 	@RequestMapping(value = { "/logout", "/signout" }, method = RequestMethod.GET)
