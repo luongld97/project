@@ -225,7 +225,7 @@ public class AccountController implements ServletContextAware {
 				playList.setAccount(currentAccount);
 				boolean result = playListService.update(currentPlayList);
 				if (result)
-					return "redirect: ../playlist.html";
+					return "redirect:../playlist.html";
 			}
 		}
 		return "redirect:/account/login.html";

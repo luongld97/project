@@ -28,6 +28,6 @@ public class AdminHomeController {
 			UserDetails userDetail = (UserDetails) auth.getPrincipal();
 			session.setAttribute("currentAccount", accountService.find(userDetail.getUsername()));
 		}
-		return "admin.home.index";
+		return "redirect:/admin/song.html";
 	}
 }
