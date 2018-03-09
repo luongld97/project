@@ -32,7 +32,7 @@
 								src="${pageContext.request.contextPath }/assets/images/chude.png"
 								alt="" class="image-view">
 							<audio>
-								<source src="${song.link }" />
+								<source src="${song.link }" type="audio/mp3" />
 							</audio>
 						</c:if>
 						<c:if test="${isVideo }">

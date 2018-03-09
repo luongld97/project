@@ -30,6 +30,7 @@ function initVariable() {
     song_id = page_info.attr('song-id');
     base_url = page_info.attr('base-url');
     is_video = page_info.val() == 'video' ? true : false;
+    console.log(is_video)
     can_play = false;
     increased = false;
     comment_page = 0;
