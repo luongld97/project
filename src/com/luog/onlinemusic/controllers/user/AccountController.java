@@ -256,32 +256,37 @@ public class AccountController implements ServletContextAware {
 	@RequestMapping(value = "/doUpdateAccount", method = RequestMethod.POST)
 	public String updateAccountAction(@ModelAttribute("account") Account account, ModelMap modelMap,
 			HttpSession httpSession, @RequestParam("file") MultipartFile image) {
-
-		Account acc = accountService.find(account.getUsername());
-		if (acc != null) {
-			modelMap.put("account", acc);
-			if (account.getPassword() != null) {
-				acc.setPassword(account.getPassword());
-			}
-			acc.setDateOfBirth(account.getDateOfBirth());
-			acc.setGender(account.getGender());
-			if (!image.isEmpty()) {
-				if (ImageHelper.validateImage(image)) {
-					acc.setPhoto(ImageHelper.saveImage(servletContext, image));
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			Account acc = accountService.find(account.getUsername());
+			if (acc != null) {
+				modelMap.put("account", acc);
+				if (account.getPassword() != null) {
+					acc.setPassword(account.getPassword());
 				}
+				acc.setDateOfBirth(account.getDateOfBirth());
+				acc.setGender(account.getGender());
+				if (!image.isEmpty()) {
+					if (ImageHelper.validateImage(image)) {
+						acc.setPhoto(ImageHelper.saveImage(servletContext, image));
+					}
+				}
+				if (account.getPhone() != null) {
+					acc.setPhone(account.getPhone());
+				}
+				boolean currentAccount = accountService.update(acc);
+				if (currentAccount)
+					httpSession.setAttribute("currentAccount", acc);
+				return "redirect:../account/accountinfo.html";
+			} else {
+				modelMap.put("massage", "Update Fail!");
+				return "user.editaccount";
 			}
-			if (account.getPhone() != null) {
-				acc.setPhone(account.getPhone());
-			}
-			boolean currentAccount = accountService.update(acc);
-			if (currentAccount)
-				httpSession.setAttribute("currentAccount", acc);
-			return "redirect:../account/accountinfo.html";
-		} else {
-			modelMap.put("massage", "Update Fail!");
-			return "user.editaccount";
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
-
+		return null;
 	}
 
 	@RequestMapping(value = "/accountinfo", method = RequestMethod.GET)

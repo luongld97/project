@@ -31,7 +31,7 @@
 							<div class="form-group">
 								<label class="col-sm-4 control-label">Birthday</label>
 								<div class="col-sm-8">
-									<input type="date" class="form-control" value="${account.dateOfBirth }" name="dateOfBirth">
+									<input pattern="yyyy-MM-dd" type="date" class="form-control" value="${account.dateOfBirth }" name="dateOfBirth">
 								</div>
 							</div>
 							<div class="form-group">

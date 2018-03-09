@@ -14,7 +14,7 @@
 	</head>
 	<body class="background-login-page">
 		<div class="image-view-login">
-			<a href="${pageContext.request.contextPath }/assets/index.html"><img src="${pageContext.request.contextPath }/assets/images/logo_login_page.png"></a>
+			<a href="${pageContext.request.contextPath }/home.html"><img src="${pageContext.request.contextPath }/assets/images/logo_login_page.png"></a>
 		</div>
 		<div class="container">
 			<div class="row">
