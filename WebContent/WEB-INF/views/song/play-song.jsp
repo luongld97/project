@@ -24,7 +24,7 @@
 					</h4>
 					<div class="play-song">
 						<input type="hidden" id="page-info"
-							value="${song.video ? 'video' : 'audio' }"
+							value="${isVideo ? 'video' : 'audio' }"
 							base-url="${pageContext.request.contextPath }"
 							song-id="${song.id }" />
 						<c:if test="${!isVideo }">
@@ -32,7 +32,7 @@
 								src="${pageContext.request.contextPath }/assets/images/chude.png"
 								alt="" class="image-view">
 							<audio>
-								<source src="${song.link }" />
+								<source src="${song.link }" type="audio/mp3" />
 							</audio>
 						</c:if>
 						<c:if test="${isVideo }">
@@ -116,9 +116,9 @@
 										src="${pageContext.request.contextPath }/assets/images/${video.videoPhoto }"
 										class="image-view img-thumbnail" alt="Video background"></a>
 								</div>
-								<a class="song-name" href="${videoLink }">${video.name }</a> <br> <i>
-									<c:forEach items="${video.songDetails }" var="songDetail"
-										varStatus="i">
+								<a class="song-name" href="${videoLink }">${video.name }</a> <br>
+								<i> <c:forEach items="${video.songDetails }"
+										var="songDetail" varStatus="i">
 										<c:url var="singerLink" value="/artist/singer/info.html">
 											<c:param name="id" value="${songDetail.singer.id }" />
 										</c:url>
@@ -132,7 +132,7 @@
 						</c:forEach>
 					</div>
 				</div>
-				
+
 				<div class="col-xs-12 col-md-12 body-left">
 					<h3 class="color-purple">COMMENTS</h3>
 					<!-- Nhap binh luan -->
